@@ -1,15 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Route, Routes } from "react-router-dom";
+import ArtistForm from "./Components/ArtistForm/ArtistForm";
+import { Provider } from "react-redux"
+import store from "./Redux"
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hola Papus!!
-        </p>
-      </header>
+      <Provider store={store}>
+        <Routes>
+          <Route exact path={'/login/artista'} element={<ArtistForm/>}/>
+        </Routes>
+      </Provider>
     </div>
   );
 }
