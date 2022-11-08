@@ -7,7 +7,7 @@ const CarouselCustom = () => {
 	const images = ["fly fly.jpg", "todo aparenta.jpg", "wos.jpg"];
 	return (
 		<Carousel
-			autoPlay={false}
+			autoPlay={true}
 			showThumbs={false}
 			showIndicators={true}
 			infiniteLoop={true}
