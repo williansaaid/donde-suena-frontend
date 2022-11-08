@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Route, Routes } from "react-router-dom";
 import ArtistForm from "./Components/ArtistForm/ArtistForm";
 import { Provider } from "react-redux"
@@ -12,6 +13,17 @@ function App() {
       </Provider>
     </div>
   );
+=======
+import "./App.css";
+import Home from "./Components/Home/Home";
+
+function App() {
+	return (
+		<>
+			<Home />
+		</>
+	);
+>>>>>>> 015ed05e9cabe7730195c742f0a1e49b2f1087f3
 }
 
 export default App;

@@ -11,8 +11,12 @@
     "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
+=======
+    "react-responsive-carousel": "^3.2.23",
+>>>>>>> 015ed05e9cabe7730195c742f0a1e49b2f1087f3
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
