@@ -14,10 +14,19 @@
 
 .divButton {
   display: flex;
+  justify-content: center;
+  color:rgb(247, 229, 189) ;
+  background-color: rgb(206, 42, 58);
+  border-color: black;
+  border-radius: 30%;
+  width: 10rem;
+  height: 2rem;
 }
 .SearchBar {
   display: flex;
-  color: antiquewhite;
+  color:rgb(247, 229, 189);
+  background-color: rgb(26,26,26);
+  
 }
 
 .divButtonSearch {
