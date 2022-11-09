@@ -9,16 +9,9 @@ const Home = () => {
     <div>
       <Navbar />
       <CarouselCustom />
+      <Events/>
     </div>
   );
-  
-  return(
-  <div>
-   <CarouselCustom />;
-
-    <Events/>
-  </div>
-  )
 };
 
 
