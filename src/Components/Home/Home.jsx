@@ -12,6 +12,7 @@ const Home = () => {
       <Events/>
     </div>
   );
+
 };
 
 
