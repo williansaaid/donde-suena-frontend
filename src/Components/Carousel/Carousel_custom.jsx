@@ -16,7 +16,7 @@ const CarouselCustom = () => {
 				images.map((el, idx) => {
 					return (
 						<div key={idx}>
-							<img src={require(`../../assets/img/${el}`)} alt={el} />;
+							<img src={require(`../../assets/img/${el}`)} alt={el} />
 						</div>
 					);
 				})}

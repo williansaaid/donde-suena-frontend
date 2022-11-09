@@ -1,0 +1,25 @@
+.nav{
+    display: flex;
+    padding: 3.5rem;
+    background-color: rgb(26, 26, 26);
+    justify-content: space-between;
+}
+.navLogo{
+  width: 50px;
+  height: 50px;
+}
+
+.divButton {
+  display: flex;
+}
+.SearchBar{
+    display: flex;
+    color: antiquewhite; 
+}
+
+.divButtonSearch{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
