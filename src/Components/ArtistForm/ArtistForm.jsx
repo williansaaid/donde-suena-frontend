@@ -1,10 +1,17 @@
 import React from "react";
 import { useFormik } from "formik";
+import { basicSchema } from "../../schemas/artistRegister"
+
+const onSubmit = () => {
+    console.log("Submitted");
+}
 
 const ArtistForm = () => {
     const { values,
+            errors,
             handleBlur,
-            handleChange } = useFormik({
+            handleChange,
+            handleSubmit } = useFormik({
         initialValues: {
             name: "",
             surname: "",
@@ -20,11 +27,13 @@ const ArtistForm = () => {
             phoneNumber: "",
             profileImg: "",
             agreeTerms: false
-        }
+        },
+        validationSchema: basicSchema,
+        onSubmit,
     })
 
     return (
-        <form autoComplete="off">
+        <form onSubmit={handleSubmit} autoComplete="off">
             <div>
                 <label htmlFor="name">Name</label>
                 <input
@@ -34,6 +43,7 @@ const ArtistForm = () => {
                     value={values.name}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    className={errors.name ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400": null}
                 />
             </div>
             <div>
@@ -141,7 +151,7 @@ const ArtistForm = () => {
                 <label htmlFor="profileImg">Profile Image</label>
                 <input
                     id="profileImg"
-                    type="url"
+                    type="file"
                     value={values.profileImg}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -166,6 +176,11 @@ const ArtistForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                 />
+            </div>
+            <div>
+                <button type="submit">
+                    Submit
+                </button>
             </div>
         </form>
     )
