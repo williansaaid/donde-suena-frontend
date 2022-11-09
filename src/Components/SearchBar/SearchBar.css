@@ -1,5 +1,6 @@
 .SearchBar{
     display: flex;
     color: antiquewhite;
-    justify-content: space-between;
+    margin-right: -300rem;
+    
 }

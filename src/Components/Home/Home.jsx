@@ -3,11 +3,12 @@ import CarouselCustom from "../Carousel/Carousel_custom";
 import Navbar from "../Navbar/Navbar";
 
 const Home = () => {
-	return (
-		<><div>
-			<Navbar />
-		</div><CarouselCustom /></>
-	);
+  return (
+    <div>
+      <Navbar />
+      <CarouselCustom />
+    </div>
+  );
 };
 
 export default Home;
