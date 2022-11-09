@@ -2,24 +2,17 @@ import React from "react";
 import CarouselCustom from "../Carousel/Carousel_custom";
 import { Events } from "../EventCard/EventCard";
 
+import Navbar from "../Navbar/Navbar";
 
 const Home = () => {
+  return (
+    <div>
+      <Navbar />
+      <CarouselCustom />
+      <Events/>
+    </div>
+  );
 
-  
-
-  return(
-  <div>
-   <CarouselCustom />;
-    
-
-    {/* estas son las cards */}
-   <Events/> 
-  </div>
- 
-
- 
- 
-  )
 };
 
 
