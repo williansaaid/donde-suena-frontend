@@ -5,6 +5,7 @@ import "./Navbar.css";
 function Navbar() {
   return (
     <div className="nav">
+
       <div className="navLogo">
         <img src= {require ("../../assets/img/HenryLogo.png")} alt="logo" />
       </div>
@@ -13,9 +14,11 @@ function Navbar() {
       <div className="SearchBar">
         <SearchBar></SearchBar>
       </div>
+
       <div className="divButton">
         <button>Mi Cuenta</button>
       </div>
+
       </div>
     </div>
   );
