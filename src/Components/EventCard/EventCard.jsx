@@ -17,8 +17,12 @@ export const Events = ()=> {
     <div>
     {events&&events.map((el,id)=>{
       return(
-        <div ket={id}>
-<p>{el.name}</p>
+        <div key={id}>
+        {el.name}
+        {el.date}
+        {el.start}
+        {el.end}
+        {el.image}
         </div>
       )
     })}
