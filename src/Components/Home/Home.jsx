@@ -6,17 +6,14 @@ import { Events } from "../EventCard/EventCard";
 const Home = () => {
 
   
-  // const indexOfLastEvent = currentPage * eventPerPage;
-  // const indexOfFirstEvent = indexOfLastEvent- eventPerPage;
-  // const currentEvent= allEvents.slice(
-  //   indexOfFirstEvent,
-  //   indexOfLastEvent
-  // );
+
   return(
   <div>
    <CarouselCustom />;
     
-   <Events/>
+
+    {/* estas son las cards */}
+   <Events/> 
   </div>
  
 
