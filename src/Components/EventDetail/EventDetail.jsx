@@ -12,21 +12,18 @@ const EventDetail = (props) => {
   useEffect(() => {
     dispatch(getEventsById(id));
   }, [dispatch, id]);
+  //"w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto"
 
   return (
+   
+      
+      <section>
     <div>
-      <Navbar />
-
-      <div>
-        <img
-          src={detail.image}
-          alt=""
-          width="400px"
-          height="250px"
-        />
-        <h1>{detail.name} holaaaaaaaaaaaaaaaaaaaa</h1>
-      </div>
-    </div>
+    <img src={detail.image} alt="" class="object-contain h-48 w-96 ..." loading="lazy" />
+  </div>
+  
+  </section>
+    
   );
 };
 export default EventDetail;
