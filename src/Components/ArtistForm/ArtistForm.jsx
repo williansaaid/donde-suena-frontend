@@ -35,7 +35,6 @@ const ArtistForm = () => {
 
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
-            <Navbar/>
             <form onSubmit={handleSubmit} autoComplete="off" className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
