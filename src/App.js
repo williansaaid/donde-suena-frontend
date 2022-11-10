@@ -1,24 +1,27 @@
-import { Route, Routes } from "react-router-dom";
-import { Provider } from "react-redux"
-import store from "./Redux"
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 //Components Import
 import ArtistForm from "./Components/ArtistForm/ArtistForm";
 import Home from "./Components/Home/Home";
 import EventDetail from "./Components/EventDetail/EventDetail.jsx"
-
+import Navbar from "./Components/Navbar/Navbar";
+import UserForm from "./Components/UserForm/UserForm.jsx"
+import Footer from "./Components/Footer/Footer"
 function App() {
-  return (
+	return (
+    <BrowserRouter>
     <div className="App">
-      <Provider store={store}>
+		<Navbar/>
         <Routes>
-          <Route exact path={'/login/artist'} element={<ArtistForm/>}/>
-          <Route path={"/"} element={<Home/>}/>
-          <Route exact path={'/details/:id'} element={<EventDetail/>}/>
+        	<Route exact path={'/login/artist'} element={<ArtistForm/>}/>
+			    <Route exact path={'/login/user'} element={<UserForm/>}/>
+        	<Route path={"/"} element={<Home/>}/>
+        	<Route path={'/details/:id'} element={<EventDetail/>}/>
         </Routes>
-      </Provider>
+        <Footer/>
     </div>
-  );
+    </BrowserRouter>
+	);
 }
 
 export default App;

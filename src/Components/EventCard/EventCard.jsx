@@ -1,4 +1,4 @@
-import React,{useEffect  } from "react";
+import React,{useEffect , useState } from "react";
 import { useDispatch } from "react-redux";
 import {getEvents , }from "../../Redux/eventActions";
 import { useSelector } from "react-redux";
@@ -6,16 +6,20 @@ import { useSelector } from "react-redux";
 export const Events = ()=> {
   const dispatch =useDispatch()
   const {events} = useSelector(state=>state.events)
-
+  const {items, setItems}=useState([])
+  const [visible , setVisible]= useState(3)
   useEffect(()=>{
     
     dispatch(getEvents())
   },[])
-  
+  const showMoreEvents= ()=>{
+    setVisible(prevValue =>prevValue +3)
+  }  
 
   return(
+    <div class="flex flex-col items-center  divide-y-2">
     <div class="flex space-x-20 flex flex-wrap ">
-    {events&&events.map((el,id)=>{
+    {events&&events.slice(0, visible).map((el,id)=>{
       return(
         <card class="relative h-[25rem] sm:h-50 w-[20rem] rounded-lg">
 
@@ -47,11 +51,18 @@ export const Events = ()=> {
         </div>
         </div>
         </div>
+        
          </card>
-      
+          
        
       )
     })}
+    <div>
+
+
+    </div>
+    </div>
+    <button  onClick={showMoreEvents} class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">VER MAS EVENTOS ↓</button>
     </div>
   )
      
