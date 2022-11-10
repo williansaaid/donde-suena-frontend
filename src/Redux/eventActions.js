@@ -11,3 +11,13 @@ export const getEventsById = (id) => (dispatch) => {
 		.then((res) => dispatch(getAllEventsById(res.data.events)))
 		.catch((e) => console.log(e));
 };
+
+export const submitUserForm = (values) => (dispatch) => {
+	axios
+		.post("http://localhost:3001/auth/registerUser", values)
+		.then((res) => {
+			console.log(res);
+			dispatch(res);
+		})
+		.catch((e) => console.log(e));
+};
