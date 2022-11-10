@@ -4,32 +4,29 @@ import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/eventActions";
 import Navbar from "../Navbar/Navbar";
 
-export default function Detail(props) {
+const EventDetail = (props) => {
   const dispatch = useDispatch();
-  const { detail } = useSelector((state) => state.events);
   const { id } = useParams();
+  const { detail } = useSelector((state) => state.detail);
+  console.log(detail);
   useEffect(() => {
     dispatch(getEventsById(id));
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <div>
       <Navbar />
+
       <div>
-      <img
-          src="https://i.gifer.com/GE0A.gif"
-          alt="image"
-          width="800px"
-          height="500px"
+        <img
+          src={detail.image}
+          alt=""
+          width="400px"
+          height="250px"
         />
-        </div>
-      {/*<img src={detail.image} alt="Event" width="400px" height="250px"/>
-         <h1> {detail.name}</h1>
-         <h3>{detail.date}</h3>
-         <h3>{detail.price}</h3>*/}
-
+        <h1>{detail.name} holaaaaaaaaaaaaaaaaaaaa</h1>
       </div>
-     
-
+    </div>
   );
-}
+};
+export default EventDetail;

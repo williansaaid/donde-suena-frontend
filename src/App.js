@@ -1,6 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import { Provider } from "react-redux"
-import store from "./Redux"
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+
 
 //Components Import
 import ArtistForm from "./Components/ArtistForm/ArtistForm";
@@ -9,15 +8,18 @@ import EventDetail from "./Components/EventDetail/EventDetail.jsx"
 
 function App() {
   return (
+    <BrowserRouter>
+    
     <div className="App">
-      <Provider store={store}>
+      
         <Routes>
           <Route exact path={'/login/artist'} element={<ArtistForm/>}/>
           <Route path={"/"} element={<Home/>}/>
-          <Route exact path={'/details/:id'} element={<EventDetail/>}/>
+          <Route path={'/details/:id'} element={<EventDetail/>}/>
         </Routes>
-      </Provider>
+      
     </div>
+    </BrowserRouter>
   );
 }
 
