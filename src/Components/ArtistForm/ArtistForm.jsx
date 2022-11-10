@@ -248,6 +248,7 @@ const ArtistForm = () => {
                             id="profileImg"
                             type="file"
                             placeholder="Sube tu imagen aquí"
+                            accept="image/png, image/jpeg, image/jpg"
                             value={values.profileImg}
                             onChange={handleChange}
                             onBlur={handleBlur}
