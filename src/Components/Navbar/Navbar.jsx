@@ -1,26 +1,30 @@
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
-import "./Navbar.css";
 
 function Navbar() {
   return (
-    <div className="nav">
-
-      <div className="navLogo">
-        <img src= {require ("../../assets/img/HenryLogo.png")} alt="logo" />
+    <nav class="bg-customGray relative w-full">
+      <div class="container mx-auto flex justify-between items-center">
+        <img
+          class="h-20"
+          // src={require(`../../assets/img/HenryLogo.png`)}
+          alt="logo"
+        />
+        <div class="flex items-center">
+          <div class="my-9">
+            <SearchBar/>
+          </div>
+          <div class="text-orange-100 bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3">
+            <img
+              class="h-full"
+              // src={require(`../../assets/img/HenryCuenta.png`)}
+              alt="account icon"
+            />
+            <a href="#">Mi Cuenta</a>
+          </div>
+        </div>
       </div>
-
-      <div className="divButtonSearch">
-      <div className="SearchBar">
-        <SearchBar></SearchBar>
-      </div>
-
-      <div className="divButton">
-        <button>Mi Cuenta</button>
-      </div>
-
-      </div>
-    </div>
+    </nav>
   );
 }
 
