@@ -6,7 +6,11 @@ import Home from "./Components/Home/Home";
 import EventDetail from "./Components/EventDetail/EventDetail.jsx"
 import Navbar from "./Components/Navbar/Navbar";
 import UserForm from "./Components/UserForm/UserForm.jsx"
+<<<<<<< HEAD
 import Footer from "./Components/Footer/Footer"
+=======
+
+>>>>>>> 46035d826b9dc486924d12a5fa7036ac8eb89d2e
 function App() {
 	return (
     <BrowserRouter>

@@ -35,13 +35,19 @@ const ArtistForm = () => {
 
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
-            <Navbar/>
             <form onSubmit={handleSubmit} autoComplete="off" className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label htmlFor="name"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Nombre</label>
+                        >
+                        Nombre
+                        {errors.name ?
+                            <span className="text-customRed italic pl-1 text-xs font-semibold"
+                            >{errors.name}</span>
+                            : null
+                        }
+                        </label>
                         <input
                             id="name"
                             type="text"
@@ -58,7 +64,13 @@ const ArtistForm = () => {
                     <div className="w-full md:w-1/2 px-3">
                         <label htmlFor="surname"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Apellido</label>
+                        >Apellido
+                        {errors.surname ?
+                            <span className="text-customRed italic pl-1 text-xs font-semibold"
+                            >{errors.surname}</span>
+                            : null
+                        }
+                        </label>
                         <input
                             id="surname"
                             type="text"
@@ -76,7 +88,13 @@ const ArtistForm = () => {
                 <div className="w-full px-3">
                     <label htmlFor="artisticName"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Nombre Artístico</label>
+                    >Nombre Artístico
+                        {errors.artisticName ?
+                            <span className="text-customRed italic pl-1 text-xs font-semibold"
+                            >{errors.artisticName}</span>
+                            : null
+                        }
+                    </label>
                     <input
                         id="artisticName"
                         type="text"
@@ -93,7 +111,13 @@ const ArtistForm = () => {
                 <div className="w-full px-3">
                     <label htmlFor="email"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Email</label>
+                    >Email
+                        {errors.email ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.email}</span>
+                                : null
+                        }
+                    </label>
                     <input
                         id="email"
                         type="email"
@@ -111,7 +135,13 @@ const ArtistForm = () => {
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label htmlFor="password"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Contraseña</label>
+                        >Contraseña
+                            {errors.password ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.password}</span>
+                                : null
+                            }
+                        </label>
                         <input
                             id="password"
                             type="password"
@@ -128,7 +158,13 @@ const ArtistForm = () => {
                     <div className="w-full md:w-1/2 px-3">
                         <label htmlFor="confirmPassword"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Confirmar Contraseña</label>
+                        >Confirmar Contraseña
+                            {errors.confirmPassword ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.confirmPassword}</span>
+                                : null
+                            }
+                        </label>
                         <input
                             id="confirmPassword"
                             type="password"
@@ -146,7 +182,13 @@ const ArtistForm = () => {
                 <div className="w-full px-3">
                     <label htmlFor="description"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Descripción</label>
+                    >Descripción
+                        {errors.description ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.description}</span>
+                                : null
+                        }
+                    </label>
                     <textarea
                         id="description"
                         type="textarea"
@@ -173,7 +215,13 @@ const ArtistForm = () => {
                     <div>
                         <label htmlFor="instagram"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Instagram</label>
+                        >Instagram
+                            {errors.instagram ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.instagram}</span>
+                                : null
+                            }
+                        </label>
                         <input
                             id="instagram"
                             type="url"
@@ -190,7 +238,13 @@ const ArtistForm = () => {
                     <div>
                         <label htmlFor="twitter"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Twitter</label>
+                        >Twitter
+                            {errors.twitter ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.twitter}</span>
+                                : null
+                            }
+                        </label>
                         <input
                             id="twitter"
                             type="url"
@@ -207,7 +261,13 @@ const ArtistForm = () => {
                     <div>
                         <label htmlFor="spotify"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Spotify</label>
+                        >Spotify
+                            {errors.spotify ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.spotify}</span>
+                                : null
+                            }
+                        </label>
                         <input
                             id="spotify"
                             type="url"
@@ -226,7 +286,13 @@ const ArtistForm = () => {
                     <div className="w-full md:w-1/2 mb-6 md:mb-0 px-3">
                         <label htmlFor="phoneNumber"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Número Telefónico</label>
+                        >Número Telefónico
+                            {errors.phoneNumber ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.phoneNumber}</span>
+                                : null
+                            }
+                        </label>
                         <input
                             id="phoneNumber"
                             type="text"
@@ -248,6 +314,7 @@ const ArtistForm = () => {
                             id="profileImg"
                             type="file"
                             placeholder="Sube tu imagen aquí"
+                            accept="image/png, image/jpeg, image/jpg"
                             value={values.profileImg}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -262,6 +329,11 @@ const ArtistForm = () => {
                         Acepto los <a href="#"
                             className="inline-block align-baseline font-bold text-m text-gray-400 hover:text-customRed"
                         >Terminos y Condiciones</a>
+                        {errors.agreeTerms ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.agreeTerms}</span>
+                                : null
+                        }
                     </label>
                     <input
                         id="agreeTerms"
