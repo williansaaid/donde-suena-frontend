@@ -1,13 +1,13 @@
 import React from "react";
-// import { useState } from "react";
-// import "./UserForm.css";
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { submitUserForm } from "../../Redux/eventActions";
 import * as Yup from "yup";
 
 const UserForm = () => {
-	// const [startDate, setStartDate] = useState(new Date());
+	const dispatch = useDispatch();
 	return (
-		<div className='container'>
+		<div className='h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans'>
 			<Formik
 				initialValues={{
 					firstName: "",
@@ -18,7 +18,7 @@ const UserForm = () => {
 					password2: "",
 					phone: "",
 					birthday: "",
-					terms: "",
+					acceptedTerms: "",
 				}}
 				validationSchema={Yup.object({
 					firstName: Yup.string()
@@ -47,67 +47,191 @@ const UserForm = () => {
 						.integer("Debe ser un numero entero")
 						.min(8)
 						.required("Nunero de telefono requerido"),
-					birthday: Yup.number()
-						.required("Fecha de nacimiento requerida")
-						.positive("debe ser un numero positivo")
-						.integer("debe ser un numero entero"),
+					birthday: Yup.string()
+						.typeError("Debe ser una fecha de telefono valida")
+
+						.required("Fecha de nacimiento requerida"),
 					acceptedTerms: Yup.boolean()
 						.required("Required")
 						.oneOf([true], "You must accept the terms and conditions."),
 				})}
 				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(() => {
-						// alert(JSON.stringify(values, null, 2));
-						setSubmitting(false);
-					}, 400);
+					dispatch(submitUserForm(values));
+					setSubmitting(false);
 				}}>
-				{({ isSubmitting }) => (
-					<Form>
-						<Field type='text' name='firstName' placeholder='Nombres *' />
-						<ErrorMessage name='firstName' component='div' />
+				{({ isSubmitting, errors }) => (
+					<Form className='w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded'>
+						<div className='flex flex-wrap -mx-3 w-full'>
+							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+								<label
+									htmlFor='firstName'
+									className='block tracking-wide text-white text-s font-bold mb-2'>
+									Nombre
+								</label>
+								<Field
+									type='text'
+									name='firstName'
+									placeholder='Nombre *'
+									className={
+										errors.firstName
+											? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+											: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									}
+								/>
+								<ErrorMessage name='firstName' component='div' />
+							</div>
+							<div className='w-full md:w-1/2 px-3'>
+								<label
+									htmlFor='lastName'
+									className='block tracking-wide text-white text-s font-bold mb-2'>
+									Apellido
+								</label>
+								<Field
+									type='text'
+									name='lastName'
+									placeholder='Apellido *'
+									className={
+										errors.lastName
+											? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+											: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									}
+								/>
+								<ErrorMessage name='lastName' component='div' />
+							</div>
+						</div>
+						<div className='px-3'>
+							<label
+								htmlFor='email'
+								className='block tracking-wide text-white text-s font-bold mb-2'>
+								Email
+							</label>
+							<Field
+								type='email'
+								name='email'
+								placeholder='Email *'
+								className={
+									errors.email
+										? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+										: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								}
+							/>
+							<ErrorMessage name='email' component='div' />
+						</div>
 
-						<Field type='text' name='lastName' placeholder='Apellido *' />
-						<ErrorMessage name='lastName' component='div' />
+						<div className='px-3'>
+							<label
+								htmlFor='dni'
+								className='block tracking-wide text-white text-s font-bold mb-2'>
+								Documento
+							</label>
+							<Field
+								type='text'
+								name='dni'
+								placeholder='Número de documento *'
+								className={
+									errors.dni
+										? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+										: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								}
+							/>
+							<ErrorMessage name='dni' component='div' />
+						</div>
+						<div className='flex flex-wrap w-full'>
+							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+								<label
+									htmlFor='password'
+									className='block tracking-wide text-white text-s font-bold mb-2'>
+									Contraseña
+								</label>
+								<Field
+									type='password'
+									name='password'
+									placeholder='Clave *'
+									className={
+										errors.password
+											? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+											: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									}
+								/>
+								<ErrorMessage name='password' component='div' />
+							</div>
+							<div className='w-full md:w-1/2 px-3'>
+								<label
+									htmlFor='password2'
+									className='block tracking-wide text-white text-s font-bold mb-2'>
+									Confirmar Contraseña
+								</label>
+								<Field
+									type='password'
+									name='password2'
+									placeholder='Confirmar Clave *'
+									className={
+										errors.password2
+											? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+											: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									}
+								/>
+								<ErrorMessage name='password2' component='div' />
+							</div>
+						</div>
+						<div className='px-3'>
+							<label
+								htmlFor='phone'
+								className='block tracking-wide text-white text-s font-bold mb-2'>
+								Número Telefónico
+							</label>
+							<Field
+								type='text'
+								name='phone'
+								placeholder='Teléfono *'
+								className={
+									errors.phone
+										? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+										: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								}
+							/>
+							<ErrorMessage name='phone' component='div' />
+						</div>
+						<div className='px-3'>
+							<label
+								htmlFor='name'
+								className='block tracking-wide text-white text-s font-bold mb-2'>
+								Fecha de nacimiento
+							</label>
+							<Field
+								type='date'
+								name='birthday'
+								className={
+									errors.password
+										? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+										: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								}
+							/>
+							<ErrorMessage name='birthday' component='div' />
+						</div>
+						<div className='flex flex-row-reverse items-center justify-center gap-2'>
+							<label
+								htmlFor='acceptedTerms'
+								className='block tracking-wide text-white text-s font-bold'>
+								Acepto los{" "}
+								<a
+									href='#'
+									className='inline-block align-baseline font-bold text-m text-gray-400 hover:text-customRed'>
+									Terminos y Condiciones
+								</a>
+							</label>
 
-						<Field type='email' name='email' placeholder='Email *' />
-						<ErrorMessage name='email' component='div' />
-
-						<Field type='text' name='dni' />
-						<ErrorMessage
-							name='dni'
-							component='div'
-							placeholder='Número de documento *'
-						/>
-
-						<Field type='password' name='password' placeholder='Clave *' />
-						<ErrorMessage name='password' component='div' />
-
-						<Field
-							type='password'
-							name='password2'
-							placeholder='Confirmar Clave *'
-						/>
-						<ErrorMessage name='password2' component='div' />
-
-						<Field type='text' name='phone' placeholder='Teléfono *' />
-						<ErrorMessage name='phone' component='div' />
-
-						<Field
-							type='date'
-							name='birthday'
-							placeholder='Fecha de nacimiento *'
-						/>
-						<ErrorMessage name='birthday' component='div' />
-
-						<label htmlFor='terms'>
-							<hr></hr>Terminos y condiciones.
-						</label>
-						<Field type='checkbox' name='acceptedTerms' />
-						<ErrorMessage name='acceptedTerms' component='div' />
-
-						<button type='submit' disabled={isSubmitting}>
-							Enviar
-						</button>
+							<Field type='checkbox' name='acceptedTerms' />
+							<ErrorMessage name='acceptedTerms' component='div' />
+						</div>
+						<div>
+							<button
+								type='submit'
+								disabled={isSubmitting}
+								className='bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed'>
+								Enviar
+							</button>
+						</div>
 					</Form>
 				)}
 			</Formik>

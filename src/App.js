@@ -3,9 +3,9 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 //Components Import
 import ArtistForm from "./Components/ArtistForm/ArtistForm";
 import Home from "./Components/Home/Home";
-import EventDetail from "./Components/EventDetail/EventDetail.jsx"
+import EventDetail from "./Components/EventDetail/EventDetail.jsx";
+import UserForm from "./Components/UserForm/UserForm";
 import Navbar from "./Components/Navbar/Navbar";
-import UserForm from "./Components/UserForm/UserForm.jsx"
 import Footer from "./Components/Footer/Footer"
 function App() {
 	return (

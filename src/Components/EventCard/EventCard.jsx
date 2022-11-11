@@ -36,7 +36,7 @@ export const Events = ()=> {
 
         <div class=  "justify-items-center justify-end text-left">
      
-        <a href={`/details/${id}`} class="text-xl font-semibold text-gray-800 hover:underline dark:text-white">
+        <a href={`/details/${el.id}`} class="text-xl font-semibold text-gray-800 hover:underline dark:text-white">
           
         {el.name}
         </a>
