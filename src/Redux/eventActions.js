@@ -7,8 +7,8 @@ export const getEvents = () => (dispatch) => {
 		.catch((e) => console.log(e));
 };
 export const getEventsById = (id) => (dispatch) => {
-	axios(`http://localhost:3001/event/getEvents/${id}`)
-		.then((res) => dispatch(getAllEventsById(res.data.events)))
+	axios(`http://localhost:3001/event/getEvent/${id}`)
+		.then((res) => dispatch(getAllEventsById(res.data.event)))
 		.catch((e) => console.log(e));
 };
 
