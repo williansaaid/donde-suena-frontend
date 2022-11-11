@@ -5,6 +5,7 @@ export const eventsSlice = createSlice({
 	initialState: {
 		events: [],
 		detail: {},
+		userIsLogged: false,
 	},
 	//usando redux toolkits son los reducers son una mezcla de actions y reducers
 	reducers: {
@@ -13,6 +14,9 @@ export const eventsSlice = createSlice({
 		},
 		getAllEventsById: (state, action) => {
 			state.detail = action.payload;
+		},
+		logUser: (state, action) => {
+			state.userIsLogged = action.payload && true;
 		},
 	},
 });
