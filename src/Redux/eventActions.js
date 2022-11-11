@@ -28,6 +28,9 @@ export const submitArtistForm = (values) => (dispatch) => {
 		.then((res) => {
 			console.log(res);
 			dispatch(res);
+            alert("Usuario Creado Exitosamente")
 		})
-		.catch((e) => console.log(e));
+		.catch((e) => {
+            e.response.data ? alert(e.response.data.msg) : console.log(e);;
+        });
 };
