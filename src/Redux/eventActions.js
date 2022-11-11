@@ -11,3 +11,4 @@ export  const getEvents= ()=>(dispatch) =>{
    .then(res =>dispatch(getAllEventsById(res.data.events)))
    .catch(e=>console.log(e))
  }
+ 
