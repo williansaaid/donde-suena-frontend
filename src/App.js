@@ -13,7 +13,7 @@ function App() {
 			<div className='App'>
 				<Navbar />
 				<Routes>
-					<Route exact path={"/login/artist"} element={<ArtistForm />} />
+					<Route exact path={"/register/artist"} element={<ArtistForm />} />
 					<Route exact path={"/login/user"} element={<UserForm />} />
 					<Route path={"/"} element={<Home />} />
 					<Route path={"/details/:id"} element={<EventDetail />} />
