@@ -46,7 +46,7 @@ export const Events = ()=> {
         
         <span class="text-sm text-gray-500 dark:text-gray-300">📅Fecha :{el.date}</span>
         <span class="text-sm text-gray-500 dark:text-gray-300">⏰Inicia {el.start} - Finaliza {el.end}</span>
-        <span class="text-sm text-gray-500 dark:text-gray-300">💵Compra por {el.price}</span>
+        <span class="text-sm text-gray-500 dark:text-gray-300">💵Compra por {el.price}</span> 
         
         </div>
         </div>
