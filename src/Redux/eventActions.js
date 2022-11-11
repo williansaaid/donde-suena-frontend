@@ -21,3 +21,13 @@ export const submitUserForm = (values) => (dispatch) => {
 		})
 		.catch((e) => console.log(e));
 };
+
+export const submitArtistForm = (values) => (dispatch) => {
+	axios
+		.post("http://localhost:3001/auth/registerArtist", values)
+		.then((res) => {
+			console.log(res);
+			dispatch(res);
+		})
+		.catch((e) => console.log(e));
+};
