@@ -34,3 +34,16 @@ export const submitArtistForm = (values) => (dispatch) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);;
         });
 };
+
+export const submitEventForm = (values) => (dispatch) => {
+	axios
+		.post("http://localhost:3001/auth/createEvent", values)
+		.then((res) => {
+			console.log(res);
+			dispatch(res);
+            alert("Usuario Creado Exitosamente")
+		})
+		.catch((e) => {
+            e.response.data ? alert(e.response.data.msg) : console.log(e);;
+        });
+};
