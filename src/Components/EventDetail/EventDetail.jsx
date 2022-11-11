@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/eventActions";
-import Navbar from "../Navbar/Navbar";
+
 
 const EventDetail = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const EventDetail = (props) => {
   useEffect(() => {
     dispatch(getEventsById(id));
   }, [dispatch, id]);
-  //"w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto"
+  
 
   return (
     <section class="text-gray-700 body-font overflow-hidden bg-white">
