@@ -6,7 +6,7 @@ import Home from "./Components/Home/Home";
 import EventDetail from "./Components/EventDetail/EventDetail.jsx";
 import UserForm from "./Components/UserForm/UserForm";
 import Navbar from "./Components/Navbar/Navbar";
-
+import Footer from "./Components/Footer/Footer"
 function App() {
 	return (
 		<BrowserRouter>
@@ -19,6 +19,7 @@ function App() {
 					<Route path={"/"} element={<Home />} />
 					<Route path={"/details/:id"} element={<EventDetail />} />
 				</Routes>
+        <Footer/>
 			</div>
 		</BrowserRouter>
 	);
