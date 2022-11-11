@@ -9,18 +9,19 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer"
 function App() {
 	return (
-    <BrowserRouter>
-    <div className="App">
-		<Navbar/>
-        <Routes>
-        	<Route exact path={'/login/artist'} element={<ArtistForm/>}/>
-			    <Route exact path={'/login/user'} element={<UserForm/>}/>
-        	<Route path={"/"} element={<Home/>}/>
-        	<Route path={'/details/:id'} element={<EventDetail/>}/>
-        </Routes>
+		<BrowserRouter>
+			<div className='App'>
+				<Navbar />
+
+				<Routes>
+					<Route exact path={"/login/artist"} element={<ArtistForm />} />
+					<Route exact path={"/login/user"} element={<UserForm />} />
+					<Route path={"/"} element={<Home />} />
+					<Route path={"/details/:id"} element={<EventDetail />} />
+				</Routes>
         <Footer/>
-    </div>
-    </BrowserRouter>
+			</div>
+		</BrowserRouter>
 	);
 }
 
