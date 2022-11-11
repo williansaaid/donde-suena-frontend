@@ -16,6 +16,7 @@ const EventCreation = () => {
             ...values,
             image: image
         };
+        console.log(formValues);
         try {
             dispatch(submitEventForm(formValues));
             actions.resetForm();
@@ -46,11 +47,10 @@ const EventCreation = () => {
         date: "",
         start: "",
         end: "",
-        start: "",
-        end: "",
-        price: undefined,
-        quotas: undefined,
+        price: 0,
+        quotas: 0,
         placeName: "",
+        phone: "",
         agreeTerms: false,
     },
     validationSchema: eventSchema,

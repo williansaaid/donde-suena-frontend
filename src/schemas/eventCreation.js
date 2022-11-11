@@ -29,7 +29,7 @@ export const eventSchema = yup.object().shape({
             return moment(value, "HH:mm").isAfter(moment(start, "HH:mm"));
         })
         .required("*"),
-    location: yup
+    placeName: yup
         .string()
         .required("*"),
     quotas: yup
