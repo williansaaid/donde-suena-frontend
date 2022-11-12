@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getAllEvents, getAllEventsById } from "./eventSlice";
 
+
 export const getEvents = () => (dispatch) => {
 	axios("http://localhost:3001/event/getEvents")
 		.then((res) => dispatch(getAllEvents(res.data.events)))
@@ -34,3 +35,4 @@ export const submitArtistForm = (values) => (dispatch) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);;
         });
 };
+
