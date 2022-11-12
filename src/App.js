@@ -6,22 +6,29 @@ import Home from "./Components/Home/Home";
 import EventDetail from "./Components/EventDetail/EventDetail.jsx";
 import UserForm from "./Components/UserForm/UserForm";
 import Navbar from "./Components/Navbar/Navbar";
-import Footer from "./Components/Footer/Footer"
+import Footer from "./Components/Footer/Footer";
+import Login from "./Components/Login/Login";
+// import { LoginGoogle } from "./Components/Login/Login2";
 function App() {
-	return (
-		<BrowserRouter>
-			<div className='App'>
-				<Navbar />
-				<Routes>
-					<Route exact path={"/login/artist"} element={<ArtistForm />} />
-					<Route exact path={"/login/user"} element={<UserForm />} />
-					<Route path={"/"} element={<Home />} />
-					<Route path={"/details/:id"} element={<EventDetail />} />
-				</Routes>
-                <Footer/>
-			</div>
-		</BrowserRouter>
-	);
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Navbar />
+                <Routes>
+                    <Route exact path="/login" element={<Login />} />
+                    <Route
+                        exact
+                        path={"/login/artist"}
+                        element={<ArtistForm />}
+                    />
+                    <Route exact path={"/login/user"} element={<UserForm />} />
+                    <Route path={"/"} element={<Home />} />
+                    <Route path={"/details/:id"} element={<EventDetail />} />
+                </Routes>
+                <Footer />
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

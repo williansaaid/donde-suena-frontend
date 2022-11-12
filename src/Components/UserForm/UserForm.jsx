@@ -293,7 +293,11 @@ const UserForm = () => {
                                 </a>
                             </label>
 
-                            <Field type="checkbox" name="acceptedTerms" />
+                            <Field
+                                type="checkbox"
+                                name="acceptedTerms"
+                                className="leading-tight"
+                            />
                             <ErrorMessage name="acceptedTerms">
                                 {(msg) => (
                                     <div className="text-customRed italic pl-1 text-xs font-semibold">
