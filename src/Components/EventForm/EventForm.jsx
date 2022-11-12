@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { basicSchema } from "../../schemas/artistRegister";
-import { submitArtistForm } from "../../Redux/eventActions";
+import { eventSchema } from "../../schemas/eventCreation";
+import { submitEventForm } from "../../Redux/eventActions";
 import axios from "axios";
 
-const genres = ["Clásica", "Blues", "Jazz", "Soul", "R&B", "Rock", "Folk", "Metal", "Disco", "Pop", "Hip-Hop", "Funk", "House", "Techno", "Salsa", "Bachata", "Cumbia", "Reggae", "Bossa Nova", "Merengue", "Urbano"];
-
-const ArtistForm = () => {
+const EventCreation = () => {
     const dispatch = useDispatch();
     const [ image, setImage ] = useState("");
     const [ loading, setLoading ] = useState("");
@@ -18,8 +16,9 @@ const ArtistForm = () => {
             ...values,
             image: image
         };
+        console.log(formValues);
         try {
-            dispatch(submitArtistForm(formValues));
+            dispatch(submitEventForm(formValues));
             actions.resetForm();
         } catch (error) {
             console.log(error);
@@ -29,7 +28,7 @@ const ArtistForm = () => {
         const files = e.target.files;
         const data = new FormData();
         data.append("file", files[0]);
-        data.append("upload_preset", "Donde-Suena-Artists");
+        data.append("upload_preset", "Donde-Suena-Events");
         setLoading(true);
         const res = await axios.post("https://api.cloudinary.com/v1_1/ds41xxspf/image/upload", data);
         res.data.secure_url ? setSuccess(true) : setSuccess(false);
@@ -38,173 +37,192 @@ const ArtistForm = () => {
     }
 
     const { values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit } = useFormik({
-        initialValues: {
-            firstName: "",
-            lastName: "",
-            nickname: "",
-            email: "",
-            password: "",
-            password2: "",
-            genres: "",
-            description: "",
-            instagram: "",
-            twitter: "",
-            spotify: "",
-            phone: "",
-            agreeTerms: false,
-        },
-        validationSchema: basicSchema,
-        onSubmit,
-    })
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit } = useFormik({
+    initialValues: {
+        name: "",
+        date: "",
+        start: "",
+        end: "",
+        price: 0,
+        quotas: 0,
+        placeName: "",
+        phone: "",
+        agreeTerms: false,
+    },
+    validationSchema: eventSchema,
+    onSubmit,
+    });
 
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
-            <form onSubmit={handleSubmit} autoComplete="on" className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-4 my-8 rounded">
+            <form onSubmit={handleSubmit} autoComplete="off" className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-4 my-8 rounded">
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label htmlFor="firstName"
+                        <label htmlFor="name"
                             className="block tracking-wide text-white text-s font-bold mb-2"
                         >
                         Nombre
-                        {errors.firstName && touched.firstName ?
+                        {errors.name && touched.name ?
                             <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.firstName}</span>
+                            >{errors.name}</span>
                             : null
                         }
                         </label>
                         <input
-                            id="firstName"
+                            id="name"
                             type="text"
-                            placeholder="Luis"
-                            value={values.firstName}
+                            placeholder="Concierto"
+                            value={values.name}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.firstName && touched.firstName ?
+                            className={errors.name && touched.name ?
                                 "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 }
                         />
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <label htmlFor="lastName"
+                        <label htmlFor="date"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Apellido
-                        {errors.lastName && touched.lastName ?
+                        >Fecha
+                        {errors.date && touched.date ?
                             <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.lastName}</span>
+                            >{errors.date}</span>
                             : null
                         }
                         </label>
                         <input
-                            id="lastName"
-                            type="text"
-                            placeholder="Mendoza"
-                            value={values.lastName}
+                            id="date"
+                            type="date"
+                            value={values.date}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.lastName && touched.lastName ?
+                            className={errors.date && touched.date ?
                                 "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 }
                         />
                     </div>
                 </div>
-                <div className="w-full px-3">
-                    <label htmlFor="nickname"
-                        className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Nombre Artístico
-                        {errors.nickname && touched.nickname ?
-                            <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.nickname}</span>
-                            : null
-                        }
-                    </label>
-                    <input
-                        id="nickname"
-                        type="text"
-                        placeholder="Ej: Luime"
-                        value={values.nickname}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={errors.nickname && touched.nickname ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
-                    />
+                <div className="flex flex-wrap w-full">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label htmlFor="start"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >Hora de Inicio
+                            {errors.start && touched.start ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.start}</span>
+                                : null
+                            }
+                        </label>
+                        <input
+                            id="start"
+                            type="time"
+                            value={values.start}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={errors.start && touched.start ?
+                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    }
+                        />
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <label htmlFor="end"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >Hora de Finalización
+                            {errors.end && touched.end ?
+                                <span className="text-customRed italic pl-1 text-xs font-semibold"
+                                >{errors.end}</span>
+                                : null
+                            }
+                        </label>
+                        <input
+                            id="end"
+                            type="time"
+                            value={values.end}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={errors.end && touched.end ?
+                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    }
+                        />
+                    </div>
                 </div>
                 <div className="w-full px-3">
-                    <label htmlFor="email"
+                    <label htmlFor="placeName"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Email
-                        {errors.email && touched.email ?
+                    >Lugar
+                        {errors.placeName && touched.placeName ?
                                 <span className="text-customRed italic pl-1 text-xs font-semibold"
                                 >{errors.email}</span>
                                 : null
                         }
                     </label>
                     <input
-                        id="email"
-                        type="email"
-                        placeholder="luimecontacto@ejemplo.com"
-                        value={values.email}
+                        id="placeName"
+                        type="text"
+                        placeholder="Coliseo San Luis"
+                        value={values.placeName}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={errors.email && touched.email ?
+                        className={errors.placeName && touched.placeName ?
                                 "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 }
                     />
                 </div>
-                <div className="flex flex-wrap w-full">
+                <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label htmlFor="password"
+                        <label htmlFor="quotas"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Contraseña
-                            {errors.password && touched.password ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.password}</span>
-                                : null
-                            }
+                        >
+                        Entradas Disponibles
+                        {errors.quotas && touched.quotas ?
+                            <span className="text-customRed italic pl-1 text-xs font-semibold"
+                            >{errors.quotas}</span>
+                            : null
+                        }
                         </label>
                         <input
-                            id="password"
-                            type="password"
-                            placeholder="********"
-                            value={values.password}
+                            id="quotas"
+                            type="number"
+                            placeholder="--"
+                            value={values.quotas}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.password && touched.password ?
-                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    }
+                            className={errors.quotas && touched.quotas ?
+                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                }
                         />
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <label htmlFor="password2"
+                        <label htmlFor="price"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Confirmar Contraseña
-                            {errors.password2 && touched.password2 ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.password2}</span>
-                                : null
-                            }
+                        >Precio
+                        {errors.price && touched.price ?
+                            <span className="text-customRed italic pl-1 text-xs font-semibold"
+                            >{errors.price}</span>
+                            : null
+                        }
                         </label>
                         <input
-                            id="password2"
-                            type="password"
-                            placeholder="********"
-                            value={values.password2}
+                            id="price"
+                            type="number"
+                            placeholder="--$"
+                            value={values.price}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.password2 && touched.password2 ?
-                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    }
+                            className={errors.price && touched.price ?
+                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                }
                         />
                     </div>
                 </div>
@@ -222,7 +240,7 @@ const ArtistForm = () => {
                         id="description"
                         type="textarea"
                         rows="2"
-                        placeholder={`Más sobre ${values.nickname}...`}
+                        placeholder={`Más sobre ${values.name}...`}
                         value={values.description}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -232,109 +250,11 @@ const ArtistForm = () => {
                                 }
                     />
                 </div>
-                <div className="px-3 flex flex-col items-center justify-center">
-                    <label htmlFor="genres"
-                        className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Género
-                        {errors.genres && touched.genres ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold mb-2"
-                                >{errors.genres}</span>
-                                : null
-                        }
-                    </label>
-                    <select
-                        name="genres"
-                        value={values.genres}
-                        onChange={handleChange}
-                        className={
-                            errors.genres && touched.genres ?
-                            "rounded pr-8 py-2 focus:outline-none bg-red-100 focus:bg-red-100"
-                            :"rounded pr-8 py-2 focus:outline-none bg-gray-200 focus:bg-white"}>
-                        <option value="" disabled>Géneros</option>
-                        {genres.map((genre, key) => {
-                            return <option key={key} value={genre}>{genre}</option>
-                        })}
-                    </select>
-                </div>
-                <div className="w-full px-3 mb-3 flex flex-col gap-2">
-                    <p
-                        className="block tracking-wide text-white text-lg font-bold text-center"
-                    >Sitios Web</p>
-                    <div>
-                        <label htmlFor="instagram"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Instagram
-                            {errors.instagram && touched.instagram ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.instagram}</span>
-                                : null
-                            }
-                        </label>
-                        <input
-                            id="instagram"
-                            type="url"
-                            placeholder="https://instagram.com/username"
-                            value={values.instagram}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={errors.instagram && touched.instagram ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="twitter"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Twitter
-                            {errors.twitter && touched.twitter ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.twitter}</span>
-                                : null
-                            }
-                        </label>
-                        <input
-                            id="twitter"
-                            type="url"
-                            placeholder="https://twitter.com/username"
-                            value={values.twitter}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={errors.twitter && touched.twitter ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="spotify"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Spotify
-                            {errors.spotify && touched.spotify ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.spotify}</span>
-                                : null
-                            }
-                        </label>
-                        <input
-                            id="spotify"
-                            type="url"
-                            placeholder="https://open.spotify.com/artist/yourprofile"
-                            value={values.spotify}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={errors.spotify && touched.spotify ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
-                        />
-                    </div>
-                </div>
                 <div className="flex flex-wrap w-full">
                     <div className="w-full md:w-1/2 mb-6 md:mb-0 px-3">
                         <label htmlFor="phone"
                             className="flex items-center tracking-wide text-white text-s font-bold mb-2"
-                        >Número Telefónico
+                        >Teléfono del Organizador
                             {errors.phone && touched.phone ?
                                 <span className="text-customRed italic pl-1 text-xs font-semibold"
                                 >{errors.phone}</span>
@@ -357,7 +277,7 @@ const ArtistForm = () => {
                     <div className="w-full md:w-1/2 px-3">
                         <label htmlFor="image"
                             className="flex items-center tracking-wide text-white text-s font-bold mb-2"
-                        >Foto de Perfil
+                        >Póster Publicitario
                             { loading ?
                                 <span className="text-customRed italic pl-1 text-xs font-semibold"
                                 >(Subiendo Imágen...)</span>
@@ -369,7 +289,6 @@ const ArtistForm = () => {
                         <input
                             id="image"
                             type="file"
-                            placeholder="Sube tu imagen aquí"
                             accept="image/png, image/jpeg, image/jpg"
                             onChange={uploadImage}
                             onBlur={handleBlur}
@@ -404,9 +323,10 @@ const ArtistForm = () => {
                 </div>
                 <div>
                     <button type="submit"
+                        disabled={!success}
                         className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-4 disabled:opacity-5"
                     >
-                        Enviar
+                        Crear Evento
                     </button>
                 </div>
             </form>
@@ -414,4 +334,4 @@ const ArtistForm = () => {
     )
 };
 
-export default ArtistForm;
+export default EventCreation;
