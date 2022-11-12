@@ -8,6 +8,8 @@ import UserForm from "./Components/UserForm/UserForm";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
+import EventCreation from "./Components/EventForm/EventForm";
+
 // import { LoginGoogle } from "./Components/Login/Login2";
 function App() {
     return (
@@ -18,10 +20,16 @@ function App() {
                     <Route exact path="/login" element={<Login />} />
                     <Route
                         exact
-                        path={"/login/artist"}
+                        path={"/register/artist"}
                         element={<ArtistForm />}
                     />
                     <Route exact path={"/login/user"} element={<UserForm />} />
+                    <Route
+                        exact
+                        path={"/create/event"}
+                        element={<EventCreation />}
+                    />
+
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                 </Routes>
