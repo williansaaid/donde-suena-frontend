@@ -9,19 +9,19 @@ const spotifyRx = /(https?:\/\/open.spotify.com\/(track|user|artist|album)\/[a-z
 const phoneRx = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
 export const basicSchema = yup.object().shape({
-    name: yup
+    firstName: yup
         .string()
         .max(20, "(No puede contener más de 20 caracteres)")
         .min(3, "(Al menos debe contener 3 caracteres)")
         .matches(noSpaceAllowedRx, "Nombre no válido")
         .required("*"),
-    surname: yup
+    lastName: yup
         .string()
         .max(20, "(No puede contener más de 20 caracteres)")
         .min(3, "(Al menos debe contener 3 caracteres)")
         .matches(noSpaceAllowedRx, "(Apellido no válido)")
         .required("*"),
-    artisticName: yup
+    nickname: yup
         .string()
         .max(20, "(No puede contener más de 20 caracteres)")
         .min(2, "(Al menos debe contener 2 caracteres)")
@@ -35,11 +35,13 @@ export const basicSchema = yup.object().shape({
         .min(8, "(Debe contener al menos 8 caracteres)")
         .matches(passwordRx, "(Debe contener al menos una letra mayúscula, una minúscula y un número)")
         .required("*"),
-    confirmPassword: yup
+    password2: yup
         .string()
         .oneOf([yup.ref("password"), null], "(No coinciden)")
         .required("*"),
-    // genre: yup.required("*"),
+    genres: yup
+        .string()
+        .required("*"),
     description: yup
         .string()
         .max(200, "(No puede contener más de 200 caracteres)")
@@ -56,7 +58,7 @@ export const basicSchema = yup.object().shape({
         .string()
         .url("(Url no válido)")
         .matches(spotifyRx, "(Url de spotify no válido)"),
-    phoneNumber: yup
+    phone: yup
         .string()
         .matches(phoneRx, "(Número no válido)")
         .required("*"),
