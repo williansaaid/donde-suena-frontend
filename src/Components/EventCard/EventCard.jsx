@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 export const Events = ()=> {
   const dispatch =useDispatch()
   const {events} = useSelector(state=>state.events)
-  const {items, setItems}=useState([])
+
   const [visible , setVisible]= useState(3)
   useEffect(()=>{
     

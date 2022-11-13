@@ -12,7 +12,9 @@ module.exports = {
         customBlack: '#000000'
       },
       fontFamily: {
-        'source-sans': ['Source Sans Pro', 'sans-serif']
+        'source-sans': ['Source Sans Pro', 'sans-serif'],
+        'ProximosEventos': ['Anton', 'sans-serif'],
+
       }
     },
   },
