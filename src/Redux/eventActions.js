@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllEvents, getAllEventsById } from "./eventSlice";
+import { getAllEvents, getAllEventsById, getEventsByName } from "./eventSlice";
 
 
 export const getEvents = () => (dispatch) => {
@@ -36,7 +36,6 @@ export const submitArtistForm = (values) => (dispatch) => {
         });
 };
 
-<<<<<<< HEAD
 export const submitEventForm = (values) => (dispatch) => {
 	axios
 		.post("http://localhost:3001/auth/createEvent", values)
@@ -49,5 +48,8 @@ export const submitEventForm = (values) => (dispatch) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);;
         });
 };
-=======
->>>>>>> 392f18bf79cf5b12c1223c86d3724236983c565d
+export const getEventByName = (name) => (dispatch) => {
+	axios(`http://localhost:3001/event/getEvent/${name}`)
+		.then((res) => dispatch(getEventsByName(res.data.event)))
+		.catch((e) => console.log(e));
+};

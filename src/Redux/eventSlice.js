@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit";
 
 export const eventsSlice = createSlice({
 	name: "events",
@@ -17,7 +18,10 @@ export const eventsSlice = createSlice({
 		logUser: (state, action) => {
 			state.userIsLogged = action.payload && true;
 		},
+		getEventsByName:(state, action) =>{
+			state.events = action.payload;
+		},
 	},
 });
-export const { getAllEvents, getAllEventsById } = eventsSlice.actions; //en .actions guardo las funciones
+export const { getAllEvents, getAllEventsById, getEventsByName} = eventsSlice.actions; //en .actions guardo las funciones
 export default eventsSlice.reducer;
