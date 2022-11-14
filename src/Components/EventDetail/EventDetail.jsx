@@ -102,7 +102,7 @@ const EventDetail = (props) => {
                     </div>
                     <div class="grid h-15px place-items-center ">
                         <ul class="flex flex-wrap">
-                            <li class="flex flex-wrap">
+                            <li class="pr-4 ... pt-40 ... px-8 ...">
                                 {" "}
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
@@ -141,9 +141,7 @@ const EventDetail = (props) => {
                     </div>
                 </div>
             </div>
-            <div>
-                <CarouselRec />
-            </div>
+         
         </section>
     );
 };
