@@ -64,10 +64,11 @@ function FilterBar() {
         console.log(eventDay);
     }
     return (
-        <nav class="text-white flex font-bold justify-between items-baseline">
-            <ul class="flex justify-around w-3/12 ">
-                <li>
-                    <img
+        <nav class="text-white flex font-bold justify-between items-center h-full">
+            <ul class="flex justify-around w-3/12 ml-10">
+                <li class="flex items-center gap-x-1.5">
+                    <img 
+                        class="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Filtro_cymgds.png"
                         alt="filterIcon"
                         height="20px"
@@ -75,8 +76,9 @@ function FilterBar() {
                     />
                     <h1>Limpiar Filtros</h1>
                 </li>
-                <li>
+                <li class="flex items-center gap-x-1.5">
                     <img
+                        class="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
                         alt="locationIcon"
                         height="20px"
@@ -84,8 +86,9 @@ function FilterBar() {
                     />
                     <h1>Lugar</h1>
                 </li>
-                <li>
+                <li class="flex items-center gap-x-1.5">
                     <img
+                        class="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
                         alt="genresIcon"
                         height="20px"
@@ -95,7 +98,7 @@ function FilterBar() {
                 </li>
             </ul>
 
-            <ul class="flex justify-around w-3/12 ">
+            <ul class="flex justify-around w-3/12 mr-10">
                 <li>
                     <h1 onClick={() => handleFilterDate("day")} value={"day"}>
                         24hs
