@@ -8,7 +8,7 @@ const Home = () => {
         <div>
             <CarouselCustom />
             <nav>
-                <div class="bg-customGray w-full flex relative justify-between items-center px-8 h-10">
+                <div class="bg-customGray h-10">
                     <FilterBar />
                 </div>
             </nav>
