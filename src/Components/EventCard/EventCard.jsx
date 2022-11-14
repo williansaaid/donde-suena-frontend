@@ -23,27 +23,27 @@ export const Events = () => {
                         return (
                             <div
                                 key={id}
-                                className="relative h-[25rem] sm:h-50 w-[20rem] rounded-lg"
+                                className="relative mx-20 h-[25rem] sm:h-50 w-[20rem] rounded-lg"
                             >
                                 <div>
                                     <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
                                         <img
-                                            class="object-cover w-auto h-auto rounded-lg  ease-in-out duration-500 group-hover:rotate-6 group-hover:scale-125"
+                                            className="object-cover w-auto h-auto rounded-lg  ease-in-out duration-500 group-hover:rotate-6 group-hover:scale-125"
                                             src={el.image}
                                             alt="imagen no encontrada"
                                         />
                                         <div className="absolute bg-black w-full h-full opacity-50 transition-opacity duration-500 group-hover:opacity-80" />
-                                        <div className="absolute w-full h-full bottom-0 bg- rounded-lg flex flex-col justify-items-center  justify-end text-left">
+                                        <div className="absolute p-3 w-full h-full bottom-0 bg- rounded-lg flex flex-col justify-items-center  justify-end text-left">
                                             <div className="justify-items-center justify-end text-left">
                                                 <a
                                                     href={`/details/${el.id}`}
-                                                    class="text-xl font-semibold text-gray-800 hover:underline dark:text-white"
+                                                    className="text-xl font-semibold text-white hover:underline dark:text-white"
                                                 >
                                                     {el.name}
                                                 </a>
                                             </div>
 
-                                            <span className="text-sm text-gray-500 dark:text-gray-300">
+                                            <span className="text-sm text-gray-500 dark:text-white-300">
                                                 📅Fecha :{el.date}
                                             </span>
                                             <span className="text-sm text-gray-500 dark:text-gray-300">

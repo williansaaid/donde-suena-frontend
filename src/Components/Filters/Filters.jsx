@@ -23,51 +23,70 @@ function FilterBar() {
         );
     }
     return (
-        <div className="flex flex-wrap gap-10">
-            {/* <div>
-                <img
-                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Filtro_cymgds.png"
-                    alt="filterIcon"
-                />
-                <h1>Filtros</h1>
-            </div>
-            <div>
-                <img
-                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
-                    alt="locationIcon"
-                />
-                <h1>Lugar</h1>
-            </div>
-            <div>
-                <img
-                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
-                    alt="genresIcon"
-                />
-                <h1>Genero</h1>
-            </div> */}
+        <nav class="text-white flex font-bold justify-between items-center h-full">
+            <ul class="flex justify-around w-3/12 ml-10">
+                <li class="flex items-center gap-x-1.5">
+                    <img
+                        class="max-h-5"
+                        src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Filtro_cymgds.png"
+                        alt="filterIcon"
+                        height="20px"
+                        width="20px"
+                    />
+                    <h1>Limpiar Filtros</h1>
+                </li>
+                <li class="flex items-center gap-x-1.5">
+                    <img
+                        class="max-h-5"
+                        src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
+                        alt="locationIcon"
+                        height="20px"
+                        width="20px"
+                    />
+                    <h1>Lugar</h1>
+                </li>
+                <li class="flex items-center gap-x-1.5">
+                    <img
+                        class="max-h-5"
+                        src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
+                        alt="genresIcon"
+                        height="20px"
+                        width="20px"
+                    />
+                    <h1>Genero</h1>
+                </li>
+            </ul>
 
-            <h1
-                className="cursor-pointer"
-                onClick={() => handleFilterDate("day")}
-                value={"day"}
-            >
-                24hs
-            </h1>
-            <h1
-                className="cursor-pointer"
-                onClick={() => handleFilterDate("week")}
-                value={"week"}
-            >
-                7 Dias
-            </h1>
-            <h1
-                className="cursor-pointer"
-                onClick={() => handleFilterDate("month")}
-                value={"month"}
-            >
-                30 Dias
-            </h1>
-        </div>
+            <ul class="flex justify-around w-3/12 mr-10">
+                <li>
+                    <h1
+                        className="cursor-pointer"
+                        onClick={() => handleFilterDate("day")}
+                        value={"day"}
+                    >
+                        24hs
+                    </h1>
+                </li>
+                <li>
+                    <h1
+                        className="cursor-pointer"
+                        onClick={() => handleFilterDate("week")}
+                        value={"week"}
+                    >
+                        7 Dias
+                    </h1>
+                </li>
+                <li>
+                    <h1
+                        className="cursor-pointer"
+                        onClick={() => handleFilterDate("month")}
+                        value={"month"}
+                    >
+                        30 Dias
+                    </h1>
+                </li>
+            </ul>
+        </nav>
     );
 }
 
