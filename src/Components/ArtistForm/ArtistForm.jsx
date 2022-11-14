@@ -5,18 +5,40 @@ import { basicSchema } from "../../schemas/artistRegister";
 import { submitArtistForm } from "../../Redux/eventActions";
 import axios from "axios";
 
-const genres = ["Clásica", "Blues", "Jazz", "Soul", "R&B", "Rock", "Folk", "Metal", "Disco", "Pop", "Hip-Hop", "Funk", "House", "Techno", "Salsa", "Bachata", "Cumbia", "Reggae", "Bossa Nova", "Merengue", "Urbano"];
+const genres = [
+    "Clásica",
+    "Blues",
+    "Jazz",
+    "Soul",
+    "R&B",
+    "Rock",
+    "Folk",
+    "Metal",
+    "Disco",
+    "Pop",
+    "Hip-Hop",
+    "Funk",
+    "House",
+    "Techno",
+    "Salsa",
+    "Bachata",
+    "Cumbia",
+    "Reggae",
+    "Bossa Nova",
+    "Merengue",
+    "Urbano",
+];
 
 const ArtistForm = () => {
     const dispatch = useDispatch();
-    const [ image, setImage ] = useState("");
-    const [ loading, setLoading ] = useState("");
-    const [ success, setSuccess ] = useState(false);
+    const [image, setImage] = useState("");
+    const [loading, setLoading] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const onSubmit = (values, actions) => {
         const formValues = {
             ...values,
-            image: image
+            image: image,
         };
         try {
             dispatch(submitArtistForm(formValues));
@@ -31,51 +53,55 @@ const ArtistForm = () => {
         data.append("file", files[0]);
         data.append("upload_preset", "Donde-Suena-Artists");
         setLoading(true);
-        const res = await axios.post("https://api.cloudinary.com/v1_1/ds41xxspf/image/upload", data);
+        const res = await axios.post(
+            "https://api.cloudinary.com/v1_1/ds41xxspf/image/upload",
+            data
+        );
         res.data.secure_url ? setSuccess(true) : setSuccess(false);
         setImage(res.data.secure_url);
         setLoading(false);
-    }
+    };
 
-    const { values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit } = useFormik({
-        initialValues: {
-            firstName: "",
-            lastName: "",
-            nickname: "",
-            email: "",
-            password: "",
-            password2: "",
-            genres: "",
-            description: "",
-            instagram: "",
-            twitter: "",
-            spotify: "",
-            phone: "",
-            agreeTerms: false,
-        },
-        validationSchema: basicSchema,
-        onSubmit,
-    })
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+        useFormik({
+            initialValues: {
+                firstName: "",
+                lastName: "",
+                nickname: "",
+                email: "",
+                password: "",
+                password2: "",
+                genres: "",
+                description: "",
+                instagram: "",
+                twitter: "",
+                spotify: "",
+                phone: "",
+                agreeTerms: false,
+            },
+            validationSchema: basicSchema,
+            onSubmit,
+        });
 
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
-            <form onSubmit={handleSubmit} autoComplete="on" className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-4 my-8 rounded">
+            <form
+                onSubmit={handleSubmit}
+                autoComplete="on"
+                className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-4 my-8 rounded"
+            >
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label htmlFor="firstName"
+                        <label
+                            htmlFor="firstName"
                             className="block tracking-wide text-white text-s font-bold mb-2"
                         >
-                        Nombre
-                        {errors.firstName && touched.firstName ?
-                            <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.firstName}</span>
-                            : null
-                        }
+                            Nombre
+                            {errors.firstName && touched.firstName ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.firstName}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="firstName"
@@ -84,21 +110,24 @@ const ArtistForm = () => {
                             value={values.firstName}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.firstName && touched.firstName ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                            className={
+                                errors.firstName && touched.firstName
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
                         />
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <label htmlFor="lastName"
+                        <label
+                            htmlFor="lastName"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Apellido
-                        {errors.lastName && touched.lastName ?
-                            <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.lastName}</span>
-                            : null
-                        }
+                        >
+                            Apellido
+                            {errors.lastName && touched.lastName ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.lastName}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="lastName"
@@ -107,22 +136,25 @@ const ArtistForm = () => {
                             value={values.lastName}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.lastName && touched.lastName ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                            className={
+                                errors.lastName && touched.lastName
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
                         />
                     </div>
                 </div>
                 <div className="w-full px-3">
-                    <label htmlFor="nickname"
+                    <label
+                        htmlFor="nickname"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Nombre Artístico
-                        {errors.nickname && touched.nickname ?
-                            <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.nickname}</span>
-                            : null
-                        }
+                    >
+                        Nombre Artístico
+                        {errors.nickname && touched.nickname ? (
+                            <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                {errors.nickname}
+                            </span>
+                        ) : null}
                     </label>
                     <input
                         id="nickname"
@@ -131,21 +163,24 @@ const ArtistForm = () => {
                         value={values.nickname}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={errors.nickname && touched.nickname ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className={
+                            errors.nickname && touched.nickname
+                                ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                        }
                     />
                 </div>
                 <div className="w-full px-3">
-                    <label htmlFor="email"
+                    <label
+                        htmlFor="email"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Email
-                        {errors.email && touched.email ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.email}</span>
-                                : null
-                        }
+                    >
+                        Email
+                        {errors.email && touched.email ? (
+                            <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                {errors.email}
+                            </span>
+                        ) : null}
                     </label>
                     <input
                         id="email"
@@ -154,22 +189,25 @@ const ArtistForm = () => {
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={errors.email && touched.email ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className={
+                            errors.email && touched.email
+                                ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                        }
                     />
                 </div>
                 <div className="flex flex-wrap w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label htmlFor="password"
+                        <label
+                            htmlFor="password"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Contraseña
-                            {errors.password && touched.password ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.password}</span>
-                                : null
-                            }
+                        >
+                            Contraseña
+                            {errors.password && touched.password ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.password}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="password"
@@ -178,21 +216,24 @@ const ArtistForm = () => {
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.password && touched.password ?
-                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            className={
+                                errors.password && touched.password
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    }
+                            }
                         />
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <label htmlFor="password2"
+                        <label
+                            htmlFor="password2"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Confirmar Contraseña
-                            {errors.password2 && touched.password2 ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.password2}</span>
-                                : null
-                            }
+                        >
+                            Confirmar Contraseña
+                            {errors.password2 && touched.password2 ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.password2}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="password2"
@@ -201,22 +242,25 @@ const ArtistForm = () => {
                             value={values.password2}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.password2 && touched.password2 ?
-                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            className={
+                                errors.password2 && touched.password2
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    }
+                            }
                         />
                     </div>
                 </div>
                 <div className="w-full px-3">
-                    <label htmlFor="description"
+                    <label
+                        htmlFor="description"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Descripción
-                        {errors.description && touched.description ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.description}</span>
-                                : null
-                        }
+                    >
+                        Descripción
+                        {errors.description && touched.description ? (
+                            <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                {errors.description}
+                            </span>
+                        ) : null}
                     </label>
                     <textarea
                         id="description"
@@ -226,49 +270,62 @@ const ArtistForm = () => {
                         value={values.description}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={errors.description && touched.description ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className={
+                            errors.description && touched.description
+                                ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 scroll-y"
-                                }
+                        }
                     />
                 </div>
                 <div className="px-3 flex flex-col items-center justify-center">
-                    <label htmlFor="genres"
+                    <label
+                        htmlFor="genres"
                         className="block tracking-wide text-white text-s font-bold mb-2"
-                    >Género
-                        {errors.genres && touched.genres ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold mb-2"
-                                >{errors.genres}</span>
-                                : null
-                        }
+                    >
+                        Género
+                        {errors.genres && touched.genres ? (
+                            <span className="text-customRed italic pl-1 text-xs font-semibold mb-2">
+                                {errors.genres}
+                            </span>
+                        ) : null}
                     </label>
                     <select
                         name="genres"
                         value={values.genres}
                         onChange={handleChange}
                         className={
-                            errors.genres && touched.genres ?
-                            "rounded pr-8 py-2 focus:outline-none bg-red-100 focus:bg-red-100"
-                            :"rounded pr-8 py-2 focus:outline-none bg-gray-200 focus:bg-white"}>
-                        <option value="" disabled>Géneros</option>
+                            errors.genres && touched.genres
+                                ? "rounded pr-8 py-2 focus:outline-none bg-red-100 focus:bg-red-100"
+                                : "rounded pr-8 py-2 focus:outline-none bg-gray-200 focus:bg-white"
+                        }
+                    >
+                        <option value="" disabled>
+                            Géneros
+                        </option>
                         {genres.map((genre, key) => {
-                            return <option key={key} value={genre}>{genre}</option>
+                            return (
+                                <option key={key} value={genre}>
+                                    {genre}
+                                </option>
+                            );
                         })}
                     </select>
                 </div>
                 <div className="w-full px-3 mb-3 flex flex-col gap-2">
-                    <p
-                        className="block tracking-wide text-white text-lg font-bold text-center"
-                    >Sitios Web</p>
+                    <p className="block tracking-wide text-white text-lg font-bold text-center">
+                        Sitios Web
+                    </p>
                     <div>
-                        <label htmlFor="instagram"
+                        <label
+                            htmlFor="instagram"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Instagram
-                            {errors.instagram && touched.instagram ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.instagram}</span>
-                                : null
-                            }
+                        >
+                            Instagram
+                            {errors.instagram && touched.instagram ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.instagram}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="instagram"
@@ -277,21 +334,24 @@ const ArtistForm = () => {
                             value={values.instagram}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.instagram && touched.instagram ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                            className={
+                                errors.instagram && touched.instagram
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
                         />
                     </div>
                     <div>
-                        <label htmlFor="twitter"
+                        <label
+                            htmlFor="twitter"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Twitter
-                            {errors.twitter && touched.twitter ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.twitter}</span>
-                                : null
-                            }
+                        >
+                            Twitter
+                            {errors.twitter && touched.twitter ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.twitter}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="twitter"
@@ -300,21 +360,24 @@ const ArtistForm = () => {
                             value={values.twitter}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.twitter && touched.twitter ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                            className={
+                                errors.twitter && touched.twitter
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
                         />
                     </div>
                     <div>
-                        <label htmlFor="spotify"
+                        <label
+                            htmlFor="spotify"
                             className="block tracking-wide text-white text-s font-bold mb-2"
-                        >Spotify
-                            {errors.spotify && touched.spotify ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.spotify}</span>
-                                : null
-                            }
+                        >
+                            Spotify
+                            {errors.spotify && touched.spotify ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.spotify}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="spotify"
@@ -323,23 +386,26 @@ const ArtistForm = () => {
                             value={values.spotify}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.spotify && touched.spotify ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
+                            className={
+                                errors.spotify && touched.spotify
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
                         />
                     </div>
                 </div>
                 <div className="flex flex-wrap w-full">
                     <div className="w-full md:w-1/2 mb-6 md:mb-0 px-3">
-                        <label htmlFor="phone"
+                        <label
+                            htmlFor="phone"
                             className="flex items-center tracking-wide text-white text-s font-bold mb-2"
-                        >Número Telefónico
-                            {errors.phone && touched.phone ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.phone}</span>
-                                : null
-                            }
+                        >
+                            Número Telefónico
+                            {errors.phone && touched.phone ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.phone}
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="phone"
@@ -348,23 +414,28 @@ const ArtistForm = () => {
                             value={values.phone}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            className={errors.phone && touched.phone ?
-                                    "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            className={
+                                errors.phone && touched.phone
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    }
+                            }
                         />
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <label htmlFor="image"
+                        <label
+                            htmlFor="image"
                             className="flex items-center tracking-wide text-white text-s font-bold mb-2"
-                        >Foto de Perfil
-                            { loading ?
-                                <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >(Subiendo Imágen...)</span>
-                                : success ? <span className="text-green-500 italic pl-1 text-xs font-semibold"
-                                >(Imágen subida con éxito)</span>
-                                : null
-                            }
+                        >
+                            Foto de Perfil
+                            {loading ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    (Subiendo Imágen...)
+                                </span>
+                            ) : success ? (
+                                <span className="text-green-500 italic pl-1 text-xs font-semibold">
+                                    (Imágen subida con éxito)
+                                </span>
+                            ) : null}
                         </label>
                         <input
                             id="image"
@@ -379,12 +450,17 @@ const ArtistForm = () => {
                 </div>
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
-                        <label htmlFor="agreeTerms"
+                        <label
+                            htmlFor="agreeTerms"
                             className="block tracking-wide text-white text-s font-bold"
                         >
-                            Acepto los <a href="#"
+                            Acepto los{" "}
+                            <a
+                                href="#"
                                 className="inline-block align-baseline font-bold text-m text-gray-400 hover:text-customRed"
-                            >Terminos y Condiciones</a>
+                            >
+                                Terminos y Condiciones
+                            </a>
                         </label>
                         <input
                             id="agreeTerms"
@@ -396,14 +472,15 @@ const ArtistForm = () => {
                             className="leading-tight"
                         />
                     </div>
-                    {errors.agreeTerms && touched.agreeTerms ?
-                            <span className="text-customRed italic pl-1 text-xs font-semibold"
-                            >{errors.agreeTerms}</span>
-                            : null
-                    }
+                    {errors.agreeTerms && touched.agreeTerms ? (
+                        <span className="text-customRed italic pl-1 text-xs font-semibold">
+                            {errors.agreeTerms}
+                        </span>
+                    ) : null}
                 </div>
                 <div>
-                    <button type="submit"
+                    <button
+                        type="submit"
                         className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-4 disabled:opacity-5"
                     >
                         Enviar
@@ -411,7 +488,7 @@ const ArtistForm = () => {
                 </div>
             </form>
         </div>
-    )
+    );
 };
 
 export default ArtistForm;
