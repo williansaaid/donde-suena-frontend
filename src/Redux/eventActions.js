@@ -5,6 +5,7 @@ import {
     logUser,
     googleRegister,
     changeModal,
+    filteredEvents,
 } from "./eventSlice";
 
 export const getEvents = () => (dispatch) => {
@@ -62,4 +63,16 @@ export const submitEventForm = (values) => (dispatch) => {
 
 export const setModal = () => (dispatch) => {
     dispatch(changeModal());
+};
+
+export const setFilter = (payload) => (dispatch) => {
+    axios
+        .get("http://localhost:3001/event/getEvents" + payload)
+        .then((res) => {
+            console.log(res);
+            dispatch(filteredEvents(res.data.events));
+        })
+        .catch((e) => {
+            e.response.data ? alert(e.response.data.msg) : console.log(e);
+        });
 };
