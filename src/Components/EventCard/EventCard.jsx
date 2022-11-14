@@ -21,12 +21,12 @@ export const Events = () => {
                 {events &&
                     events.slice(0, visible).map((el, id) => {
                         return (
-                            <card
+                            <div
                                 key={id}
                                 className="relative h-[25rem] sm:h-50 w-[20rem] rounded-lg"
                             >
                                 <div>
-                                    <div className="group flex justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
+                                    <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
                                         <img
                                             class="object-cover w-auto h-auto rounded-lg  ease-in-out duration-500 group-hover:rotate-6 group-hover:scale-125"
                                             src={el.image}
@@ -56,7 +56,7 @@ export const Events = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </card>
+                            </div>
                         );
                     })}
             </div>

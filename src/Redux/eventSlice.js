@@ -29,6 +29,9 @@ export const eventsSlice = createSlice({
         filteredEvents: (state, action) => {
             state.events = action.payload;
         },
+        getEventsByName: (state, action) => {
+            state.events = action.payload;
+        },
     },
 });
 export const {
@@ -38,5 +41,6 @@ export const {
     googleRegister,
     changeModal,
     filteredEvents,
+    getEventsByName,
 } = eventsSlice.actions; //en .actions guardo las funciones
 export default eventsSlice.reducer;
