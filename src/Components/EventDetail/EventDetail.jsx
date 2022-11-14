@@ -2,17 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/eventActions";
+import { setModal } from "../../Redux/eventActions";
 import { Link } from "react-router-dom";
-import CarouselRec from "../CarouselRec/CarouselRec";
 
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detail);
-    console.log(detail);
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
+    const handleSetModal = () => {
+        dispatch(setModal());
+    };
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">

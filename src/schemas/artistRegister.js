@@ -3,10 +3,14 @@ import * as yup from "yup";
 // Regex for password minimum eight characters, at least one Uppercase letter, one lowercase letter and one number:
 const passwordRx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const noSpaceAllowedRx = /^\S*$/;
-const instagramRx = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)/igm;
-const twitterRx = /^(?:https?:\/\/)?(?:www\.)?twitter\.com\/(#!\/)?[a-zA-Z0-9_]+$/i;
-const spotifyRx = /(https?:\/\/open.spotify.com\/(track|user|artist|album)\/[a-zA-Z0-9]+(\/playlist\/[a-zA-Z0-9]+|)|spotify:(track|user|artist|album):[a-zA-Z0-9]+(:playlist:[a-zA-Z0-9]+|))/;
-const phoneRx = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+const instagramRx =
+    /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)/gim;
+const twitterRx =
+    /^(?:https?:\/\/)?(?:www\.)?twitter\.com\/(#!\/)?[a-zA-Z0-9_]+$/i;
+const spotifyRx =
+    /(https?:\/\/open.spotify.com\/(track|user|artist|album)\/[a-zA-Z0-9]+(\/playlist\/[a-zA-Z0-9]+|)|spotify:(track|user|artist|album):[a-zA-Z0-9]+(:playlist:[a-zA-Z0-9]+|))/;
+const phoneRx =
+    /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
 export const basicSchema = yup.object().shape({
     firstName: yup
@@ -26,22 +30,20 @@ export const basicSchema = yup.object().shape({
         .max(20, "(No puede contener más de 20 caracteres)")
         .min(2, "(Al menos debe contener 2 caracteres)")
         .required("*"),
-    email: yup
-        .string()
-        .email("(Email no válido)")
-        .required("*"),
+    email: yup.string().email("(Email no válido)").required("*"),
     password: yup
         .string()
         .min(8, "(Debe contener al menos 8 caracteres)")
-        .matches(passwordRx, "(Debe contener al menos una letra mayúscula, una minúscula y un número)")
+        .matches(
+            passwordRx,
+            "(Debe contener al menos una letra mayúscula, una minúscula y un número)"
+        )
         .required("*"),
     password2: yup
         .string()
         .oneOf([yup.ref("password"), null], "(No coinciden)")
         .required("*"),
-    genres: yup
-        .string()
-        .required("*"),
+    genres: yup.string().required("*"),
     description: yup
         .string()
         .max(200, "(No puede contener más de 200 caracteres)")
@@ -58,12 +60,9 @@ export const basicSchema = yup.object().shape({
         .string()
         .url("(Url no válido)")
         .matches(spotifyRx, "(Url de spotify no válido)"),
-    phone: yup
-        .string()
-        .matches(phoneRx, "(Número no válido)")
-        .required("*"),
+    phone: yup.string().matches(phoneRx, "(Número no válido)").required("*"),
     agreeTerms: yup
         .bool()
-        .oneOf([true],"(Debes aceptar los Términos y Condiciones)")
-        .required("*")
-})
+        .oneOf([true], "(Debes aceptar los Términos y Condiciones)")
+        .required("*"),
+});
