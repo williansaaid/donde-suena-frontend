@@ -4,6 +4,7 @@ import {
     getAllEventsById,
     logUser,
     googleRegister,
+    changeModal,
 } from "./eventSlice";
 
 export const getEvents = () => (dispatch) => {
@@ -52,9 +53,13 @@ export const submitEventForm = (values) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(res);
-            alert("Usuario Creado Exitosamente");
+            alert("Evento Creado Exitosamente");
         })
         .catch((e) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);
         });
+};
+
+export const setModal = () => (dispatch) => {
+    dispatch(changeModal());
 };

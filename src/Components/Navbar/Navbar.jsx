@@ -1,12 +1,18 @@
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocation } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setModal } from "../../Redux/eventActions";
 function Navbar() {
     const location = useLocation();
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(setModal());
+    };
     return (
         <>
-            {!location.pathname.includes("/login") && (
+            {!location.pathname.includes("/register") && (
                 <nav className="bg-customGray relative w-full">
                     <div className="container mx-auto flex justify-between items-center">
                         <img
@@ -20,7 +26,10 @@ function Navbar() {
                             <div className="my-9">
                                 <SearchBar />
                             </div>
-                            <div className="text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3">
+                            <div
+                                onClick={handleClick}
+                                className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                            >
                                 <img
                                     className="h-full"
                                     src={
@@ -28,7 +37,7 @@ function Navbar() {
                                     }
                                     alt="account icon"
                                 />
-                                <a href="#">Mi Cuenta</a>
+                                <a>Mi Cuenta</a>
                             </div>
                         </div>
                     </div>
@@ -39,4 +48,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
