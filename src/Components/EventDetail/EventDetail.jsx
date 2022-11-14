@@ -2,15 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/eventActions";
+import { setModal } from "../../Redux/eventActions";
 
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detail);
-    console.log(detail);
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
+    const handleSetModal = () => {
+        dispatch(setModal());
+    };
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
@@ -29,7 +32,22 @@ const EventDetail = (props) => {
                             {detail.name}
                         </h1>
 
-                        <p class="leading-relaxed">{detail.description}arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius quam quisque id diam vel quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique</p>
+                        <p class="leading-relaxed">
+                            {detail.description}arcu ac tortor dignissim
+                            convallis aenean et tortor at risus viverra
+                            adipiscing at in tellus integer feugiat scelerisque
+                            varius morbi enim nunc faucibus a pellentesque sit
+                            amet porttitor eget dolor morbi non arcu risus quis
+                            varius quam quisque id diam vel quam elementum
+                            pulvinar etiam non quam lacus suspendisse faucibus
+                            interdum posuere lorem ipsum dolor sit amet
+                            consectetur adipiscing elit duis tristique
+                            sollicitudin nibh sit amet commodo nulla facilisi
+                            nullam vehicula ipsum a arcu cursus vitae congue
+                            mauris rhoncus aenean vel elit scelerisque mauris
+                            pellentesque pulvinar pellentesque habitant morbi
+                            tristique
+                        </p>
                         <p class="leading-relaxed">
                             {" "}
                             Hora de Inicio ⏰{detail.start}
@@ -68,32 +86,40 @@ const EventDetail = (props) => {
                                     </svg>
                                 </span>
                             </div>
-                            <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                            <button
+                                onClick={handleSetModal}
+                                class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                            >
                                 Comprar
                             </button>
                         </div>
                         <div class="flex mb-4 pt-20">
-                          
                             <ul class="flex flex-wrap items-center ">
                                 <li class="pr-4 ... pt-40 ... px-8 ...">
                                     {" "}
                                     <img
                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
-                                        alt="instagram logo"height="50px"width="50px"
+                                        alt="instagram logo"
+                                        height="50px"
+                                        width="50px"
                                     />
                                 </li>
                                 <li class="pr-4 ... pt-40 ... px-8 ...">
                                     {" "}
                                     <img
                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_twitter_jnclek.png"
-                                        alt="twitter logo" height="50px"width="50px"
+                                        alt="twitter logo"
+                                        height="50px"
+                                        width="50px"
                                     />
                                 </li>
                                 <li class="pr-4 ... pt-40 ... px-8 ...">
                                     {" "}
                                     <img
                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_facebook_glqqwf.png"
-                                        alt="facebook logo" height="50px"width="50px"
+                                        alt="facebook logo"
+                                        height="50px"
+                                        width="50px"
                                     />
                                 </li>
                             </ul>
