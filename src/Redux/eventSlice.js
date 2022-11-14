@@ -21,6 +21,7 @@ export const eventsSlice = createSlice({
 		getEventsByName:(state, action) =>{
 			state.events = action.payload;
 		},
+		
 	},
 });
 export const { getAllEvents, getAllEventsById, getEventsByName} = eventsSlice.actions; //en .actions guardo las funciones

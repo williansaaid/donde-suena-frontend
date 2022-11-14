@@ -20,7 +20,7 @@ function Navbar() {
               src={"https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"}
               alt="account icon"
             />
-            <a href="#">Mi Cuenta</a>
+            <a href="##">Mi Cuenta</a>
           </div>
         </div>
       </div>

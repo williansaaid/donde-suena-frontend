@@ -49,7 +49,7 @@ export const submitEventForm = (values) => (dispatch) => {
         });
 };
 export const getEventByName = (name) => (dispatch) => {
-	axios(`http://localhost:3001/event/getEvent/${name}`)
-		.then((res) => dispatch(getEventsByName(res.data.event)))
+	axios(`http://localhost:3001/event/getEvents?filter[name]=${name}`)
+		.then((res) => dispatch(getEventsByName(res.data.events)))
 		.catch((e) => console.log(e));
 };
