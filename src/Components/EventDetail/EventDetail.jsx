@@ -15,6 +15,7 @@ const EventDetail = (props) => {
     const handleSetModal = () => {
         dispatch(setModal());
     };
+    
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
