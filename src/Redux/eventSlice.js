@@ -7,7 +7,7 @@ export const eventsSlice = createSlice({
         detail: {},
         userIsLogged: false,
         googleToken: {},
-        modal: false,
+        modal: false
     },
     //usando redux toolkits son los reducers son una mezcla de actions y reducers
     reducers: {
@@ -28,7 +28,7 @@ export const eventsSlice = createSlice({
         },
         getEventsByName:(state, action) =>{
 			state.events = action.payload;
-		},
+		}
     },
 });
 export const {
@@ -37,6 +37,6 @@ export const {
     logUser,
     googleRegister,
     changeModal,
-    getEventsByName,
+    getEventsByName
 } = eventsSlice.actions; //en .actions guardo las funciones
 export default eventsSlice.reducer;

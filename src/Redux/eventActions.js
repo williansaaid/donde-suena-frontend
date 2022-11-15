@@ -6,7 +6,7 @@ import {
     logUser,
     googleRegister,
     changeModal,
-    getEventsByName,
+    getEventsByName
 } from "./eventSlice";
 
 export const getEvents = () => (dispatch) => {
@@ -51,13 +51,14 @@ export const submitArtistForm = (values) => (dispatch) => {
 
 export const submitEventForm = (values) => (dispatch) => {
     axios
-        .post("http://localhost:3001/auth/createEvent", values)
+        .post("http://localhost:3001/event/createEvent", values)
         .then((res) => {
             console.log(res);
             dispatch(res);
             alert("Evento Creado Exitosamente");
         })
         .catch((e) => {
+            console.log(e);
             e.response.data ? alert(e.response.data.msg) : console.log(e);
         });
 };
