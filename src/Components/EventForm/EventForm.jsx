@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/eventActions";
+import { getPlaces } from "../../Redux/Slices/Places/placesAction"
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const EventCreation = () => {
@@ -10,6 +12,10 @@ const EventCreation = () => {
     const [ image, setImage ] = useState("");
     const [ loading, setLoading ] = useState("");
     const [ success, setSuccess ] = useState(false);
+    const { places } = useSelector((state) => state.places);
+    useEffect(() => {
+        dispatch(getPlaces());
+    }, []);
 
     const onSubmit = (values, actions) => {
         const formValues = {
@@ -19,6 +25,7 @@ const EventCreation = () => {
         console.log(formValues);
         try {
             dispatch(submitEventForm(formValues));
+            setSuccess(false);
             actions.resetForm();
         } catch (error) {
             console.log(error);
@@ -50,6 +57,7 @@ const EventCreation = () => {
         price: 0,
         quotas: 0,
         placeName: "",
+        description: "",
         phone: "",
         agreeTerms: false,
     },
@@ -158,24 +166,29 @@ const EventCreation = () => {
                     <label htmlFor="placeName"
                         className="block tracking-wide text-white text-s font-bold mb-2"
                     >Lugar
-                        {errors.placeName && touched.placeName ?
+                        {errors.placeName ?
                                 <span className="text-customRed italic pl-1 text-xs font-semibold"
-                                >{errors.email}</span>
+                                >{errors.placeName}</span>
                                 : null
                         }
                     </label>
-                    <input
-                        id="placeName"
-                        type="text"
-                        placeholder="Coliseo San Luis"
+                    <select
+                        name="placeName"
                         value={values.placeName}
                         onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={errors.placeName && touched.placeName ?
-                                "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                }
-                    />
+                        className="rounded py-2 pl-3 w-full focus:outline-none bg-gray-200 focus:bg-white"
+                    >
+                        <option value="" disabled>
+                            Lugares Disponibles
+                        </option>
+                        {places.length > 0 && places.map((place, key) => {
+                            return (
+                                <option key={key} value={place.name}>
+                                    {`"${place.name}" --- ${place.address}`}
+                                </option>
+                            );
+                        })}
+                    </select>
                 </div>
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -193,6 +206,7 @@ const EventCreation = () => {
                             id="quotas"
                             type="number"
                             placeholder="--"
+                            min={"0"}
                             value={values.quotas}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -216,6 +230,7 @@ const EventCreation = () => {
                             id="price"
                             type="number"
                             placeholder="--$"
+                            min={"0"}
                             value={values.price}
                             onChange={handleChange}
                             onBlur={handleBlur}
