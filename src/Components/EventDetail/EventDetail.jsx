@@ -20,7 +20,7 @@ const EventDetail = (props) => {
         <section class="text-gray-700 body-font overflow-hidden bg-white">
             <div class="lg:w-3/1 mx-1 flex mt-10">
                 <div class="object-contain rounded-lg  w-150 mt-6 space-y-4 ml-20">
-                    <div class="relative rounded-lg">
+                    <div class="relative rounded-lg mb-20">
                         <img
                             alt="event"
                             class=" object cover rounded-lg border-gray-200 px-8 border-transparent"
@@ -45,8 +45,8 @@ const EventDetail = (props) => {
                         width="700px"
                     />
                 </div>
-                <div class=" lg:w-1/3 lg:pl-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
-                    <h2 class="font-bold text-xl text-center">
+                <div class=" lg:w-1/3 lg:px-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
+                    <h2 class="font-bold text-xl text-center my-5">
                         Nombre del concierto
                     </h2>
                     <p class="leading-relaxed">
@@ -98,7 +98,10 @@ const EventDetail = (props) => {
                                 </svg>
                             </span>
                         </div>
-                        <button class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 border-0 rounded">
+                        <button
+                            onClick={handleSetModal}
+                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 border-0 rounded"
+                        >
                             Comprar
                         </button>
                     </div>
@@ -134,10 +137,10 @@ const EventDetail = (props) => {
                         </ul>
                         <ul class="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
                     </div>
-                    <div class="flex mx-20 my-20 mr-20 justify-center">
+                    <div class="flex mx-20 mt-20 mr-20 justify-center">
                         <Link to="/">
                             <button class=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
-                                Go Back!
+                                regresar
                             </button>
                         </Link>
                     </div>

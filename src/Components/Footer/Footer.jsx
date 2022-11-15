@@ -1,11 +1,14 @@
 import React from "react";
 import "./footer.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+    const navigate = useNavigate();
     return (
         <footer className="p-4 bg-customgray  shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-customGray mt-40">
             <img
-                className="h-20"
+                onClick={() => navigate("/")}
+                className="h-20 cursor-pointer"
                 src={
                     "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                 }

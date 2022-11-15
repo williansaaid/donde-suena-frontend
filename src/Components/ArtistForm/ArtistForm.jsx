@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas/artistRegister";
 import { submitArtistForm } from "../../Redux/eventActions";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const genres = [
@@ -31,9 +32,13 @@ const genres = [
 
 const ArtistForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState("");
     const [success, setSuccess] = useState(false);
+    function navegar() {
+        navigate("/");
+    }
 
     const onSubmit = (values, actions) => {
         const formValues = {
@@ -43,6 +48,7 @@ const ArtistForm = () => {
         try {
             dispatch(submitArtistForm(formValues));
             actions.resetForm();
+            setTimeout(navegar, 5000);
         } catch (error) {
             console.log(error);
         }

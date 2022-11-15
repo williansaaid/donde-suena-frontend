@@ -1,7 +1,7 @@
 import { addDays, subDays } from "date-fns/esm";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setFilter } from "../../Redux/eventActions";
+import { setFilter, getEvents } from "../../Redux/eventActions";
 import { format } from "date-fns";
 
 function FilterBar() {
@@ -33,7 +33,12 @@ function FilterBar() {
                         height="20px"
                         width="20px"
                     />
-                    <h1>Limpiar Filtros</h1>
+                    <h1
+                        className="cursor-pointer"
+                        onClick={() => dispatch(getEvents())}
+                    >
+                        Limpiar Filtros
+                    </h1>
                 </li>
                 <li class="flex items-center gap-x-1.5">
                     <img
