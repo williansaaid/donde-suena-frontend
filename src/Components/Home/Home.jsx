@@ -5,16 +5,16 @@ import FilterBar from "../Filters/Filters";
 
 const Home = () => {
     return (
-        <div>
+        <div >
             <CarouselCustom />
             <nav>
-                <div class="bg-customGray h-10">
+                <div >
                     <FilterBar />
                 </div>
             </nav>
-            <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl ">
+            <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl">
                 <div class="grid h-20 place-items-center">
-                    <h1>Proximos Eventos</h1>
+                    <h1>PRÓXIMOS EVENTOS</h1>
                 </div>
             </div>
             <div class="place-items-center">

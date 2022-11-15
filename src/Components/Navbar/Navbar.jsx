@@ -16,7 +16,7 @@ function Navbar() {
                 <nav className="bg-customGray relative w-full">
                     <div className="container mx-auto flex justify-between items-center">
                         <img
-                            class="h-20"
+                            class="h-20 animate-pulse"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
