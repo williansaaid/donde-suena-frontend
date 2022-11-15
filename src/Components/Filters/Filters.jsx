@@ -64,8 +64,8 @@ function FilterBar() {
         console.log(eventDay);
     }
     return (
-        <nav class="text-white flex font-bold justify-between items-center h-full">
-            <ul class="flex justify-around w-3/12 ml-10">
+        <nav class="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
+            <ul class="flex justify-around w-3/12 ml-10 mb-20">
                 <li class="flex items-center gap-x-1.5">
                     <img 
                         class="max-h-5"
@@ -74,7 +74,7 @@ function FilterBar() {
                         height="20px"
                         width="20px"
                     />
-                    <h1>Limpiar Filtros</h1>
+                    <h1>Quitar Filtros</h1>
                 </li>
                 <li class="flex items-center gap-x-1.5">
                     <img
@@ -88,7 +88,7 @@ function FilterBar() {
                 </li>
                 <li class="flex items-center gap-x-1.5">
                     <img
-                        class="max-h-5"
+                        className="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
                         alt="genresIcon"
                         height="20px"
@@ -98,9 +98,10 @@ function FilterBar() {
                 </li>
             </ul>
 
-            <ul class="flex justify-around w-3/12 mr-10">
+            <ul class="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
                 <li>
-                    <h1 onClick={() => handleFilterDate("day")} value={"day"}>
+                    <h1
+                    onClick={() => handleFilterDate("day")} value={"day"}>
                         24hs
                     </h1>
                 </li>
@@ -119,67 +120,6 @@ function FilterBar() {
                 </li>
             </ul>
         </nav>
-        // <div>
-        //     <div>
-        //         <ul>
-        //             <div class="container mx-auto mt-5 text-center ml-32 ">
-        //                 <li class="pr-4 ... pt-40 ... px-8 ... inline-flex items-baseline">
-        //                     <img
-        //                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Filtro_cymgds.png"
-        //                         alt="filterIcon"
-        //                         height="20px"
-        //                         width="20px"
-        //                     />
-        //                     <h1 class="px-2 text-white font-bold">Limpiar Filtros</h1>
-        //                 </li>
-        //                 <li class="pr-4 ... pt-40 ... px-8 ... inline-flex items-baseline">
-        //                     <img
-        //                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
-        //                         alt="locationIcon"
-        //                         height="20px"
-        //                         width="20px"
-        //                     />
-        //                     <h1 class="px-2 text-white font-bold text-base">Lugar</h1>
-        //                 </li>
-        //                 <li class="pr-4 ... pt-40 ... px-8 ... inline-flex items-baseline">
-        //                     <img
-        //                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
-        //                         alt="genresIcon"
-        //                         height="20px"
-        //                         width="20px"
-        //                     />
-        //                     <h1 class="px-2 text-white font-bold">Genero</h1>
-        //                 </li>
-
-        //                 <div class="flex flex-wrap space-x-20">
-
-        //                     <li class="pr-4 ... pt-40 ... px-8 ... inline-flex items-center">
-        //                         <h1
-        //                             onClick={() => handleFilterDate("day")}
-        //                             value={"day"}
-        //                         >
-        //                             24hs
-        //                         </h1>
-
-        //                         <h1
-        //                             onClick={() => handleFilterDate("week")}
-        //                             value={"week"}
-        //                         >
-        //                             7 Dias
-        //                         </h1>
-
-        //                         <h1
-        //                             onClick={() => handleFilterDate("month")}
-        //                             value={"month"}
-        //                         >
-        //                             30 Dias
-        //                         </h1>
-        //                     </li>
-        //                 </div>
-        //             </div>
-        //         </ul>
-        //     </div>
-        // </div>
     );
 }
 
