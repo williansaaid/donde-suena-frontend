@@ -1,5 +1,6 @@
 import React from "react";
 import CarouselCustom from "../Carousel/Carousel_custom";
+import Filters from "../Filters/Filters.jsx";
 import { Events } from "../EventCard/EventCard";
 import FilterBar from "../Filters/Filters";
 

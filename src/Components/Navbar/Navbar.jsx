@@ -1,11 +1,12 @@
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setModal } from "../../Redux/eventActions";
 function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleClick = () => {
         dispatch(setModal());
@@ -16,7 +17,8 @@ function Navbar() {
                 <nav className="bg-customGray relative w-full">
                     <div className="container mx-auto flex justify-between items-center">
                         <img
-                            class="h-20 animate-pulse"
+                            onClick={() => navigate("/")}
+                            class="h-20 cursor-pointer"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }

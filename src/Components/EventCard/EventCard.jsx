@@ -21,19 +21,19 @@ export const Events = () => {
                 {events &&
                     events.slice(0, visible).map((el, id) => {
                         return (
-                            <card
+                            <div
                                 key={id}
-                                className="relative h-[25rem] sm:h-50 w-[20rem] rounded-lg"
+                                className="relative mx-20 h-[25rem] sm:h-50 w-[20rem] rounded-lg"
                             >
                                 <div>
-                                    <div className="group flex justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
+                                    <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
                                         <img
-                                            class="object-cover w-auto h-auto rounded-lg  ease-in-out duration-500 group-hover:rotate-6 group-hover:scale-125"
+                                            className="object-cover w-auto h-auto rounded-lg  ease-in-out duration-500 group-hover:rotate-6 group-hover:scale-125"
                                             src={el.image}
                                             alt="imagen no encontrada"
                                         />
                                         <div className="absolute bg-black w-full h-full opacity-50 transition-opacity duration-500 group-hover:opacity-80" />
-                                        <div className="absolute w-full h-full bottom-0 bg- rounded-lg flex flex-col justify-items-center  justify-end text-left">
+                                        <div className="absolute p-3 w-full h-full bottom-0 bg- rounded-lg flex flex-col justify-items-center  justify-end text-left">
                                             <div className="justify-items-center justify-end text-left">
                                                 <a
                                                     href={`/details/${el.id}`}
@@ -43,7 +43,7 @@ export const Events = () => {
                                                 </a>
                                             </div>
 
-                                            <span className="text-sm text-gray-500 dark:text-gray-300">
+                                            <span className="text-sm text-gray-500 dark:text-white-300">
                                                 📅Fecha :{el.date}
                                             </span>
                                             <span className="text-sm text-gray-500 dark:text-gray-300">
@@ -56,16 +56,18 @@ export const Events = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </card>
+                            </div>
                         );
                     })}
             </div>
-            <button
-                onClick={showMoreEvents}
-                class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-            >
-                VER MAS EVENTOS ↓
-            </button>
+            {visible < events.length && (
+                <button
+                    onClick={showMoreEvents}
+                    class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                >
+                    VER MAS EVENTOS ↓
+                </button>
+            )}
         </div>
     );
 };
