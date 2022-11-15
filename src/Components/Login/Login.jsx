@@ -1,18 +1,21 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
-import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { setModal } from "../../Redux/eventActions.js";
+import "./login.css";
+import * as Yup from "yup";
 
 // import { useDispatch, useSelector } from "react-redux";
 import ReactModal from "react-modal";
 const Login = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
-    const [modal, setModal] = useState(true);
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+    const { modal } = useSelector((state) => state.modal);
+    // const [modal, setModal] = useState(true);
+
     const handleSetModal = () => {
-        setModal(!modal);
+        dispatch(setModal());
     };
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
@@ -53,100 +56,133 @@ const Login = () => {
         });
     };
 
-    const handleSignOut = () => {
-        const google = window.google;
-        google.accounts.id.disableAutoSelect();
+    // const handleSignOut = () => {
+    //     const google = window.google;
+    //     google.accounts.id.disableAutoSelect();
 
-        google.accounts.id.revoke(localStorage.getItem("email"), (done) => {
-            localStorage.removeItem("email");
-            window.location.reload();
-        });
-    };
+    //     google.accounts.id.revoke(localStorage.getItem("email"), (done) => {
+    //         localStorage.removeItem("email");
+    //         window.location.reload();
+    //     });
+    // };
 
     return (
-        <ReactModal isOpen={modal} ariaHideApp={false}>
-            <form
-                onSubmit={handleSubmit}
-                className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-10 rounded mx-auto"
+        <ReactModal
+            isOpen={modal}
+            ariaHideApp={false}
+            onRequestClose={handleSetModal}
+            className="modal"
+        >
+            <Formik
+                initialValues={{
+                    email: "",
+                    password: "",
+                }}
+                onSubmit={(values, { setSubmitting }) => {
+                    // dispatch(submitUserForm(values));
+                    setSubmitting(false);
+                }}
+                validationSchema={Yup.object({
+                    email: Yup.string()
+                        .email("Direccion de mail invalida")
+                        .required("Direccion de mail requerida. *"),
+                    password: Yup.string()
+                        .min(
+                            6,
+                            "La contraseña debe contener al menos 6 caracteres"
+                        )
+                        .required("Contraseña requerida. *"),
+                })}
             >
-                <button type="button" onClick={handleSetModal}>
-                    x
-                </button>
+                {({ isSubmitting, errors }) => (
+                    <Form className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
+                        <button type="button" onClick={handleSetModal}>
+                            x
+                        </button>
+                        <label
+                            htmlFor="user"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >
+                            Email
+                        </label>
+                        <div className="w-full px-3">
+                            <Field
+                                type="text"
+                                name="email"
+                                placeholder="usuario *"
+                                className={
+                                    errors.email
+                                        ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                        : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                }
+                            />
+                            <ErrorMessage name="email">
+                                {(msg) => (
+                                    <div className="text-customRed italic pl-1 text-xs font-semibold">
+                                        {msg}
+                                    </div>
+                                )}
+                            </ErrorMessage>
+                        </div>
+                        <label
+                            htmlFor="password"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >
+                            Contraseña
+                        </label>
+                        <div className="w-full px-3">
+                            <Field
+                                type="text"
+                                name="password"
+                                placeholder="contraseña *"
+                                className={
+                                    errors.password
+                                        ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                        : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                }
+                            />
+                            <ErrorMessage name="password">
+                                {(msg) => (
+                                    <div className="text-customRed italic pl-1 text-xs font-semibold">
+                                        {msg}
+                                    </div>
+                                )}
+                            </ErrorMessage>
+                        </div>
+                        <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
+                            <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
+                                Olvidaste tu contraseña?
+                            </span>
+                        </div>
+                        <button
+                            type="submit"
+                            className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                            disabled={isSubmitting}
+                        >
+                            Iniciar Sesión
+                        </button>
+                        <div className="flex flex-wrap justify-between w-full px-3">
+                            <div>
+                                <span className="gap-2 font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer">
+                                    Aun no estas registrado?
+                                </span>
+                            </div>
+                            <div
+                                onClick={handleSignIN}
+                                className="flex flex-wrap gap-2 font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer"
+                            >
+                                <span>Iniciar sesion con Google</span>
 
-                <label
-                    htmlFor="user"
-                    className="block tracking-wide text-white text-s font-bold mb-2"
-                >
-                    Nombre de usuario
-                </label>
-                <div className="w-full px-3">
-                    <input
-                        type="text"
-                        name="user"
-                        placeholder="usuario *"
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    />
-                </div>
-                <label
-                    htmlFor="password"
-                    className="block tracking-wide text-white text-s font-bold mb-2"
-                >
-                    Contraseña
-                </label>
-                <div className="w-full px-3">
-                    <input
-                        type="text"
-                        name="password"
-                        placeholder="contraseña *"
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    />
-                </div>
-                <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
-                    <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
-                        Olvidaste tu contraseña?
-                    </span>
-                </div>
-                <button
-                    type="submit"
-                    className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
-                >
-                    Iniciar Sesión
-                </button>
-                <div className="flex flex-wrap justify-between w-full px-3">
-                    <div>
-                        <span className="gap-2 font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer">
-                            Aun no estas registrado?
-                        </span>
-                    </div>
-                    <div
-                        onClick={handleSignIN}
-                        className="flex flex-wrap gap-2 font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer"
-                    >
-                        <span>Iniciar sesion con Google</span>
-
-                        <FcGoogle size={"1.5em"} />
-                    </div>
-                </div>
-
-                <div
-                    id="g_id_onload"
-                    data-client_id="683964699898-crca6epeuihk7scmvh5in9fm6k9dlk17.apps.googleusercontent.com"
-                    data-auto_prompt="false"
-                ></div>
-                <div
-                    className="g_id_signin"
-                    data-type="standard"
-                    data-size="large"
-                    data-theme="outline"
-                    data-text="sign_in_with"
-                    data-shape="rectangular"
-                    data-logo_alignment="left"
-                ></div>
-
+                                <FcGoogle size={"1.5em"} />
+                            </div>
+                        </div>
+                        {/*         
                 <button id="google_signout" onClick={handleSignOut}>
                     Signout
-                </button>
-            </form>
+                </button> */}
+                    </Form>
+                )}
+            </Formik>
         </ReactModal>
     );
 };

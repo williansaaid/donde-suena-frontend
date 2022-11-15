@@ -16,14 +16,20 @@ function App() {
         <BrowserRouter>
             <div className="App">
                 <Navbar />
+                <Login />
                 <Routes>
-                    <Route exact path="/login" element={<Login />} />
+                    {/* <Route exact path="/login" element={<Login />} /> */}
                     <Route
                         exact
                         path={"/register/artist"}
                         element={<ArtistForm />}
                     />
-                    <Route exact path={"/login/user"} element={<UserForm />} />
+
+                    <Route
+                        exact
+                        path={"/register/user"}
+                        element={<UserForm />}
+                    />
                     <Route
                         exact
                         path={"/create/event"}
