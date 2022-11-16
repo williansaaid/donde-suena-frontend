@@ -23,8 +23,8 @@ function FilterBar() {
         );
     }
     return (
-        <nav class="text-white flex font-bold justify-between items-center h-full">
-            <ul class="flex justify-around w-3/12 ml-10">
+        <nav class="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
+            <ul class="flex justify-around w-3/12 ml-10 mb-20">
                 <li class="flex items-center gap-x-1.5">
                     <img
                         class="max-h-5"
@@ -52,7 +52,7 @@ function FilterBar() {
                 </li>
                 <li class="flex items-center gap-x-1.5">
                     <img
-                        class="max-h-5"
+                        className="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
                         alt="genresIcon"
                         height="20px"
@@ -62,7 +62,7 @@ function FilterBar() {
                 </li>
             </ul>
 
-            <ul class="flex justify-around w-3/12 mr-10">
+            <ul class="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
                 <li>
                     <h1
                         className="cursor-pointer"
