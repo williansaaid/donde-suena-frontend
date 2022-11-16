@@ -18,7 +18,7 @@ const Home = () => {
                     <h1>PRÓXIMOS EVENTOS</h1>
                 </div>
             </div>
-            <div class="place-items-center">
+            <div class="flex items-center justify-center">
                 <Events />
             </div>
         </div>
