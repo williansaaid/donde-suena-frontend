@@ -9,6 +9,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
+import PostVar from "./Components/PostVar/PostVar"
 
 // import { LoginGoogle } from "./Components/Login/Login2";
 function App() {
@@ -38,6 +39,7 @@ function App() {
 
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/details/:id"} element={<EventDetail />} />
+                    <Route path={"/postVar"} element={<PostVar />} />
                 </Routes>
                 <Footer />
             </div>
