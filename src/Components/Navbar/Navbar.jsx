@@ -18,7 +18,7 @@ function Navbar() {
                     <div className="container mx-auto flex justify-between items-center">
                         <img
                             onClick={() => navigate("/")}
-                            class="h-20 cursor-pointer"
+                            class="h-20 cursor-pointer animate-pulse"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
