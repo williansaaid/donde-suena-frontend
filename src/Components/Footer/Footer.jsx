@@ -3,6 +3,8 @@ import "./footer.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+    const navigate = useNavigate();
+
     return (
     <footer class="p-4 bg-customgray shadow md:flex md:items-center md:justify-between md:p-6 bg-customGray">
         <img
