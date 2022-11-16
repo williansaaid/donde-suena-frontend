@@ -43,7 +43,6 @@ export const basicSchema = yup.object().shape({
         .string()
         .oneOf([yup.ref("password"), null], "(No coinciden)")
         .required("*"),
-    genres: yup.string().required("*"),
     description: yup
         .string()
         .max(200, "(No puede contener más de 200 caracteres)")

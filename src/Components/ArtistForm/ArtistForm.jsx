@@ -57,6 +57,7 @@ const ArtistForm = () => {
             dispatch(submitArtistForm(formValues));
             setSuccess(false);
             actions.resetForm();
+            setGenresSelect([]);
             setTimeout(navegar, 5000);
         } catch (error) {
             console.log(error);
@@ -99,7 +100,6 @@ const ArtistForm = () => {
                 email: "",
                 password: "",
                 password2: "",
-                genres: "",
                 description: "",
                 instagram: "",
                 twitter: "",
