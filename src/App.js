@@ -15,7 +15,7 @@ import UserFavorites from "./Components/UserFavorites/UserFavorites";
 function App() {
     return (
         <BrowserRouter>
-            <div className="App w-full h-full bg-customGray">
+            <div className="App w-full h-full">
                 <Navbar />
                 <Login />
                 <Routes>
