@@ -15,6 +15,7 @@ const EventCreation = () => {
     const [ success, setSuccess ] = useState(false);
     const [ defaultGenre, setDefaultGenre ] = useState("");
     const [ genresSelect, setGenresSelect ] = useState([]);
+    const [ genreEmpty, setGenreEmpty ] = useState(true);
     const { places } = useSelector((state) => state.places);
     const { genres } = useSelector((state) => state.genres);
 
@@ -22,6 +23,9 @@ const EventCreation = () => {
         dispatch(getPlaces());
         dispatch(getGenres());
     }, []);
+    useEffect(() => {
+        genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);
+    }, [genresSelect]);
 
     const onSubmit = (values, actions) => {
         const formValues = {
@@ -396,7 +400,7 @@ const EventCreation = () => {
                 </div>
                 <div>
                     <button type="submit"
-                        disabled={!success}
+                        disabled={!success || genreEmpty}
                         className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-4 disabled:opacity-5"
                     >
                         Crear Evento
