@@ -43,7 +43,7 @@ export const Events = ()=> {
                                                     {el.name}
                                                 </a>
                                             </div>
-
+                                            
                                             <span className="text-sm text-gray-500 dark:text-white-300">
                                                 📅Fecha :{el.date}
                                             </span>
