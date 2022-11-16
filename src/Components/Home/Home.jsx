@@ -2,6 +2,7 @@ import React from "react";
 import CarouselCustom from "../Carousel/Carousel_custom";
 import { Events } from "../EventCard/EventCard";
 import FilterBar from "../Filters/Filters";
+import {ArtistFeed} from "../ArtistFeed/ArtistFeed"
 
 const Home = () => {
     return (
@@ -20,6 +21,7 @@ const Home = () => {
             <div class="place-items-center">
                 <Events />
             </div>
+      <ArtistFeed/>
         </div>
     );
 };
