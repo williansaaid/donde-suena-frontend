@@ -6,6 +6,7 @@ import {
     logUser,
     googleRegister,
     changeModal,
+    filteredEvents,
     getEventsByName,
 } from "./eventSlice";
 
@@ -24,7 +25,9 @@ export const submitUserForm = (values) => (dispatch) => {
     axios
         .post("http://localhost:3001/auth/registerUser", values)
         .then((res) => {
+            console.log(res);
             dispatch(logUser(res));
+            alert("Usuario Creado Exitosamente");
         })
         .catch((e) => console.log(e));
 };
@@ -51,21 +54,34 @@ export const submitArtistForm = (values) => (dispatch) => {
 
 export const submitEventForm = (values) => (dispatch) => {
     axios
-        .post("http://localhost:3001/auth/createEvent", values)
+        .post("http://localhost:3001/event/createEvent", values)
         .then((res) => {
             console.log(res);
             dispatch(res);
             alert("Evento Creado Exitosamente");
         })
         .catch((e) => {
+            console.log(e);
             e.response.data ? alert(e.response.data.msg) : console.log(e);
         });
 };
 export const getEventByName = (name) => (dispatch) => {
-	axios(`http://localhost:3001/event/getEvents?filter[name]=${name}`)
-		.then((res) => dispatch(getEventsByName(res.data.events)))
-		.catch((e) => console.log(e));
+    axios(`http://localhost:3001/event/getEvents?filter[name]=${name}`)
+        .then((res) => dispatch(getEventsByName(res.data.events)))
+        .catch((e) => console.log(e));
 };
 export const setModal = () => (dispatch) => {
     dispatch(changeModal());
+};
+
+export const setFilter = (payload) => (dispatch) => {
+    axios
+        .get("http://localhost:3001/event/getEvents" + payload)
+        .then((res) => {
+            console.log(res);
+            dispatch(filteredEvents(res.data.events));
+        })
+        .catch((e) => {
+            e.response.data ? alert(e.response.data.msg) : console.log(e);
+        });
 };

@@ -3,9 +3,14 @@ import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { submitUserForm } from "../../Redux/eventActions";
 import { validationSchema } from "../../schemas/userRegister";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UserForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    function navegar() {
+        navigate("/");
+    }
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
             <Formik
@@ -23,10 +28,11 @@ const UserForm = () => {
                 onSubmit={(values, { setSubmitting }) => {
                     dispatch(submitUserForm(values));
                     setSubmitting(false);
+                    setTimeout(navegar, 5000);
                 }}
                 validationSchema={validationSchema}
             >
-                {({ isSubmitting, errors }) => (
+                {({ isSubmitting, errors, touched }) => (
                     <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
                         <div className="flex flex-wrap w-full">
                             <div className="w-full md:w-1/2 px-3">

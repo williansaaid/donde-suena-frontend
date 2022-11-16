@@ -10,12 +10,13 @@ import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
 import PostVar from "./Components/PostVar/PostVar"
+import UserFavorites from "./Components/UserFavorites/UserFavorites";
 
 // import { LoginGoogle } from "./Components/Login/Login2";
 function App() {
     return (
         <BrowserRouter>
-            <div className="App">
+            <div className="App w-full h-full">
                 <Navbar />
                 <Login />
                 <Routes>
@@ -40,6 +41,7 @@ function App() {
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/postVar"} element={<PostVar />} />
+                    <Route path="/favs" element={<UserFavorites />}/>
                 </Routes>
                 <Footer />
             </div>

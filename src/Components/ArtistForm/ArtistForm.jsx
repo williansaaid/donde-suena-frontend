@@ -1,39 +1,49 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas/artistRegister";
 import { submitArtistForm } from "../../Redux/eventActions";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
-const genres = [
-    "Clásica",
-    "Blues",
-    "Jazz",
-    "Soul",
-    "R&B",
-    "Rock",
-    "Folk",
-    "Metal",
-    "Disco",
-    "Pop",
-    "Hip-Hop",
-    "Funk",
-    "House",
-    "Techno",
-    "Salsa",
-    "Bachata",
-    "Cumbia",
-    "Reggae",
-    "Bossa Nova",
-    "Merengue",
-    "Urbano",
-];
+// const genres = [
+//     "Clásica",
+//     "Blues",
+//     "Jazz",
+//     "Soul",
+//     "R&B",
+//     "Rock",
+//     "Folk",
+//     "Metal",
+//     "Disco",
+//     "Pop",
+//     "Hip-Hop",
+//     "Funk",
+//     "House",
+//     "Techno",
+//     "Salsa",
+//     "Bachata",
+//     "Cumbia",
+//     "Reggae",
+//     "Bossa Nova",
+//     "Merengue",
+//     "Urbano",
+// ];
 
 const ArtistForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState("");
     const [success, setSuccess] = useState(false);
+    function navegar() {
+        navigate("/");
+    }
+const { genres } = useSelector((state) => state.genres);
+    useEffect(() => {
+        dispatch(getGenres());
+    }, []);
 
     const onSubmit = (values, actions) => {
         const formValues = {
@@ -42,7 +52,9 @@ const ArtistForm = () => {
         };
         try {
             dispatch(submitArtistForm(formValues));
+            setSuccess(false);
             actions.resetForm();
+            setTimeout(navegar, 5000);
         } catch (error) {
             console.log(error);
         }
@@ -283,7 +295,7 @@ const ArtistForm = () => {
                         className="block tracking-wide text-white text-s font-bold mb-2"
                     >
                         Género
-                        {errors.genres && touched.genres ? (
+                        {errors.genres ? (
                             <span className="text-customRed italic pl-1 text-xs font-semibold mb-2">
                                 {errors.genres}
                             </span>
@@ -293,10 +305,7 @@ const ArtistForm = () => {
                         name="genres"
                         value={values.genres}
                         onChange={handleChange}
-                        className={
-                            errors.genres && touched.genres
-                                ? "rounded pr-8 py-2 focus:outline-none bg-red-100 focus:bg-red-100"
-                                : "rounded pr-8 py-2 focus:outline-none bg-gray-200 focus:bg-white"
+                        className={"rounded pr-8 py-2 w-36 pl-4 focus:outline-none bg-gray-200 focus:bg-white"
                         }
                     >
                         <option value="" disabled>
@@ -304,8 +313,8 @@ const ArtistForm = () => {
                         </option>
                         {genres.map((genre, key) => {
                             return (
-                                <option key={key} value={genre}>
-                                    {genre}
+                                <option key={key} value={genre.name}>
+                                    {genre.name}
                                 </option>
                             );
                         })}

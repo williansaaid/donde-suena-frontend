@@ -7,7 +7,7 @@ import InputEmoji from 'react-input-emoji'
 
 
 function PostVar() {
-    const artist = useSelector((state) => state.artist);
+    const {artist} = useSelector((state) => state.artist);
 
     const dispatch = useDispatch();
     const [file, setFile] = useState(null);
