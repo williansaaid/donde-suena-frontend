@@ -6,10 +6,7 @@ import "./Carousel.css";
 const CarouselCustom = () => {
     const images = [
         "fly fly.jpg",
-
         "wos.jpg",
-        "eruca flyer.jpg",
-        "artics flyer.jpg",
     ];
     return (
         <Carousel

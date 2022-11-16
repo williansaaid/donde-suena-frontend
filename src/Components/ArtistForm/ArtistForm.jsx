@@ -7,29 +7,29 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
-const genres = [
-    "Clásica",
-    "Blues",
-    "Jazz",
-    "Soul",
-    "R&B",
-    "Rock",
-    "Folk",
-    "Metal",
-    "Disco",
-    "Pop",
-    "Hip-Hop",
-    "Funk",
-    "House",
-    "Techno",
-    "Salsa",
-    "Bachata",
-    "Cumbia",
-    "Reggae",
-    "Bossa Nova",
-    "Merengue",
-    "Urbano",
-];
+// const genres = [
+//     "Clásica",
+//     "Blues",
+//     "Jazz",
+//     "Soul",
+//     "R&B",
+//     "Rock",
+//     "Folk",
+//     "Metal",
+//     "Disco",
+//     "Pop",
+//     "Hip-Hop",
+//     "Funk",
+//     "House",
+//     "Techno",
+//     "Salsa",
+//     "Bachata",
+//     "Cumbia",
+//     "Reggae",
+//     "Bossa Nova",
+//     "Merengue",
+//     "Urbano",
+// ];
 
 const ArtistForm = () => {
     const dispatch = useDispatch();
@@ -40,10 +40,10 @@ const ArtistForm = () => {
     function navegar() {
         navigate("/");
     }
-    // const { genres } = useSelector((state) => state.genres);
-    // useEffect(() => {
-    //     dispatch(getGenres());
-    // }, []);
+const { genres } = useSelector((state) => state.genres);
+    useEffect(() => {
+        dispatch(getGenres());
+    }, []);
 
     const onSubmit = (values, actions) => {
         const formValues = {
@@ -313,8 +313,8 @@ const ArtistForm = () => {
                         </option>
                         {genres.map((genre, key) => {
                             return (
-                                <option key={key} value={genre}>
-                                    {genre}
+                                <option key={key} value={genre.name}>
+                                    {genre.name}
                                 </option>
                             );
                         })}
