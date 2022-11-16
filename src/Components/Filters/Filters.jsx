@@ -1,11 +1,16 @@
 import { addDays, subDays } from "date-fns/esm";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilter, getEvents } from "../../Redux/eventActions";
 import { format } from "date-fns";
+import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
 function FilterBar() {
     const dispatch = useDispatch();
+    const allGenres = useSelector((state) => state?.genres);
+    useEffect(() => {
+        dispatch(getGenres());
+    }, [dispatch]);
 
     function handleFilterDate(by) {
         let eventStart = "";
@@ -21,6 +26,11 @@ function FilterBar() {
         dispatch(
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
         );
+    }
+    function handleFilterByGenre() {
+       const genres = allGenres.genres?.map((g)=>g.name)
+       console.log(genres)
+
     }
     return (
         <nav class="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
@@ -51,44 +61,47 @@ function FilterBar() {
                     <h1>Lugar</h1>
                 </li>
                 <li class="flex items-center gap-x-1.5">
+                    <button  
+                    onClick={() => handleFilterByGenre("genero")}>
                     <img
-                        className="max-h-5"
+                        className="max-h-5 hover:rotate-90 transition duration-500"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
                         alt="genresIcon"
                         height="20px"
                         width="20px"
                     />
+                    </button>
                     <h1>Genero</h1>
                 </li>
             </ul>
 
             <ul class="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
-                <li>
-                    <h1
-                        className="cursor-pointer"
+                <li className="w-full">
+                    <button
+                        className="cursor-pointer hover:bg-gray-400 w-full"
                         onClick={() => handleFilterDate("day")}
                         value={"day"}
                     >
                         24hs
-                    </h1>
+                    </button>
                 </li>
-                <li>
-                    <h1
-                        className="cursor-pointer"
+                <li className="w-full">
+                    <button
+                        className="cursor-pointer hover:bg-gray-400 w-full"
                         onClick={() => handleFilterDate("week")}
                         value={"week"}
                     >
                         7 Dias
-                    </h1>
+                    </button>
                 </li>
-                <li>
-                    <h1
-                        className="cursor-pointer"
+                <li className="w-full">
+                    <button
+                        className="cursor-pointer hover:bg-gray-400 w-full"
                         onClick={() => handleFilterDate("month")}
                         value={"month"}
                     >
                         30 Dias
-                    </h1>
+                    </button>
                 </li>
             </ul>
         </nav>
