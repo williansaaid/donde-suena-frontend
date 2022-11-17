@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/eventActions";
 import { setModal } from "../../Redux/eventActions";
 import { Link } from "react-router-dom";
-
+import useGoogleAddress from "../../hooks/useGoogleAddress";
+import Map from "../Map/Map";
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detail);
+    const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -37,13 +39,15 @@ const EventDetail = (props) => {
                             </div>
                         </div>
                     </div>
-                    <img
+                    <Map data={location}></Map>
+
+                    {/* <img
                         alt="event"
                         class="rounded-lg border-gray-200 px-8 border-transparent"
                         src="https://parabuenosaires.com/wp-content/uploads/2017/03/google-maps-bs-as.jpg"
                         height="100px"
                         width="700px"
-                    />
+                    /> */}
                 </div>
                 <div class=" lg:w-1/3 lg:px-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
                     <h2 class="font-bold text-xl text-center my-5">
