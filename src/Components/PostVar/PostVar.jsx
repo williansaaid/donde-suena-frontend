@@ -7,14 +7,12 @@ import InputEmoji from 'react-input-emoji'
 
 
 function PostVar() {
-    const artist = useSelector((state) => state.artists);
 
     const dispatch = useDispatch();
     const [file, setFile] = useState(null);
     const CLOUD_NAME = "CLOUD_NAME";
     const UPLOAD_PRESET = "UPLOAD_PRESET";
     const [submit, setSubmit] = useState(false);
-
     const [ text, setText ] = useState('')
 
     function handleOnEnter (text) {
@@ -45,12 +43,6 @@ function PostVar() {
             [e.target.name]: e.target.value,
         });
     }
-    function handleSelectArtis(e) {
-        setInput({
-            ...input,
-            artist: [...new Set([...input.genres, e.target.value])],
-        });
-    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -68,66 +60,45 @@ function PostVar() {
         dispatch(getArtists());
     }, [dispatch]);
 
+    console.log(input);
     return (
-        <form className= "flex items-center justify-center mt-20">
-        <div className=" w-full max-w-2xl bg-customGray p-4  flex items-center justify-center gap-2 my-8 rounded-2xl flex-col ifont-source-sans">
-            <input
-                class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300"
-                id="input"
-                type="text"
-                value={input.title}
-                name="title"
-                onChange={handleChange}
-                placeholder="Titulo"
-            />
-                <InputEmoji
-            value={text}
-            onChange={setText}
-            cleanOnEnter
-            onEnter={handleOnEnter}
-            placeholder="Que vas a compartir hoy con tu publico?"
-        />
-        {/* <div>
-        <select onChange={(el) => handleSelectArtis(el)}>
-          <option disabled selected>
-            Select Artist
-          </option>
-          {artist?.map((e) => (
-            <option value={e.name} key={e.id}>
-              {e.name}
-            </option>
-          ))}
-        </select>
-
-        <ul>
-          {input.artist.map((e) => (
-            <li>
-              <div>{e + ""}</div>
-
-            </li>
-          ))}
-        </ul>
-      </div> */}
-
-            <input
-                class="block text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-customGray"
-                id="file_input"
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-            ></input>
-
-            {file ? (
-                <figure class="max-w-lg">
-                    <img
-                        class="max-w-full h-auto rounded-lg"
-                        alt="Preview"
-                        height="30"
-                        src={URL.createObjectURL(file)}
+        <form className= "flex items-center justify-center mt-20" onSubmit={handleSubmit}>
+            <div className=" w-full max-w-2xl bg-customGray p-4  flex items-center justify-center gap-2 my-8 rounded-2xl flex-col ifont-source-sans">
+                <input
+                    class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300"
+                    id="input"
+                    type="text"
+                    value={input.title}
+                    name="title"
+                    onChange={handleChange}
+                    placeholder="Titulo"
+                />
+                    <InputEmoji
+                        value={input.text}
+                        onChange={setText}
+                        cleanOnEnter
+                        onEnter={handleOnEnter}
+                        placeholder="Que vas a compartir hoy con tu publico?"
                     />
-                </figure>
-            ) : null}
-            <button class="inline-block px-6 py-2.5 bg-red-600 text-customGray font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:bg-white focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" onClick={upload}>Upload</button>
-            <button class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="submit">Publicar</button>
+                <input
+                    class="block text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-customGray"
+                    id="file_input"
+                    type="file"
+                    accept="image/jpg, image/png, image/jpeg"
+                    onChange={(e) => setFile(e.target.files[0])}
+                />
+                {file ? (
+                    <figure class="max-w-lg">
+                        <img
+                            class="max-w-full h-auto rounded-lg"
+                            alt="Preview"
+                            height="30"
+                            src={URL.createObjectURL(file)}
+                        />
+                    </figure>
+                ) : null}
+            <button class="inline-block px-6 py-2.5 bg-red-600 text-customGray font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" onClick={upload} type="button">Upload</button>
+            <button class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="submit">Publicar</button>
         </div>
 
         </form>

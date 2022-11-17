@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getEventsById } from "../../Redux//Slices/Event/eventActions";
+import { getEventsById } from "../../Redux/Slices/Event/eventActions";
 import { setModal } from "../../Redux/Slices/User/userAction";
 import { Link } from "react-router-dom";
-
+import useGoogleAddress from "../../hooks/useGoogleAddress";
+import Map from "../Map/Map";
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detail);
+    // const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -31,12 +33,14 @@ const EventDetail = (props) => {
                                 <h2 class="absolute bottom-10  ml-15 text-sm title-font text-white tracking-widest">
                                     {detail.date}
                                 </h2>
-                                <h1 class="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium mb-1">
+                                <h1 class="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium">
                                     {detail.name}
                                 </h1>
                             </div>
                         </div>
                     </div>
+                    {/* <Map data={location}></Map> */}
+
                     <img
                         alt="event"
                         class="rounded-lg border-gray-200 px-8 border-transparent"
@@ -100,7 +104,7 @@ const EventDetail = (props) => {
                         </div>
                         <button
                             onClick={handleSetModal}
-                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 border-0 rounded"
+                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
                         >
                             Comprar
                         </button>
@@ -140,7 +144,7 @@ const EventDetail = (props) => {
                     <div class="flex mx-20 mt-20 mr-20 justify-center">
                         <Link to="/">
                             <button class=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
-                                regresar
+                                Regresar
                             </button>
                         </Link>
                     </div>
