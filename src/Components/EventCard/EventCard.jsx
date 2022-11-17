@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getEvents } from "../../Redux/eventActions";
+import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useSelector } from "react-redux";
 
 export const Events = () => {
