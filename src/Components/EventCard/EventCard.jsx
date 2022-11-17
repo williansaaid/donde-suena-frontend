@@ -7,23 +7,23 @@ export const Events = () => {
     const dispatch = useDispatch();
     const { events } = useSelector((state) => state.events);
     const { items, setItems } = useState([]);
-    const [visible, setVisible] = useState(3);
+    const [visible, setVisible] = useState(4);
     useEffect(() => {
         dispatch(getEvents());
     }, []);
     const showMoreEvents = () => {
-        setVisible((prevValue) => prevValue + 3);
+        setVisible((prevValue) => prevValue + 4);
     };
 
     return (
-        <div class="flex flex-col items-center  divide-y-2">
-            <div class="flex space-x-20 flex flex-wrap ">
+        <div class="flex flex-col items-center w-3/4 mb-20">
+            <div class="w-full flex justify-around items-center flex-wrap gap-8 py-8">
                 {events &&
                     events.slice(0, visible).map((el, id) => {
                         return (
                             <div
                                 key={id}
-                                className="relative mx-20 h-[25rem] sm:h-50 w-[20rem] rounded-lg"
+                                className="relative sm:h-50 w-80 rounded-lg"
                             >
                                 <div>
                                     <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
@@ -37,21 +37,21 @@ export const Events = () => {
                                             <div className="justify-items-center justify-end text-left">
                                                 <a
                                                     href={`/details/${el.id}`}
-                                                    className="text-xl font-semibold text-white hover:underline dark:text-white"
+                                                    className="text-xl font-semibold text-gray-800 hover:underline dark:text-white"
                                                 >
                                                     {el.name}
                                                 </a>
                                             </div>
 
-                                            <span className="text-sm text-gray-500 dark:text-white-300">
-                                                📅Fecha :{el.date}
+                                            <span className="text-sm text-gray-500 dark:text-gray-300">
+                                                📅 Fecha :{el.date}
                                             </span>
                                             <span className="text-sm text-gray-500 dark:text-gray-300">
-                                                ⏰Inicia {el.start} - Finaliza{" "}
+                                                ⏰ Inicia {el.start} - Finaliza{" "}
                                                 {el.end}
                                             </span>
                                             <span className="text-sm text-gray-500 dark:text-gray-300">
-                                                💵Compra por {el.price}
+                                                💵 Compra por {el.price}
                                             </span>
                                         </div>
                                     </div>
@@ -60,14 +60,12 @@ export const Events = () => {
                         );
                     })}
             </div>
-            {visible < events.length && (
-                <button
-                    onClick={showMoreEvents}
-                    class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-                >
-                    VER MAS EVENTOS ↓
-                </button>
-            )}
+            <button
+                onClick={showMoreEvents}
+                class="bg-transparent hover:bg-customRed text-customRed font-semibold hover:text-white py-2 px-4 border-2 border-customRed hover:border-transparent rounded-xl transition duration-500"
+            >
+                VER MAS EVENTOS ↓
+            </button>
         </div>
     );
 };
