@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas/artistRegister";
-import { submitArtistForm } from "../../Redux/eventActions";
+import { submitArtistForm } from "../../Redux/Slices/Artist/artistActions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
