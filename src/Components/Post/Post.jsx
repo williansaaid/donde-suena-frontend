@@ -1,5 +1,7 @@
 import React  from "react";
-import LikeButton  from "../LikeButton/LikeButton";
+import LikeButton from "../LikeButton/LikeButton";
+
+
 export const Post =({ name , description ,message ,photoUrl}) =>{
   return (
  <div className="post" class="bg-slate-400 p-15 mb-10 rounded-lg">
@@ -14,7 +16,7 @@ export const Post =({ name , description ,message ,photoUrl}) =>{
   </div>
 
   <div className="post-Button">
-<LikeButton/>
+<LikeButton class="items-center"/>
   </div>
  </div>
 

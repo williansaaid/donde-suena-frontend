@@ -50,7 +50,7 @@ export const Events = () => {
                                                 ⏰ Inicia {el.start} - Finaliza{" "}
                                                 {el.end}
                                             </span>
-                                            <a href="#" ><button type="button" class="inline-block px-1 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase  shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out mr-20" button>💵Compra por {el.price}</button></a>
+                                            <a href="#" ><button type="button" class="bg-transparent hover:bg-lime-400 text-slate-50 White font-semibold hover:text-white py- px- border-2 border-lime-400 hover:border-transparent rounded-xl transition duration-500" button>💵Compra por {el.price}</button></a>
                                         
                                         </div>
                                     </div>

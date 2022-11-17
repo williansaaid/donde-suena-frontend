@@ -22,7 +22,7 @@ const Home = () => {
             <div class="flex items-center justify-center">
                 <Events />
             </div>
-      <ArtistFeed/>
+    
         </div>
     );
 };
