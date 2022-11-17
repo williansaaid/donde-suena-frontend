@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
-import { submitEventForm } from "../../Redux/eventActions";
-import { getPlaces } from "../../Redux/Slices/Places/placesAction";
+import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
+import { getPlaces } from "../../Redux/Slices/Places/placesAction"
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 import { useSelector } from "react-redux";
 import axios from "axios";

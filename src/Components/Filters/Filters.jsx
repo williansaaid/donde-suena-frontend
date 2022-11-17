@@ -1,7 +1,7 @@
 import { addDays, subDays } from "date-fns/esm";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter, getEvents } from "../../Redux/eventActions";
+import { setFilter, getEvents } from "../../Redux/Slices/Event/eventActions";
 import { format } from "date-fns";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
@@ -61,7 +61,7 @@ function FilterBar() {
                     <h1>Lugar</h1>
                 </li>
                 <li class="flex items-center gap-x-1.5">
-                    <button  
+                    <button
                     onClick={() => handleFilterByGenre("genero")}>
                     <img
                         className="max-h-5 hover:rotate-90 transition duration-500"

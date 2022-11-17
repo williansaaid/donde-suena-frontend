@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { setModal } from "../../Redux/eventActions.js";
+import { setModal } from "../../Redux/Slices/User/userAction";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import * as Yup from "yup";
@@ -207,7 +207,7 @@ const Login = () => {
                             </div>
                         )}
 
-                        {/*         
+                        {/*
                 <button id="google_signout" onClick={handleSignOut}>
                     Signout
                 </button> */}

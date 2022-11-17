@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getEventByName } from "../../Redux/eventActions";
+import { getEventByName } from "../../Redux/Slices/Event/eventActions";
 
 function SearchBar() {
     const dispatch = useDispatch();
@@ -17,8 +17,8 @@ function SearchBar() {
             setName("");
         }
 
-        
-      
+
+
     }
     function handleSearchButton(e) {
       e.preventDefault();
@@ -26,8 +26,8 @@ function SearchBar() {
           dispatch(getEventByName(name));
           setName("");
       // }
-    
-     
+
+
   }
 
 

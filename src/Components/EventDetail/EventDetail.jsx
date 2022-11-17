@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getEventsById } from "../../Redux/eventActions";
-import { setModal } from "../../Redux/eventActions";
+import { getEventsById } from "../../Redux//Slices/Event/eventActions";
+import { setModal } from "../../Redux/Slices/User/userAction";
 import { Link } from "react-router-dom";
 
 const EventDetail = (props) => {

@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setModal } from "../../Redux/eventActions";
+import { setModal } from "../../Redux/Slices/User/userAction";
 function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();

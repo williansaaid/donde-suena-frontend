@@ -3,17 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 export const artistSlice = createSlice({
     name: "artist",
     initialState: {
-        artist: [],
-       
+        artists: [],
     },
     reducers: {
-
         getAllArtists: (state, action) => {
-            state.events = action.payload;
+            state.artists = action.payload;
         },
     }
 })
 export const {
     getAllArtists
-} = artistSlice.actions; //en .actions guardo las funciones
+} = artistSlice.actions;
 export default artistSlice.reducer;
