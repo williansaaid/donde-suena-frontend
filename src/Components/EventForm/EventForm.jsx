@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
 import { getPlaces } from "../../Redux/Slices/Places/placesAction"
+import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -12,21 +13,32 @@ const EventCreation = () => {
     const [ image, setImage ] = useState("");
     const [ loading, setLoading ] = useState("");
     const [ success, setSuccess ] = useState(false);
+    const [ defaultGenre, setDefaultGenre ] = useState("");
+    const [ genresSelect, setGenresSelect ] = useState([]);
+    const [ genreEmpty, setGenreEmpty ] = useState(true);
     const { places } = useSelector((state) => state.places);
+    const { genres } = useSelector((state) => state.genres);
+
     useEffect(() => {
         dispatch(getPlaces());
+        dispatch(getGenres());
     }, []);
+    useEffect(() => {
+        genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);
+    }, [genresSelect]);
 
     const onSubmit = (values, actions) => {
         const formValues = {
             ...values,
-            image: image
+            image: image,
+            genres: genresSelect
         };
         console.log(formValues);
         try {
             dispatch(submitEventForm(formValues));
             setSuccess(false);
             actions.resetForm();
+            setGenresSelect([]);
         } catch (error) {
             console.log(error);
         }
@@ -41,6 +53,19 @@ const EventCreation = () => {
         res.data.secure_url ? setSuccess(true) : setSuccess(false);
         setImage(res.data.secure_url);
         setLoading(false);
+    }
+    function handleGenres(event){
+        if (genresSelect.includes(event.target.value)){
+            alert("Ese género ya está enlistado");
+        } else {
+            if(genresSelect.length > 2) alert("La máxima cantidad de géneros posibles es 3");
+            else {
+                setGenresSelect([ ...genresSelect, event.target.value]);
+            };
+        };
+    };
+    function handleClearGenre(element){
+        setGenresSelect(genresSelect.filter(genre => genre !== element))
     }
 
     const { values,
@@ -192,6 +217,43 @@ const EventCreation = () => {
                 </div>
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label htmlFor="genres"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >
+                            Géneros
+                        </label>
+                        <select
+                            name="genres"
+                            value={genresSelect.length ? genresSelect[genresSelect.length - 1] : defaultGenre}
+                            onChange={handleGenres}
+                            className="rounded py-2 pl-3 w-full focus:outline-none bg-gray-200 focus:bg-white"
+                        >
+                            <option value="" disabled>
+                                Géneros Disponibles
+                            </option>
+                            {genres.length > 0 && genres.map((genre, key) => {
+                                return (
+                                    <option key={key} value={genre.name}>
+                                        {genre.name}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className="w-full md:w-1/2 px-3 flex flex-col items-center justify-center">
+                        <div className="flex flex-wrap justify-center items-center gap-2">
+                        {genresSelect.map((genre, key) => {
+                            return (
+                            <div key={key} className="border-2 rounded-full flex justify-center items-center p-1 gap-2">
+                                <p className="text-white font-bold italic pl-1">{genre}</p>
+                                <button onClick={() => handleClearGenre(genre)} className="bg-white hover:bg-customRed hover:text-white  text-customGray font-bold rounded-full px-2 transition duration-300" type="button">X</button>
+                            </div>)
+                        })}
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 w-full">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label htmlFor="quotas"
                             className="block tracking-wide text-white text-s font-bold mb-2"
                         >
@@ -338,7 +400,7 @@ const EventCreation = () => {
                 </div>
                 <div>
                     <button type="submit"
-                        disabled={!success}
+                        disabled={!success || genreEmpty}
                         className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-4 disabled:opacity-5"
                     >
                         Crear Evento
