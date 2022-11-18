@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/Slices/Event/eventActions";
 import { Link } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
@@ -10,6 +10,8 @@ import { ticketPurchase } from "../../Redux/Slices/User/userAction";
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
+    const [ searchParams ] = useSearchParams();
+    const [ query, setQuery ] = useState({});
     const { detail } = useSelector((state) => state.detail);
     const [ quantity, setQuantity ] = useState(1);
     const { paymentUrl } = useSelector((state) => state.user);
@@ -23,18 +25,21 @@ const EventDetail = (props) => {
         setOrder(true);
         let detailsPurchase = {
             quantity: parseInt(quantity),
-            priceTotal: detail.price
+            priceTotal: detail.price,
+            id: id
         };
         dispatch(ticketPurchase(detailsPurchase));
     };
     const handleQuantity = (e) => {
         e.preventDefault();
         setQuantity(e.target.value);
-    }
+    };
 
     useEffect(() => {
+        setQuery(Object.fromEntries([...searchParams]))
         setOrder(false);
-    }, [])
+    }, []);
+    console.log(query);
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
