@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/Slices/Event/eventActions";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
 import { ticketPurchase } from "../../Redux/Slices/User/userAction";
 
-const EventDetail = (props) => {
+const EventDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const [ searchParams ] = useSearchParams();
     const [ query, setQuery ] = useState({});
-    const { detail } = useSelector((state) => state.detail);
+    const { detail } = useSelector((state) => state.detailState);
     const [ quantity, setQuantity ] = useState(1);
-    const { paymentUrl } = useSelector((state) => state.user);
+    const { paymentUrl } = useSelector((state) => state.userState);
     const [ order, setOrder ] = useState(false);
-    // const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
+    const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
+    const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -30,6 +32,7 @@ const EventDetail = (props) => {
         };
         dispatch(ticketPurchase(detailsPurchase));
     };
+
     const handleQuantity = (e) => {
         e.preventDefault();
         setQuantity(e.target.value);
@@ -43,40 +46,32 @@ const EventDetail = (props) => {
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
-            <div class="lg:w-3/1 mx-1 flex mt-10">
-                <div class="object-contain rounded-lg  w-150 mt-6 space-y-4 ml-20">
-                    <div class="relative rounded-lg mb-20">
+            <div class="flex mx-10 my-16 gap-8">
+                <div class="w-1/2 flex flex-col gap-4">
+                    <div class="relative rounded-lg overflow-hidden">
                         <img
                             alt="event"
-                            class=" object cover rounded-lg border-gray-200 px-8 border-transparent"
+                            class="object-cover rounded-lg border-gray-200 w-full"
                             src={detail.image}
                         />
-                        <div class="absolute bottom-0 left-8 right-8 px-10 py-12 bg-gray-800 opacity-70">
-                            <div class="mb-6">
-                                <h2 class="absolute bottom-10  ml-15 text-sm title-font text-white tracking-widest">
-                                    {detail.date}
-                                </h2>
-                                <h1 class="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium">
+                        <div class="absolute bottom-0 px-10 py-10 bg-gray-800 w-full max-h-1/8 opacity-80 rounded-lg">
+                            <div className="flex flex-col gap-2">
+                                <p class="text-white text-5xl font-bold">
                                     {detail.name}
-                                </h1>
+                                </p>
+                                <p class="text-medium text-white tracking-widest">
+                                    {detail.date}
+                                </p>
                             </div>
                         </div>
                     </div>
-                    {/* <Map data={location}></Map> */}
-
-                    <img
-                        alt="event"
-                        class="rounded-lg border-gray-200 px-8 border-transparent"
-                        src="https://parabuenosaires.com/wp-content/uploads/2017/03/google-maps-bs-as.jpg"
-                        height="100px"
-                        width="700px"
-                    />
+                    <Map data={location}></Map>
                 </div>
-                <div class=" lg:w-1/3 lg:px-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
-                    <h2 class="font-bold text-xl text-center my-5">
+                <div class="w-1/2 bg-gray-300 rounded-lg p-8 flex flex-col gap-4">
+                    <h1 className="font-bold uppercase text-3xl text-center my-5">
                         Nombre del concierto
-                    </h2>
-                    <p class="leading-relaxed">
+                    </h1>
+                    <p className="leading-relaxed">
                         {detail.description}arcu ac tortor dignissim convallis
                         aenean et tortor at risus viverra adipiscing at in
                         tellus integer feugiat scelerisque varius morbi enim
@@ -91,12 +86,18 @@ const EventDetail = (props) => {
                         pellentesque habitant morbi tristique
                     </p>
                     <p class="leading-relaxed">
-                        {" "}
-                        Hora de Inicio ⏰{detail.start}
+                        <span className="font-bold mr-2">⏰ Hora de Inicio:
+                        </span>
+                        {detail.start}
                     </p>
-                    <p class="leading-relaxed"> Finaliza a las {detail.end}</p>
                     <p class="leading-relaxed">
-                        Valor de entrada 💵 ${detail.price}
+                        <span className="font-bold mr-2">⏰ Hora de Finalización:
+                        </span>
+                        {detail.end}
+                    </p>
+                    <p class="leading-relaxed">
+                        <span className="font-bold mr-2">💵 Valor de entrada:</span>
+                        {detail.price}$
                     </p>
 
                     <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
@@ -104,6 +105,7 @@ const EventDetail = (props) => {
                             <div class="relative"></div>
                         </div>
                     </div>
+
                     <div class="flex space-x-4 items-center... max-h-12">
                         <div class="relative flex justify-center items-center">
                             <select class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10" name={"quantity"} value={quantity} onChange={handleQuantity}>
@@ -132,7 +134,7 @@ const EventDetail = (props) => {
                             onClick={handlePurchase}
                             className="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded items-center"
                         >
-                            <p>Comprar</p>
+                            <p className="font-bold uppercase">Comprar</p>
                         </button>
                         { order ?
                             paymentUrl.length > 0 ?
@@ -190,11 +192,12 @@ const EventDetail = (props) => {
                         <ul class="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
                     </div>
                     <div class="flex mx-20 mt-20 mr-20 justify-center">
-                        <Link to="/">
-                            <button class=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
-                                Regresar
-                            </button>
-                        </Link>
+                        <button
+                            onClick={() => navigate("/")}
+                            class=" text-white bg-customRed border-0 py-3 px-6 focus:outline-none hover:bg-red-500 rounded uppercase font-bold"
+                        >
+                            Regresar
+                        </button>
                     </div>
                 </div>
             </div>

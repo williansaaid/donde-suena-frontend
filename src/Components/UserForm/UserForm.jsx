@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { submitUserForm } from "../../Redux/Slices/User/userAction";
+import { submitUserForm } from "../../Redux/Slices/Session/sessionActions";
 import { validationSchema } from "../../schemas/userRegister";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const UserForm = () => {
     const dispatch = useDispatch();
