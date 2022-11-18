@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { setModal } from "../../Redux/eventActions.js";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
@@ -14,11 +14,12 @@ const Login = () => {
     const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
     const navigate = useNavigate();
-    const { modal } = useSelector((state) => state.modalState);
+    const { loginOpen } = useSelector((state) => state.modalState);
+
     const [loginType, setLoginType] = useState(false);
 
     const handleSetModal = () => {
-        dispatch(setModal());
+        dispatch(setLoginModal());
     };
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
@@ -72,7 +73,7 @@ const Login = () => {
 
     return (
         <ReactModal
-            isOpen={modal}
+            isOpen={loginOpen}
             ariaHideApp={false}
             onRequestClose={handleSetModal}
             className="modal"
@@ -210,7 +211,7 @@ const Login = () => {
                             </div>
                         )}
 
-                        {/*         
+                        {/*
                 <button id="google_signout" onClick={handleSignOut}>
                     Signout
                 </button> */}

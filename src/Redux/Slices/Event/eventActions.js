@@ -3,9 +3,6 @@ import axios from "axios";
 import {
     getAllEvents,
     getAllEventsById,
-    logUser,
-    googleRegister,
-    changeModal,
     filteredEvents,
     getEventsByName,
 } from "./eventSlice";
@@ -38,9 +35,6 @@ export const getEventByName = (name) => (dispatch) => {
     axios(`http://localhost:3001/event/getEvents?filter[name]=${name}`)
         .then((res) => dispatch(getEventsByName(res.data.events)))
         .catch((e) => console.log(e));
-};
-export const setModal = () => (dispatch) => {
-    dispatch(changeModal());
 };
 
 export const setFilter = (payload) => (dispatch) => {

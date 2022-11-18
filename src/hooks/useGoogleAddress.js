@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setMap } from "../Redux/Slices/Map/mapActions";
 const useGoogleAddress = (address) => {
     const api = process.env.REACT_APP_API_MAPS;
-    const [map, setMap] = useState({});
+    const dispatch = useDispatch();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(async () => {
-        try {
-            const response = await axios(
-                `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${api}`
-            );
-            setMap(response.data.results[0]);
-        } catch (err) {
-            console.log(err);
-        }
+    useEffect(() => {
+        dispatch(setMap(address, api));
     }, []);
+
+    const { map } = useSelector((state) => state.mapState);
 
     return map;
 };

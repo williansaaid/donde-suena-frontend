@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setModal } from "../../Redux/eventActions";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { logOut } from "../../Redux/Slices/Session/sessionActions";
 function Navbar() {
     const location = useLocation();
@@ -10,7 +10,7 @@ function Navbar() {
     const navigate = useNavigate();
     const { isLogged } = useSelector((state) => state.userState.user);
     const handleLogin = () => {
-        dispatch(setModal());
+        dispatch(setLoginModal());
     };
     const handleLogout = () => {
         dispatch(logOut());
@@ -23,7 +23,7 @@ function Navbar() {
                     <div className="container mx-auto flex justify-between items-center">
                         <img
                             onClick={() => navigate("/")}
-                            class="h-20 cursor-pointer"
+                            class="h-20 cursor-pointer animate-pulse"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }

@@ -1,40 +1,32 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { postArtist } from "../../Redux/artistActions";
-import { getAllArtists } from "../../Redux/artistSlice";
-// import InputEmoji from 'react-input-emoji'
+import { useDispatch } from "react-redux";
+import { postArtist } from "../../Redux/Slices/Artist/artistActions";
+import axios from "axios";
 
 function PostVar() {
-    const artist = useSelector((state) => state.artist);
-
     const dispatch = useDispatch();
-    const [file, setFile] = useState(null);
-    const CLOUD_NAME = "CLOUD_NAME";
-    const UPLOAD_PRESET = "UPLOAD_PRESET";
-    const [submit, setSubmit] = useState(false);
+    const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const [text, setText] = useState("");
-
-    function handleOnEnter(text) {
-        console.log("enter", text);
-    }
-
-    const upload = async () => {
+    const uploadImage = async (e) => {
+        const files = e.target.files;
         const data = new FormData();
-        data.append("file", file);
-        data.append("upload_preset", CLOUD_NAME);
-        const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${UPLOAD_PRESET}/upload`,
-            { method: "POST", body: data }
+        data.append("file", files[0]);
+        data.append("upload_preset", "Donde-Suena-Posts");
+        setLoading(true);
+        const res = await axios.post(
+            "https://api.cloudinary.com/v1_1/ds41xxspf/image/upload",
+            data
         );
-        const dat = await response.json();
-        console.log(dat); // reemplazar con un mensaje de éxito o la acción deseada
+        res.data.secure_url ? setSuccess(true) : setSuccess(false);
+        setImage(res.data.secure_url);
+        setLoading(false);
     };
 
     const [input, setInput] = useState({
         title: "",
-        image: "",
         description: "",
         artist: "",
     });
@@ -44,101 +36,76 @@ function PostVar() {
             [e.target.name]: e.target.value,
         });
     }
-    function handleSelectArtis(e) {
-        setInput({
-            ...input,
-            artist: [...new Set([...input.genres, e.target.value])],
-        });
-    }
 
     function handleSubmit(e) {
         e.preventDefault();
-        dispatch(postArtist(input));
-        alert("Nuevo post publicado! 🤟");
-        setInput({
-            title: "",
-            artist: "",
-            image: "",
-            description: "",
-        });
+        const postValues = {
+            ...input,
+            image: image,
+            artists: "Simone_Schoen"
+        }
+        if(postValues.image || postValues.title){
+            dispatch(postArtist(postValues));
+            setSuccess(false);
+            setImage("");
+            setInput({
+                title: "",
+                artist: "",
+                description: "",
+            });
+        } else {
+            postValues.image ? alert("La imágen es necesaria") : alert("El título es necesario")
+        }
     }
     useEffect(() => {
-        dispatch(postArtist());
-        dispatch(getAllArtists());
     }, [dispatch]);
 
     return (
-        <form className="flex items-center justify-center mt-20">
-            <div className=" w-full max-w-2xl bg-customGray p-4  flex items-center justify-center gap-2 my-8 rounded-2xl flex-col items-center justify-center font-source-sans">
+        <form className= "flex flex-col items-center justify-center bg-customGray w-3/4 p-8 gap-6 max-w-xl rounded-xl" onSubmit={handleSubmit}>
+                <p className="text-white font-bold text-2xl uppercase text-center">¿Qué vas a compartir hoy?</p>
                 <input
-                    class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300"
-                    id="input"
+                    class="w-full text-customGray bg-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-gray-500 py-2 px-4"
                     type="text"
                     value={input.title}
                     name="title"
                     onChange={handleChange}
-                    placeholder="Titulo"
+                    placeholder="Título"
                 />
-
-                {/* <InputEmoji
-                    value={text}
-                    onChange={setText}
-                    cleanOnEnter
-                    onEnter={handleOnEnter}
-                    placeholder="Que vas a compartir hoy con tu publico?"
-                /> */}
-                {/* <div>
-        <select onChange={(el) => handleSelectArtis(el)}>
-          <option disabled selected>
-            Select Artist
-          </option>
-          {artist?.map((e) => (
-            <option value={e.name} key={e.id}>
-              {e.name}
-            </option>
-          ))}
-        </select>
-       
-        <ul>
-          {input.artist.map((e) => (
-            <li>
-              <div>{e + ""}</div>
-           
-            </li>
-          ))}
-        </ul>
-      </div> */}
-
-                <input
-                    class="block text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-customGray"
-                    id="file_input"
-                    type="file"
-                    onChange={(e) => setFile(e.target.files[0])}
-                ></input>
-
-                {file ? (
-                    <figure class="max-w-lg">
-                        <img
-                            class="max-w-full h-auto rounded-lg"
-                            alt="Preview"
-                            height="30"
-                            src={URL.createObjectURL(file)}
-                        />
-                    </figure>
-                ) : null}
-                <button
-                    class="inline-block px-6 py-2.5 bg-red-600 text-customGray font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:bg-white focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                    onClick={upload}
-                >
-                    Upload
-                </button>
-                <button
-                    class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                    type="submit"
-                >
-                    Publicar
-                </button>
-            </div>
+                <textarea
+                        type="textarea"
+                        rows="2"
+                        name="description"
+                        placeholder={`Más sobre ${input.title}...`}
+                        value={input.description}
+                        onChange={handleChange}
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-xl py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 scroll-y"
+                />
+                <div className="w-full border-2 flex flex-col justify-center items-center rounded-xl p-4 gap-4">
+                    <label htmlFor="image"
+                        className="text-white bg-customRed rounded-xl px-6 font-bold italic"
+                    >Imágen</label>
+                    <input
+                        id="image"
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400 cursor-pointer"
+                        type="file"
+                        accept="image/jpg, image/png, image/jpeg"
+                        onChange={uploadImage}
+                    />
+                    {loading ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    (Subiendo Imágen...)
+                                </span>
+                            ) : success ? (
+                                <div class="w-96 h-96">
+                                    <img
+                                        class="w-full h-full rounded-lg object-cover"
+                                        alt="Preview"
+                                        src={image}
+                                    />
+                                </div>
+                            ) : null}
+                </div>
+            <button class="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out" type="submit">Publicar</button>
         </form>
     );
 }

@@ -5,20 +5,14 @@ export const eventsSlice = createSlice({
     initialState: {
         events: [],
         detail: {},
-        googleToken: {},
-        modal: false,
     },
-    //usando redux toolkits son los reducers son una mezcla de actions y reducers
+
     reducers: {
         getAllEvents: (state, action) => {
             state.events = action.payload;
         },
         getAllEventsById: (state, action) => {
             state.detail = action.payload;
-        },
-
-        changeModal: (state, action) => {
-            state.modal = !state.modal;
         },
         filteredEvents: (state, action) => {
             state.events = action.payload;
@@ -31,9 +25,6 @@ export const eventsSlice = createSlice({
 export const {
     getAllEvents,
     getAllEventsById,
-    logUser,
-    googleRegister,
-    changeModal,
     filteredEvents,
     getEventsByName,
 } = eventsSlice.actions; //en .actions guardo las funciones

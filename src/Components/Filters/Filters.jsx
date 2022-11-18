@@ -1,7 +1,7 @@
 import { addDays, subDays } from "date-fns/esm";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter, getEvents } from "../../Redux/eventActions";
+import { setFilter, getEvents } from "../../Redux/Slices/Event/eventActions";
 import { format } from "date-fns";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 

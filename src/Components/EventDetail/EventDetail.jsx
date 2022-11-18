@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getEventsById } from "../../Redux/eventActions";
-import { setModal } from "../../Redux/eventActions";
-import { Link } from "react-router-dom";
+import { getEventsById } from "../../Redux/Slices/Event/eventActions";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
+import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
 const EventDetail = (props) => {
@@ -11,11 +11,12 @@ const EventDetail = (props) => {
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detailState);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
     const handleSetModal = () => {
-        dispatch(setModal());
+        dispatch(setLoginModal());
     };
 
     return (
@@ -33,21 +34,13 @@ const EventDetail = (props) => {
                                 <h2 class="absolute bottom-10  ml-15 text-sm title-font text-white tracking-widest">
                                     {detail.date}
                                 </h2>
-                                <h1 class="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium mb-1">
+                                <h1 class="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium">
                                     {detail.name}
                                 </h1>
                             </div>
                         </div>
                     </div>
                     <Map data={location}></Map>
-
-                    {/* <img
-                        alt="event"
-                        class="rounded-lg border-gray-200 px-8 border-transparent"
-                        src="https://parabuenosaires.com/wp-content/uploads/2017/03/google-maps-bs-as.jpg"
-                        height="100px"
-                        width="700px"
-                    /> */}
                 </div>
                 <div class=" lg:w-1/3 lg:px-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
                     <h2 class="font-bold text-xl text-center my-5">
@@ -104,7 +97,7 @@ const EventDetail = (props) => {
                         </div>
                         <button
                             onClick={handleSetModal}
-                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 border-0 rounded"
+                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
                         >
                             Comprar
                         </button>
@@ -142,11 +135,12 @@ const EventDetail = (props) => {
                         <ul class="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
                     </div>
                     <div class="flex mx-20 mt-20 mr-20 justify-center">
-                        <Link to="/">
-                            <button class=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
-                                regresar
-                            </button>
-                        </Link>
+                        <button
+                            onClick={() => navigate("/")}
+                            class=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
+                        >
+                            Regresar
+                        </button>
                     </div>
                 </div>
             </div>
