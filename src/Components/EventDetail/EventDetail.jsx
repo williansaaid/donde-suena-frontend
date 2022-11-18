@@ -9,7 +9,7 @@ import Map from "../Map/Map";
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { detail } = useSelector((state) => state.detail);
+    const { detail } = useSelector((state) => state.detailState);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     useEffect(() => {
         dispatch(getEventsById(id));

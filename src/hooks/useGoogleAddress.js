@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useGoogleAddress = (address) => {
-    // const { API_GEOLOCATION } = process.env;
-    // console.log(API_GEOLOCATION);
-    console.log(address);
+    const api = process.env.REACT_APP_API_MAPS;
     const [map, setMap] = useState({});
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
-        const response = await axios(
-            `http://api.positionstack.com/v1/forward?access_key=430f3bb8d9287873f5d5683e95e2b0e5&query=${address}`
-        );
-        console.log(response);
-
-        setMap(response.data.data[1]);
+        try {
+            const response = await axios(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${api}`
+            );
+            setMap(response.data.results[0]);
+        } catch (err) {
+            console.log(err);
+        }
     }, []);
 
     return map;

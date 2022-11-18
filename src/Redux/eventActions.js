@@ -21,37 +21,6 @@ export const getEventsById = (id) => (dispatch) => {
         .catch((e) => console.log(e));
 };
 
-export const submitUserForm = (values) => (dispatch) => {
-    axios
-        .post("http://localhost:3001/auth/registerUser", values)
-        .then((res) => {
-            console.log(res);
-            dispatch(logUser(res));
-            alert("Usuario Creado Exitosamente");
-        })
-        .catch((e) => console.log(e));
-};
-
-export const loginGoogle = (values) => (dispatch) => {
-    axios
-        .post("http://localhost:3001/auth/google", values)
-        .then((res) => dispatch(googleRegister(res)))
-        .catch((e) => console.log(e));
-};
-
-export const submitArtistForm = (values) => (dispatch) => {
-    axios
-        .post("http://localhost:3001/auth/registerArtist", values)
-        .then((res) => {
-            console.log(res);
-            dispatch(res);
-            alert("Usuario Creado Exitosamente");
-        })
-        .catch((e) => {
-            e.response.data ? alert(e.response.data.msg) : console.log(e);
-        });
-};
-
 export const submitEventForm = (values) => (dispatch) => {
     axios
         .post("http://localhost:3001/event/createEvent", values)

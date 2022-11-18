@@ -7,7 +7,7 @@ import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
 function FilterBar() {
     const dispatch = useDispatch();
-    const allGenres = useSelector((state) => state?.genres);
+    const { allGenres } = useSelector((state) => state?.genresState);
     useEffect(() => {
         dispatch(getGenres());
     }, [dispatch]);
@@ -28,9 +28,8 @@ function FilterBar() {
         );
     }
     function handleFilterByGenre() {
-       const genres = allGenres.genres?.map((g)=>g.name)
-       console.log(genres)
-
+        const genres = allGenres.genres?.map((g) => g.name);
+        console.log(genres);
     }
     return (
         <nav class="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
@@ -45,7 +44,9 @@ function FilterBar() {
                     />
                     <h1
                         className="cursor-pointer"
-                        onClick={() => dispatch(getEvents())}
+                        onClick={() => {
+                            dispatch(getEvents());
+                        }}
                     >
                         Limpiar Filtros
                     </h1>
@@ -61,15 +62,14 @@ function FilterBar() {
                     <h1>Lugar</h1>
                 </li>
                 <li class="flex items-center gap-x-1.5">
-                    <button  
-                    onClick={() => handleFilterByGenre("genero")}>
-                    <img
-                        className="max-h-5 hover:rotate-90 transition duration-500"
-                        src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
-                        alt="genresIcon"
-                        height="20px"
-                        width="20px"
-                    />
+                    <button onClick={() => handleFilterByGenre("genero")}>
+                        <img
+                            className="max-h-5 hover:rotate-90 transition duration-500"
+                            src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
+                            alt="genresIcon"
+                            height="20px"
+                            width="20px"
+                        />
                     </button>
                     <h1>Genero</h1>
                 </li>

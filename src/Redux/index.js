@@ -1,4 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 import events from "../Redux/eventSlice";
 import detail from "../Redux/eventSlice";
 import modal from "../Redux/eventSlice";
@@ -6,15 +9,36 @@ import places from "../Redux/Slices/Places/placesSlice";
 import favorites from "../Redux/Slices/Favorites/favoritesSlice";
 import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
+import user from "./Slices/Session/sessionSlice";
+
+const persistConfig = {
+    key: "root",
+    storage,
+    whitelist: ["userState"],
+};
+
+const rootReducer = combineReducers({
+    userState: user,
+    detailState: detail,
+    modalState: modal,
+    eventsState: events,
+    placesState: places,
+    favoritesState: favorites,
+    genresState: genres,
+    purchasedState: purchased,
+});
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default configureStore({
-    reducer: {
-        events: events,
-        detail: detail,
-        modal: modal,
-        places: places,
-        favorites: favorites,
-        genres: genres,
-        purchased: purchased
-    }
+    reducer: persistedReducer,
+
+    // events: events,
+    // detail: detail,
+    // modal: modal,
+    // places: places,
+    // favorites: favorites,
+    // genres: genres,
+    // purchased: purchased,
+    // user: user,
+    middleware: [thunk],
 });

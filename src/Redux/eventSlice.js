@@ -5,7 +5,6 @@ export const eventsSlice = createSlice({
     initialState: {
         events: [],
         detail: {},
-        userIsLogged: false,
         googleToken: {},
         modal: false,
     },
@@ -17,12 +16,7 @@ export const eventsSlice = createSlice({
         getAllEventsById: (state, action) => {
             state.detail = action.payload;
         },
-        logUser: (state, action) => {
-            state.userIsLogged = action.payload && true;
-        },
-        googleRegister: (state, action) => {
-            state.googleToken = action.payload;
-        },
+
         changeModal: (state, action) => {
             state.modal = !state.modal;
         },

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export const Events = () => {
     const dispatch = useDispatch();
-    const { events } = useSelector((state) => state.events);
+    const { events } = useSelector((state) => state.eventsState);
     const { items, setItems } = useState([]);
     const [visible, setVisible] = useState(4);
     useEffect(() => {
@@ -60,12 +60,14 @@ export const Events = () => {
                         );
                     })}
             </div>
-            <button
-                onClick={showMoreEvents}
-                class="bg-transparent hover:bg-customRed text-customRed font-semibold hover:text-white py-2 px-4 border-2 border-customRed hover:border-transparent rounded-xl transition duration-500"
-            >
-                VER MAS EVENTOS ↓
-            </button>
+            {visible < events.length && (
+                <button
+                    onClick={showMoreEvents}
+                    class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                >
+                    VER MAS EVENTOS ↓
+                </button>
+            )}
         </div>
     );
 };

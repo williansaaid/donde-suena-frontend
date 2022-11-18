@@ -2,9 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postArtist } from "../../Redux/artistActions";
-import {getAllArtists} from "../../Redux/artistSlice"
-import InputEmoji from 'react-input-emoji'
-
+import { getAllArtists } from "../../Redux/artistSlice";
+// import InputEmoji from 'react-input-emoji'
 
 function PostVar() {
     const artist = useSelector((state) => state.artist);
@@ -14,12 +13,11 @@ function PostVar() {
     const CLOUD_NAME = "CLOUD_NAME";
     const UPLOAD_PRESET = "UPLOAD_PRESET";
     const [submit, setSubmit] = useState(false);
-    
 
-    const [ text, setText ] = useState('')
+    const [text, setText] = useState("");
 
-    function handleOnEnter (text) {
-      console.log('enter', text)
+    function handleOnEnter(text) {
+        console.log("enter", text);
     }
 
     const upload = async () => {
@@ -48,11 +46,10 @@ function PostVar() {
     }
     function handleSelectArtis(e) {
         setInput({
-          ...input,
-          artist: [...new Set([...input.genres, e.target.value])],
+            ...input,
+            artist: [...new Set([...input.genres, e.target.value])],
         });
-        
-      }
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -71,26 +68,26 @@ function PostVar() {
     }, [dispatch]);
 
     return (
-        <form className= "flex items-center justify-center mt-20">
-        <div className=" w-full max-w-2xl bg-customGray p-4  flex items-center justify-center gap-2 my-8 rounded-2xl flex-col items-center justify-center font-source-sans">
-            <input
-                class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300"
-                id="input"
-                type="text"
-                value={input.title}
-                name="title"
-                onChange={handleChange}
-                placeholder="Titulo"
-            />
-          
-              <InputEmoji
-          value={text}
-          onChange={setText}
-          cleanOnEnter
-          onEnter={handleOnEnter}
-          placeholder="Que vas a compartir hoy con tu publico?"
-        />
-        {/* <div>
+        <form className="flex items-center justify-center mt-20">
+            <div className=" w-full max-w-2xl bg-customGray p-4  flex items-center justify-center gap-2 my-8 rounded-2xl flex-col items-center justify-center font-source-sans">
+                <input
+                    class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300"
+                    id="input"
+                    type="text"
+                    value={input.title}
+                    name="title"
+                    onChange={handleChange}
+                    placeholder="Titulo"
+                />
+
+                {/* <InputEmoji
+                    value={text}
+                    onChange={setText}
+                    cleanOnEnter
+                    onEnter={handleOnEnter}
+                    placeholder="Que vas a compartir hoy con tu publico?"
+                /> */}
+                {/* <div>
         <select onChange={(el) => handleSelectArtis(el)}>
           <option disabled selected>
             Select Artist
@@ -111,28 +108,37 @@ function PostVar() {
           ))}
         </ul>
       </div> */}
-           
-            <input
-                class="block text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-customGray"
-                id="file_input"
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-            ></input>
 
-            {file ? (
-                <figure class="max-w-lg">
-                    <img
-                        class="max-w-full h-auto rounded-lg"
-                        alt="Preview"
-                        height="30"
-                        src={URL.createObjectURL(file)}
-                    />
-                </figure>
-            ) : null}
-            <button class="inline-block px-6 py-2.5 bg-red-600 text-customGray font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:bg-white focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" onClick={upload}>Upload</button>
-            <button class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="submit">Publicar</button>
-        </div>
-        
+                <input
+                    class="block text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-customGray dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-customGray"
+                    id="file_input"
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                ></input>
+
+                {file ? (
+                    <figure class="max-w-lg">
+                        <img
+                            class="max-w-full h-auto rounded-lg"
+                            alt="Preview"
+                            height="30"
+                            src={URL.createObjectURL(file)}
+                        />
+                    </figure>
+                ) : null}
+                <button
+                    class="inline-block px-6 py-2.5 bg-red-600 text-customGray font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:bg-white focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                    onClick={upload}
+                >
+                    Upload
+                </button>
+                <button
+                    class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    type="submit"
+                >
+                    Publicar
+                </button>
+            </div>
         </form>
     );
 }
