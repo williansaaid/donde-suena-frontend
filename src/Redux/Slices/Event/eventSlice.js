@@ -4,7 +4,7 @@ export const eventsSlice = createSlice({
     name: "events",
     initialState: {
         events: [],
-        detail: {}
+        detail: {},
     },
 
     reducers: {

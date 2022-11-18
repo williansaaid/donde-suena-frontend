@@ -1,10 +1,6 @@
 import axios from "axios";
 
-import {
-    logUser,
-    googleRegister,
-    changeModal
-} from "./userSlice";
+import { logUser } from "./userSlice";
 
 export const submitUserForm = (values) => (dispatch) => {
     axios
@@ -15,15 +11,4 @@ export const submitUserForm = (values) => (dispatch) => {
             alert("Usuario Creado Exitosamente");
         })
         .catch((e) => console.log(e));
-};
-
-export const loginGoogle = (values) => (dispatch) => {
-    axios
-        .post("http://localhost:3001/auth/google", values)
-        .then((res) => dispatch(googleRegister(res)))
-        .catch((e) => console.log(e));
-};
-
-export const setModal = () => (dispatch) => {
-    dispatch(changeModal());
 };
