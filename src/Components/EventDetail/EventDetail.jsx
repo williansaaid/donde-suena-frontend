@@ -1,22 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/Slices/Event/eventActions";
-import { setModal } from "../../Redux/Slices/User/userAction";
 import { Link } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
+import { ticketPurchase } from "../../Redux/Slices/User/userAction";
+
 const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detail);
+    const [ quantity, setQuantity ] = useState(1);
+    const { paymentUrl } = useSelector((state) => state.user);
+    const [ order, setOrder ] = useState(false);
     // const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
-    const handleSetModal = () => {
-        dispatch(setModal());
+
+    const handlePurchase = () => {
+        setOrder(true);
+        let detailsPurchase = {
+            quantity: parseInt(quantity),
+            priceTotal: detail.price
+        };
+        dispatch(ticketPurchase(detailsPurchase));
     };
+    const handleQuantity = (e) => {
+        e.preventDefault();
+        setQuantity(e.target.value);
+    }
+
+    useEffect(() => {
+        setOrder(false);
+    }, [])
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
@@ -81,20 +99,23 @@ const EventDetail = (props) => {
                             <div class="relative"></div>
                         </div>
                     </div>
-                    <div class="flex space-x-4 ...">
-                        <div class="relative ">
-                            <select class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                    <div class="flex space-x-4 items-center... max-h-12">
+                        <div class="relative flex justify-center items-center">
+                            <select class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10" name={"quantity"} value={quantity} onChange={handleQuantity}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
                             </select>
                             <span class="absolute right-0 top-0 h-full w-5 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="3"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="3"
                                     class="w-4 h-4"
                                     viewBox="0 0 24 24"
                                 >
@@ -103,11 +124,33 @@ const EventDetail = (props) => {
                             </span>
                         </div>
                         <button
-                            onClick={handleSetModal}
-                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
+                            onClick={handlePurchase}
+                            className="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded items-center"
                         >
-                            Comprar
+                            <p>Comprar</p>
                         </button>
+                        { order ?
+                            paymentUrl.length > 0 ?
+                            <a
+                                href={paymentUrl}
+                                target="_blank"
+                                className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
+                            >
+                                <div className="flex justify-center items-center w-24 max-h-12">
+                                    <img
+                                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
+                                    className="h-30 object-cover"
+                                    />
+                                </div>
+                            </a>
+                            : <div className="flex items-center">
+                                    <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    (Generando la orden...)
+                                    </span>
+                                </div>
+
+                            : null
+                        }
                     </div>
                     <div class="grid h-15px place-items-center ">
                         <ul class="flex flex-wrap">

@@ -6,6 +6,7 @@ export const userSlice = createSlice({
         userIsLogged: false,
         googleToken: {},
         modal: false,
+        paymentUrl: ""
     },
     reducers: {
         logUser: (state, action) => {
@@ -16,12 +17,16 @@ export const userSlice = createSlice({
         },
         changeModal: (state, action) => {
             state.modal = !state.modal;
+        },
+        paymentOrder: (state, action) => {
+            state.paymentUrl = action.payload;
         }
     },
 });
 export const {
     logUser,
     googleRegister,
-    changeModal
+    changeModal,
+    paymentOrder
 } = userSlice.actions;
 export default userSlice.reducer;

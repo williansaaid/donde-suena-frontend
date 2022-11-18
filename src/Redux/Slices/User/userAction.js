@@ -3,7 +3,9 @@ import axios from "axios";
 import {
     logUser,
     googleRegister,
-    changeModal
+    changeModal,
+    paymentOrder,
+    paymentGet
 } from "./userSlice";
 
 export const submitUserForm = (values) => (dispatch) => {
@@ -27,3 +29,10 @@ export const loginGoogle = (values) => (dispatch) => {
 export const setModal = () => (dispatch) => {
     dispatch(changeModal());
 };
+
+export const ticketPurchase = (values) => (dispatch) => {
+    axios
+        .post("http://localhost:3001/payment/crear-orden", values)
+        .then((res) => {dispatch(paymentOrder(res.data))})
+        .catch((e) => console.log(e))
+}
