@@ -1,15 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector  } from "react-redux";
 import { postArtist } from "../../Redux/Slices/Artist/artistActions";
 import axios from "axios";
 
 function PostVar() {
-<<<<<<< HEAD
     const artist = useSelector((state) => state.artist);
 
-=======
->>>>>>> 9296c81719fb2421cbab25018ccf5d4793d8957d
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);

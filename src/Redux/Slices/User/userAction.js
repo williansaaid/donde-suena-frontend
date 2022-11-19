@@ -3,7 +3,8 @@ import axios from "axios";
 import {
     logUser,
     googleRegister,
-    changeModal
+    changeModal,
+    getAllTicketsByUser,
 } from "./userSlice";
 
 export const submitUserForm = (values) => (dispatch) => {
@@ -26,4 +27,10 @@ export const loginGoogle = (values) => (dispatch) => {
 
 export const setModal = () => (dispatch) => {
     dispatch(changeModal());
+};
+
+export const getTicketsByUser = (id) => (dispatch) => {
+    axios(`http://localhost:3001/auth/user/getTickets/${id}`)
+        .then((res) => dispatch(getAllTicketsByUser(res.data.allTickets.tickets)))
+        .catch((e) => console.log(e));
 };

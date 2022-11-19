@@ -8,7 +8,8 @@ import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
 import user from "../Redux/Slices/User/userSlice";
 import artist from "../Redux/Slices/Artist/artistSlice";
-import filter from "../Redux/Slices/Filter/filterSlice"
+import filter from "../Redux/Slices/Filter/filterSlice";
+import tickets from "../Redux/Slices/User/userSlice"
 
 export default configureStore({
     reducer: {
@@ -21,6 +22,7 @@ export default configureStore({
         genres: genres,
         purchased: purchased,
         artist: artist,
-        filter: filter
+        filter: filter,
+        tickets: tickets,
     }
 });
