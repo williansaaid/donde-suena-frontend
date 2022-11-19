@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { getPlaces } from "../../Redux/Slices/Places/placesAction";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 import { useSelector } from "react-redux";
@@ -10,6 +12,7 @@ import axios from "axios";
 
 const EventCreation = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState("");
     const [success, setSuccess] = useState(false);
@@ -18,6 +21,13 @@ const EventCreation = () => {
     const [genreEmpty, setGenreEmpty] = useState(true);
     const { places } = useSelector((state) => state.placesState);
     const { genres } = useSelector((state) => state.genresState);
+    const { user } = useSelector((state) => state.userState);
+    console.log(user);
+
+    if (!user.isLogged) {
+        dispatch(setLoginModal());
+        navigate("/");
+    }
 
     useEffect(() => {
         dispatch(getPlaces());
