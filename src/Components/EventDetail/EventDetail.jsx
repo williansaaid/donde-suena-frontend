@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import { getEventsById } from "../../Redux/Slices/Event/eventActions";
+import { getEventsById, updateTickets } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
@@ -14,7 +14,7 @@ const EventDetail = () => {
     const [ query, setQuery ] = useState({});
     const { detail } = useSelector((state) => state.detailState);
     const [ quantity, setQuantity ] = useState(1);
-    const { paymentUrl } = useSelector((state) => state.userState);
+    const { paymentUrl } = useSelector((state) => state.userPublicState);
     const [ order, setOrder ] = useState(false);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     const navigate = useNavigate();
@@ -43,7 +43,15 @@ const EventDetail = () => {
         setQuery(Object.fromEntries([...searchParams]))
         setOrder(false);
     }, []);
-    console.log(query);
+
+    useEffect(() => {
+        if(query.hasOwnProperty("payment_id") && query.payment_id === "null"){
+            alert("No se pudo concretar la compra");
+        } else if (query.hasOwnProperty("payment_id") && query.payment_id !== "null"){
+            dispatch(updateTickets({quantity: parseInt(query.purchasedQuantity), id: id}));
+            alert("Compra Completada");
+        }
+    },[query])
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
