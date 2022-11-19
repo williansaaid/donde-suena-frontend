@@ -171,7 +171,6 @@ const EventDetail = () => {
                     <div class="grid h-15px place-items-center ">
                         <ul class="flex flex-wrap">
                             <li class="pr-4 ... pt-40 ... px-8 ...">
-                                {" "}
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
                                     alt="instagram logo"
@@ -180,7 +179,6 @@ const EventDetail = () => {
                                 />
                             </li>
                             <li class="pr-4 ... pt-40 ... px-8 ...">
-                                {" "}
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_twitter_jnclek.png"
                                     alt="twitter logo"
@@ -189,7 +187,6 @@ const EventDetail = () => {
                                 />
                             </li>
                             <li class="pr-4 ... pt-40 ... px-8 ...">
-                                {" "}
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_facebook_glqqwf.png"
                                     alt="facebook logo"
