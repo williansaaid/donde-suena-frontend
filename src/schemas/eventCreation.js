@@ -1,8 +1,7 @@
 import * as yup from "yup";
 import moment from "moment";
 
-const phoneRx =
-    /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+const phoneRx = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
 function addDays(days) {
     let result = new Date();
