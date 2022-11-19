@@ -5,7 +5,7 @@ import { getEventsById } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase } from "../../Redux/Slices/User/userAction";
+import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
 
 const EventDetail = () => {
     const dispatch = useDispatch();
@@ -39,6 +39,7 @@ const EventDetail = () => {
     };
 
     useEffect(() => {
+        dispatch(clearUrl());
         setQuery(Object.fromEntries([...searchParams]))
         setOrder(false);
     }, []);

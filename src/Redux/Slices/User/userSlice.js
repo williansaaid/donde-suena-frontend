@@ -9,11 +9,15 @@ export const userSlice = createSlice({
     reducers: {
         paymentOrder: (state, action) => {
             state.paymentUrl = action.payload;
+        },
+        clearPaymentOrder: (state) => {
+            state.paymentUrl = "";
         }
     },
 });
 export const {
-    paymentOrder
+    paymentOrder,
+    clearPaymentOrder
 } = userSlice.actions;
 
 export default userSlice.reducer;

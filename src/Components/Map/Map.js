@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const Map = ({ data }) => {
-    console.log(data);
+    // console.log(data);
     const defaultCenter = {
         lat: Object.keys(data).length && data.geometry.location.lat,
         lng: Object.keys(data).length && data.geometry.location.lng,
