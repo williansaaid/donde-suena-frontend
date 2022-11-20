@@ -1,20 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
-    name: "user",
+    name: "userPublic",
     initialState: {
         modal: false,
-        tickets: []
+        tickets: [],
+        paymentUrl: "",
     },
     reducers: {
-        changeModal: (state, action) => {
-            state.modal = !state.modal;
+        paymentOrder: (state, action) => {
+            state.paymentUrl = action.payload;
         },
         getAllTicketsByUser: (state, action) => {
             state.tickets = action.payload;
         },
+
+        clearPaymentOrder: (state) => {
+            state.paymentUrl = "";
+        },
     },
 });
-    
-export const { logUser, getAllTicketsByUser } = userSlice.actions;
+export const { logUser, getAllTicketsByUser, paymentOrder, clearPaymentOrder } =
+    userSlice.actions;
+
 export default userSlice.reducer;

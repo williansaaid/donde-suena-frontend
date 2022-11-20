@@ -5,6 +5,7 @@ import {
     getAllEventsById,
     filteredEvents,
     getEventsByName,
+    quantityTickets,
 } from "./eventSlice";
 
 export const getEvents = () => (dispatch) => {
@@ -47,4 +48,10 @@ export const setFilter = (payload) => (dispatch) => {
         .catch((e) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);
         });
+};
+
+export const updateTickets = (values) => (dispatch) => {
+    axios
+        .put(`http://localhost:3001/event/updateStock/${values.id}`, values)
+        .catch((e) => console.log(e));
 };

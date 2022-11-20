@@ -13,6 +13,7 @@ import user from "./Slices/User/userSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
+import userPublic from "./Slices/User/userSlice";
 
 
 const persistConfig = {
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
     mapState: map,
     userStateTickets: user,
    
+    userPublicState: userPublic
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
