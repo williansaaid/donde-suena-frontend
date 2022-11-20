@@ -6,7 +6,8 @@ import { getTicketsByUser } from "../../Redux/Slices/User/userAction";
 const MyShopping = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { tickets } = useSelector((state) => state.tickets);
+    const { tickets } = useSelector((state) => state.userState);
+    
 
     useEffect(() => {
         dispatch(getTicketsByUser(id));

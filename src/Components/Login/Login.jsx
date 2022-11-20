@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { setModal } from "../../Redux/Slices/User/userAction";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
+import { login } from "../../Redux/Slices/Session/sessionActions";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import * as Yup from "yup";
@@ -13,11 +14,12 @@ const Login = () => {
     const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
     const navigate = useNavigate();
-    const { modal } = useSelector((state) => state.modal);
+    const { loginOpen } = useSelector((state) => state.modalState);
+
     const [loginType, setLoginType] = useState(false);
 
     const handleSetModal = () => {
-        dispatch(setModal());
+        dispatch(setLoginModal());
     };
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
@@ -71,7 +73,7 @@ const Login = () => {
 
     return (
         <ReactModal
-            isOpen={modal}
+            isOpen={loginOpen}
             ariaHideApp={false}
             onRequestClose={handleSetModal}
             className="modal"
@@ -81,9 +83,11 @@ const Login = () => {
                     email: "",
                     password: "",
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    // dispatch(submitUserForm(values));
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                    dispatch(login(values));
                     setSubmitting(false);
+                    resetForm();
+                    handleSetModal();
                 }}
                 validationSchema={Yup.object({
                     email: Yup.string()
@@ -135,7 +139,7 @@ const Login = () => {
                         </label>
                         <div className="w-full px-3">
                             <Field
-                                type="text"
+                                type="password"
                                 name="password"
                                 placeholder="contraseña *"
                                 className={

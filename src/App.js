@@ -9,11 +9,11 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
-import PostVar from "./Components/PostVar/PostVar"
+import PostVar from "./Components/PostVar/PostVar";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
+import Confirm from "./Components/Confirm/Confirm";
 
-// import { LoginGoogle } from "./Components/Login/Login2";
 function App() {
     return (
         <BrowserRouter>
@@ -21,13 +21,12 @@ function App() {
                 <Navbar />
                 <Login />
                 <Routes>
-                    {/* <Route exact path="/login" element={<Login />} /> */}
+                    <Route path={"/"} element={<Home />} />
                     <Route
                         exact
                         path={"/register/artist"}
                         element={<ArtistForm />}
                     />
-
                     <Route
                         exact
                         path={"/register/user"}
@@ -38,9 +37,8 @@ function App() {
                         path={"/create/event"}
                         element={<EventCreation />}
                     />
-
-                    <Route path={"/"} element={<Home />} />
                     <Route path={"/details/:id"} element={<EventDetail />} />
+                    <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path="/favs" element={<UserFavorites />}/>
                     <Route path={"/myshopping/:id"} element={<MyShopping />} />
