@@ -2,16 +2,17 @@ import {getPostId} from "../../Redux/Slices/Post/postAction"
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import {Comments} from "../Comments/Comments"
+import {CommentsUser} from "../CommentsUser/CommentsUser"
 import { TextField } from "@mui/material";
 
 
 
 
-export const PostId=() =>{ 
+export const PostCard=() =>{ 
   const dispatch = useDispatch();
   const  {posts} = useSelector((state) => state.posts);
   const [visible, setVisible] = useState();
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     dispatch(getPostId());
@@ -20,7 +21,8 @@ const showMorePost = () => {
     setVisible((prevValue) => prevValue + 4);
 };
 
-  console.log(posts)
+
+  
 return (
 
   <div>
@@ -41,12 +43,12 @@ return (
           width="200" 
           height="100"
         />
-        <Comments></Comments>
-  
+       
+       <CommentsUser/>
 
       {/* artist={el.artist} */}
     </div>
-    <form>
+    {/* <form>
       <TextField
       label="añadir comentario"
       size="small"
@@ -57,14 +59,12 @@ return (
       // on change ={e => setComment(e.target.value)}
       />
     </form>
+    
     <button
     variant="contained"
-    size="small"
-
-
-    >
+    size="small">
       Enviar
-    </button>
+    </button> */}
       </div>
       </div>
       </div>
@@ -77,4 +77,4 @@ return (
 }
 
 
-export default PostId;
+export default PostCard;
