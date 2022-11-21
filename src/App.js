@@ -10,6 +10,7 @@ import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
 import PostVar from "./Components/PostVar/PostVar"
+
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 
 // import { LoginGoogle } from "./Components/Login/Login2";

@@ -3,10 +3,11 @@ import { useDispatch } from "react-redux";
 import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useSelector } from "react-redux";
 
+
 export const Events = () => {
     const dispatch = useDispatch();
     const { events } = useSelector((state) => state.events);
-    const { items, setItems } = useState([]);
+  
     const [visible, setVisible] = useState(4);
     useEffect(() => {
         dispatch(getEvents());
@@ -24,6 +25,7 @@ export const Events = () => {
                             <div
                                 key={id}
                                 className="relative sm:h-50 w-80 rounded-lg"
+                                
                             >
                                 <div>
                                     <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">

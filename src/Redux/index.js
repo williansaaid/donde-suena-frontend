@@ -9,7 +9,7 @@ import purchased from "../Redux/Slices/Purchased/purchasedSlice";
 import user from "../Redux/Slices/User/userSlice";
 import artist from "../Redux/Slices/Artist/artistSlice";
 import filter from "../Redux/Slices/Filter/filterSlice"
-
+import posts from "../Redux/Slices/Post/postSlice"
 export default configureStore({
     reducer: {
         user: user,
@@ -21,6 +21,7 @@ export default configureStore({
         genres: genres,
         purchased: purchased,
         artist: artist,
-        filter: filter
+        filter: filter,
+        posts: posts
     }
 });

@@ -19,7 +19,7 @@ export const postArtist = (values) => (dispatch) => {
             alert("Post Creado Exitosamente");
         })
         .catch((e) => {
-            e.response.data ? alert(e.response.data.msg) : console.log(e);
+            console.log(e);
         });
 };
 
