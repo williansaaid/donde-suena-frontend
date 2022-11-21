@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useSelector } from "react-redux";
 
+
 export const Events = () => {
     const dispatch = useDispatch();
     const { events } = useSelector((state) => state.eventsState);
@@ -24,6 +25,7 @@ export const Events = () => {
                             <div
                                 key={id}
                                 className="relative sm:h-50 w-80 rounded-lg"
+                                
                             >
                                 <div>
                                     <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
@@ -50,9 +52,8 @@ export const Events = () => {
                                                 ⏰ Inicia {el.start} - Finaliza{" "}
                                                 {el.end}
                                             </span>
-                                            <span className="text-sm text-gray-500 dark:text-gray-300">
-                                                💵 Compra por {el.price}
-                                            </span>
+                                            <a href="#" ><button type="button" class="bg-transparent hover:bg-lime-400 text-slate-50 White font-semibold hover:text-white py- px- border-2 border-lime-400 hover:border-transparent rounded-xl transition duration-500" button>💵Compra por {el.price}</button></a>
+                                        
                                         </div>
                                     </div>
                                 </div>
