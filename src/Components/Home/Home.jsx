@@ -3,6 +3,7 @@ import CarouselCustom from "../Carousel/Carousel_custom";
 import Filters from "../Filters/Filters.jsx";
 import { Events } from "../EventCard/EventCard";
 import FilterBar from "../Filters/Filters";
+import {ArtistFeed} from "../ArtistFeed/ArtistFeed"
 
 const Home = () => {
     return (
@@ -21,6 +22,7 @@ const Home = () => {
             <div class="flex items-center justify-center">
                 <Events />
             </div>
+    
         </div>
     );
 };
