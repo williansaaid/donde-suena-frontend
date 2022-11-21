@@ -1,27 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
-    name: "user",
+    name: "userPublic",
     initialState: {
-        userIsLogged: false,
-        googleToken: {},
         modal: false,
+        paymentUrl: ""
     },
     reducers: {
-        logUser: (state, action) => {
-            state.userIsLogged = action.payload && true;
+        paymentOrder: (state, action) => {
+            state.paymentUrl = action.payload;
         },
-        googleRegister: (state, action) => {
-            state.googleToken = action.payload;
-        },
-        changeModal: (state, action) => {
-            state.modal = !state.modal;
+        clearPaymentOrder: (state) => {
+            state.paymentUrl = "";
         }
     },
 });
 export const {
-    logUser,
-    googleRegister,
-    changeModal
+    paymentOrder,
+    clearPaymentOrder
 } = userSlice.actions;
+
 export default userSlice.reducer;

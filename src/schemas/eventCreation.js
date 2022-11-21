@@ -17,21 +17,24 @@ export const eventSchema = yup.object().shape({
         .required("*"),
     date: yup
         .date()
-        .min(addDays(5).toDateString(), `La fecha no puede ser antes del ${addDays(5).toDateString()}`)
+        .min(
+            addDays(5).toDateString(),
+            `La fecha no puede ser antes del ${addDays(5).toDateString()}`
+        )
         .required("*"),
-    start: yup
-        .string()
-        .required("*"),
+    start: yup.string().required("*"),
     end: yup
         .string()
-        .test( "is-greater", "(La hora de finalización debe ser mayor)", function(value) {
-            const { start } = this.parent;
-            return moment(value, "HH:mm").isAfter(moment(start, "HH:mm"));
-        })
+        .test(
+            "is-greater",
+            "(La hora de finalización debe ser mayor)",
+            function (value) {
+                const { start } = this.parent;
+                return moment(value, "HH:mm").isAfter(moment(start, "HH:mm"));
+            }
+        )
         .required("*"),
-    placeName: yup
-        .string()
-        .required("*"),
+    placeName: yup.string().required("*"),
     quotas: yup
         .number()
         .min(1, "(Mín: 1 entrada)")
@@ -47,12 +50,9 @@ export const eventSchema = yup.object().shape({
         .min(50, "(Debe contener al menos 50 caracteres)")
         .max(600, "(No puede contener más de 600 caracteres)")
         .required("*"),
-    phone: yup
-        .string()
-        .matches(phoneRx, "(Número no válido)")
-        .required("*"),
+    phone: yup.string().matches(phoneRx, "(Número no válido)").required("*"),
     agreeTerms: yup
         .bool()
-        .oneOf([true],"(Debes aceptar los Términos y Condiciones)")
-        .required("*")
+        .oneOf([true], "(Debes aceptar los Términos y Condiciones)")
+        .required("*"),
 });

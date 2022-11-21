@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas/artistRegister";
-import { submitArtistForm } from "../../Redux/Slices/Artist/artistActions";
+import { submitArtistForm } from "../../Redux/Slices/Session/sessionActions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
@@ -40,13 +40,11 @@ const ArtistForm = () => {
     const [ defaultGenre, setDefaultGenre ] = useState("");
     const [ genresSelect, setGenresSelect ] = useState([]);
     const [ genreEmpty, setGenreEmpty ] = useState(true);
-    const { genres } = useSelector((state) => state.genres);
+    const { genres } = useSelector((state) => state.genresState);
     function navegar() {
         navigate("/");
     }
-    useEffect(() => {
-        dispatch(getGenres());
-    }, []);
+  
 
     useEffect(() => {
         genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);

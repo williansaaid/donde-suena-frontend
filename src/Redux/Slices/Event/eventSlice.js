@@ -4,7 +4,8 @@ export const eventsSlice = createSlice({
     name: "events",
     initialState: {
         events: [],
-        detail: {}
+        detail: {},
+        ticketsAvailable: 0
     },
 
     reducers: {
@@ -20,6 +21,9 @@ export const eventsSlice = createSlice({
         getEventsByName: (state, action) => {
             state.events = action.payload;
         },
+        quantityTickets: (state, action) => {
+            state.ticketsAvailable = action.payload;
+        }
     },
 });
 export const {
@@ -27,5 +31,6 @@ export const {
     getAllEventsById,
     filteredEvents,
     getEventsByName,
+    quantityTickets
 } = eventsSlice.actions; //en .actions guardo las funciones
 export default eventsSlice.reducer;

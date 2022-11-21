@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { submitUserForm } from "../../Redux/Slices/User/userAction";
+import { submitUserForm } from "../../Redux/Slices/Session/sessionActions";
 import { validationSchema } from "../../schemas/userRegister";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
     const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const UserForm = () => {
                 }}
                 validationSchema={validationSchema}
             >
-                {({ isSubmitting, errors, touched }) => (
+                {({ isSubmitting, errors }) => (
                     <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
                         <div className="flex flex-wrap w-full">
                             <div className="w-full md:w-1/2 px-3">

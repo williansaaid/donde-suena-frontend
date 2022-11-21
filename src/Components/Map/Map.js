@@ -1,11 +1,11 @@
 import React from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-// require("dotenv").config();
 
 const Map = ({ data }) => {
+    // console.log(data);
     const defaultCenter = {
-        lat: data.latitude,
-        lng: data.longitude,
+        lat: Object.keys(data).length && data.geometry.location.lat,
+        lng: Object.keys(data).length && data.geometry.location.lng,
     };
 
     const style = {
