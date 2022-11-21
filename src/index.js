@@ -9,7 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import store from "./Redux/index";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_API || "http:localhost/3001";
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById("root"));
