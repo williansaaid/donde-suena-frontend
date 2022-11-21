@@ -9,11 +9,12 @@ import places from "../Redux/Slices/Places/placesSlice";
 import favorites from "../Redux/Slices/Favorites/favoritesSlice";
 import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
-import user from "./Slices/Session/sessionSlice";
+import user from "./Slices/User/userSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
 import userPublic from "./Slices/User/userSlice";
+
 
 const persistConfig = {
     key: "root",
@@ -33,6 +34,8 @@ const rootReducer = combineReducers({
     artistState: artist,
     filterState: filter,
     mapState: map,
+    userStateTickets: user,
+   
     userPublicState: userPublic
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
