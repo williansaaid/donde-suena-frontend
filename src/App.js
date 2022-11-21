@@ -13,6 +13,7 @@ import PostVar from "./Components/PostVar/PostVar";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
+import PostHome from "./Components/PostHome/PostHome.jsx"
 
 function App() {
     return (
@@ -42,6 +43,7 @@ function App() {
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path="/favs" element={<UserFavorites />}/>
                     <Route path={"/myshopping/:id"} element={<MyShopping />} />
+                    <Route path={"/postHome"} element={<PostHome />} />
                 </Routes>
                 <Footer />
             </div>
