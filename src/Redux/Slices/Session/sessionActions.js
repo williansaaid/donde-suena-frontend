@@ -3,7 +3,7 @@ import { logUser, logoutUser } from "./sessionSlice";
 
 export const login = (values) => (dispatch) => {
     axios
-        .post("http://localhost:3001/auth/loginUser", values)
+        .post("/auth/loginUser", values)
         .then((res) => {
             console.log(res);
             dispatch(logUser(res.data));
@@ -13,7 +13,7 @@ export const login = (values) => (dispatch) => {
 
 export const confirmateToken = (token) => (dispatch) => {
     axios
-        .get(`http://localhost:3001/auth/confirmation/${token}`)
+        .get(`/auth/confirmation/${token}`)
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
@@ -25,7 +25,7 @@ export const confirmateToken = (token) => (dispatch) => {
 export const submitUserForm = (values) => (dispatch) => {
     console.log(values);
     axios
-        .post("http://localhost:3001/auth/registerUser", values)
+        .post("/auth/registerUser", values)
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
@@ -36,7 +36,7 @@ export const submitUserForm = (values) => (dispatch) => {
 
 export const submitArtistForm = (values) => (dispatch) => {
     axios
-        .post("http://localhost:3001/auth/registerArtist", values)
+        .post("/auth/registerArtist", values)
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));

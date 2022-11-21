@@ -5,22 +5,23 @@ import {
     getAllEventsById,
     filteredEvents,
     getEventsByName,
+    quantityTickets,
 } from "./eventSlice";
 
 export const getEvents = () => (dispatch) => {
-    axios("http://localhost:3001/event/getEvents")
+    axios("/event/getEvents")
         .then((res) => dispatch(getAllEvents(res.data.events)))
         .catch((e) => console.log(e));
 };
 export const getEventsById = (id) => (dispatch) => {
-    axios(`http://localhost:3001/event/getEvent/${id}`)
+    axios(`/event/getEvent/${id}`)
         .then((res) => dispatch(getAllEventsById(res.data.event)))
         .catch((e) => console.log(e));
 };
 
 export const submitEventForm = (values) => (dispatch) => {
     axios
-        .post("http://localhost:3001/event/createEvent", values)
+        .post("/event/createEvent", values)
         .then((res) => {
             console.log(res);
             dispatch(res);
@@ -32,14 +33,14 @@ export const submitEventForm = (values) => (dispatch) => {
         });
 };
 export const getEventByName = (name) => (dispatch) => {
-    axios(`http://localhost:3001/event/getEvents?filter[name]=${name}`)
+    axios(`/event/getEvents?filter[name]=${name}`)
         .then((res) => dispatch(getEventsByName(res.data.events)))
         .catch((e) => console.log(e));
 };
 
 export const setFilter = (payload) => (dispatch) => {
     axios
-        .get("http://localhost:3001/event/getEvents" + payload)
+        .get("/event/getEvents" + payload)
         .then((res) => {
             console.log(res);
             dispatch(filteredEvents(res.data.events));
@@ -47,4 +48,10 @@ export const setFilter = (payload) => (dispatch) => {
         .catch((e) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);
         });
+};
+
+export const updateTickets = (values) => (dispatch) => {
+    axios
+        .put(`/event/updateStock/${values.id}`, values)
+        .catch((e) => console.log(e));
 };
