@@ -9,10 +9,12 @@ import places from "../Redux/Slices/Places/placesSlice";
 import favorites from "../Redux/Slices/Favorites/favoritesSlice";
 import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
-import user from "./Slices/Session/sessionSlice";
+import session from "./Slices/Session/sessionSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
+import user from "./Slices/User/userSlice";
+import loading from "./Slices/Loading/LoadingSlices";
 
 const persistConfig = {
     key: "root",
@@ -21,7 +23,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+    loadingState: loading,
     userState: user,
+    sessionState: session,
     detailState: detail,
     modalState: login,
     eventsState: events,
@@ -37,14 +41,5 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default configureStore({
     reducer: persistedReducer,
-
-    // events: events,
-    // detail: detail,
-    // modal: modal,
-    // places: places,
-    // favorites: favorites,
-    // genres: genres,
-    // purchased: purchased,
-    // user: user,
     middleware: [thunk],
 });

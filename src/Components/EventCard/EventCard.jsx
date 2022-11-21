@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useSelector } from "react-redux";
 
 export const Events = () => {
-    const dispatch = useDispatch();
     const { events } = useSelector((state) => state.eventsState);
-    const { items, setItems } = useState([]);
     const [visible, setVisible] = useState(4);
-    useEffect(() => {
-        dispatch(getEvents());
-    }, []);
+
     const showMoreEvents = () => {
         setVisible((prevValue) => prevValue + 4);
     };
 
     return (
-        <div class="flex flex-col items-center w-3/4 mb-20">
-            <div class="w-full flex justify-around items-center flex-wrap gap-8 py-8">
+        <div className="flex flex-col items-center w-3/4 mb-20">
+            <div className="w-full flex justify-around items-center flex-wrap gap-8 py-8">
                 {events &&
                     events.slice(0, visible).map((el, id) => {
                         return (

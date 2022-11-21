@@ -2,7 +2,6 @@ import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
 
 export const login = (values) => (dispatch) => {
-    console.log(values);
     axios
         .post("http://localhost:3001/auth/loginUser", values)
         .then((res) => {

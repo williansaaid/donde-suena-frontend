@@ -12,12 +12,12 @@ import EventCreation from "./Components/EventForm/EventForm";
 import PostVar from "./Components/PostVar/PostVar";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import Confirm from "./Components/Confirm/Confirm";
-
 function App() {
     return (
         <BrowserRouter>
             <div className="App w-full h-full">
                 <Navbar />
+
                 <Login />
                 <Routes>
                     <Route path={"/"} element={<Home />} />

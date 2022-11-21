@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getEventsById } from "../../Redux/Slices/Event/eventActions";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
+import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
+import Loading from "../Loading/Loading";
+
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
@@ -10,6 +13,7 @@ const EventDetail = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { detail } = useSelector((state) => state.detailState);
+    const { loading } = useSelector((state) => state.loadingState);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     const navigate = useNavigate();
     useEffect(() => {
@@ -18,35 +22,46 @@ const EventDetail = (props) => {
     const handleSetModal = () => {
         dispatch(setLoginModal());
     };
+    const loadingCallback = useCallback(() => {
+        setTimeout(() => {
+            dispatch(changeLoading());
+        }, 2000);
+    }, []);
+    useEffect(() => {
+        loadingCallback();
+    }, [loadingCallback]);
 
     return (
-        <section class="text-gray-700 body-font overflow-hidden bg-white">
-            <div class="lg:w-3/1 mx-1 flex mt-10">
-                <div class="object-contain rounded-lg  w-150 mt-6 space-y-4 ml-20">
-                    <div class="relative rounded-lg mb-20">
+        <section className="text-gray-700 body-font overflow-hidden bg-white">
+            {loading && <Loading />}
+            <div className={!loading ? "lg:w-3/1 mx-1 flex mt-10 " : "hidden"}>
+                <div className="object-contain rounded-lg  w-150 mt-6 space-y-4 ml-20">
+                    <div className="relative rounded-lg mb-20">
                         <img
                             alt="event"
-                            class=" object cover rounded-lg border-gray-200 px-8 border-transparent"
+                            className=" object cover rounded-lg border-gray-200 px-8 border-transparent"
                             src={detail.image}
                         />
-                        <div class="absolute bottom-0 left-8 right-8 px-10 py-12 bg-gray-800 opacity-70">
-                            <div class="mb-6">
-                                <h2 class="absolute bottom-10  ml-15 text-sm title-font text-white tracking-widest">
+                        <div className="absolute bottom-0 left-8 right-8 px-10 py-12 bg-gray-800 opacity-70">
+                            <div className="mb-6">
+                                <h2 className="absolute bottom-10  ml-15 text-sm title-font text-white tracking-widest">
                                     {detail.date}
                                 </h2>
-                                <h1 class="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium">
+                                <h1 className="absolute mb-4 bottom-12 ml-15 text-white text-3xl title-font font-medium">
                                     {detail.name}
                                 </h1>
                             </div>
                         </div>
                     </div>
-                    <Map data={location}></Map>
+                    <div className="l-20">
+                        <Map data={location}></Map>
+                    </div>
                 </div>
-                <div class=" lg:w-1/3 lg:px-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
-                    <h2 class="font-bold text-xl text-center my-5">
+                <div className=" lg:w-1/3 lg:px-5 lg:py-10 ml-20 lg:mt-6 bg-gray-300 rounded-lg">
+                    <h2 className="font-bold text-xl text-center my-5">
                         Nombre del concierto
                     </h2>
-                    <p class="leading-relaxed">
+                    <p className="leading-relaxed">
                         {detail.description}arcu ac tortor dignissim convallis
                         aenean et tortor at risus viverra adipiscing at in
                         tellus integer feugiat scelerisque varius morbi enim
@@ -60,34 +75,37 @@ const EventDetail = (props) => {
                         aenean vel elit scelerisque mauris pellentesque pulvinar
                         pellentesque habitant morbi tristique
                     </p>
-                    <p class="leading-relaxed">
+                    <p className="leading-relaxed">
                         Hora de Inicio ⏰{detail.start}
                     </p>
-                    <p class="leading-relaxed"> Finaliza a las {detail.end}</p>
-                    <p class="leading-relaxed">
+                    <p className="leading-relaxed">
+                        {" "}
+                        Finaliza a las {detail.end}
+                    </p>
+                    <p className="leading-relaxed">
                         Valor de entrada 💵 ${detail.price}
                     </p>
 
-                    <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                        <div class="flex ml-6 items-center">
-                            <div class="relative"></div>
+                    <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+                        <div className="flex ml-6 items-center">
+                            <div className="relative"></div>
                         </div>
                     </div>
-                    <div class="flex space-x-4 ...">
-                        <div class="relative ">
-                            <select class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+                    <div className="flex space-x-4 ...">
+                        <div className="relative ">
+                            <select className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                             </select>
-                            <span class="absolute right-0 top-0 h-full w-5 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                            <span className="absolute right-0 top-0 h-full w-5 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     stroke-width="3"
-                                    class="w-4 h-4"
+                                    className="w-4 h-4"
                                     viewBox="0 0 24 24"
                                 >
                                     <path d="M6 9l6 6 6-6"></path>
@@ -96,14 +114,14 @@ const EventDetail = (props) => {
                         </div>
                         <button
                             onClick={handleSetModal}
-                            class="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
+                            className="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
                         >
                             Comprar
                         </button>
                     </div>
-                    <div class="grid h-15px place-items-center ">
-                        <ul class="flex flex-wrap">
-                            <li class="pr-4 ... pt-40 ... px-8 ...">
+                    <div className="grid h-15px place-items-center ">
+                        <ul className="flex flex-wrap">
+                            <li className="pr-4 ... pt-40 ... px-8 ...">
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
                                     alt="instagram logo"
@@ -111,15 +129,15 @@ const EventDetail = (props) => {
                                     width="50px"
                                 />
                             </li>
-                            <li class="pr-4 ... pt-40 ... px-8 ...">
+                            <li className="pr-4 ... pt-40 ... px-8 ...">
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_twitter_jnclek.png"
-                                    alt="twitter logo"
+                                    alt="twitter logoauto"
                                     height="50px"
                                     width="50px"
                                 />
                             </li>
-                            <li class="pr-4 ... pt-40 ... px-8 ...">
+                            <li className="pr-4 ... pt-40 ... px-8 ...">
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_facebook_glqqwf.png"
                                     alt="facebook logo"
@@ -128,12 +146,12 @@ const EventDetail = (props) => {
                                 />
                             </li>
                         </ul>
-                        <ul class="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
+                        <ul className="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
                     </div>
-                    <div class="flex mx-20 mt-20 mr-20 justify-center">
+                    <div className="flex mx-20 mt-20 mr-20 justify-center">
                         <button
                             onClick={() => navigate("/")}
-                            class=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
+                            className=" text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
                         >
                             Regresar
                         </button>
