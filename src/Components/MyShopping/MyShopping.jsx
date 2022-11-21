@@ -14,8 +14,8 @@ const MyShopping = (props) => {
     }, [dispatch, id]);
 
     return (
-        <div>
-            <div>
+        <div class="flex flex-col items-center w-3/4 mb-20">
+            <div className="w-full flex justify-around items-center flex-wrap gap-8 py-8">
                 {tickets &&
                     tickets?.map((el, id) => {
                     
