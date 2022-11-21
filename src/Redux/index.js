@@ -34,8 +34,6 @@ const rootReducer = combineReducers({
     artistState: artist,
     filterState: filter,
     mapState: map,
-    userStateTickets: user,
-   
     userPublicState: userPublic
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

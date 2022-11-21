@@ -44,7 +44,6 @@ const ArtistForm = () => {
     function navegar() {
         navigate("/");
     }
-  
 
     useEffect(() => {
         genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);
