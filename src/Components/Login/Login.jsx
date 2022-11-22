@@ -113,23 +113,24 @@ const Login = () => {
                 })}
             >
                 {({ isSubmitting, errors }) => (
-                    <Form className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
+                    <Form className="relative w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
                         {location.pathname.includes("/details") && (
                             <h1 className="block tracking-wide text-white text-s font-bold mb-2 pt-5">
                                 Debes iniciar sesion para continuar..
                             </h1>
                         )}
-
-                        <button
-                            type="button"
-                            className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
-                            onClick={handleSetModal}
-                        >
-                            x
-                        </button>
+                        <div className="absolute right-8 top-5">
+                            <button
+                                type="button"
+                                className="  bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                                onClick={handleSetModal}
+                            >
+                                x
+                            </button>
+                        </div>
                         <label
                             htmlFor="user"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
+                            className="block tracking-wide text-white text-s font-bold mb-2 mt-10"
                         >
                             Email
                         </label>
@@ -154,7 +155,7 @@ const Login = () => {
                         </div>
                         <label
                             htmlFor="password"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
+                            className="block tracking-wide text-white text-s font-bold mb-2 pt-5"
                         >
                             Contraseña
                         </label>
@@ -184,7 +185,7 @@ const Login = () => {
                                 </div> */}
                         <button
                             type="submit"
-                            className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                            className="bg-customRed hover:bg-customGray text-white font-bold mt-10 mb-7 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
                             disabled={isSubmitting}
                         >
                             Iniciar Sesión

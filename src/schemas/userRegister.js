@@ -14,7 +14,7 @@ export const validationSchema = Yup.object({
         .min(6, "La contraseña debe contener al menos 6 caracteres")
         .required("Contraseña requerida. *"),
     dni: Yup.number()
-        .typeError("Debe ser un numero de telefono valido")
+        .typeError("Debe ser un numero de documento valido")
         .min(9, "Numero de documento invalido")
         .required("Numero de documento requerido. *"),
     password2: Yup.string().oneOf(
