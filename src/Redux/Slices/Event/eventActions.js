@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Swal from 'sweetalert2'
 import {
     getAllEvents,
     getAllEventsById,
@@ -7,6 +7,24 @@ import {
     getEventsByName,
     quantityTickets,
 } from "./eventSlice";
+
+const successCreationAlert = () => {
+    Swal.fire({
+        title: "Evento Creado!",
+        text: "Ahora puedes compartir con tu público el evento!",
+        icon: "success",
+        timer: 2000
+    });
+};
+
+const errorCreationAlert = (error) => {
+    Swal.fire({
+        title: "Ocurrió un error",
+        text: `${error}`,
+        icon: "error",
+        timer: 5000
+    })
+};
 
 export const getEvents = () => (dispatch) => {
     axios("/event/getEvents")
@@ -22,14 +40,10 @@ export const getEventsById = (id) => (dispatch) => {
 export const submitEventForm = (values) => (dispatch) => {
     axios
         .post("/event/createEvent", values)
-        .then((res) => {
-            console.log(res);
-            dispatch(res);
-            alert("Evento Creado Exitosamente");
-        })
+        .then(successCreationAlert())
         .catch((e) => {
             console.log(e);
-            e.response.data ? alert(e.response.data.msg) : console.log(e);
+            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
         });
 };
 export const getEventByName = (name) => (dispatch) => {

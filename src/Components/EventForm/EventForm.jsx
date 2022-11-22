@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
-import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
-import { getPlaces } from "../../Redux/Slices/Places/placesAction";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const EventCreation = () => {
     const dispatch = useDispatch();
@@ -19,18 +18,20 @@ const EventCreation = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
-    const { places } = useSelector((state) => state.placesState);
     const { genres } = useSelector((state) => state.genresState);
     const { user } = useSelector((state) => state.sessionState);
-    console.log(user.isLogged);
+
     if (!user.isLogged) {
-        alert("Debes estar logueado");
-        dispatch(setLoginModal());
+        Swal.fire({
+        title: "Ocurrió un error",
+        text: "Debes Iniciar Sesión como Artista para crear un Evento",
+        icon: "error",
+        timer: 5000
+        });
         navigate("/");
-    }
+    };
 
     useEffect(() => {
-        dispatch(getPlaces());
         dispatch(getGenres());
     }, []);
     useEffect(() => {
@@ -42,13 +43,14 @@ const EventCreation = () => {
             ...values,
             image: image,
             genres: genresSelect,
+            artistName: "Simone_Schoen"
         };
-        console.log(formValues);
         try {
             dispatch(submitEventForm(formValues));
             setSuccess(false);
             actions.resetForm();
             setGenresSelect([]);
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
@@ -91,7 +93,8 @@ const EventCreation = () => {
                 end: "",
                 price: 0,
                 quotas: 0,
-                placeName: "",
+                city: "",
+                address: "",
                 description: "",
                 phone: "",
                 agreeTerms: false,
@@ -212,36 +215,59 @@ const EventCreation = () => {
                         />
                     </div>
                 </div>
-                <div className="w-full px-3">
-                    <label
-                        htmlFor="placeName"
-                        className="block tracking-wide text-white text-s font-bold mb-2"
-                    >
-                        Lugar
-                        {errors.placeName ? (
-                            <span className="text-customRed italic pl-1 text-xs font-semibold">
-                                {errors.placeName}
-                            </span>
-                        ) : null}
-                    </label>
-                    <select
-                        name="placeName"
-                        value={values.placeName}
-                        onChange={handleChange}
-                        className="rounded py-2 pl-3 w-full focus:outline-none bg-gray-200 focus:bg-white"
-                    >
-                        <option value="" disabled>
-                            Lugares Disponibles
-                        </option>
-                        {places.length > 0 &&
-                            places.map((place, key) => {
-                                return (
-                                    <option key={key} value={place.name}>
-                                        {`"${place.name}" --- ${place.address}`}
-                                    </option>
-                                );
-                            })}
-                    </select>
+                <div className="flex flex-wrap -mx-3 w-full">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            htmlFor="city"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >
+                            Ciudad
+                            {errors.city && touched.city ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.city}
+                                </span>
+                            ) : null}
+                        </label>
+                        <input
+                            id="city"
+                            type="text"
+                            placeholder="Ciudad"
+                            value={values.city}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={
+                                errors.city && touched.city
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
+                        />
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <label
+                            htmlFor="address"
+                            className="block tracking-wide text-white text-s font-bold mb-2"
+                        >
+                            Dirección
+                            {errors.address && touched.address ? (
+                                <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                    {errors.address}
+                                </span>
+                            ) : null}
+                        </label>
+                        <input
+                            id="address"
+                            type="text"
+                            placeholder="Dirección del Local"
+                            value={values.address}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={
+                                errors.address && touched.address
+                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            }
+                        />
+                    </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">

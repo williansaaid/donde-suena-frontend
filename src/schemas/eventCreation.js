@@ -34,7 +34,16 @@ export const eventSchema = yup.object().shape({
             }
         )
         .required("*"),
-    placeName: yup.string().required("*"),
+    city: yup
+        .string()
+        .min(3, "(Debe contener al menos 3 caracteres)")
+        .max(20, "(No puede contener más de 20 caracteres)")
+        .required("*"),
+    address: yup
+        .string()
+        .min(10, "(Debe contener al menos 10 caracteres)")
+        .max(50, "(No puede contener más de 50 caracteres)")
+        .required("*"),
     quotas: yup
         .number()
         .min(1, "(Mín: 1 entrada)")
