@@ -23,7 +23,10 @@ const Login = () => {
     };
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
-        fetch("http://localhost:3001/auth/google", {
+        let url = window.location.hostname.includes("localhost")
+            ? "http://localhost:3001/auth/google"
+            : "https://donde-suena.vercel.app/auth/google";
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -77,6 +80,13 @@ const Login = () => {
             ariaHideApp={false}
             onRequestClose={handleSetModal}
             className="modal"
+            style={{
+                overlay: {
+                    zIndex: 1000,
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                    objectFit: "contain",
+                },
+            }}
         >
             <Formik
                 initialValues={{
