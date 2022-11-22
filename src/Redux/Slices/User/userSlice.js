@@ -6,6 +6,7 @@ export const userSlice = createSlice({
         modal: false,
         tickets: [],
         paymentUrl: "",
+        
     },
     reducers: {
         paymentOrder: (state, action) => {

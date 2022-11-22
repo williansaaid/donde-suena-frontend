@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { logUser, getAllTicketsByUser } from "./userSlice";
+import { logUser, getAllTicketsByUser, getFavs } from "./userSlice";
 import {
     paymentOrder,
     clearPaymentOrder

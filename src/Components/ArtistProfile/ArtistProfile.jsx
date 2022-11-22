@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector  } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById} from "../../Redux/Slices/Artist/artistActions"
+import {addFavorite} from "../../Redux/Slices/Favorites/favoritesAction"
 
 
 
@@ -12,6 +13,9 @@ export const ArtistProfile = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const  {artistId } = useSelector((state) => state.artistId);
+    const  {addFav } = useSelector ((state) => state.addFav)
+    const  userId = useSelector ((state)=> state.sessionState)
+
     console.log(artistId)
 
 
@@ -19,10 +23,16 @@ export const ArtistProfile = (props) => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
 
+     function handleAddFav(e){
+        e.preventDefault();
+        dispatch(addFavorite(id, userId));
+      }
+    
 
 
 return (
-<div class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
+    <div class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
+    <button onClick={(e)=>handleAddFav(e)}> ⭐ </button>
     <div class="px-6">
         <div class="flex flex-wrap justify-center">
             <div class="w-full flex justify-center">
