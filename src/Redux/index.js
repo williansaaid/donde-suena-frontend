@@ -13,17 +13,14 @@ import session from "./Slices/Session/sessionSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
-<<<<<<< HEAD
 import user from "./Slices/User/userSlice";
 import loading from "./Slices/Loading/LoadingSlices";
-=======
 import userPublic from "./Slices/User/userSlice";
->>>>>>> 350fa7ecdf550bb4d970d3fcab5fe0e182945eda
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["userState"],
+    whitelist: ["sessionState"],
 };
 
 const rootReducer = combineReducers({
