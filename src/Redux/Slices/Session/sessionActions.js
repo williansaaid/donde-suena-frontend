@@ -9,6 +9,13 @@ const successAlert = () => {
         "success"
     );
 };
+const rejectedAlert = () => {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Registro incorrecto!",
+    });
+};
 
 export const login = (values) => (dispatch) => {
     axios
@@ -29,7 +36,10 @@ export const confirmateToken = (token) => (dispatch) => {
             // alert("Usuario Creado Exitosamente");
             successAlert();
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            console.log(e);
+            rejectedAlert();
+        });
 };
 
 export const submitUserForm = (values) => (dispatch) => {
@@ -41,7 +51,10 @@ export const submitUserForm = (values) => (dispatch) => {
             dispatch(logUser(res));
             successAlert();
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            console.log(e);
+            rejectedAlert();
+        });
 };
 
 export const submitArtistForm = (values) => (dispatch) => {
@@ -53,7 +66,8 @@ export const submitArtistForm = (values) => (dispatch) => {
             successAlert();
         })
         .catch((e) => {
-            e.response.data ? alert(e.response.data.msg) : console.log(e);
+            rejectedAlert();
+            console.log(e);
         });
 };
 
