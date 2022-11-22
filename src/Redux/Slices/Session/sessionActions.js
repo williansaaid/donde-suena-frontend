@@ -3,9 +3,10 @@ import { logUser, logoutUser } from "./sessionSlice";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
 const successAlert = () => {
-    setTimeout(
-        Swal.fire("Good job!", "You clicked the button!", "success"),
-        1000
+    Swal.fire(
+        "Registro exitoso!",
+        "Revise su casilla de correo para completar el registro!",
+        "success"
     );
 };
 
@@ -26,7 +27,7 @@ export const confirmateToken = (token) => (dispatch) => {
             console.log(res);
             dispatch(logUser(res));
             // alert("Usuario Creado Exitosamente");
-            successAlert("Usuario Creado Exitosamente");
+            successAlert();
         })
         .catch((e) => console.log(e));
 };
@@ -38,7 +39,7 @@ export const submitUserForm = (values) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            successAlert("Usuario Creado Exitosamente");
+            successAlert();
         })
         .catch((e) => console.log(e));
 };
@@ -49,7 +50,7 @@ export const submitArtistForm = (values) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            alert("Usuario Creado Correctamente");
+            successAlert();
         })
         .catch((e) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);
