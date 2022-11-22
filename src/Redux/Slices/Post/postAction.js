@@ -3,10 +3,10 @@ import axios from "axios";
 import { getPostById } from "./postSlice";
 
 export const getPostId =()=>(dispatch)=>{
-  axios.get("http://localhost:3001/auth/artist/getPost/aadd8222-ee5d-482b-8464-b59d33b90ab2")
+  axios.get("http://localhost:3001/auth/artist/getPosts")
     .then((res)=>{
-      console.log(res.data.postId.posts)
-      dispatch(getPostById(res.data.postId.posts))})
+      console.log(res.data.allPosts)
+      dispatch(getPostById(res.data.allPosts))})
     .catch((e) => console.log(e));
 }
 

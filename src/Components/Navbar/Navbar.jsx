@@ -8,7 +8,7 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isLogged = useSelector((state) => state.userState.user);
+    const { isLogged } = useSelector((state) => state.sessionState.user);
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
@@ -23,7 +23,7 @@ function Navbar() {
                     <div className="container mx-auto flex justify-between items-center">
                         <img
                             onClick={() => navigate("/")}
-                            class="h-20 cursor-pointer animate-pulse"
+                            className="h-20 cursor-pointer animate-pulse"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
