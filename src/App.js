@@ -13,7 +13,8 @@ import PostVar from "./Components/PostVar/PostVar";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
-import PostHome from "./Components/PostHome/PostHome.jsx"
+import PostHome from "./Components/PostHome/PostHome.jsx";
+import UserProfile from "./Components/UserProfile/UserProfile";
 
 function App() {
     return (
@@ -41,9 +42,13 @@ function App() {
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
-                    <Route path="/favs" element={<UserFavorites />}/>
+                    <Route path="/favs" element={<UserFavorites />} />
                     <Route path={"/myshopping/:id"} element={<MyShopping />} />
                     <Route path={"/postHome"} element={<PostHome />} />
+                    <Route
+                        path={"/userProfile/:id"}
+                        element={<UserProfile />}
+                    />
                 </Routes>
                 <Footer />
             </div>
