@@ -67,7 +67,9 @@ export const setFilter = (payload) => (dispatch) => {
             dispatch(filteredEvents(res.data.events));
         })
         .catch((e) => {
-            e.response.data ? alert(e.response.data.msg) : console.log(e);
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
         });
 };
 
