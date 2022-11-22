@@ -1,5 +1,5 @@
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import {
     getAllEvents,
     getAllEventsById,
@@ -13,7 +13,7 @@ const successCreationAlert = () => {
         title: "Evento Creado!",
         text: "Ahora puedes compartir con tu público el evento!",
         icon: "success",
-        timer: 2000
+        timer: 2000,
     });
 };
 
@@ -22,8 +22,8 @@ const errorCreationAlert = (error) => {
         title: "Ocurrió un error",
         text: `${error}`,
         icon: "error",
-        timer: 5000
-    })
+        timer: 5000,
+    });
 };
 
 export const getEvents = () => (dispatch) => {
@@ -43,13 +43,20 @@ export const submitEventForm = (values) => (dispatch) => {
         .then(successCreationAlert())
         .catch((e) => {
             console.log(e);
-            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
         });
 };
 export const getEventByName = (name) => (dispatch) => {
     axios(`/event/getEvents?filter[name]=${name}`)
         .then((res) => dispatch(getEventsByName(res.data.events)))
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            console.log(e);
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
 };
 
 export const setFilter = (payload) => (dispatch) => {
@@ -72,6 +79,8 @@ export const updateTickets = (values) => (dispatch) => {
 
 export const getQuantityTickets = (id) => (dispatch) => {
     axios(`/event/stockQuotas/${id}`)
-        .then((res) => {dispatch(quantityTickets(res.data.stock.quotas))})
+        .then((res) => {
+            dispatch(quantityTickets(res.data.stock.quotas));
+        })
         .catch((e) => console.log(e));
-}
+};
