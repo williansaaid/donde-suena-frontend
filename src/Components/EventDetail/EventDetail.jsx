@@ -185,28 +185,30 @@ const EventDetail = () => {
                         >
                             <p className="font-bold uppercase">Comprar</p>
                         </button>
-                        {order ? (
-                            paymentUrl.length > 0 ? (
-                                <a
-                                    href={paymentUrl}
-                                    target="_blank"
-                                    className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
-                                >
-                                    <div className="flex justify-center items-center w-24 max-h-12">
-                                        <img
-                                            src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
-                                            className="h-30 object-cover"
-                                        />
+                        <div>
+                            {order ? (
+                                paymentUrl.length > 0 ? (
+                                    <a
+                                        href={paymentUrl}
+                                        target="_blank"
+                                        className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
+                                    >
+                                        <div className="flex justify-center items-center w-24 max-h-12">
+                                            <img
+                                                src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
+                                                className="h-30 object-cover"
+                                            />
+                                        </div>
+                                    </a>
+                                ) : (
+                                    <div className="flex items-center">
+                                        <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                            (Generando la orden...)
+                                        </span>
                                     </div>
-                                </a>
-                            ) : (
-                                <div className="flex items-center">
-                                    <span className="text-customRed italic pl-1 text-xs font-semibold">
-                                        (Generando la orden...)
-                                    </span>
-                                </div>
-                            )
-                        ) : null}
+                                )
+                            ) : null}
+                        </div>
                     </div>
                     <div class="grid h-15px place-items-center ">
                         <ul class="flex flex-wrap">

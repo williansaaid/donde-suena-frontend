@@ -1,5 +1,14 @@
 import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+
+const successAlert = () => {
+    Swal.fire(
+        "Registro exitoso!",
+        "Revise su casilla de correo para completar el registro!",
+        "success"
+    );
+};
 
 export const login = (values) => (dispatch) => {
     axios
@@ -17,7 +26,8 @@ export const confirmateToken = (token) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            alert("Usuario Creado Exitosamente");
+            // alert("Usuario Creado Exitosamente");
+            successAlert();
         })
         .catch((e) => console.log(e));
 };
@@ -29,7 +39,7 @@ export const submitUserForm = (values) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            alert("Usuario Creado Correctamente");
+            successAlert();
         })
         .catch((e) => console.log(e));
 };
@@ -40,7 +50,7 @@ export const submitArtistForm = (values) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            alert("Usuario Creado Correctamente");
+            successAlert();
         })
         .catch((e) => {
             e.response.data ? alert(e.response.data.msg) : console.log(e);
