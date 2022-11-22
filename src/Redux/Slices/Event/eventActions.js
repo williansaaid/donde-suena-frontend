@@ -22,7 +22,7 @@ const errorCreationAlert = (error) => {
         title: "Ocurrió un error",
         text: `${error}`,
         icon: "error",
-        timer: 5000,
+        timer: 4000,
     });
 };
 
