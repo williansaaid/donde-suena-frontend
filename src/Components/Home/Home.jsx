@@ -8,6 +8,7 @@ import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import { ArtistFeed } from "../ArtistFeed/ArtistFeed";
 
 const Home = () => {
     const dispatch = useDispatch();

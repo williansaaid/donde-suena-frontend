@@ -10,12 +10,15 @@ import favorites from "../Redux/Slices/Favorites/favoritesSlice";
 import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
 import session from "./Slices/Session/sessionSlice";
+import user from "./Slices/User/userSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
-import user from "./Slices/User/userSlice";
 import loading from "./Slices/Loading/LoadingSlices";
 import userPublic from "./Slices/User/userSlice";
+import posts from "./Slices/Post/postSlice";
+import comments from "./Slices/Comments/commentsSlices";
+import artistId from "./Slices/Artist/artistSlice";
 
 const persistConfig = {
     key: "root",
@@ -37,7 +40,11 @@ const rootReducer = combineReducers({
     artistState: artist,
     filterState: filter,
     mapState: map,
-    userPublicState: userPublic
+    userStateTickets: user,
+    posts: posts,
+    userPublicState: userPublic,
+    comments: comments,
+    artistId: artistId,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
