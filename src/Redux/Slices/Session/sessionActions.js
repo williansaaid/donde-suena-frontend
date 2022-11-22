@@ -1,5 +1,13 @@
 import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+
+const successAlert = () => {
+    setTimeout(
+        Swal.fire("Good job!", "You clicked the button!", "success"),
+        1000
+    );
+};
 
 export const login = (values) => (dispatch) => {
     axios
@@ -17,7 +25,8 @@ export const confirmateToken = (token) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            alert("Usuario Creado Exitosamente");
+            // alert("Usuario Creado Exitosamente");
+            successAlert("Usuario Creado Exitosamente");
         })
         .catch((e) => console.log(e));
 };
@@ -29,7 +38,7 @@ export const submitUserForm = (values) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            alert("Usuario Creado Correctamente");
+            successAlert("Usuario Creado Exitosamente");
         })
         .catch((e) => console.log(e));
 };
