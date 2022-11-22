@@ -12,24 +12,18 @@ function SearchBar() {
     }
     function handleSearch(e) {
         e.preventDefault();
-        if ((e.key==="Enter") && name !== ("") ) {
+        if (e.key === "Enter" && name !== "") {
             dispatch(getEventByName(name));
             setName("");
         }
-
-
-
     }
     function handleSearchButton(e) {
-      e.preventDefault();
-      // if (name !== ("") ) {
-          dispatch(getEventByName(name));
-          setName("");
-      // }
-
-
-  }
-
+        e.preventDefault();
+        // if (name !== ("") ) {
+        dispatch(getEventByName(name));
+        setName("");
+        // }
+    }
 
     return (
         <div className="h-10 w-96 px-2 flex flex-row-reverse bg-customGray border border-white rounded-lg items-center">
