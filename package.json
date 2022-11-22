@@ -19,11 +19,8 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-icons": "^4.6.0",
-<<<<<<< HEAD
         "react-input-emoji": "^4.3.0",
         "react-loading": "^2.0.3",
-=======
->>>>>>> 350fa7ecdf550bb4d970d3fcab5fe0e182945eda
         "react-modal": "^3.16.1",
         "react-redux": "^8.0.5",
         "react-responsive-carousel": "^3.2.23",
