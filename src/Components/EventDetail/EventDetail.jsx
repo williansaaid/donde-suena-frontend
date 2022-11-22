@@ -9,8 +9,6 @@ import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
 import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
-import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
-import Loading from "../Loading/Loading";
 
 const EventDetail = () => {
     const dispatch = useDispatch();
@@ -18,7 +16,6 @@ const EventDetail = () => {
     const [searchParams] = useSearchParams();
     const [query, setQuery] = useState({});
     const { detail } = useSelector((state) => state.detailState);
-    const { loading } = useSelector((state) => state.loadingState);
     const [quantity, setQuantity] = useState(1);
     const { paymentUrl } = useSelector((state) => state.userPublicState);
     const [order, setOrder] = useState(false);
@@ -38,14 +35,6 @@ const EventDetail = () => {
         };
         dispatch(ticketPurchase(detailsPurchase));
     };
-    const loadingCallback = useCallback(() => {
-        setTimeout(() => {
-            dispatch(changeLoading());
-        }, 2000);
-    }, []);
-    useEffect(() => {
-        loadingCallback();
-    }, [loadingCallback]);
 
     const handleQuantity = (e) => {
         e.preventDefault();
@@ -78,8 +67,7 @@ const EventDetail = () => {
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
             <div class="flex mx-10 my-16 gap-8">
-                {loading && <Loading />}
-                <div class={!loading ? "w-1/2 flex flex-col gap-4" : "hidden"}>
+                <div class="w-1/2 flex flex-col gap-4">
                     <div class="relative rounded-lg overflow-hidden">
                         <img
                             alt="event"
@@ -97,9 +85,7 @@ const EventDetail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="l-20">
-                        <Map data={location}></Map>
-                    </div>
+                    <Map data={location}></Map>
                 </div>
                 <div class="w-1/2 bg-gray-300 rounded-lg p-8 flex flex-col gap-4">
                     <h1 className="font-bold uppercase text-3xl text-center my-5">
@@ -138,9 +124,9 @@ const EventDetail = () => {
                         {detail.price}$
                     </p>
 
-                    <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                        <div className="flex ml-6 items-center">
-                            <div className="relative"></div>
+                    <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+                        <div class="flex ml-6 items-center">
+                            <div class="relative"></div>
                         </div>
                     </div>
 
@@ -159,7 +145,7 @@ const EventDetail = () => {
                                 <option value={5}>5</option>
                                 <option value={6}>6</option>
                             </select>
-                            <span className="absolute right-0 top-0 h-full w-5 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                            <span class="absolute right-0 top-0 h-full w-5 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
@@ -202,9 +188,9 @@ const EventDetail = () => {
                             )
                         ) : null}
                     </div>
-                    <div className="grid h-15px place-items-center ">
-                        <ul className="flex flex-wrap">
-                            <li className="pr-4 ... pt-40 ... px-8 ...">
+                    <div class="grid h-15px place-items-center ">
+                        <ul class="flex flex-wrap">
+                            <li class="pr-4 ... pt-40 ... px-8 ...">
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
                                     alt="instagram logo"
@@ -212,15 +198,15 @@ const EventDetail = () => {
                                     width="50px"
                                 />
                             </li>
-                            <li className="pr-4 ... pt-40 ... px-8 ...">
+                            <li class="pr-4 ... pt-40 ... px-8 ...">
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_twitter_jnclek.png"
-                                    alt="twitter logoauto"
+                                    alt="twitter logo"
                                     height="50px"
                                     width="50px"
                                 />
                             </li>
-                            <li className="pr-4 ... pt-40 ... px-8 ...">
+                            <li class="pr-4 ... pt-40 ... px-8 ...">
                                 <img
                                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_facebook_glqqwf.png"
                                     alt="facebook logo"
@@ -229,9 +215,9 @@ const EventDetail = () => {
                                 />
                             </li>
                         </ul>
-                        <ul className="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
+                        <ul class="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0"></ul>
                     </div>
-                    <div className="flex mx-20 mt-20 mr-20 justify-center">
+                    <div class="flex mx-20 mt-20 mr-20 justify-center">
                         <button
                             onClick={() => navigate("/")}
                             class=" text-white bg-customRed border-0 py-3 px-6 focus:outline-none hover:bg-red-500 rounded uppercase font-bold"
