@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector  } from "react-redux";
 import { postArtist } from "../../Redux/Slices/Artist/artistActions";
-import {PostId} from "../PostCard/PostCard"
+
 import axios from "axios";
 
-function PostVar() {
+export const PostVar=() =>{ 
     const artist = useSelector((state) => state.artist);
 
     const dispatch = useDispatch();
@@ -117,7 +117,7 @@ function PostVar() {
       {/* <PostId descripcion={"descripcion"} multimedia={null}></PostId> */}
 
     <div>
-    <PostId></PostId>
+    
     </div>
     </>
     );

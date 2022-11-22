@@ -8,7 +8,11 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+<<<<<<< HEAD
     const isLogged = useSelector((state) => state.userState.user);
+=======
+    const { isLogged } = useSelector((state) => state.sessionState.user);
+>>>>>>> b150649be84596b4d1321e56becf8eaf15b7b7e8
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
@@ -18,54 +22,55 @@ function Navbar() {
 
     return (
         <>
-            {!location.pathname.includes("/register") && (
-                <nav className="bg-customGray relative w-full">
-                    <div className="container mx-auto flex justify-between items-center">
-                        <img
-                            onClick={() => navigate("/")}
-                            class="h-20 cursor-pointer animate-pulse"
-                            src={
-                                "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
-                            }
-                            alt="logo"
-                        />
-                        <div className="flex items-center">
-                            <div className="my-9">
-                                <SearchBar />
+            {!location.pathname.includes("/register") &&
+                !location.pathname.includes("/detail") && (
+                    <nav className="bg-customGray relative w-full">
+                        <div className="container mx-auto flex justify-between items-center">
+                            <img
+                                onClick={() => navigate("/")}
+                                className="h-20 cursor-pointer animate-pulse"
+                                src={
+                                    "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
+                                }
+                                alt="logo"
+                            />
+                            <div className="flex items-center">
+                                <div className="my-9">
+                                    <SearchBar />
+                                </div>
+                                {!isLogged ? (
+                                    <div
+                                        onClick={handleLogin}
+                                        className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                                    >
+                                        <img
+                                            className="h-full"
+                                            src={
+                                                "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
+                                            }
+                                            alt="account icon"
+                                        />
+                                        <a>Mi Cuenta</a>
+                                    </div>
+                                ) : (
+                                    <div
+                                        onClick={handleLogout}
+                                        className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                                    >
+                                        <img
+                                            className="h-full"
+                                            src={
+                                                "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
+                                            }
+                                            alt="account icon"
+                                        />
+                                        <a>Logout</a>
+                                    </div>
+                                )}
                             </div>
-                            {!isLogged ? (
-                                <div
-                                    onClick={handleLogin}
-                                    className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
-                                >
-                                    <img
-                                        className="h-full"
-                                        src={
-                                            "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
-                                        }
-                                        alt="account icon"
-                                    />
-                                    <a>Mi Cuenta</a>
-                                </div>
-                            ) : (
-                                <div
-                                    onClick={handleLogout}
-                                    className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
-                                >
-                                    <img
-                                        className="h-full"
-                                        src={
-                                            "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
-                                        }
-                                        alt="account icon"
-                                    />
-                                    <a>Logout</a>
-                                </div>
-                            )}
                         </div>
-                    </div>
-                </nav>
-            )}
+                    </nav>
+                )}
         </>
     );
 }

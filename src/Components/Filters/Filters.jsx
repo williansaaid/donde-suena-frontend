@@ -27,6 +27,7 @@ function FilterBar() {
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
         );
     }
+    function cleanFilters() {}
     function handleFilterByGenre() {
         const genres = allGenres.genres?.map((g) => g.name);
         console.log(genres);
