@@ -8,7 +8,9 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLogged } = useSelector((state) => state.sessionState.user);
+
+    const isLogged = useSelector((state) => state.userState.user);
+
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
