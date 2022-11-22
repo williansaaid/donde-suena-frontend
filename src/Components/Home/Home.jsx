@@ -20,6 +20,7 @@ const Home = () => {
         dispatch(getEvents());
     }, []);
     const loadingCallback = useCallback(() => {
+        dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
         }, 1000);
