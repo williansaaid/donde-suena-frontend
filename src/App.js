@@ -16,9 +16,11 @@ import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
 import { useSelector } from "react-redux";
 function App() {
-    const user = useSelector((state) => state.sessionState?.user);
+    // const user = useSelector((state) => state.sessionState?.user);
 
+    const  {user} = useSelector ((state)=> state.sessionState.user.data)
     const isLogged = user.isLogged;
+    
 
     const isArtist = user.artista || false;
     // const isAdmin = user.admin || false;
@@ -81,7 +83,7 @@ function App() {
                     <Route path={"/postHome"} element={<PostHome />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route
-                        path={"/artistProfile/:id"}
+                        path="/artistProfile/:id"
                         element={<ArtistProfile />}
                     />
                 </Routes>
