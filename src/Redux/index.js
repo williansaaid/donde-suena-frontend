@@ -20,6 +20,7 @@ import posts from "./Slices/Post/postSlice";
 import comments from "./Slices/Comments/commentsSlices";
 import artistId from "./Slices/Artist/artistSlice";
 import userId from "./Slices/User/userSlice";
+import  addFav from "./Slices/Favorites/favoritesSlice";
 
 const persistConfig = {
     key: "root",
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
     posts: posts,
     comments: comments,
     artistId: artistId,
+    addFav: addFav,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

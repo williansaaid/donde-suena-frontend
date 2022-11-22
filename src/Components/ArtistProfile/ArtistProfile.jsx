@@ -2,16 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
+import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
 
-export const ArtistProfile = () => {
+export const ArtistProfile = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { artistId } = useSelector((state) => state.artistId);
+    const { addFav } = useSelector((state) => state.addFav);
+    const { user } = useSelector((state) => state.sessionState.user.data);
+    console.log(user);
 
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
 
+    function handleAddFav(e) {
+        e.preventDefault();
+        dispatch(addFavorite(id, user.id));
+    }
+
+    return (
+        <div class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
     return (
         <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
             <div class="px-6">
@@ -47,8 +58,13 @@ export const ArtistProfile = () => {
                 </div>
                 <div class="text-center mt-2">
                     <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">
-                        {artistId.nickname}
+                        {artistId.firstName} {artistId.lastName}
                     </h3>
+                    <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                        <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>
+                        {artistId.spotify}
+                        {artistId.nickname}
+                    </div>
                     <div class="text-xs mt-0 mb-2 text-slate-400 font-bold">
                         <i class="font-light leading-relaxed text-slate-600 mb-4"></i>
                         {artistId.description}
@@ -57,6 +73,17 @@ export const ArtistProfile = () => {
                 <div class="mt-6 py-6 border-t border-slate-200 text-center">
                     <div class="flex flex-wrap justify-center">
                         <div class="w-full px-4">
+                            <p class="font-light leading-relaxed text-slate-600 mb-4">
+                                {artistId.email}
+                            </p>
+                            <button
+                                class="font-normal text-slate-700 hover:text-slate-400 scale-125"
+                                onClick={(e) => handleAddFav(e)}
+                            >
+                                {" "}
+                                ⭐{" "}
+                            </button>
+                        </div>
                             <button className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg px-5 text-white">
                                 Follow Account
                             </button>

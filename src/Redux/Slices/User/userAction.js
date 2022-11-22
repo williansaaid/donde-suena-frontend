@@ -5,6 +5,8 @@ import {
     paymentOrder,
     clearPaymentOrder,
     getDataUserId,
+    logUser,
+    getFavs,
 } from "./userSlice";
 
 export const ticketPurchase = (values) => (dispatch) => {

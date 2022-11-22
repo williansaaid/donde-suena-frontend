@@ -20,9 +20,11 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 import { useSelector } from "react-redux";
 
 function App() {
-    const user = useSelector((state) => state.sessionState?.user);
+    // const user = useSelector((state) => state.sessionState?.user);
 
+    const  {user} = useSelector ((state)=> state.sessionState.user.data)
     const isLogged = user.isLogged;
+    
 
     const isArtist = user.artista || false;
     // const isAdmin = user.admin || false;
@@ -93,7 +95,7 @@ function App() {
                         element={<UserProfile />}
                     />
                     <Route
-                        path={"/artistProfile/:id"}
+                        path="/artistProfile/:id"
                         element={<ArtistProfile />}
                     />
                 </Routes>
