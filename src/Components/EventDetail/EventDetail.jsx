@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, Navigate } from "react-router-dom";
 import {
     getEventsById,
     updateTickets,
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
 import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 
 const EventDetail = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,13 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     const navigate = useNavigate();
+    const user = useSelector((state) => state.sessionState?.user);
+    const isLogged = user.isLogged;
+    const token = user.token || null;
+
+    const modal = () => {
+        dispatch(setLoginModal());
+    };
 
     useEffect(() => {
         dispatch(getEventsById(id));
@@ -160,8 +168,17 @@ const EventDetail = () => {
                             </span>
                         </div>
                         <button
-                            onClick={handlePurchase}
-                            className="flex ml-auto text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded items-center"
+                            {...(isLogged
+                                ? {
+                                      onClick: handlePurchase,
+                                      class: "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                  }
+                                : {
+                                      onClick: () => {
+                                          modal();
+                                      },
+                                      class: "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                  })}
                         >
                             <p className="font-bold uppercase">Comprar</p>
                         </button>
