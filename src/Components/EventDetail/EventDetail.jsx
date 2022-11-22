@@ -4,6 +4,7 @@ import { useParams, useSearchParams, Navigate } from "react-router-dom";
 import {
     getEventsById,
     updateTickets,
+    getQuantityTickets
 } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
@@ -51,11 +52,13 @@ const EventDetail = () => {
 
     useEffect(() => {
         dispatch(clearUrl());
+        dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
     }, []);
 
     useEffect(() => {
+        dispatch(getQuantityTickets(id));
         if (query.hasOwnProperty("payment_id") && query.payment_id === "null") {
             alert("No se pudo concretar la compra");
         } else if (
@@ -170,15 +173,15 @@ const EventDetail = () => {
                         <button
                             {...(isLogged
                                 ? {
-                                      onClick: handlePurchase,
-                                      class: "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                  }
+                                    onClick: handlePurchase,
+                                    class: "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                }
                                 : {
-                                      onClick: () => {
-                                          modal();
-                                      },
-                                      class: "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                  })}
+                                    onClick: () => {
+                                        modal();
+                                    },
+                                    class: "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                })}
                         >
                             <p className="font-bold uppercase">Comprar</p>
                         </button>

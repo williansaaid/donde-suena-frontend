@@ -1,14 +1,42 @@
 import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
-import Swal from "sweetalert2/dist/sweetalert2.js";
+import Swal from 'sweetalert2';
 
-const successAlert = () => {
-    Swal.fire(
-        "Registro exitoso!",
-        "Revise su casilla de correo para completar el registro!",
-        "success"
-    );
+const successCreationAlert = () => {
+    Swal.fire({
+        title: "Registro exitoso!",
+        text: "Revise su casilla de correo para completar el registro!",
+        icon: "success",
+        timer: 2000
+    });
 };
+
+const errorCreationAlert = (error) => {
+    Swal.fire({
+        title: "Ocurrió un error",
+        text: `${error}`,
+        icon: "error",
+        timer: 5000
+    })
+};
+
+const successConfirmAlert = () => {
+    Swal.fire({
+        title: "Todo en orden!",
+        text: "Bienvenido a Donde Suena!",
+        icon: "success",
+        timer: 2000
+    });
+};
+
+const logOutAlert = () => {
+    Swal.fire({
+        title: "Sesión Cerrada",
+        text: "Esperamos verte pronto!",
+        icon: "success",
+        timer: 2000
+    });
+}
 
 export const login = (values) => (dispatch) => {
     axios
@@ -17,7 +45,9 @@ export const login = (values) => (dispatch) => {
             console.log(res);
             dispatch(logUser(res.data));
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
+        });
 };
 
 export const confirmateToken = (token) => (dispatch) => {
@@ -26,8 +56,7 @@ export const confirmateToken = (token) => (dispatch) => {
         .then((res) => {
             console.log(res);
             dispatch(logUser(res));
-            // alert("Usuario Creado Exitosamente");
-            successAlert();
+            successConfirmAlert();
         })
         .catch((e) => console.log(e));
 };
@@ -37,26 +66,27 @@ export const submitUserForm = (values) => (dispatch) => {
     axios
         .post("/auth/registerUser", values)
         .then((res) => {
-            console.log(res);
             dispatch(logUser(res));
-            successAlert();
+            successCreationAlert();
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
+        });
 };
 
 export const submitArtistForm = (values) => (dispatch) => {
     axios
         .post("/auth/registerArtist", values)
         .then((res) => {
-            console.log(res);
             dispatch(logUser(res));
-            successAlert();
+            successCreationAlert();
         })
         .catch((e) => {
-            e.response.data ? alert(e.response.data.msg) : console.log(e);
+            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
         });
 };
 
 export const logOut = () => (dispatch) => {
     dispatch(logoutUser());
+    logOutAlert();
 };
