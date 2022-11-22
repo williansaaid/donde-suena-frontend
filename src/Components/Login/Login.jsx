@@ -23,7 +23,10 @@ const Login = () => {
     };
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
-        fetch("http://localhost:3001/auth/google", {
+        let url = window.location.hostname.includes("localhost")
+            ? "http://localhost:3001/auth/google"
+            : "https://donde-suena.vercel.app/auth/google";
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -77,6 +80,13 @@ const Login = () => {
             ariaHideApp={false}
             onRequestClose={handleSetModal}
             className="modal"
+            style={{
+                overlay: {
+                    zIndex: 1000,
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                    objectFit: "contain",
+                },
+            }}
         >
             <Formik
                 initialValues={{
@@ -156,11 +166,11 @@ const Login = () => {
                                 )}
                             </ErrorMessage>
                         </div>
-                        <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
-                            <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
-                                Olvidaste tu contraseña?
-                            </span>
-                        </div>
+                        {/* <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
+                                    <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
+                                        Olvidaste tu contraseña?
+                                    </span>
+                                </div> */}
                         <button
                             type="submit"
                             className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"

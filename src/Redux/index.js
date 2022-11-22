@@ -9,10 +9,12 @@ import places from "../Redux/Slices/Places/placesSlice";
 import favorites from "../Redux/Slices/Favorites/favoritesSlice";
 import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
+import session from "./Slices/Session/sessionSlice";
 import user from "./Slices/User/userSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
+import loading from "./Slices/Loading/LoadingSlices";
 import userPublic from "./Slices/User/userSlice";
 import posts from "./Slices/Post/postSlice";
 import comments from "./Slices/Comments/commentsSlices";
@@ -22,11 +24,13 @@ import  addFav from "./Slices/Favorites/favoritesSlice";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["userState"],
+    whitelist: ["sessionState"],
 };
 
 const rootReducer = combineReducers({
+    loadingState: loading,
     userState: user,
+    sessionState: session,
     detailState: detail,
     modalState: login,
     eventsState: events,
@@ -48,14 +52,5 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default configureStore({
     reducer: persistedReducer,
-
-    // events: events,
-    // detail: detail,
-    // modal: modal,
-    // places: places,
-    // favorites: favorites,
-    // genres: genres,
-    // purchased: purchased,
-    // user: user,
     middleware: [thunk],
 });
