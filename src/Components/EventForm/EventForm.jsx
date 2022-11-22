@@ -21,10 +21,10 @@ const EventCreation = () => {
     const [genreEmpty, setGenreEmpty] = useState(true);
     const { places } = useSelector((state) => state.placesState);
     const { genres } = useSelector((state) => state.genresState);
-    const { user } = useSelector((state) => state.userState);
-    console.log(user);
+    const { user } = useSelector((state) => state.sessionState);
 
     if (!user.isLogged) {
+        console.log("Debes estar logueado");
         dispatch(setLoginModal());
         navigate("/");
     }

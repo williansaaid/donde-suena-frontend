@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import {
     getEventsById,
     updateTickets,
+    getQuantityTickets
 } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
@@ -43,11 +44,13 @@ const EventDetail = () => {
 
     useEffect(() => {
         dispatch(clearUrl());
+        dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
     }, []);
 
     useEffect(() => {
+        dispatch(getQuantityTickets(id));
         if (query.hasOwnProperty("payment_id") && query.payment_id === "null") {
             alert("No se pudo concretar la compra");
         } else if (
