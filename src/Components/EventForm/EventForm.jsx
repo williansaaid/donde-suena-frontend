@@ -22,9 +22,9 @@ const EventCreation = () => {
     const { places } = useSelector((state) => state.placesState);
     const { genres } = useSelector((state) => state.genresState);
     const { user } = useSelector((state) => state.sessionState);
-
+    console.log(user.isLogged);
     if (!user.isLogged) {
-        console.log("Debes estar logueado");
+        alert("Debes estar logueado");
         dispatch(setLoginModal());
         navigate("/");
     }
