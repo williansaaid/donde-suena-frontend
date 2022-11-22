@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import { getEventsById, updateTickets } from "../../Redux/Slices/Event/eventActions";
+import {
+    getEventsById,
+    updateTickets,
+} from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
@@ -10,12 +13,12 @@ import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
 const EventDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [ searchParams ] = useSearchParams();
-    const [ query, setQuery ] = useState({});
+    const [searchParams] = useSearchParams();
+    const [query, setQuery] = useState({});
     const { detail } = useSelector((state) => state.detailState);
-    const [ quantity, setQuantity ] = useState(1);
+    const [quantity, setQuantity] = useState(1);
     const { paymentUrl } = useSelector((state) => state.userPublicState);
-    const [ order, setOrder ] = useState(false);
+    const [order, setOrder] = useState(false);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     const navigate = useNavigate();
 
@@ -28,7 +31,7 @@ const EventDetail = () => {
         let detailsPurchase = {
             quantity: parseInt(quantity),
             priceTotal: detail.price,
-            id: id
+            id: id,
         };
         dispatch(ticketPurchase(detailsPurchase));
     };
@@ -40,18 +43,26 @@ const EventDetail = () => {
 
     useEffect(() => {
         dispatch(clearUrl());
-        setQuery(Object.fromEntries([...searchParams]))
+        setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
     }, []);
 
     useEffect(() => {
-        if(query.hasOwnProperty("payment_id") && query.payment_id === "null"){
+        if (query.hasOwnProperty("payment_id") && query.payment_id === "null") {
             alert("No se pudo concretar la compra");
-        } else if (query.hasOwnProperty("payment_id") && query.payment_id !== "null"){
-            dispatch(updateTickets({quantity: parseInt(query.purchasedQuantity), id: id}));
+        } else if (
+            query.hasOwnProperty("payment_id") &&
+            query.payment_id !== "null"
+        ) {
+            dispatch(
+                updateTickets({
+                    quantity: parseInt(query.purchasedQuantity),
+                    id: id,
+                })
+            );
             alert("Compra Completada");
         }
-    },[query])
+    }, [query]);
 
     return (
         <section class="text-gray-700 body-font overflow-hidden bg-white">
@@ -95,17 +106,21 @@ const EventDetail = () => {
                         pellentesque habitant morbi tristique
                     </p>
                     <p class="leading-relaxed">
-                        <span className="font-bold mr-2">⏰ Hora de Inicio:
+                        <span className="font-bold mr-2">
+                            ⏰ Hora de Inicio:
                         </span>
                         {detail.start}
                     </p>
                     <p class="leading-relaxed">
-                        <span className="font-bold mr-2">⏰ Hora de Finalización:
+                        <span className="font-bold mr-2">
+                            ⏰ Hora de Finalización:
                         </span>
                         {detail.end}
                     </p>
                     <p class="leading-relaxed">
-                        <span className="font-bold mr-2">💵 Valor de entrada:</span>
+                        <span className="font-bold mr-2">
+                            💵 Valor de entrada:
+                        </span>
                         {detail.price}$
                     </p>
 
@@ -117,7 +132,12 @@ const EventDetail = () => {
 
                     <div class="flex space-x-4 items-center... max-h-12">
                         <div class="relative flex justify-center items-center">
-                            <select class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10" name={"quantity"} value={quantity} onChange={handleQuantity}>
+                            <select
+                                class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10"
+                                name={"quantity"}
+                                value={quantity}
+                                onChange={handleQuantity}
+                            >
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>
@@ -145,28 +165,28 @@ const EventDetail = () => {
                         >
                             <p className="font-bold uppercase">Comprar</p>
                         </button>
-                        { order ?
-                            paymentUrl.length > 0 ?
-                            <a
-                                href={paymentUrl}
-                                target="_blank"
-                                className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
-                            >
-                                <div className="flex justify-center items-center w-24 max-h-12">
-                                    <img
-                                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
-                                    className="h-30 object-cover"
-                                    />
-                                </div>
-                            </a>
-                            : <div className="flex items-center">
+                        {order ? (
+                            paymentUrl.length > 0 ? (
+                                <a
+                                    href={paymentUrl}
+                                    target="_blank"
+                                    className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
+                                >
+                                    <div className="flex justify-center items-center w-24 max-h-12">
+                                        <img
+                                            src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
+                                            className="h-30 object-cover"
+                                        />
+                                    </div>
+                                </a>
+                            ) : (
+                                <div className="flex items-center">
                                     <span className="text-customRed italic pl-1 text-xs font-semibold">
-                                    (Generando la orden...)
+                                        (Generando la orden...)
                                     </span>
                                 </div>
-
-                            : null
-                        }
+                            )
+                        ) : null}
                     </div>
                     <div class="grid h-15px place-items-center ">
                         <ul class="flex flex-wrap">

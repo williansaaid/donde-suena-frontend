@@ -9,17 +9,18 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
-import ArtistProfile from "./Components/ArtistProfile/ArtistProfile"
+import ArtistProfile from "./Components/ArtistProfile/ArtistProfile";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
-import PostHome from "./Components/PostHome/PostHome.jsx"
+import PostHome from "./Components/PostHome/PostHome.jsx";
 
 function App() {
     return (
         <BrowserRouter>
             <div className="App w-full h-full">
                 <Navbar />
+
                 <Login />
                 <Routes>
                     <Route path={"/"} element={<Home />} />
@@ -40,11 +41,14 @@ function App() {
                     />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
-            
-                    <Route path="/favs" element={<UserFavorites />}/>
+
+                    <Route path="/favs" element={<UserFavorites />} />
                     <Route path={"/myshopping/:id"} element={<MyShopping />} />
                     <Route path={"/postHome"} element={<PostHome />} />
-                    <Route path={"/artistProfile/:id"} element={<ArtistProfile />} />
+                    <Route
+                        path={"/artistProfile/:id"}
+                        element={<ArtistProfile />}
+                    />
                 </Routes>
                 <Footer />
             </div>
