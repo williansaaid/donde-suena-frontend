@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./login.css";
 import * as Yup from "yup";
 
@@ -14,6 +14,7 @@ const Login = () => {
     const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
     const navigate = useNavigate();
+    const location = useLocation();
     const { loginOpen } = useSelector((state) => state.modalState);
 
     const [loginType, setLoginType] = useState(false);
@@ -113,7 +114,17 @@ const Login = () => {
             >
                 {({ isSubmitting, errors }) => (
                     <Form className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
-                        <button type="button" onClick={handleSetModal}>
+                        {location.pathname.includes("/details") && (
+                            <h1 className="block tracking-wide text-white text-s font-bold mb-2 pt-5">
+                                Debes iniciar sesion para continuar..
+                            </h1>
+                        )}
+
+                        <button
+                            type="button"
+                            className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                            onClick={handleSetModal}
+                        >
                             x
                         </button>
                         <label

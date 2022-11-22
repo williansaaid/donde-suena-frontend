@@ -18,7 +18,8 @@ import loading from "./Slices/Loading/LoadingSlices";
 import userPublic from "./Slices/User/userSlice";
 import posts from "./Slices/Post/postSlice";
 import comments from "./Slices/Comments/commentsSlices";
-import artistId from "./Slices/Artist/artistSlice"
+import artistId from "./Slices/Artist/artistSlice";
+import userId from "./Slices/User/userSlice";
 import  addFav from "./Slices/Favorites/favoritesSlice";
 
 const persistConfig = {
@@ -41,9 +42,10 @@ const rootReducer = combineReducers({
     artistState: artist,
     filterState: filter,
     mapState: map,
+    userPublicState: userPublic,
+    userIdState: userId,
     userStateTickets: user,
     posts: posts,
-    userPublicState: userPublic,
     comments: comments,
     artistId: artistId,
     addFav: addFav,

@@ -8,7 +8,9 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLogged } = useSelector((state) => state.sessionState.user);
+
+    const isLogged = useSelector((state) => state.userState.user);
+
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
@@ -20,7 +22,7 @@ function Navbar() {
         <>
             {!location.pathname.includes("/register") && (
                 <nav className="bg-customGray relative w-full">
-                    <div className="container mx-auto flex justify-between items-center">
+                    <div className="container mx-auto flex justify-between items-center pb-3">
                         <img
                             onClick={() => navigate("/")}
                             className="h-20 cursor-pointer animate-pulse"
@@ -30,9 +32,12 @@ function Navbar() {
                             alt="logo"
                         />
                         <div className="flex items-center">
-                            <div className="my-9">
-                                <SearchBar />
-                            </div>
+                            {!location.pathname.includes("/detail") && (
+                                <div className="my-9">
+                                    <SearchBar />
+                                </div>
+                            )}
+
                             {!isLogged ? (
                                 <div
                                     onClick={handleLogin}

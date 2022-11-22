@@ -9,12 +9,16 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
+import PostVar from "./Components/PostVar/PostVar";
 import ArtistProfile from "./Components/ArtistProfile/ArtistProfile";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
+import UserProfile from "./Components/UserProfile/UserProfile";
+
 import { useSelector } from "react-redux";
+
 function App() {
     // const user = useSelector((state) => state.sessionState?.user);
 
@@ -80,8 +84,16 @@ function App() {
                         }
                     />
                     <Route path={"/details/:id"} element={<EventDetail />} />
-                    <Route path={"/postHome"} element={<PostHome />} />
+
                     <Route path={"/confirm/:token"} element={<Confirm />} />
+                    <Route path={"/postVar"} element={<PostVar />} />
+                    <Route path="/favs" element={<UserFavorites />} />
+                    <Route path={"/myshopping/:id"} element={<MyShopping />} />
+                    <Route path={"/postHome"} element={<PostHome />} />
+                    <Route
+                        path={"/userProfile/:id"}
+                        element={<UserProfile />}
+                    />
                     <Route
                         path="/artistProfile/:id"
                         element={<ArtistProfile />}
