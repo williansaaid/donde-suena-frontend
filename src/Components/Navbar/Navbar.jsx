@@ -8,7 +8,8 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLogged } = useSelector((state) => state.sessionState.user);
+    const user = useSelector((state) => state.sessionState.user);
+    console.log(user);
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
@@ -36,7 +37,7 @@ function Navbar() {
                                 </div>
                             )}
 
-                            {!isLogged ? (
+                            {!user.isLogged ? (
                                 <div
                                     onClick={handleLogin}
                                     className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
