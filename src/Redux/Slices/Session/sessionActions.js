@@ -1,13 +1,20 @@
 import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const successCreationAlert = () => {
     Swal.fire({
         title: "Registro exitoso!",
         text: "Revise su casilla de correo para completar el registro!",
         icon: "success",
-        timer: 2000
+        timer: 2000,
+    });
+};
+const rejectedAlert = () => {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Registro incorrecto!",
     });
 };
 
@@ -16,8 +23,8 @@ const errorCreationAlert = (error) => {
         title: "Ocurrió un error",
         text: `${error}`,
         icon: "error",
-        timer: 5000
-    })
+        timer: 5000,
+    });
 };
 
 const successConfirmAlert = () => {
@@ -25,7 +32,7 @@ const successConfirmAlert = () => {
         title: "Todo en orden!",
         text: "Bienvenido a Donde Suena!",
         icon: "success",
-        timer: 2000
+        timer: 2000,
     });
 };
 
@@ -34,9 +41,9 @@ const logOutAlert = () => {
         title: "Sesión Cerrada",
         text: "Esperamos verte pronto!",
         icon: "success",
-        timer: 2000
+        timer: 2000,
     });
-}
+};
 
 export const login = (values) => (dispatch) => {
     axios
@@ -46,7 +53,9 @@ export const login = (values) => (dispatch) => {
             dispatch(logUser(res.data));
         })
         .catch((e) => {
-            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
         });
 };
 
@@ -58,7 +67,10 @@ export const confirmateToken = (token) => (dispatch) => {
             dispatch(logUser(res));
             successConfirmAlert();
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            console.log(e);
+            rejectedAlert();
+        });
 };
 
 export const submitUserForm = (values) => (dispatch) => {
@@ -70,7 +82,9 @@ export const submitUserForm = (values) => (dispatch) => {
             successCreationAlert();
         })
         .catch((e) => {
-            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
         });
 };
 
@@ -82,7 +96,9 @@ export const submitArtistForm = (values) => (dispatch) => {
             successCreationAlert();
         })
         .catch((e) => {
-            e.response.data ? errorCreationAlert(e.response.data.msg) : console.log(e);
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
         });
 };
 

@@ -36,10 +36,7 @@ const Home = () => {
                     <FilterBar />
                 </div>
             </nav>
-            {loading && (
-                <Loading />
-                // </div>
-            )}
+            {loading && <Loading />}
             <div className={loading ? "hidden" : ""}>
                 <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl">
                     <div class="grid h-20 place-items-center">
