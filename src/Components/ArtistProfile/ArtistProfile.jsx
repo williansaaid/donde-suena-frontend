@@ -38,7 +38,6 @@ export const ArtistProfile = () => {
 
     const user = useSelector((state) => state.sessionState.user.data);
 
-
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
@@ -96,7 +95,11 @@ export const ArtistProfile = () => {
             </div>
             <div class="flex justify-center mb-6">
                 <div class="p-3 text-center">
-                    <a href={artistId.instagram} target="_blank" rel="noreferrer">
+                    <a
+                        href={artistId.instagram}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         <img
                             className="cursor-pointer h-8 "
                             src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
@@ -151,12 +154,11 @@ export const ArtistProfile = () => {
                 id="select-content"
                 className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center hidden"
             >
-                <div>
-                    Shows
-                </div>
+                <div>Shows</div>
             </section>
             <script src="/ArtistProfile"></script>
         </div>
     );
 };
+
 export default ArtistProfile;
