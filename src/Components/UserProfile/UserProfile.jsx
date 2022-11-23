@@ -17,12 +17,12 @@ export default function UserProfile() {
     return (
         <div class="mt-6 mb-6 ml-6  md:max-w-2xl break-words bg-customRed w-1/3 shadow-lg rounded-xl">
             <div class="px-6">
-                <div class="">
-                    <div class="">
+                <div class="flex flex-wrap justify-center">
+                    <div class="w-full flex justify-center">
                         <div class="relative">
                             <img
                                 src={userId.image}
-                                class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                                class="shadow-xl rounded-full align-middle border-none absolute -ml-20 lg:-ml-16 max-w-[150px]"
                             />
                         </div>
                     </div>
