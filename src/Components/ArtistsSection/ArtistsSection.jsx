@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
 import { Link } from "react-router-dom";
 
-export default function FavoritesSection() {
+export default function ArtistsSection() {
     const dispatch = useDispatch()
     const { artists } = useSelector(state => state.artistState)
-    console.log(artists)
+
 
     useEffect(() => {
         dispatch(getArtists())

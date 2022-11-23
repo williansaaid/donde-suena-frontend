@@ -17,6 +17,7 @@ import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import Team from "./Components/Team/Team";
 
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
@@ -101,6 +102,7 @@ function App() {
                             )
                         }
                     />
+                    <Route path={"/team"} element={<Team />} />
                 </Routes>
                 <Footer />
             </div>
