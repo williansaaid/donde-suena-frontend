@@ -8,6 +8,7 @@ import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import FavoritesSection from "../FavoritesSection/FavoritesSection";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Home = () => {
     const { loading } = useSelector((state) => state.loadingState);
     const location = useLocation();
     const path = location.pathname;
-    // console.log(loading);
+
     useEffect(() => {
         dispatch(getEvents());
     }, []);
@@ -45,6 +46,9 @@ const Home = () => {
                 </div>
                 <div class="flex items-center justify-center">
                     <Events />
+                </div>
+                <div>
+                    <FavoritesSection />
                 </div>
             </div>
         </div>
