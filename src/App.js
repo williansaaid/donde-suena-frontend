@@ -1,4 +1,5 @@
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 //Components Import
 import ArtistForm from "./Components/ArtistForm/ArtistForm";
@@ -18,8 +19,6 @@ import PostHome from "./Components/PostHome/PostHome.jsx";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import Team from "./Components/Team/Team";
 
-import { useSelector } from "react-redux";
-
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
 
@@ -28,11 +27,11 @@ function App() {
     const isArtist = user.artista || false;
     // const isAdmin = user.admin || false;
     const token = user.token || null;
+
     return (
         <BrowserRouter>
             <div className="App w-full h-full">
                 <Navbar />
-
                 <Login />
                 <Routes>
                     <Route path={"/"} element={<Home />} />
@@ -94,9 +93,14 @@ function App() {
                         element={<UserProfile />}
                     />
                     <Route
-                    // Comprobar que el usuario esté logeado
                         path="/artistProfile/:id"
-                        element={<ArtistProfile />}
+                        element={
+                            isLogged && token ? (
+                                <ArtistProfile />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
                     <Route path={"/team"} element={<Team />} />
                 </Routes>
