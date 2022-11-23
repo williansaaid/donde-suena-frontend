@@ -19,7 +19,7 @@ export const ticketPurchase = (values) => (dispatch) => {
 export const getTicketsByUser = (id) => (dispatch) => {
     axios(`/auth/user/getTickets/${id}`)
         .then((res) =>
-            dispatch(getAllTicketsByUser(res.data.allTickets.tickets))
+            dispatch(getAllTicketsByUser(res.data.allTickets?.tickets))
         )
         .catch((e) => console.log(e));
 };

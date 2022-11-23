@@ -7,6 +7,7 @@ const MyShopping = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { tickets } = useSelector((state) => state.userState);
+    console.log(tickets)
     
 
     useEffect(() => {
