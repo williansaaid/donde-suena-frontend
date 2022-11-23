@@ -7,9 +7,11 @@ import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
 function FilterBar() {
     const dispatch = useDispatch();
-    const { allGenres } = useSelector((state) => state?.genresState);
+    const { genres } = useSelector((state) => state.genresState);
+    
     useEffect(() => {
         dispatch(getGenres());
+        
     }, [dispatch]);
 
     function handleFilterDate(by) {
@@ -29,8 +31,8 @@ function FilterBar() {
     }
     function cleanFilters() {}
     function handleFilterByGenre() {
-        const genres = allGenres.genres?.map((g) => g.name);
-        console.log(genres);
+        const artistGenre = genres?.map((g) => g.name);
+        console.log(artistGenre);
     }
     return (
         <nav class="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
