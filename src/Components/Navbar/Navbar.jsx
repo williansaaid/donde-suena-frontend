@@ -8,7 +8,6 @@ function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const  isLogged  = useSelector((state) => state.userState.user);
     const user = useSelector((state) => state.sessionState.user);
     console.log(user);
     const handleLogin = () => {
@@ -66,6 +65,15 @@ function Navbar() {
                                     />
                                     <a>Logout</a>
                                 </div>
+                                // <div>
+                                //     <div className="ml-5 mr-2 cursor-pointer">
+                                //         <img
+                                //             className="h-[4.5em] rounded-full"
+                                //             src={user.data.user.image}
+                                //             alt="foto de perfil"
+                                //         />
+                                //     </div>
+                                // </div>
                             )}
                         </div>
                     </div>

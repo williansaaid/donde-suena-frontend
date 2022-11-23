@@ -2,6 +2,10 @@ import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
 import Swal from "sweetalert2";
 
+function reloadPage() {
+    window.location.replace("/");
+}
+
 const successCreationAlert = () => {
     Swal.fire({
         title: "Registro exitoso!",
@@ -16,6 +20,9 @@ const rejectedAlert = () => {
         title: "Oops...",
         text: "Registro incorrecto!",
     });
+    setTimeout(() => {
+        reloadPage();
+    }, 2500);
 };
 
 const errorCreationAlert = (error) => {
@@ -34,6 +41,9 @@ const successConfirmAlert = () => {
         icon: "success",
         timer: 2000,
     });
+    setTimeout(() => {
+        reloadPage();
+    }, 2500);
 };
 
 const logOutAlert = () => {
