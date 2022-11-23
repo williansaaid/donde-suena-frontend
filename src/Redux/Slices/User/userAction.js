@@ -1,16 +1,19 @@
 import axios from "axios";
 
-import { logUser, getAllTicketsByUser } from "./userSlice";
 import {
+    getAllTicketsByUser,
     paymentOrder,
-    clearPaymentOrder
+    clearPaymentOrder,
+    getDataUserId,
+    logUser,
+    getFavs,
 } from "./userSlice";
 
 export const ticketPurchase = (values) => (dispatch) => {
     axios
         .post("/payment/crear-orden", values)
         .then((res) => dispatch(paymentOrder(res.data)))
-        .catch((e) => console.log(e))
+        .catch((e) => console.log(e));
 };
 
 export const getTicketsByUser = (id) => (dispatch) => {
@@ -22,4 +25,10 @@ export const getTicketsByUser = (id) => (dispatch) => {
 };
 export const clearUrl = () => (dispatch) => {
     dispatch(clearPaymentOrder());
-}
+};
+
+export const getUserById = (id) => (dispatch) => {
+    axios(`/auth/getUser/${id}`)
+        .then((res) => dispatch(getDataUserId(res.data.user)))
+        .catch((e) => console.log(e));
+};

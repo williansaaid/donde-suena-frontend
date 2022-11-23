@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./login.css";
 import * as Yup from "yup";
 
@@ -14,6 +14,7 @@ const Login = () => {
     const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
     const navigate = useNavigate();
+    const location = useLocation();
     const { loginOpen } = useSelector((state) => state.modalState);
 
     const [loginType, setLoginType] = useState(false);
@@ -23,7 +24,10 @@ const Login = () => {
     };
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
-        fetch("http://localhost:3001/auth/google", {
+        let url = window.location.hostname.includes("localhost")
+            ? "http://localhost:3001/auth/google"
+            : "https://donde-suena.vercel.app/auth/google";
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -77,6 +81,13 @@ const Login = () => {
             ariaHideApp={false}
             onRequestClose={handleSetModal}
             className="modal"
+            style={{
+                overlay: {
+                    zIndex: 1000,
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                    objectFit: "contain",
+                },
+            }}
         >
             <Formik
                 initialValues={{
@@ -102,13 +113,24 @@ const Login = () => {
                 })}
             >
                 {({ isSubmitting, errors }) => (
-                    <Form className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
-                        <button type="button" onClick={handleSetModal}>
-                            x
-                        </button>
+                    <Form className="relative w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
+                        {location.pathname.includes("/details") && (
+                            <h1 className="block tracking-wide text-white text-s font-bold mb-2 pt-5">
+                                Debes iniciar sesion para continuar..
+                            </h1>
+                        )}
+                        <div className="absolute right-8 top-5">
+                            <button
+                                type="button"
+                                className="  bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                                onClick={handleSetModal}
+                            >
+                                x
+                            </button>
+                        </div>
                         <label
                             htmlFor="user"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
+                            className="block tracking-wide text-white text-s font-bold mb-2 mt-10"
                         >
                             Email
                         </label>
@@ -133,7 +155,7 @@ const Login = () => {
                         </div>
                         <label
                             htmlFor="password"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
+                            className="block tracking-wide text-white text-s font-bold mb-2 pt-5"
                         >
                             Contraseña
                         </label>
@@ -156,14 +178,14 @@ const Login = () => {
                                 )}
                             </ErrorMessage>
                         </div>
-                        <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
-                            <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
-                                Olvidaste tu contraseña?
-                            </span>
-                        </div>
+                        {/* <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
+                                    <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
+                                        Olvidaste tu contraseña?
+                                    </span>
+                                </div> */}
                         <button
                             type="submit"
-                            className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                            className="bg-customRed hover:bg-customGray text-white font-bold mt-10 mb-7 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
                             disabled={isSubmitting}
                         >
                             Iniciar Sesión

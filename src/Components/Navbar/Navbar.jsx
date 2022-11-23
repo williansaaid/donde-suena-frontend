@@ -9,6 +9,8 @@ function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const  isLogged  = useSelector((state) => state.userState.user);
+    const user = useSelector((state) => state.sessionState.user);
+    console.log(user);
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
@@ -20,20 +22,23 @@ function Navbar() {
         <>
             {!location.pathname.includes("/register") && (
                 <nav className="bg-customGray relative w-full">
-                    <div className="container mx-auto flex justify-between items-center">
+                    <div className="container mx-auto flex justify-between items-center pb-3">
                         <img
                             onClick={() => navigate("/")}
-                            class="h-20 cursor-pointer animate-pulse"
+                            className="h-20 cursor-pointer animate-pulse"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
                             alt="logo"
                         />
                         <div className="flex items-center">
-                            <div className="my-9">
-                                <SearchBar />
-                            </div>
-                            {!isLogged ? (
+                            {!location.pathname.includes("/detail") && (
+                                <div className="my-9">
+                                    <SearchBar />
+                                </div>
+                            )}
+
+                            {!user.isLogged ? (
                                 <div
                                     onClick={handleLogin}
                                     className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
