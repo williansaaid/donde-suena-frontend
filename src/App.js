@@ -16,6 +16,7 @@ import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import ArtistDashboard from "./Components/ArtistDashboard/ArtistDashboard";
 
 import { useSelector } from "react-redux";
 
@@ -85,8 +86,6 @@ function App() {
 
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
-                    <Route path="/favs" element={<UserFavorites />} />
-                    <Route path={"/myshopping/:id"} element={<MyShopping />} />
                     <Route path={"/postHome"} element={<PostHome />} />
                     <Route
                         path={"/userProfile/:id"}
@@ -95,6 +94,10 @@ function App() {
                     <Route
                         path="/artistProfile/:id"
                         element={<ArtistProfile />}
+                    />
+                    <Route
+                        path="/myDashboard"
+                        element={<ArtistDashboard />}
                     />
                 </Routes>
                 <Footer />

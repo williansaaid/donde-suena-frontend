@@ -76,7 +76,7 @@ export const PostVar = () => {
                         ¿Qué vas a compartir hoy?
                     </p>
                     {/* <input
-                        class="w-full text-customGray bg-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-gray-500 py-2 px-4"
+                        className="w-full text-customGray bg-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-gray-500 py-2 px-4"
                         type="text"
                         value={input.title}
                         name="title"
@@ -111,9 +111,9 @@ export const PostVar = () => {
                                 (Subiendo Imágen...)
                             </span>
                         ) : success ? (
-                            <div class="w-96 h-96">
+                            <div className="w-96 h-96">
                                 <img
-                                    class="w-50 h-50 rounded-lg object-cover"
+                                    className="w-50 h-50 rounded-lg object-cover"
                                     alt="Preview"
                                     src={image}
                                 />
@@ -121,7 +121,7 @@ export const PostVar = () => {
                         ) : null}
                     </div>
                     <button
-                        class="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out"
+                        className="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out"
                         type="submit"
                     >
                         Publicar
