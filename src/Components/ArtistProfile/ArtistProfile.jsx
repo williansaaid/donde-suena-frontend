@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
@@ -35,9 +35,9 @@ export const ArtistProfile = (props) => {
             target.classList.add("bg-customRed");
         });
     });
-    const { addFav } = useSelector((state) => state.addFav);
+
     const user = useSelector((state) => state.sessionState.user.data);
-    console.log(user);
+
 
     useEffect(() => {
         dispatch(getArtistsById(id));
@@ -57,6 +57,7 @@ export const ArtistProfile = (props) => {
                             <img
                                 src={artistId.image}
                                 class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                                alt=""
                             />
                         </div>
                     </div>
@@ -117,7 +118,7 @@ export const ArtistProfile = (props) => {
             </div>
             <div class="flex justify-center lg:pt-4 pt-8 pb-0">
                 <div class="p-3 text-center">
-                    <a href={artistId.instagram} target="_blank">
+                    <a href={artistId.instagram} target="_blank" rel="noreferrer">
                         <img
                             className="cursor-pointer h-8 "
                             src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_instagram_uhwi1o.png"
@@ -126,7 +127,7 @@ export const ArtistProfile = (props) => {
                     </a>
                 </div>
                 <div class="p-3 text-center">
-                    <a href={artistId.twitter} target="_blank">
+                    <a href={artistId.twitter} target="_blank" rel="noreferrer">
                         <img
                             className="cursor-pointer h-8"
                             src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668128720/Donde-Suena-Assets/thumbnail_twitter_jnclek.png"
@@ -135,7 +136,7 @@ export const ArtistProfile = (props) => {
                     </a>
                 </div>
                 <div class="p-3 text-center">
-                    <a href={artistId.spotify} target="_blank">
+                    <a href={artistId.spotify} target="_blank" rel="noreferrer">
                         <img
                             className="cursor-pointer h-8"
                             src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669128648/Donde-Suena-Assets/spotify_ufgwir.png"

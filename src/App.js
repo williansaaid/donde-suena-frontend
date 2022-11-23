@@ -16,6 +16,7 @@ import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import Team from "./Components/Team/Team";
 
 import { useSelector } from "react-redux";
 
@@ -96,6 +97,7 @@ function App() {
                         path="/artistProfile/:id"
                         element={<ArtistProfile />}
                     />
+                    <Route path={"/team"} element={<Team />} />
                 </Routes>
                 <Footer />
             </div>
