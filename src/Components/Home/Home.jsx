@@ -8,7 +8,8 @@ import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Loading from "../Loading/Loading";
-import FavoritesSection from "../FavoritesSection/FavoritesSection";
+import ArtistsSection from "../ArtistsSection/ArtistsSection";
+
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Home = () => {
                     <Events />
                 </div>
                 <div>
-                    <FavoritesSection />
+                    <ArtistsSection />
                 </div>
             </div>
         </div>

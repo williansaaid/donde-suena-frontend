@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react"
 import "./footer.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -44,7 +44,7 @@ export default function Footer() {
                     </ul>
                     <ul class="flex flex-wrap items-center mt-3 text-sm text-white-500 dark:text-gray-400 sm:mt-0">
                         <li>
-                            <a href="#" class="text-white">
+                            <a href="/team" class="text-white">
                                 Sobre Nosotros
                             </a>
                         </li>
