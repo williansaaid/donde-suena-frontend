@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+import PostCard from "../PostCard/PostCard";
 
 export const ArtistProfile = (props) => {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export const ArtistProfile = (props) => {
         });
     });
     const { addFav } = useSelector((state) => state.addFav);
-    const  user  = useSelector((state) => state.sessionState.user.data);
+    const user = useSelector((state) => state.sessionState.user.data);
     console.log(user);
 
     useEffect(() => {
@@ -161,9 +162,12 @@ export const ArtistProfile = (props) => {
             </div>
             <section
                 id="select-content"
-                className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center"
+                className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
             >
-                Post
+                <div>
+                    <PostCard
+                    ></PostCard>
+                </div>
             </section>
             <section
                 id="select-content"
