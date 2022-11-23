@@ -69,7 +69,7 @@ export const PostVar = () => {
             {" "}
             <div className="flex items-center justify-center p-6">
                 <form
-                    className="flex flex-col items-center justify-center bg-customGray w-3/4 p-8 gap-6 max-w-xl rounded-xl"
+                    className="flex flex-col items-center bg-customGray w-3/4 p-8 gap-6 max-w-xl rounded-xl"
                     onSubmit={handleSubmit}
                 >
                     <p className="text-white font-bold text-2xl uppercase text-center">
@@ -101,7 +101,7 @@ export const PostVar = () => {
                         </label> */}
                         <input
                             id="image"
-                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400 cursor-pointer"
+                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400 cursor-pointer"
                             type="file"
                             accept="image/jpg, image/png, image/jpeg "
                             onChange={uploadImage}
@@ -121,7 +121,7 @@ export const PostVar = () => {
                         ) : null}
                     </div>
                     <button
-                        class="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out"
+                        class="px-6 py-2 border-2 border-customRed text-white font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out"
                         type="submit"
                     >
                         Publicar

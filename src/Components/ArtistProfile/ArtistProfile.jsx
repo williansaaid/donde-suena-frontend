@@ -165,15 +165,16 @@ export const ArtistProfile = (props) => {
                 className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
             >
                 <div>
-                    <PostCard
-                    ></PostCard>
+                    <PostCard></PostCard>
                 </div>
             </section>
             <section
                 id="select-content"
                 className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center hidden"
             >
-                Shows
+                <div>
+                    Shows
+                </div>
             </section>
             <script src="/ArtistProfile"></script>
         </div>
