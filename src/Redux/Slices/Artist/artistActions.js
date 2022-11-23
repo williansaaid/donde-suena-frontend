@@ -3,7 +3,7 @@ import { getAllArtists, getAllArtistById } from "./artistSlice";
 
 export const getArtists = () => (dispatch) => {
     axios("/auth/getArtists")
-        .then((res) => dispatch(getAllArtists(res.data.events)))
+        .then((res) => dispatch(getAllArtists(res.data.artists)))
         .catch((e) => console.log(e));
 };
 
