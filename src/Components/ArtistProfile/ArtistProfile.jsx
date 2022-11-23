@@ -150,7 +150,9 @@ export const ArtistProfile = () => {
                 id="select-content"
                 className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center hidden"
             >
-                Shows
+                <div>
+                    Shows
+                </div>
             </section>
             <script src="/ArtistProfile"></script>
         </div>

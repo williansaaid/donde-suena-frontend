@@ -23,7 +23,7 @@ export const PostCard = () => {
                 posts?.map((el) => {
                     return (
                         <div className="flex items-center justify-center p-6 text-xl">
-                            <div className="flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl ">
+                            <div className="flex bg-white shadow-lg rounded-lg">
                                 <div className="flex items-start px-4 py-6">
                                     <div className="">
                                         <div className="flex items-center justify-between">
