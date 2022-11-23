@@ -93,6 +93,7 @@ function App() {
                         element={<UserProfile />}
                     />
                     <Route
+                    // Comprobar que el usuario esté logeado
                         path="/artistProfile/:id"
                         element={<ArtistProfile />}
                     />
