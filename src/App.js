@@ -82,7 +82,6 @@ function App() {
                         }
                     />
                     <Route path={"/details/:id"} element={<EventDetail />} />
-
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path="/favs" element={<UserFavorites />} />
