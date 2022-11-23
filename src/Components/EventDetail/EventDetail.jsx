@@ -13,6 +13,43 @@ import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
+import Swal from "sweetalert2";
+
+const successPurchase = () => {
+    Swal.fire({
+        title: "Compra exitosa!",
+        text: "Encontrarás tu boleto en tu Historial de compras!",
+        icon: "success",
+        timer: 2000,
+    });
+};
+
+const failedPurchase = () => {
+    Swal.fire({
+        title: "Ocurrió un error en el Pago",
+        text: "Inténtalo nuevamente más tarde!",
+        icon: "error",
+        timer: 2000,
+    });
+};
+
+const noTickets = () => {
+    Swal.fire({
+        title: "Llegaste tarde :(",
+        text: "No hay más tickets para el show deseado",
+        icon: "error",
+        timer: 2000,
+    });
+};
+
+const noTicketsDesired = () => {
+    Swal.fire({
+        title: "Ocurrió un error",
+        text: "No hay la cantidad de tickets suficientes para tu orden",
+        icon: "error",
+        timer: 2000,
+    });
+}
 
 const EventDetail = () => {
     const dispatch = useDispatch();
@@ -24,6 +61,7 @@ const EventDetail = () => {
     const { paymentUrl } = useSelector((state) => state.userPublicState);
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
+    const { ticketsAvailable } = useSelector((state) => state.eventsState);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
@@ -49,13 +87,23 @@ const EventDetail = () => {
     }, [loadingCallback]);
 
     const handlePurchase = () => {
-        setOrder(true);
-        let detailsPurchase = {
-            quantity: parseInt(quantity),
-            priceTotal: detail.price,
-            id: id,
-        };
-        dispatch(ticketPurchase(detailsPurchase));
+        setOrder(false);
+        dispatch(clearUrl());
+        if(ticketsAvailable === 0){
+            noTickets();
+        } else {
+            if(ticketsAvailable < quantity){
+                noTicketsDesired();
+            } else {
+                setOrder(true);
+                let detailsPurchase = {
+                    quantity: parseInt(quantity),
+                    priceTotal: detail.price,
+                    id: id,
+                };
+                dispatch(ticketPurchase(detailsPurchase));
+            }
+        }
     };
 
     const handleQuantity = (e) => {
@@ -73,7 +121,7 @@ const EventDetail = () => {
     useEffect(() => {
         dispatch(getQuantityTickets(id));
         if (query.hasOwnProperty("payment_id") && query.payment_id === "null") {
-            alert("No se pudo concretar la compra");
+            failedPurchase();
         } else if (
             query.hasOwnProperty("payment_id") &&
             query.payment_id !== "null"
@@ -84,7 +132,7 @@ const EventDetail = () => {
                     id: id,
                 })
             );
-            alert("Compra Completada");
+            successPurchase();
         }
     }, [query]);
 
@@ -106,7 +154,7 @@ const EventDetail = () => {
                                     src={detail.image}
                                 />
                                 <div className="absolute bottom-0 px-10 py-10 bg-gray-800 w-full max-h-1/8 opacity-80 rounded-lg">
-                                    <div classNameName="flex flex-col gap-2">
+                                    <div className="flex flex-col gap-2">
                                         <p className="text-white text-5xl font-bold">
                                             {detail.name}
                                         </p>
@@ -119,10 +167,10 @@ const EventDetail = () => {
                             <Map data={location}></Map>
                         </div>
                         <div className="w-1/2 bg-gray-300 rounded-lg p-8 flex flex-col gap-4">
-                            <h1 classNameName="font-bold uppercase text-3xl text-center my-5">
+                            <h1 className="font-bold uppercase text-3xl text-center my-5">
                                 Nombre del concierto
                             </h1>
-                            <p classNameName="leading-relaxed">
+                            <p className="leading-relaxed">
                                 {detail.description}arcu ac tortor dignissim
                                 convallis aenean et tortor at risus viverra
                                 adipiscing at in tellus integer feugiat
@@ -139,22 +187,28 @@ const EventDetail = () => {
                                 pulvinar pellentesque habitant morbi tristique
                             </p>
                             <p className="leading-relaxed">
-                                <span classNameName="font-bold mr-2">
+                                <span className="font-bold mr-2">
                                     ⏰ Hora de Inicio:
                                 </span>
                                 {detail.start}
                             </p>
                             <p className="leading-relaxed">
-                                <span classNameName="font-bold mr-2">
+                                <span className="font-bold mr-2">
                                     ⏰ Hora de Finalización:
                                 </span>
                                 {detail.end}
                             </p>
                             <p className="leading-relaxed">
-                                <span classNameName="font-bold mr-2">
+                                <span className="font-bold mr-2">
                                     💵 Valor de entrada:
                                 </span>
                                 {detail.price}$
+                            </p>
+                            <p className="leading-relaxed">
+                                <span className="font-bold mr-2">
+                                    🎫 Entradas disponibles:
+                                </span>
+                                {ticketsAvailable}
                             </p>
 
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
@@ -195,19 +249,19 @@ const EventDetail = () => {
                                 <button
                                     {...(isLogged
                                         ? {
-                                              onClick: handlePurchase,
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          }
+                                            onClick: handlePurchase,
+                                            className:
+                                                "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                        }
                                         : {
-                                              onClick: () => {
-                                                  modal();
-                                              },
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          })}
+                                            onClick: () => {
+                                                modal();
+                                            },
+                                            className:
+                                                "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                        })}
                                 >
-                                    <p classNameName="font-bold uppercase">
+                                    <p className="font-bold uppercase">
                                         Comprar
                                     </p>
                                 </button>
@@ -217,18 +271,18 @@ const EventDetail = () => {
                                             <a
                                                 href={paymentUrl}
                                                 target="_blank"
-                                                classNameName="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
+                                                className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
                                             >
-                                                <div classNameName="flex justify-center items-center w-24 max-h-12">
+                                                <div className="flex justify-center items-center w-24 max-h-12">
                                                     <img
                                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
-                                                        classNameName="h-30 object-cover"
+                                                        className="h-30 object-cover"
                                                     />
                                                 </div>
                                             </a>
                                         ) : (
-                                            <div classNameName="flex items-center">
-                                                <span classNameName="text-customRed italic pl-1 text-xs font-semibold">
+                                            <div className="flex items-center">
+                                                <span className="text-customRed italic pl-1 text-xs font-semibold">
                                                     (Generando la orden...)
                                                 </span>
                                             </div>

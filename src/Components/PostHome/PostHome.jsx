@@ -4,9 +4,6 @@ import {PostCard} from "../PostCard/PostCard";
 import {Comments} from "../CommentsUser/Comments"
 import "../CommentsUser/comments.css"
 const PostHome = () => {
-
-
-
     return (
         <div>
         <div>

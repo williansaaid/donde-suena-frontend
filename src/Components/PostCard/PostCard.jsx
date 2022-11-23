@@ -22,45 +22,47 @@ export const PostCard = () => {
             {posts &&
                 posts?.map((el) => {
                     return (
-                        <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 max-w-md md:max-w-2xl ">
-                            <div className="flex items-start px-4 py-6">
-                                <div className="">
-                                    <div className="flex items-center justify-between">
-                                        <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-                                            {el.title}
-                                        </h2>
-                                        <p className="mt-3 text-gray-700 text-sm">
-                                            {el.description}
-                                        </p>
+                        <div className="flex items-center justify-center p-6 text-xl">
+                            <div className="flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl ">
+                                <div className="flex items-start px-4 py-6">
+                                    <div className="">
+                                        <div className="flex items-center justify-between">
+                                            <h2 className="text-lg font-semibold text-gray-900 -mt-1">
+                                                {el.title}
+                                            </h2>
+                                            <p className="mt-3 text-gray-700 text-sm">
+                                                {el.description}
+                                            </p>
 
-                                        <img
-                                            src={el.image ? el.image : ""}
-                                            alt=""
-                                            width="200"
-                                            height="100"
-                                        />
+                                            <img
+                                                src={el.image ? el.image : ""}
+                                                alt=""
+                                                width="200"
+                                                height="100"
+                                            />
 
-                                        <CommentsUser />
+                                            <CommentsUser />
 
-                                        {/* artist={el.artist} */}
-                                    </div>
-                                    {/* <form>
+                                            {/* artist={el.artist} */}
+                                        </div>
+                                        {/* <form>
       <TextField
       label="añadir comentario"
       size="small"
       variant="outlined"
-      classNameName="post_input"
+      className="post_input"
       placeholder="añadir comentario"
       // value={comment}
       // on change ={e => setComment(e.target.value)}
       />
     </form>
-    
+
     <button
     variant="contained"
     size="small">
       Enviar
     </button> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
