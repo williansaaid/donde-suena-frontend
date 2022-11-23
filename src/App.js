@@ -93,7 +93,7 @@ function App() {
                         element={<UserProfile />}
                     />
                     <Route
-                        path={"/artistProfile/:id"}
+                        path="/artistProfile/:id"
                         element={<ArtistProfile />}
                     />
                 </Routes>

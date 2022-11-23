@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-    getAllArtists,
-    getAllArtistById
-} from "./artistSlice";
-
+import { getAllArtists, getAllArtistById } from "./artistSlice";
 
 export const getArtists = () => (dispatch) => {
     axios("/auth/getArtists")
@@ -25,7 +21,6 @@ export const postArtist = (values) => (dispatch) => {
 };
 export const getArtistsById = (id) => (dispatch) => {
     axios(`http://localhost:3001/auth/getArtistById/${id}`)
-        .then((res) => {console.log(res.data.artistID);
-            dispatch(getAllArtistById(res.data.artistID))})
+        .then((res) => dispatch(getAllArtistById(res.data.artistID)))
         .catch((e) => console.log(e));
 };

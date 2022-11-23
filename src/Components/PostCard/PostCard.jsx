@@ -49,13 +49,13 @@ export const PostCard = () => {
       label="añadir comentario"
       size="small"
       variant="outlined"
-      classNameName="post_input"
+      className="post_input"
       placeholder="añadir comentario"
       // value={comment}
       // on change ={e => setComment(e.target.value)}
       />
     </form>
-    
+
     <button
     variant="contained"
     size="small">
