@@ -1,14 +1,14 @@
 import React from "react";
-import CarouselCustom from "../Carousel/Carousel_custom";
-import { Events } from "../EventCard/EventCard";
-import FilterBar from "../Filters/Filters";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
 import { getEvents } from "../../Redux/Slices/Event/eventActions";
-import { useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Events } from "../EventCard/EventCard";
+import CarouselCustom from "../Carousel/Carousel_custom";
+import FilterBar from "../Filters/Filters";
 import Loading from "../Loading/Loading";
-import FavoritesSection from "../FavoritesSection/FavoritesSection";
+import ArtistsSection from "../ArtistsSection/ArtistsSection";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -20,15 +20,18 @@ const Home = () => {
     useEffect(() => {
         dispatch(getEvents());
     }, []);
+
     const loadingCallback = useCallback(() => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
         }, 1000);
     }, []);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback, path]);
+
     return (
         <div>
             <CarouselCustom />
@@ -40,15 +43,15 @@ const Home = () => {
             {loading && <Loading />}
             <div className={loading ? "hidden" : ""}>
                 <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl">
-                    <div class="grid h-20 place-items-center">
+                    <div className="grid h-20 place-items-center">
                         <h1>PRÓXIMOS EVENTOS</h1>
                     </div>
                 </div>
-                <div class="flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <Events />
                 </div>
                 <div>
-                    <FavoritesSection />
+                    <ArtistsSection />
                 </div>
             </div>
         </div>

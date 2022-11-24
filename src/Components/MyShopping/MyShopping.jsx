@@ -8,6 +8,7 @@ const MyShopping = (props) => {
     const { id } = useParams();
     const { tickets } = useSelector((state) => state.userState);
 
+
     useEffect(() => {
         dispatch(getTicketsByUser(id));
     }, [dispatch, id]);
@@ -34,9 +35,11 @@ const MyShopping = (props) => {
                             </div>
                         </div></>
                     )
-                    })}
+                })}
+                    </div> 
+                    
                     </div>
-                    </div>
+      
     );
 };
 
