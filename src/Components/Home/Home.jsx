@@ -1,14 +1,14 @@
 import React from "react";
-import CarouselCustom from "../Carousel/Carousel_custom";
-import { Events } from "../EventCard/EventCard";
-import FilterBar from "../Filters/Filters";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
 import { getEvents } from "../../Redux/Slices/Event/eventActions";
-import { useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Events } from "../EventCard/EventCard";
+import CarouselCustom from "../Carousel/Carousel_custom";
+import FilterBar from "../Filters/Filters";
 import Loading from "../Loading/Loading";
-import FavoritesSection from "../FavoritesSection/FavoritesSection";
+import ArtistsSection from "../ArtistsSection/ArtistsSection";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -20,15 +20,18 @@ const Home = () => {
     useEffect(() => {
         dispatch(getEvents());
     }, []);
+
     const loadingCallback = useCallback(() => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
         }, 1000);
     }, []);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback, path]);
+
     return (
         <div>
             <CarouselCustom />
@@ -48,7 +51,7 @@ const Home = () => {
                     <Events />
                 </div>
                 <div>
-                    <FavoritesSection />
+                    <ArtistsSection />
                 </div>
             </div>
         </div>
