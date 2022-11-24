@@ -17,21 +17,21 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user);
+
+    useEffect(() => {
+        setOpen(false);
+    }, [location.pathname]);
 
     const handleNavigate = () => {
         if (!user.artista) navigate(`/userProfile/${user.uid}`);
         else navigate(`artistProfile/${user.uid}`);
-        setOpen(false);
     };
 
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
     const handleLogout = () => {
-        console.log("entre");
         dispatch(logOut());
-        setOpen(false);
     };
 
     return (

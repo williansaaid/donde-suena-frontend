@@ -62,7 +62,6 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
     const { ticketsAvailable } = useSelector((state) => state.eventsState);
-    console.log(ticketsAvailable);
     const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
@@ -81,7 +80,7 @@ const EventDetail = () => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
-        }, 1000);
+        }, 500);
     }, []);
     useEffect(() => {
         loadingCallback();

@@ -88,7 +88,6 @@ export const submitUserForm = (values) => (dispatch) => {
     axios
         .post("/auth/registerUser", values)
         .then((res) => {
-            dispatch(logUser(res));
             successCreationAlert();
         })
         .catch((e) => {
@@ -102,7 +101,6 @@ export const submitArtistForm = (values) => (dispatch) => {
     axios
         .post("/auth/registerArtist", values)
         .then((res) => {
-            dispatch(logUser(res));
             successCreationAlert();
         })
         .catch((e) => {
