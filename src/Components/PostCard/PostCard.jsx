@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { CommentsUser } from "../CommentsUser/CommentsUser";
+import { id } from "date-fns/locale";
 
-export const PostCard = () => {
+export const PostCard = ({nickname}) => {
     const dispatch = useDispatch();
     const { posts } = useSelector((state) => state.posts);
     const [visible, setVisible] = useState();
     const [comment, setComment] = useState("");
 
     useEffect(() => {
-        dispatch(getPostId());
-    }, [dispatch]);
+        dispatch(getPostId(nickname));
+    }, [dispatch, nickname]);
     const showMorePost = () => {
         setVisible((prevValue) => prevValue + 4);
     };
@@ -23,7 +24,7 @@ export const PostCard = () => {
                 posts?.map((el) => {
                     return (
                         <div className="flex items-center justify-center p-6 text-xl">
-                            <div className="flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl ">
+                            <div className="flex bg-white shadow-lg rounded-lg">
                                 <div className="flex items-start px-4 py-6">
                                     <div className="">
                                         <div className="flex items-center justify-between">

@@ -5,6 +5,7 @@ export const artistSlice = createSlice({
     initialState: {
         artists: [],
         artistId: [],
+        eventsArtist: []
     },
     reducers: {
         getAllArtists: (state, action) => {
@@ -13,10 +14,14 @@ export const artistSlice = createSlice({
         getAllArtistById: (state, action) => {
             state.artistId = action.payload;
         },
+        getArtistEvents: (state, action) => {
+            state.eventsArtist = action.payload;
+        }
     }
 })
 export const {
     getAllArtists,
-    getAllArtistById
+    getAllArtistById,
+    getArtistEvents
 } = artistSlice.actions;
 export default artistSlice.reducer;

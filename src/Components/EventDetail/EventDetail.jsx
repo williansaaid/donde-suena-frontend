@@ -133,6 +133,7 @@ const EventDetail = () => {
                     id: id,
                 })
             );
+            dispatch(getQuantityTickets(id));
             successPurchase();
         }
     }, [query]);
@@ -271,7 +272,6 @@ const EventDetail = () => {
                                         paymentUrl.length > 0 ? (
                                             <a
                                                 href={paymentUrl}
-                                                target="_blank"
                                                 className="flex ml-auto text-white bg-sky-300 border-0 px-4 focus:outline-none hover:bg-sky-400 rounded max-h-12"
                                             >
                                                 <div className="flex justify-center items-center w-24 max-h-12">

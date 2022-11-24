@@ -43,7 +43,7 @@ const EventCreation = () => {
             ...values,
             image: image,
             genres: genresSelect,
-            artistName: "Simone_Schoen"
+            artistName: user.nickname
         };
         try {
             dispatch(submitEventForm(formValues));
