@@ -117,8 +117,8 @@ function App() {
                             )
                         }
                     />
-                    <Route path="/team" element={<Team />} />
                     <Route path="/myDashboard" element={<ArtistDashboard />} />
+                    <Route path="/team" element={<Team />} />
                 </Routes>
 
                 <Footer />
