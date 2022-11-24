@@ -57,8 +57,8 @@ const  modifyComment = (text , commentId) =>{
   return (
    
     <div className="comments">
-      <h3 className="comments-title">Comments</h3>
-      <div className="comment-form-tittle">Write comment</div>
+      
+     
       <CommentForm submitLabel="Enviar" handleSubmit={addComment}/>
       <div className="comments-container">
     {rootComments.map((rootComment)=>(
