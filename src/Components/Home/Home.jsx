@@ -1,14 +1,14 @@
 import React from "react";
-import CarouselCustom from "../Carousel/Carousel_custom";
-import { Events } from "../EventCard/EventCard";
-import FilterBar from "../Filters/Filters";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
 import { getEvents } from "../../Redux/Slices/Event/eventActions";
-import { useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Events } from "../EventCard/EventCard";
+import CarouselCustom from "../Carousel/Carousel_custom";
+import FilterBar from "../Filters/Filters";
 import Loading from "../Loading/Loading";
-import FavoritesSection from "../FavoritesSection/FavoritesSection";
+import ArtistsSection from "../ArtistsSection/ArtistsSection";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -20,15 +20,18 @@ const Home = () => {
     useEffect(() => {
         dispatch(getEvents());
     }, []);
+
     const loadingCallback = useCallback(() => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
-        }, 1000);
+        }, 500);
     }, []);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback, path]);
+
     return (
         <div>
             <CarouselCustom />
@@ -39,16 +42,19 @@ const Home = () => {
             </nav>
             {loading && <Loading />}
             <div className={loading ? "hidden" : ""}>
-                <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl">
-                    <div class="grid h-20 place-items-center">
-                        <h1>PRÓXIMOS EVENTOS</h1>
+                <div className="flex flex-wrap py-10">
+                    <div className="w-1/6 max-h-screen flex flex-col items-center pt-20 gap-8">
+                        <h3 className="text-xl font-semibold text-red-700 uppercase italic lg:text-2xl text-center">Artistas Favoritos</h3>
+                        <ArtistsSection />
                     </div>
-                </div>
-                <div class="flex items-center justify-center">
-                    <Events />
-                </div>
-                <div>
-                    <FavoritesSection />
+                    <div className="w-4/6 flex flex-col items-center rounded-3xl bg-gray-100 pt-8 gap-8">
+                        <h2 className="text-3xl font-semibold text-red-700 uppercase lg:text-5xl text-center">Próximos Eventos</h2>
+                        <Events />
+                    </div>
+                    <div className="w-1/6 max-h-20 flex flex-col items-center pt-20 gap-8">
+                        <h3 className="text-xl font-semibold text-red-700 uppercase italic lg:text-2xl text-center">Talento Emergente</h3>
+                        <ArtistsSection />
+                    </div>
                 </div>
             </div>
         </div>

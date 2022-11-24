@@ -2,6 +2,10 @@ import axios from "axios";
 import { logUser, logoutUser } from "./sessionSlice";
 import Swal from "sweetalert2";
 
+function reloadPage() {
+    window.location.replace("/");
+}
+
 const successCreationAlert = () => {
     Swal.fire({
         title: "Registro exitoso!",
@@ -16,6 +20,9 @@ const rejectedAlert = () => {
         title: "Oops...",
         text: "Registro incorrecto!",
     });
+    setTimeout(() => {
+        reloadPage();
+    }, 2500);
 };
 
 const errorCreationAlert = (error) => {
@@ -34,6 +41,9 @@ const successConfirmAlert = () => {
         icon: "success",
         timer: 2000,
     });
+    setTimeout(() => {
+        reloadPage();
+    }, 2500);
 };
 
 const logOutAlert = () => {
@@ -49,7 +59,6 @@ export const login = (values) => (dispatch) => {
     axios
         .post("/auth/loginUser", values)
         .then((res) => {
-            console.log(res);
             dispatch(logUser(res.data));
         })
         .catch((e) => {
@@ -63,8 +72,7 @@ export const confirmateToken = (token) => (dispatch) => {
     axios
         .get(`/auth/confirmation/${token}`)
         .then((res) => {
-            console.log(res);
-            dispatch(logUser(res));
+            dispatch(logUser(res.data.usuario));
             successConfirmAlert();
         })
         .catch((e) => {
@@ -78,7 +86,6 @@ export const submitUserForm = (values) => (dispatch) => {
     axios
         .post("/auth/registerUser", values)
         .then((res) => {
-            dispatch(logUser(res));
             successCreationAlert();
         })
         .catch((e) => {
@@ -92,7 +99,6 @@ export const submitArtistForm = (values) => (dispatch) => {
     axios
         .post("/auth/registerArtist", values)
         .then((res) => {
-            dispatch(logUser(res));
             successCreationAlert();
         })
         .catch((e) => {

@@ -13,7 +13,7 @@ export const PostVar = () => {
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-
+    const user = useSelector((state) => state.sessionState?.user);
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -40,7 +40,7 @@ export const PostVar = () => {
             [e.target.name]: e.target.value,
         });
     }
-    const user = useSelector((state) => state.sessionState?.user);
+    
 
     const isLogged = user.isLogged;
     const isArtist = user.artista || false;
@@ -51,7 +51,7 @@ export const PostVar = () => {
         const postValues = {
             ...input,
             image: image,
-            artists: "Simone_Schoen",
+            artists: user.nickname,
         };
         if (postValues.image) {
             dispatch(postArtist(postValues));

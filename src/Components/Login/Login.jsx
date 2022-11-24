@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
 import { useNavigate, useLocation } from "react-router-dom";
+import Loading from "react-loading";
 import "./login.css";
 import * as Yup from "yup";
 
@@ -16,6 +17,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { loginOpen } = useSelector((state) => state.modalState);
+    const [loading, setLoading] = useState(false);
 
     const [loginType, setLoginType] = useState(false);
 
@@ -95,10 +97,14 @@ const Login = () => {
                     password: "",
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
+                    setLoading(true);
                     dispatch(login(values));
                     setSubmitting(false);
                     resetForm();
-                    handleSetModal();
+                    setTimeout(() => {
+                        setLoading(false);
+                        handleSetModal();
+                    }, 2000);
                 }}
                 validationSchema={Yup.object({
                     email: Yup.string()
@@ -190,6 +196,7 @@ const Login = () => {
                         >
                             Iniciar Sesión
                         </button>
+                        <div className="h-[10px]">{loading && <Loading />}</div>
                         <div className="flex flex-wrap justify-between w-full px-3">
                             <div onClick={() => setLoginType(!loginType)}>
                                 <span className="gap-2 font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer">
@@ -232,11 +239,6 @@ const Login = () => {
                                 </div>
                             </div>
                         )}
-
-                        {/*
-                <button id="google_signout" onClick={handleSignOut}>
-                    Signout
-                </button> */}
                     </Form>
                 )}
             </Formik>

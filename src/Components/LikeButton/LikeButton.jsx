@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 
 
-class LikeButton  extends Component {
+className LikeButton  extends Component {
   state = {
     num: 0,
     val: 'Me gusta'
@@ -24,12 +24,12 @@ class LikeButton  extends Component {
   render() {
     return (
       <div className="App" >
-        <button 
+        <button
         onClick={this.incrementLikes}
-        class="flex-nowrap"
+        className="flex-nowrap"
         >
-          {this.state.num} 
-          <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668609505/Donde-Suena-Assets/reshot-icon-horn-ZYFECLUMTD_cajil8.svg" alt="like icon" class="w-7 h-7"/>{this.state.val}</button>
+          {this.state.num}
+          <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668609505/Donde-Suena-Assets/reshot-icon-horn-ZYFECLUMTD_cajil8.svg" alt="like icon" className="w-7 h-7"/>{this.state.val}</button>
       </div>
     )
   }
