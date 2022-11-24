@@ -53,33 +53,15 @@ function App() {
                     <Route
                         exact
                         path={"/create/event"}
-                        element={
-                            isArtist && token ? (
-                                <EventCreation />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
+                        element={isArtist && token ? <EventCreation /> : <Navigate to="/" />}
                     />
                     <Route
                         path={"/myshopping/:id"}
-                        element={
-                            isLogged && token ? (
-                                <MyShopping />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
+                        element={isLogged && token ? <MyShopping /> : <Navigate to="/" />}
                     />
                     <Route
                         path={"/artistshows"}
-                        element={
-                            isArtist && token ? (
-                                <ArtistShows />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
+                        element={isArtist && token ? <ArtistShows /> : <Navigate to="/" />}
                     />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
