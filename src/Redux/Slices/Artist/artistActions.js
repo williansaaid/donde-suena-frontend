@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllArtists, getAllArtistById } from "./artistSlice";
+import { getAllArtists, getAllArtistById, getArtistShows } from "./artistSlice";
 
 export const getArtists = () => (dispatch) => {
     axios("/auth/getArtists")
@@ -24,3 +24,8 @@ export const getArtistsById = (id) => (dispatch) => {
         .then((res) => dispatch(getAllArtistById(res.data.artistID)))
         .catch((e) => console.log(e));
 };
+export const getArtistEvent = (id) => (dispatch) => {
+    axios(`/event/getEvents/?filter[artist]=${id}`)
+        .then((res) => dispatch(getArtistShows(res.data.events)))
+        .catch((e)=> console.log(e));
+}

@@ -18,6 +18,7 @@ import PostHome from "./Components/PostHome/PostHome.jsx";
 import UserProfile from "./Components/UserProfile/UserProfile";
 
 import { useSelector } from "react-redux";
+import ArtistShows from "./Components/ArtistShows/ArtistShows";
 
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
@@ -78,6 +79,16 @@ function App() {
                                 <MyShopping />
                             ) : (
                                 <Navigate to="/" />
+                            )
+                        }
+                    />
+                    <Route
+                        path={"/artistshows"}
+                        element={
+                            isArtist && token ? (   
+                            <ArtistShows/>
+                            ): (
+                                <Navigate to="/"/>
                             )
                         }
                     />
