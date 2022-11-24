@@ -33,7 +33,7 @@ const Confirm = () => {
                 {
                     <img
                         className="h-[600px]"
-                        // src={guitarrist}
+                        src={""/* guitarrist */}
                         alt="guitarrist "
                     ></img>
                 }
