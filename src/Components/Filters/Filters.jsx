@@ -8,10 +8,9 @@ import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 function FilterBar() {
     const dispatch = useDispatch();
     const { genres } = useSelector((state) => state.genresState);
-    
+
     useEffect(() => {
         dispatch(getGenres());
-        
     }, [dispatch]);
 
     function handleFilterDate(by) {
@@ -29,7 +28,6 @@ function FilterBar() {
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
         );
     }
-    function cleanFilters() {}
     function handleFilterByGenre() {
         const artistGenre = genres?.map((g) => g.name);
         console.log(artistGenre);
