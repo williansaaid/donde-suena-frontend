@@ -38,7 +38,7 @@ export const ArtistProfile = () => {
         });
     });
 
-    const user = useSelector((state) => state.sessionState.user.data);
+    const {user} = useSelector((state) => state.sessionState);
 
     useEffect(() => {
         dispatch(getArtistsById(id));
@@ -46,8 +46,10 @@ export const ArtistProfile = () => {
     
     function handleAddFav(e) {
         e.preventDefault();
-        dispatch(addFavorite(id, user.id));
+        dispatch(addFavorite(id, user.uid));
     }
+    console.log(user)
+    
 
     return (
         <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">

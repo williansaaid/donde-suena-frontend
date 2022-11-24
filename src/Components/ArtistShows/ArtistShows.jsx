@@ -10,7 +10,7 @@ const ArtistShows = ({id}) => {
     useEffect(() => {
         dispatch(getArtistEvent(id));
     }, [dispatch, id]);
-    console.log(eventsArtist)
+    
     return (
         <div>
             <div>               
