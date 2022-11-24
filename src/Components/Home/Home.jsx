@@ -25,7 +25,7 @@ const Home = () => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
-        }, 1000);
+        }, 500);
     }, []);
 
     useEffect(() => {
@@ -47,11 +47,13 @@ const Home = () => {
                         <h1>PRÓXIMOS EVENTOS</h1>
                     </div>
                 </div>
-                <div className="flex items-center justify-center">
-                    <Events />
-                </div>
-                <div>
-                    <ArtistsSection />
+                <div className="flex flex-wrap ">
+                    <div>
+                        <ArtistsSection />
+                    </div>
+                    <div className="flex items-center justify-center w-[40%]">
+                        <Events />
+                    </div>
                 </div>
             </div>
         </div>
