@@ -42,17 +42,18 @@ const Home = () => {
             </nav>
             {loading && <Loading />}
             <div className={loading ? "hidden" : ""}>
-                <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl">
-                    <div className="grid h-20 place-items-center">
-                        <h1>PRÓXIMOS EVENTOS</h1>
-                    </div>
-                </div>
-                <div className="flex flex-wrap ">
-                    <div>
+                <div className="flex flex-wrap py-10">
+                    <div className="w-1/6 flex flex-col items-center pt-10 gap-8">
+                        <h3 className="text-xl font-semibold text-red-700 uppercase italic lg:text-2xl">Artistas Favoritos</h3>
                         <ArtistsSection />
                     </div>
-                    <div className="flex items-center justify-center w-[40%]">
+                    <div className="w-4/6 flex flex-col items-center rounded-3xl bg-gray-100 pt-8">
+                        <h2 className="text-xl font-semibold text-red-700 uppercase lg:text-4xl">Próximos Eventos</h2>
                         <Events />
+                    </div>
+                    <div className="w-1/6 flex flex-col items-center pt-10 gap-8">
+                        <h3 className="text-xl font-semibold text-red-700 uppercase italic lg:text-2xl">Talento Emergente</h3>
+                        <ArtistsSection />
                     </div>
                 </div>
             </div>
