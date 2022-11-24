@@ -7,12 +7,12 @@ import axios from "axios";
 
 export const PostVar = () => {
     const artist = useSelector((state) => state.artist);
-
+    console.log(artist)
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-
+    const user = useSelector((state) => state.sessionState?.user);
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -45,7 +45,7 @@ export const PostVar = () => {
         const postValues = {
             ...input,
             image: image,
-            artists: "Simone_Schoen",
+            artists: user.nickname,
         };
         if (postValues.image || postValues.title) {
             dispatch(postArtist(postValues));

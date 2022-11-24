@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { CommentsUser } from "../CommentsUser/CommentsUser";
+import { id } from "date-fns/locale";
 
-export const PostCard = () => {
+export const PostCard = ({nickname}) => {
     const dispatch = useDispatch();
     const { posts } = useSelector((state) => state.posts);
     const [visible, setVisible] = useState();
     const [comment, setComment] = useState("");
 
     useEffect(() => {
-        dispatch(getPostId());
-    }, [dispatch]);
+        dispatch(getPostId(nickname));
+    }, [dispatch, nickname]);
     const showMorePost = () => {
         setVisible((prevValue) => prevValue + 4);
     };

@@ -19,6 +19,7 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 import ArtistDashboard from "./Components/ArtistDashboard/ArtistDashboard";
 
 import { useSelector } from "react-redux";
+import ArtistShows from "./Components/ArtistShows/ArtistShows";
 
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
@@ -65,6 +66,17 @@ function App() {
                         path={"/myshopping/:id"}
                         element={isLogged && token ? <MyShopping />: <Navigate to="/" />}
                     />
+                    <Route
+                        path={"/artistshows"}
+                        element={
+                            isArtist && token ? (   
+                            <ArtistShows/>
+                            ): (
+                                <Navigate to="/"/>
+                            )
+                        }
+                    />
+                    <Route path={"/details/:id"} element={<EventDetail />} />
 
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
