@@ -15,9 +15,8 @@ export default function ArtistsSection() {
 
     return (
         <div>
-            <div className="relative max-w-md mx-auto bg-white dark:bg-slate-800 ring-1 ring-slate-900/5">
-                <div className="top-0 left-0 right-0 px-4 py-3 flex items-center font-semibold text-sm text-slate-900 dark:text-slate-200 bg-slate-50/90 dark:bg-slate-700/90 backdrop-blur-sm ring-1 ring-slate-900/10 dark:ring-black/10">Artists</div>
-                <div className="overflow-auto flex flex-col divide-y h-80 dark:divide-slate-200/5">
+            <div className="relative max-w-md h-3/4 bg-white dark:bg-slate-800  ring-slate-900/5 rounded-2xl">
+                <div className="overflow-auto flex flex-col divide-y h-full border rounded-2xl">
                     {artists?.map((a) => {
                         return (
                             <Link to={`/artistProfile/${a.id}`} key={a.id}>

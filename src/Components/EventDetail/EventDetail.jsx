@@ -49,7 +49,7 @@ const noTicketsDesired = () => {
         icon: "error",
         timer: 2000,
     });
-}
+};
 
 const EventDetail = () => {
     const dispatch = useDispatch();
@@ -80,7 +80,7 @@ const EventDetail = () => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
-        }, 1000);
+        }, 500);
     }, []);
     useEffect(() => {
         loadingCallback();
@@ -89,10 +89,10 @@ const EventDetail = () => {
     const handlePurchase = () => {
         setOrder(false);
         dispatch(clearUrl());
-        if(ticketsAvailable === 0){
+        if (ticketsAvailable === 0) {
             noTickets();
         } else {
-            if(ticketsAvailable < quantity){
+            if (ticketsAvailable < quantity) {
                 noTicketsDesired();
             } else {
                 setOrder(true);
@@ -250,17 +250,17 @@ const EventDetail = () => {
                                 <button
                                     {...(isLogged
                                         ? {
-                                            onClick: handlePurchase,
-                                            className:
-                                                "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                        }
+                                              onClick: handlePurchase,
+                                              className:
+                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                          }
                                         : {
-                                            onClick: () => {
-                                                modal();
-                                            },
-                                            className:
-                                                "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                        })}
+                                              onClick: () => {
+                                                  modal();
+                                              },
+                                              className:
+                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                          })}
                                 >
                                     <p className="font-bold uppercase">
                                         Comprar

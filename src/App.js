@@ -17,6 +17,7 @@ import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import ArtistDashboard from "./Components/ArtistDashboard/ArtistDashboard";
+import Team from "./Components/Team/Team";
 
 import { useSelector } from "react-redux";
 import ArtistShows from "./Components/ArtistShows/ArtistShows";
@@ -34,7 +35,7 @@ function App() {
             <div className="App w-full h-full">
                 <Navbar />
                 <Login />
-                
+
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route
@@ -44,58 +45,60 @@ function App() {
                             !isLogged ? <ArtistForm /> : <Navigate to="/" />
                         }
                     />
-
                     <Route
                         exact
                         path={"/register/user"}
                         element={!isLogged ? <UserForm /> : <Navigate to="/" />}
                     />
-
                     <Route
                         exact
                         path={"/create/event"}
-                        element={isArtist && token ? <EventCreation /> : <Navigate to="/" />}
+                        element={
+                            isArtist && token ? (
+                                <EventCreation />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
-
-                    <Route
-                        path="/favs"
-                        element={isLogged && token ? <UserFavorites /> : <Navigate to="/" />}
-                    />
-
                     <Route
                         path={"/myshopping/:id"}
-                        element={isLogged && token ? <MyShopping />: <Navigate to="/" />}
+                        element={
+                            isLogged && token ? (
+                                <MyShopping />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
                     <Route
                         path={"/artistshows"}
                         element={
-                            isArtist && token ? (   
-                            <ArtistShows/>
-                            ): (
-                                <Navigate to="/"/>
+                            isArtist && token ? (
+                                <ArtistShows />
+                            ) : (
+                                <Navigate to="/" />
                             )
                         }
                     />
                     <Route path={"/details/:id"} element={<EventDetail />} />
-
-                    <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path={"/postHome"} element={<PostHome />} />
-
                     <Route
                         path={"/userProfile/:id"}
                         element={<UserProfile />}
                     />
-
                     <Route
                         path={"/artistProfile/:id"}
-                        element={isLogged && token ? <ArtistProfile /> : <Navigate to="/" />}
+                        element={<ArtistProfile />}
                     />
                     <Route
                         path="/myDashboard"
-                        element={<ArtistDashboard />}
+                        element={isArtist && token ? <ArtistDashboard /> : <Navigate to="/" />}
                     />
+                    <Route path="/myDashboard" element={<ArtistDashboard />} />
+                    <Route path="/team" element={<Team />} />
                 </Routes>
 
                 <Footer />
