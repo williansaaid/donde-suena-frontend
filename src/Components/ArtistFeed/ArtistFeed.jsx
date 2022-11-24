@@ -12,7 +12,7 @@ export const ArtistFeed = () => {
     };
 
     return (
-        <div class="postbar">
+        <div className="postbar">
             <div className="reply">
                 <form>
                     <input
