@@ -45,13 +45,11 @@ function App() {
                             !isLogged ? <ArtistForm /> : <Navigate to="/" />
                         }
                     />
-
                     <Route
                         exact
                         path={"/register/user"}
                         element={!isLogged ? <UserForm /> : <Navigate to="/" />}
                     />
-
                     <Route
                         exact
                         path={"/create/event"}
@@ -63,18 +61,6 @@ function App() {
                             )
                         }
                     />
-
-                    <Route
-                        path="/favs"
-                        element={
-                            isLogged && token ? (
-                                <UserFavorites />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-
                     <Route
                         path={"/myshopping/:id"}
                         element={
@@ -95,27 +81,21 @@ function App() {
                             )
                         }
                     />
-
-                    <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path={"/postHome"} element={<PostHome />} />
-
                     <Route
                         path={"/userProfile/:id"}
                         element={<UserProfile />}
                     />
-
                     <Route
                         path={"/artistProfile/:id"}
-                        element={
-                            isLogged && token ? (
-                                <ArtistProfile />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
+                        element={<ArtistProfile />}
+                    />
+                    <Route
+                        path="/myDashboard"
+                        element={isArtist && token ? <ArtistDashboard /> : <Navigate to="/" />}
                     />
                     <Route path="/myDashboard" element={<ArtistDashboard />} />
                     <Route path="/team" element={<Team />} />
