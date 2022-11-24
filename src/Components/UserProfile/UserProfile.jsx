@@ -2,15 +2,38 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../../Redux/Slices/User/userAction";
-import { Link } from "react-router-dom";
 import UserFavorites from "../UserFavorites/UserFavorites";
+import MyShopping from "../MyShopping/MyShopping";
 
 export default function UserProfile() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { userId } = useSelector((state) => state.userIdState);
+    const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
+    const contentArray = Array.from(
+        document.querySelectorAll("#select-content")
+    );
 
+    tabsArray.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            let target = tab;
+            //itero sobre los elementos y les saco el fondo activo
+            tabsArray.forEach((tab) => {
+                tab.classList.remove("bg-customRed");
+            });
 
+            const currentTab = tabsArray.indexOf(target);
+
+            contentArray.forEach((content) => {
+                if (contentArray.indexOf(content) === currentTab) {
+                    content.classList.remove("hidden");
+                } else if (contentArray.indexOf("content") !== currentTab) {
+                    content.classList.add("hidden");
+                }
+            });
+            target.classList.add("bg-customRed");
+        });
+    });
 
     useEffect(() => {
         dispatch(getUserById(id));
@@ -41,25 +64,36 @@ export default function UserProfile() {
                             {userId.email}
                         </div>
                     </div>
-                    <div class="flex justify-center mt-10text-2xl text-slate-700 font-bold leading-normal mb-1 mr-14">
-                        <span class=" p-3 block uppercase tracking-wide">🛒</span>
-                        <span class=" p-3 text-black font-bold mr-10">
-                            <Link to={`/myshopping/${id}`}> Mis compras</Link>
-                        </span>
-                    </div>
+                    <div class="flex justify-center mt-10 text-2xl text-slate-700 font-bold leading-normal mb-1 mr-14"></div>
                 </div>
-                <div class="">
+                <div class=" bg-customGray">
+                    <ul className="flex items-center justify-center bg-white">
+                        <li
+                            id="select-tab"
+                            className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+                        >
+                            Mis artistas Favoritos ⭐
+                        </li>
+                        <li
+                            id="select-tab"
+                            className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
+                        >
+                            Mis Compras 🛒
+                        </li>
+                    </ul>
                 
-                    
-                    <div class="animate-fade-in-down mt-1 text-center text-2xl text-customRed">
-                        Mis Artistas Favoritos ⭐
-                    </div>
-                    <blockquote class="mb-8">
-                        <UserFavorites/>
-                    </blockquote>
+                <section
+                    id="select-content"
+                    className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
+                > <UserFavorites/></section>
+                <section
+                    id="select-content"
+                    className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
+                >
+                    <MyShopping />
+                </section>
                 </div>
             </div>
         </div>
-       
     );
 }
