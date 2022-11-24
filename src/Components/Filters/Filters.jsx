@@ -11,7 +11,6 @@ function FilterBar() {
 
     useEffect(() => {
         dispatch(getGenres());
-
     }, [dispatch]);
 
     function handleFilterDate(by) {
@@ -29,7 +28,6 @@ function FilterBar() {
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
         );
     }
-    function cleanFilters() {}
     function handleFilterByGenre() {
         const artistGenre = genres?.map((g) => g.name);
         console.log(artistGenre);
