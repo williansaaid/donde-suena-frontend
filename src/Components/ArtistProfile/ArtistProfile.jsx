@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
 
 export const ArtistProfile = () => {
