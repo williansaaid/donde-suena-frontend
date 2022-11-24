@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
+   
     const { artistId } = useSelector((state) => state.artistId);
 
     const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
@@ -41,7 +43,7 @@ export const ArtistProfile = () => {
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
-
+    
     function handleAddFav(e) {
         e.preventDefault();
         dispatch(addFavorite(id, user.id));
@@ -53,7 +55,7 @@ export const ArtistProfile = () => {
                 <div className="flex flex-wrap justify-center">
                     <div className="w-full flex justify-center">
                         <div className="relative">
-                            <img
+                            <img alt="img"
                                 src={artistId.image}
                                 className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
                             />
@@ -164,14 +166,16 @@ export const ArtistProfile = () => {
                 className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
             >
                 <div>
-                    <PostCard></PostCard>
+                    <PostCard nickname={artistId.nickname}/>
                 </div>
             </section>
             <section
                 id="select-content"
                 className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center hidden"
             >
-                <div>Shows</div>
+                <div>
+                    <ArtistShows id={artistId.id}/>
+                </div>
             </section>
             <script src="/ArtistProfile"></script>
         </div>

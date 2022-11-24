@@ -25,6 +25,14 @@ export const getArtistsById = (id) => (dispatch) => {
         .then((res) => dispatch(getAllArtistById(res.data.artistID)))
         .catch((e) => console.log(e));
 };
+export const getArtistEvent = (id) => (dispatch) => {
+    axios(`/event/getEvents/?filter[artist]=${id}`)
+        .then((res) => {
+            console.log(res.data.events)
+            dispatch(getArtistEvents(res.data.events))
+        } )
+        .catch((e)=> console.log(e));
+}
 
 export const getAllArtistEvents = (id) => (dispatch) => {
     axios(`auth/artist/getEvents/${id}`)
