@@ -68,16 +68,10 @@ function App() {
                     />
                     <Route
                         path={"/artistshows"}
-                        element={
-                            isArtist && token ? (   
-                            <ArtistShows/>
-                            ): (
-                                <Navigate to="/"/>
-                            )
-                        }
+                        element={isArtist && token ? <ArtistShows/> : <Navigate to="/"/>}
                     />
-                    <Route path={"/details/:id"} element={<EventDetail />} />
 
+                    <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
