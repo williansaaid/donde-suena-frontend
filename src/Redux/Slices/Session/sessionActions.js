@@ -59,7 +59,6 @@ export const login = (values) => (dispatch) => {
     axios
         .post("/auth/loginUser", values)
         .then((res) => {
-            console.log(res);
             dispatch(logUser(res.data));
         })
         .catch((e) => {
@@ -73,8 +72,7 @@ export const confirmateToken = (token) => (dispatch) => {
     axios
         .get(`/auth/confirmation/${token}`)
         .then((res) => {
-            console.log(res);
-            dispatch(logUser(res));
+            dispatch(logUser(res.data.usuario));
             successConfirmAlert();
         })
         .catch((e) => {
