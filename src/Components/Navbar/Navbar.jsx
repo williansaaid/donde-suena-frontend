@@ -10,7 +10,6 @@ function Navbar() {
     const navigate = useNavigate();
     const  isLogged  = useSelector((state) => state.userState.user);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user);
     const handleLogin = () => {
         dispatch(setLoginModal());
     };

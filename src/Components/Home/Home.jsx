@@ -43,11 +43,11 @@ const Home = () => {
             {loading && <Loading />}
             <div className={loading ? "hidden" : ""}>
                 <div className="text-3xl font-semibold text-red-700 capitalize lg:text-4xl">
-                    <div class="grid h-20 place-items-center">
+                    <div className="grid h-20 place-items-center">
                         <h1>PRÓXIMOS EVENTOS</h1>
                     </div>
                 </div>
-                <div class="flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <Events />
                 </div>
                 <div>

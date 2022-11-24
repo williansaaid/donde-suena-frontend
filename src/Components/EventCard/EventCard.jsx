@@ -17,10 +17,8 @@ export const Events = () => {
                 {events &&
                     events.slice(0, visible).map((el, id) => {
                         return (
-                            <Link to={`/details/${el.id}`}>
-
+                            <Link to={`/details/${el.id}`} key={id}>
                                 <div
-                                    key={id}
                                     className="relative sm:h-50 w-80 rounded-lg"
                                 >
                                     <div>
@@ -47,7 +45,7 @@ export const Events = () => {
                                                     ⏰ Inicia: {el.start} - Finaliza: {el.end}
                                                 </span>
                                                 <div>
-                                                    <button type="button" class="bg-transparent hover:bg-lime-400 text-gray-300 White font-semibold hover:text-white py- px-2 border-2 border-lime-400 hover:border-transparent rounded-xl transition duration-500 " button>💵Compra por {el.price}$</button>
+                                                    <button type="button" className="bg-transparent hover:bg-lime-400 text-gray-300 White font-semibold hover:text-white py- px-2 border-2 border-lime-400 hover:border-transparent rounded-xl transition duration-500">💵Compra por {el.price}$</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +58,7 @@ export const Events = () => {
             {visible < events.length && (
                 <button
                     onClick={showMoreEvents}
-                    class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                    className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
                 >
                     VER MAS EVENTOS ↓
                 </button>
