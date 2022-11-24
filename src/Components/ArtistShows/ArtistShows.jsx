@@ -3,28 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistEvent } from "../../Redux/Slices/Artist/artistActions";
 
-const ArtistShows = ({id}) => {
+const ArtistShows = ({ id }) => {
     const dispatch = useDispatch();
-    const eventsArtist = useSelector((state) => state?.artistState.eventsArtist);
-    
+    const eventsArtist = useSelector(
+        (state) => state?.artistState.eventsArtist
+    );
+
     useEffect(() => {
         dispatch(getArtistEvent(id));
     }, [dispatch, id]);
-    console.log(eventsArtist)
+    console.log(eventsArtist);
     return (
         <div>
-            <div>               
+            <div>
                 {eventsArtist &&
                     eventsArtist?.map((el, id) => {
                         return (
-                            <div
-                                
-                                key={id}
-                            >
-                                <h1>
-                                    {" "}
-                                    Evento : {el.name}
-                                </h1>
+                            <div key={id}>
+                                <h1> Evento : {el.name}</h1>
                             </div>
                         );
                     })}
