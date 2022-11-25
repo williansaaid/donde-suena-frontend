@@ -19,16 +19,23 @@ const ArtistDashboard = () => {
                 <h1 className="text-5xl text-customRed font-bold uppercase">
                     Mis Metricas
                 </h1>
-                <div className="w-full bg-gray-400 rounded-3xl flex flex-col p-6 gap-4 text-customGray">
-                    <p className="text-3xl uppercase font-bold">
-                        Mis Eventos
-                    </p>
+                <div className="w-full bg-gray-400 rounded-3xl flex flex-col p-6 gap-4 text-customGray justify-center">
+                    <div className="flex justify-start gap-10">
+                        <p className="text-3xl uppercase font-bold">
+                            Mis Eventos
+                        </p>
+                        <Link to={"/create/event"}
+                            className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-700 ease-in-out"
+                        >
+                            Crear Evento
+                        </Link>
+                    </div>
                     <div className="flex flex-wrap justify-evenly">
                     {eventsArtist.length ?
                         eventsArtist.map((event) => {
                             return (
                                 <div key={event.id}
-                                    className="flex rounded-3xl p-8 bg-customGray text-white items-center w-fit"
+                                    className="flex rounded-3xl p-8 bg-customGray text-white items-center w-fit my-4"
                                 >
                                     <div className="flex flex-col w-full gap-8">
                                         <h4 className="text-2xl font-semibold border-2 rounded-3xl px-4 w-fit">
@@ -80,11 +87,6 @@ const ArtistDashboard = () => {
                             <p className="font-bold text-xl">
                                 No encontramos eventos vigentes
                             </p>
-                            <Link to={"/create/event"}
-                                className="text-xl italic font-bold bg-customRed p-4 rounded-3xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-700 ease-in-out"
-                            >
-                                Quiero crear un Evento!
-                            </Link>
                         </div>
                     }
                     </div>
