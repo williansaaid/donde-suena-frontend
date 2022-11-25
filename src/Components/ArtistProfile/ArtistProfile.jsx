@@ -5,6 +5,7 @@ import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
+import Swal from 'sweetalert2'
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
@@ -46,8 +47,15 @@ export const ArtistProfile = () => {
     function handleAddFav(e) {
         e.preventDefault();
         dispatch(addFavorite(id, user.uid));
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Nuevo Favorito Agregado',
+            showConfirmButton: false,
+            timer: 1500
+          })
     }
-    console.log(user)
+   
     
 
     return (

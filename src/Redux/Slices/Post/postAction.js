@@ -1,11 +1,11 @@
 import axios from "axios";
 
-import { getPostById } from "./postSlice";
 
-export const getPostId =(nickname)=>(dispatch)=>{
-  axios.get(`http://localhost:3001/auth/artist/getPosts?name=${nickname}`)
-    .then((res)=>{
-      dispatch(getPostById(res.data.findPosts.posts))})
+import { getPost } from "./postSlice";
+
+export const getPosts=()=>(dispatch)=>{
+  axios.get("http://localhost:3001/auth/artist/getPosts/")
+    .then((res)=>dispatch(getPost(res.data.allPosts)))
     .catch((e) => console.log(e));
 }
 
@@ -16,5 +16,4 @@ export const getPostId =(nickname)=>(dispatch)=>{
 //       dispatch(getPostById(res.data.allPosts))})
 //     .catch((e) => console.log(e));
 // }
-
 
