@@ -9,6 +9,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Components/Login/Login";
 import EventCreation from "./Components/EventForm/EventForm";
+import PostVar from "./Components/PostVar/PostVar";
 import ArtistProfile from "./Components/ArtistProfile/ArtistProfile";
 import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
@@ -16,7 +17,13 @@ import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import ResetPassword from "./Components/ResetPassword/ResetPassword";
+import UserProfile from "./Components/UserProfile/UserProfile";
+import ArtistDashboard from "./Components/ArtistDashboard/ArtistDashboard";
+import Team from "./Components/Team/Team";
+
 import { useSelector } from "react-redux";
+import ArtistShows from "./Components/ArtistShows/ArtistShows";
+
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
 
@@ -28,8 +35,8 @@ function App() {
         <BrowserRouter>
             <div className="App w-full h-full">
                 <Navbar />
-
                 <Login />
+
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route
@@ -63,18 +70,6 @@ function App() {
                             )
                         }
                     />
-
-                    <Route
-                        path="/favs"
-                        element={
-                            isLogged && token ? (
-                                <UserFavorites />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-
                     <Route
                         path={"/myshopping/:id"}
                         element={
@@ -85,14 +80,42 @@ function App() {
                             )
                         }
                     />
+                    <Route
+                        path={"/artistshows"}
+                        element={
+                            isArtist && token ? (
+                                <ArtistShows />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
+                    />
                     <Route path={"/details/:id"} element={<EventDetail />} />
-                    <Route path={"/postHome"} element={<PostHome />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
+                    <Route path={"/postVar"} element={<PostVar />} />
+                    <Route path={"/postHome"} element={<PostHome />} />
+                    <Route
+                        path={"/userProfile/:id"}
+                        element={<UserProfile />}
+                    />
                     <Route
                         path={"/artistProfile/:id"}
                         element={<ArtistProfile />}
                     />
+                    <Route
+                        path="/myDashboard"
+                        element={
+                            isArtist && token ? (
+                                <ArtistDashboard />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
+                    />
+                    <Route path="/myDashboard" element={<ArtistDashboard />} />
+                    <Route path="/team" element={<Team />} />
                 </Routes>
+
                 <Footer />
             </div>
         </BrowserRouter>

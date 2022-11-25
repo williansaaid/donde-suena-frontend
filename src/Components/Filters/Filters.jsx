@@ -7,7 +7,8 @@ import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
 function FilterBar() {
     const dispatch = useDispatch();
-    const { allGenres } = useSelector((state) => state?.genresState);
+    const { genres } = useSelector((state) => state.genresState);
+
     useEffect(() => {
         dispatch(getGenres());
     }, [dispatch]);
@@ -27,17 +28,16 @@ function FilterBar() {
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
         );
     }
-    function cleanFilters() {}
     function handleFilterByGenre() {
-        const genres = allGenres.genres?.map((g) => g.name);
-        console.log(genres);
+        const artistGenre = genres?.map((g) => g.name);
+        console.log(artistGenre);
     }
     return (
-        <nav class="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
-            <ul class="flex justify-around w-3/12 ml-10 mb-20">
-                <li class="flex items-center gap-x-1.5">
+        <nav className="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
+            <ul className="flex justify-around w-3/12 ml-10 mb-20">
+                <li className="flex items-center gap-x-1.5">
                     <img
-                        class="max-h-5"
+                        className="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Filtro_cymgds.png"
                         alt="filterIcon"
                         height="20px"
@@ -52,9 +52,9 @@ function FilterBar() {
                         Limpiar Filtros
                     </h1>
                 </li>
-                <li class="flex items-center gap-x-1.5">
+                <li className="flex items-center gap-x-1.5">
                     <img
-                        class="max-h-5"
+                        className="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
                         alt="locationIcon"
                         height="20px"
@@ -62,7 +62,7 @@ function FilterBar() {
                     />
                     <h1>Lugar</h1>
                 </li>
-                <li class="flex items-center gap-x-1.5">
+                <li className="flex items-center gap-x-1.5">
                     <button onClick={() => handleFilterByGenre("genero")}>
                         <img
                             className="max-h-5 hover:rotate-90 transition duration-500"
@@ -76,7 +76,7 @@ function FilterBar() {
                 </li>
             </ul>
 
-            <ul class="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
+            <ul className="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
                 <li className="w-full">
                     <button
                         className="cursor-pointer hover:bg-gray-400 w-full"
