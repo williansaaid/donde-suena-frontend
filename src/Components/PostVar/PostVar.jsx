@@ -65,10 +65,6 @@ export const PostVar = () => {
                 artist: "",
                 description: "",
             });
-        } else {
-            postValues.image
-                ? alert("La imágen es necesaria")
-                : alert("El título es necesario");
         }
     }
     useEffect(() => {}, [dispatch]);
