@@ -15,6 +15,8 @@ import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import ArtistDashboard from "./Components/ArtistDashboard/ArtistDashboard";
 import Team from "./Components/Team/Team";
@@ -26,7 +28,6 @@ function App() {
     const user = useSelector((state) => state.sessionState?.user);
 
     const isLogged = user.isLogged;
-
     const isArtist = user.artista || false;
     // const isAdmin = user.admin || false;
     const token = user.token || null;
@@ -38,6 +39,14 @@ function App() {
 
                 <Routes>
                     <Route path={"/"} element={<Home />} />
+                    <Route
+                        path={"/forgotPassword"}
+                        element={<ForgotPassword />}
+                    />
+                    <Route
+                        path={"/reset-password/:token"}
+                        element={<ResetPassword />}
+                    />
                     <Route
                         exact
                         path={"/register/artist"}
@@ -53,15 +62,33 @@ function App() {
                     <Route
                         exact
                         path={"/create/event"}
-                        element={isArtist && token ? <EventCreation /> : <Navigate to="/" />}
+                        element={
+                            isArtist && token ? (
+                                <EventCreation />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
                     <Route
                         path={"/myshopping/:id"}
-                        element={isLogged && token ? <MyShopping /> : <Navigate to="/" />}
+                        element={
+                            isLogged && token ? (
+                                <MyShopping />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
                     <Route
                         path={"/artistshows"}
-                        element={isArtist && token ? <ArtistShows /> : <Navigate to="/" />}
+                        element={
+                            isArtist && token ? (
+                                <ArtistShows />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
                     <Route path={"/details/:id"} element={<EventDetail />} />
                     <Route path={"/confirm/:token"} element={<Confirm />} />
@@ -77,7 +104,13 @@ function App() {
                     />
                     <Route
                         path="/myDashboard"
-                        element={isArtist && token ? <ArtistDashboard /> : <Navigate to="/" />}
+                        element={
+                            isArtist && token ? (
+                                <ArtistDashboard />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
                     />
                     <Route path="/myDashboard" element={<ArtistDashboard />} />
                     <Route path="/team" element={<Team />} />
