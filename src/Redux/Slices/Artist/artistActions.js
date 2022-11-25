@@ -31,11 +31,3 @@ export const getArtistEvent = (id) => (dispatch) => {
         } )
         .catch((e)=> console.log(e));
 }
-
-export const getAllArtistEvents = (id) => (dispatch) => {
-    axios(`auth/artist/getEvents/${id}`)
-        .then((res) => {
-            dispatch((res.data));
-        })
-        .catch((e) => console.log(e))
-}
