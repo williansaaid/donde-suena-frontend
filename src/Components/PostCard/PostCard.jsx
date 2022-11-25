@@ -1,19 +1,20 @@
-import { getPostId } from "../../Redux/Slices/Post/postAction";
+import { getPosts } from "../../Redux/Slices/Post/postAction";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+
 import { CommentsUser } from "../CommentsUser/CommentsUser";
 import { id } from "date-fns/locale";
 
-export const PostCard = ({nickname}) => {
+export const PostCard = ({props}) => {
     const dispatch = useDispatch();
     const { posts } = useSelector((state) => state.posts);
     const [visible, setVisible] = useState();
     const [comment, setComment] = useState("");
 
     useEffect(() => {
-        dispatch(getPostId(nickname));
-    }, [dispatch, nickname]);
+        dispatch(getPosts());
+    }, [dispatch]);
     const showMorePost = () => {
         setVisible((prevValue) => prevValue + 4);
     };
@@ -21,7 +22,7 @@ export const PostCard = ({nickname}) => {
     return (
         <div>
             {posts &&
-                posts?.map((el) => {
+                posts?.map((el,id) => {
                     return (
                         <div className="min h-50 bg-gray-200 flex items-center justify-center">
                             <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-white shadow p-5 text-gray-800flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl ">
@@ -31,7 +32,7 @@ export const PostCard = ({nickname}) => {
                             <div className="grid-rows-{2}">
                             <div className="flex-grow pl-3 mr-10">
                              <h2 className="text-lg font-semibold text-gray-900 -mt-1 "
-                             >{el.title}</h2>
+                             >{el.nickname}</h2>
                            
                            
                              <div className="w-full mb-4">
