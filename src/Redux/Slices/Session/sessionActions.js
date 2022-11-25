@@ -8,7 +8,7 @@ function reloadPage() {
 
 const successCreationAlert = () => {
     Swal.fire({
-        title: "Registro exitoso!",
+        title: "Un paso mas..",
         text: "Revise su casilla de correo para completar el registro!",
         icon: "success",
         timer: 2000,
@@ -54,7 +54,7 @@ const logOutAlert = () => {
 const resetPasswordAlert = () => {
     Swal.fire({
         title: "Contraseña Actualizada",
-        text: "Porfavor vuelva a iniciar sesión",
+        text: "Por favor vuelva a iniciar sesión",
         icon: "success",
         timer: 2000,
     });
