@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
+import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "react-loading";
 import "./login.css";
@@ -11,6 +12,7 @@ import * as Yup from "yup";
 
 // import { useDispatch, useSelector } from "react-redux";
 import ReactModal from "react-modal";
+import { logUser } from "../../Redux/Slices/Session/sessionSlice";
 const Login = () => {
     const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
@@ -38,8 +40,8 @@ const Login = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 localStorage.setItem("email", data.user.email);
+                dispatch(logUser(data.user));
                 window.location.reload();
             })
             .catch((err) => console.log(err));
@@ -51,13 +53,13 @@ const Login = () => {
             "683964699898-crca6epeuihk7scmvh5in9fm6k9dlk17.apps.googleusercontent.com";
         const callback = handleCredentialResponse;
         const auto_select = true;
-        google?.accounts.id.initialize({
+        google?.accounts?.id.initialize({
             client_id,
             callback,
             auto_select,
         });
 
-        google?.accounts.id.prompt((notification) => {
+        google?.accounts?.id.prompt((notification) => {
             if (notification.isNotDisplayed()) {
                 console.log("Error: Google Sign-In not displayed");
             } else if (notification.isSkippedMoment()) {
@@ -184,11 +186,13 @@ const Login = () => {
                                 )}
                             </ErrorMessage>
                         </div>
-                        {/* <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
-                                    <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
-                                        Olvidaste tu contraseña?
-                                    </span>
-                                </div> */}
+                        <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
+                            <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
+                                <Link to="/forgotPassword">
+                                    Olvidaste tu contraseña?
+                                </Link>
+                            </span>
+                        </div>
                         <button
                             type="submit"
                             className="bg-customRed hover:bg-customGray text-white font-bold mt-10 mb-7 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"

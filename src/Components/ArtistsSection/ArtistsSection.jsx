@@ -15,14 +15,14 @@ export default function ArtistsSection() {
 
     return (
         <div>
-            <div className="relative max-w-md h-3/4 bg-white dark:bg-slate-800  ring-slate-900/5 rounded-2xl">
+            <div className="relative max-w-md h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
                 <div className="overflow-auto flex flex-col divide-y h-full border rounded-2xl">
                     {artists?.map((a) => {
                         return (
                             <Link to={`/artistProfile/${a.id}`} key={a.id}>
                                 <div className="flex items-center gap-4 p-4">
                                     <img className="w-12 h-12 rounded-full" src={a.image} alt="" />
-                                    <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">{`${a.firstName} ${a.lastName}`}  </strong>
+                                    <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">{a.nickname}</strong>
                                 </div>
                             </Link>
                         )
