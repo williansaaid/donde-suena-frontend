@@ -169,7 +169,7 @@ const EventDetail = () => {
                         </div>
                         <div className="w-1/2 bg-gray-300 rounded-lg p-8 flex flex-col gap-4">
                             <h1 className="font-bold uppercase text-3xl text-center my-5">
-                                Nombre del concierto
+                                {detail.name}
                             </h1>
                             <p className="leading-relaxed">
                                 {detail.description}arcu ac tortor dignissim
