@@ -2,8 +2,8 @@ import axios from "axios";
 import { getAllFavs, addFav } from "./favoritesSlice";
 
 export const getFavorites = () => (dispatch) => {
-    axios("/authUser/getFavoritesArtists")
-        .then((res) => dispatch(getAllFavs(res.data.favorites)))
+    axios("/auth/getFavoritesArtists")
+        .then((res) => dispatch(getAllFavs(res.data.artistsFind)))
         .catch((e) => console.log(e));
 };
 
