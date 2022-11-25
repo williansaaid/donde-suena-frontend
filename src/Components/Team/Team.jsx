@@ -29,7 +29,7 @@ export default function Team() {
                     </div>
                     <div class="text-center">
                         <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[0]?.firstName} ${team[0]?.lastName}`}</p>
-                        <p class="text-base text-customGray font-medium mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[0]?.tittle}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[0]?.tittle}</p>
                     </div>
                     <div class="flex justify-center text-center">
                         <span class="p-3 text-center">
