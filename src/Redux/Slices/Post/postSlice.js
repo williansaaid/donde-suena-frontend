@@ -5,10 +5,11 @@ export const postSlice = createSlice
   name: "posts",
   initialState: {
       posts: [],
+      postsId:[],
   },
   reducers: {
       getPostById: (state, action) => {
-          state.posts = action.payload;
+          state.postsId = action.payload;
       },
   }
 })

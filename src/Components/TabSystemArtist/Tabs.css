@@ -1,4 +1,4 @@
-/* *, ::before, ::after {
+*, ::before, ::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -8,7 +8,7 @@
     background: #fff;
   }
   
-  .container {
+  .container2 {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -88,4 +88,4 @@
   }
   .active-content {
     display: block;
-  } */
+  }
