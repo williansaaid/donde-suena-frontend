@@ -11,7 +11,6 @@ export const postArtist = (values) => (dispatch) => {
     axios
         .post("/auth/artist/createPost", values)
         .then((res) => {
-            console.log(res);
             dispatch(res);
             alert("Post Creado Exitosamente");
         })
@@ -28,17 +27,7 @@ export const getArtistsById = (id) => (dispatch) => {
 export const getArtistEvent = (id) => (dispatch) => {
     axios(`/event/getEvents/?filter[artist]=${id}`)
         .then((res) => {
-            console.log(res.data.events)
             dispatch(getArtistEvents(res.data.events))
         } )
         .catch((e)=> console.log(e));
-}
-
-export const getAllArtistEvents = (id) => (dispatch) => {
-    axios(`auth/artist/getEvents/${id}`)
-        .then((res) => {
-            console.log(res.data);
-            dispatch((res.data));
-        })
-        .catch((e) => console.log(e))
 }

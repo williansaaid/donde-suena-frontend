@@ -82,7 +82,6 @@ export const updateTickets = (values) => (dispatch) => {
 export const getQuantityTickets = (id) => (dispatch) => {
     axios(`/event/stockQuotas/${id}`)
         .then((res) => {
-            console.log(res.data);
             dispatch(quantityTickets(res.data.stock.quotas));
         })
         .catch((e) => console.log(e));

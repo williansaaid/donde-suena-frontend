@@ -59,7 +59,6 @@ export const login = (values) => (dispatch) => {
     axios
         .post("/auth/loginUser", values)
         .then((res) => {
-            console.log(res);
             dispatch(logUser(res.data));
         })
         .catch((e) => {
@@ -73,14 +72,33 @@ export const confirmateToken = (token) => (dispatch) => {
     axios
         .get(`/auth/confirmation/${token}`)
         .then((res) => {
-            console.log(res);
-            dispatch(logUser(res));
+            dispatch(logUser(res.data.usuario));
             successConfirmAlert();
         })
         .catch((e) => {
             console.log(e);
             rejectedAlert();
         });
+};
+
+export const forgotPassword = (email) => (dispatch) => {
+    axios
+        .put("/auth/forget-password", email)
+        .then((res) => {
+            console.log(res);
+            alert("Se ha enviado un email a su casilla");
+        })
+        .catch((e) => console.log(e));
+};
+
+export const resetPassword = (values, token) => (dispatch) => {
+    axios
+        .put(`/auth/new-password/${token}`, values)
+        .then((res) => {
+            console.log(res);
+            alert("Contraseña cambiada exitosamente");
+        })
+        .catch((e) => console.log(e));
 };
 
 export const submitUserForm = (values) => (dispatch) => {
