@@ -22,6 +22,26 @@ export const confirmateToken = (token) => (dispatch) => {
         .catch((e) => console.log(e));
 };
 
+export const forgotPassword = (email) => (dispatch) => {
+    axios
+        .put("/auth/forget-password", email)
+        .then((res) => {
+            console.log(res);
+            alert("Se ha enviado un email a su casilla");
+        })
+        .catch((e) => console.log(e));
+};
+
+export const resetPassword = (values, token) => (dispatch) => {
+    axios
+        .put(`/auth/new-password/${token}`, values)
+        .then((res) => {
+            console.log(res);
+            alert("Contraseña cambiada exitosamente");
+        })
+        .catch((e) => console.log(e));
+};
+
 export const submitUserForm = (values) => (dispatch) => {
     console.log(values);
     axios

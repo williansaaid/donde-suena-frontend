@@ -14,12 +14,13 @@ import UserFavorites from "./Components/UserFavorites/UserFavorites";
 import MyShopping from "./Components/MyShopping/MyShopping";
 import Confirm from "./Components/Confirm/Confirm";
 import PostHome from "./Components/PostHome/PostHome.jsx";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import { useSelector } from "react-redux";
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
 
     const isLogged = user.isLogged;
-
     const isArtist = user.artista || false;
     // const isAdmin = user.admin || false;
     const token = user.token || null;
@@ -31,7 +32,14 @@ function App() {
                 <Login />
                 <Routes>
                     <Route path={"/"} element={<Home />} />
-
+                    <Route
+                        path={"/forgotPassword"}
+                        element={<ForgotPassword />}
+                    />
+                    <Route
+                        path={"/reset-password/:token"}
+                        element={<ResetPassword />}
+                    />
                     <Route
                         exact
                         path={"/register/artist"}

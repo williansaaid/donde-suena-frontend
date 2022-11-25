@@ -24,7 +24,6 @@ const EventDetail = () => {
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
-    const token = user.token || null;
 
     const modal = () => {
         dispatch(setLoginModal());
