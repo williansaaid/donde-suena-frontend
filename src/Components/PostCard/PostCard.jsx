@@ -1,7 +1,8 @@
-import { getPostId } from "../../Redux/Slices/Post/postAction";
+import { getPosts, getPostId } from "../../Redux/Slices/Post/postAction";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+
 import { CommentsUser } from "../CommentsUser/CommentsUser";
 import { id } from "date-fns/locale";
 
@@ -12,16 +13,15 @@ export const PostCard = ({ nickname }) => {
     const [visible, setVisible] = useState();
     const [comment, setComment] = useState("");
     const [posteos, setPosteos] = useState([]);
-
-
-
+   
+    
     useEffect(() => {
         if (nickname) {
             dispatch(getPostId(nickname));
             setPosteos([]);
             setPosteos(postsId);
         }else{
-            dispatch(getPostId());
+            dispatch(getPosts());
             setPosteos([]);
             setPosteos(posts);
         }
