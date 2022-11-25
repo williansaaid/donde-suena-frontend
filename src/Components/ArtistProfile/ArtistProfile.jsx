@@ -5,6 +5,7 @@ import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
+import Tabs from "../TabSystemArtist/Tabs";
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
@@ -130,6 +131,7 @@ export const ArtistProfile = () => {
                 </div>
             </div>
             <div>
+                {/* <Tabs></Tabs> */}
                 <ul className="flex items-center justify-center">
                     <li
                         id="select-tab"
@@ -155,7 +157,7 @@ export const ArtistProfile = () => {
             </section>
             <section
                 id="select-content"
-                className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center hidden"
+                className="h-90 bg-customGray p-2 text-4xl flex items-center justify-center hidden"
             >
                 <div>
                     <ArtistShows id={artistId.id}/>
