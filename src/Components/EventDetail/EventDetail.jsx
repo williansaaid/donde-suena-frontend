@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams, Navigate } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
     getEventsById,
     updateTickets,

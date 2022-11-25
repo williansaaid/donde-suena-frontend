@@ -5,7 +5,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
 import { useNavigate, useLocation } from "react-router-dom";
+import cuernitos from "../../assets/img/cuernitos.png";
 import Loading from "react-loading";
+import { GrStar } from "react-icons/gr";
 import "./login.css";
 import * as Yup from "yup";
 
@@ -82,7 +84,7 @@ const Login = () => {
             isOpen={loginOpen}
             ariaHideApp={false}
             onRequestClose={handleSetModal}
-            className="modal"
+            className="modal w-full mx-auto max-w-2xl"
             style={{
                 overlay: {
                     zIndex: 1000,
@@ -120,7 +122,7 @@ const Login = () => {
             >
                 {({ isSubmitting, errors }) => (
                     <Form className="relative w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
-                        {location.pathname.includes("/details") && (
+                        {location.pathname !== "/" && (
                             <h1 className="block tracking-wide text-white text-s font-bold mb-2 pt-5">
                                 Debes iniciar sesion para continuar..
                             </h1>
@@ -215,27 +217,39 @@ const Login = () => {
                         {loginType && (
                             <div className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
                                 <h3 className="block tracking-wide text-white text-s font-bold mb-2">
-                                    Soy:{" "}
+                                    Soy:
                                 </h3>
-                                <div>
-                                    <button
-                                        onClick={() => {
-                                            navigate("/register/artist");
-                                            handleSetModal();
-                                        }}
-                                        className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
-                                    >
-                                        Artista
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            navigate("/register/user");
-                                            handleSetModal();
-                                        }}
-                                        className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
-                                    >
-                                        Publico
-                                    </button>
+                                <div className="flex wrap gap-10 mt-3">
+                                    <div>
+                                        {/* <div className="text-white mb-3 m-auto">
+                                            <GrStar size={"4em"} />
+                                        </div> */}
+                                        <button
+                                            onClick={() => {
+                                                navigate("/register/artist");
+                                                handleSetModal();
+                                            }}
+                                            className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                                        >
+                                            Artista
+                                        </button>
+                                    </div>
+                                    <div>
+                                        {/* <img
+                                            className="h-[60px] mb-3"
+                                            src={cuernitos}
+                                            alt=""
+                                        /> */}
+                                        <button
+                                            onClick={() => {
+                                                navigate("/register/user");
+                                                handleSetModal();
+                                            }}
+                                            className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                                        >
+                                            Publico
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )}
