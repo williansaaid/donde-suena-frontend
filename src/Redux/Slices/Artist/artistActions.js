@@ -21,7 +21,8 @@ export const postArtist = (values) => (dispatch) => {
 
 export const getArtistsById = (id) => (dispatch) => {
     axios(`/auth/getArtistById/${id}`)
-        .then((res) => dispatch(getAllArtistById(res.data.artistID)))
+        .then((res) =>
+             dispatch(getAllArtistById(res.data.artistID.id)))
         .catch((e) => console.log(e));
 };
 export const getArtistEvent = (id) => (dispatch) => {

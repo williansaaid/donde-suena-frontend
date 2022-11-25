@@ -43,7 +43,7 @@ import { getFavorites } from "../../Redux/Slices/Favorites/favoritesAction";
 
 const UserFavorites = () => {
     const dispatch = useDispatch();
-    const favorites  = useSelector((state) => state.favorites);
+    const  favorites  = useSelector((state) => state.favorites);
     useEffect(() => {
         dispatch(getFavorites());
     }, []);

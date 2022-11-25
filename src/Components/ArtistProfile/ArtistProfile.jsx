@@ -37,8 +37,8 @@ export const ArtistProfile = () => {
         });
     });
 
-    const {user} = useSelector((state) => state.sessionState);
-
+    const user = useSelector((state) => state.sessionState?.user);
+    
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
@@ -47,7 +47,7 @@ export const ArtistProfile = () => {
         e.preventDefault();
         dispatch(addFavorite(id, user.uid));
     }
-    console.log(user)
+    
     
 
     return (

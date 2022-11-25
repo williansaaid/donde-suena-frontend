@@ -7,7 +7,7 @@ import axios from "axios";
 
 export const PostVar = () => {
     const artist = useSelector((state) => state.artist);
-    console.log(artist)
+    console.log(artist);
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -47,19 +47,14 @@ export const PostVar = () => {
             image: image,
             artists: user.nickname,
         };
-        if (postValues.image || postValues.title) {
+        if (postValues.image) {
             dispatch(postArtist(postValues));
             setSuccess(false);
             setImage("");
             setInput({
-                title: "",
                 artist: "",
                 description: "",
             });
-        } else {
-            postValues.image
-                ? alert("La imágen es necesaria")
-                : alert("El título es necesario");
         }
     }
     useEffect(() => {}, [dispatch]);
