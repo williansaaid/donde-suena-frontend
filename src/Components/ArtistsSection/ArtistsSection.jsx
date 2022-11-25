@@ -23,7 +23,7 @@ export default function ArtistsSection() {
                             <Link to={`/artistProfile/${a.id}`} key={a.id}>
                                 <div className="flex items-center gap-4 p-4">
                                     <img className="w-12 h-12 rounded-full" src={a.image} alt="" />
-                                    <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">{`${a.firstName} ${a.lastName}`}  </strong>
+                                    <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">{a.nickname} </strong>
                                 </div>
                             </Link>
                         )

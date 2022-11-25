@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getTeam } from "../../Redux/Slices/Team/teamAction";
+import Loading from "../Loading/Loading"
 
 export default function Team() {
     const dispatch = useDispatch()
@@ -13,61 +14,255 @@ export default function Team() {
 
 
     return (
-        <div>
-            {team.map((e) => {
-                return (
-                    <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
-                        <div class="px-6">
-                            <div class="flex flex-wrap justify-center">
-                                <div class="w-full flex justify-center">
-                                    <div class="relative">
-                                        <img
-                                            src={e.image}
-                                            class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <br />
-                                </div>
-                                <div class="w-full text-center mt-20" >
-                                    <div class="text-center">
-                                        <h3 class="text-2xl text-slate font-bold leading-normal">
-                                            {`${e.firstName} ${e.lastName}`}
-                                        </h3>
-                                    </div>
-                                    <div class="flex justify-center">
-                                        <div class="p-3 text-center">
-                                            <span class="text-slate">
-                                                {e.tittle}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-center mb-6">
-                            <div class="p-3 text-center">
-                                <a href={e.urlGithub} target="_blank" rel="noreferrer">
-                                    <img
-                                        className="cursor-pointer h-8 "
-                                        src={e.iconGithub}
-                                        alt="Github"
-                                    />
-                                </a>
-                            </div>
-                            <div class="p-3 text-center">
-                                <a href={e.urlLinkedin} target="_blank" rel="noreferrer">
-                                    <img
-                                        className="cursor-pointer h-8"
-                                        src={e.iconLinkedin}
-                                        alt="Linkedin"
-                                    />
-                                </a>
-                            </div>
+        team.length < 1 ? (
+            <Loading></Loading>
+        ) : <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
+            <div class="text-center pb-12">
+                <h1 class="font-bold text-3xl md:text-4xl lg:text-4xl font-heading text-customGray">
+                    Miembros del equipo
+                </h1>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[0]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[0]?.firstName} ${team[0]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-medium mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[0]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[0]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[0]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[0]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[0]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
                         </div>
                     </div>
-                )
-            })}
-        </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[1]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[1]?.firstName} ${team[1]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[1]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[1]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[1]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[1]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[1]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[2]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[2]?.firstName} ${team[2]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[2]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[2]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[2]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[2]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[2]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[3]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[3]?.firstName} ${team[3]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[3]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[3]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[3]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[3]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[3]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[4]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[4]?.firstName} ${team[4]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[4]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[4]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[4]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[4]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[4]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[5]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[5]?.firstName} ${team[5]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[5]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[5]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[5]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[5]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[5]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[6]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[6]?.firstName} ${team[6]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[6]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[6]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[6]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[6]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[6]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
+                    <div class="mb-8">
+                        <img class="object-center object-cover rounded-full" src={team[7]?.image} alt="" />
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xl text-customGray font-bold mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{`${team[7]?.firstName} ${team[7]?.lastName}`}</p>
+                        <p class="text-base text-customGray font-normal mb-2 transition ease-in-out delay-150 duration-300 group-hover:text-white">{team[7]?.tittle}</p>
+                    </div>
+                    <div class="flex justify-center text-center">
+                        <span class="p-3 text-center">
+                            <a href={team[7]?.urlGithub} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8 "
+                                    src={team[7]?.iconGithub}
+                                    alt="Github"
+                                />
+                            </a>
+                        </span>
+                        <div class="p-3 text-center">
+                            <a href={team[7]?.urlLinkedin} target="_blank" rel="noreferrer">
+                                <img
+                                    className="cursor-pointer h-8"
+                                    src={team[7]?.iconLinkedin}
+                                    alt="Linkedin"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }
