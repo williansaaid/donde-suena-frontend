@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "../../Redux/Slices/Favorites/favoritesAction";
+import { useParams } from "react-router-dom";
 
 // const favorites = [
 //     {
@@ -42,8 +43,10 @@ import { getFavorites } from "../../Redux/Slices/Favorites/favoritesAction";
 // ];
 
 const UserFavorites = () => {
+    
     const dispatch = useDispatch();
-    const favorites  = useSelector((state) => state.favorites);
+    const  {favorites}  = useSelector((state) => state.favoritesState);
+    console.log(favorites)
     useEffect(() => {
         dispatch(getFavorites());
     }, []);
@@ -59,11 +62,11 @@ const UserFavorites = () => {
                     <div class="-mt-20 flex justify-center">
                         <img
                             class="h-32 rounded-full "
-                            src={artist.img}
+                            src={artist.image}
                         />
                     </div>
                     <div class="mt-5 mb-1 px-3 text-center text-1xl text-black font-bold">
-                        {artist.name}
+                        {artist.nickname}
                     </div>
                     <div class="mb-5 px-3 text-center text-1xl text-white font-bold">{artist.genre}</div>
                 </div>
