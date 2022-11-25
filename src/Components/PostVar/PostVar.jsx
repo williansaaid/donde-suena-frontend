@@ -8,7 +8,7 @@ import axios from "axios";
 export const PostVar = () => {
   
     const artistId = useSelector((state) => state.artistID);
-    console.log(artistId)
+    console.log(artistId);
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -62,10 +62,6 @@ export const PostVar = () => {
                 artist: "",
                 description: "",
             });
-        } else {
-            postValues.image
-                ? alert("La imágen es necesaria")
-                : alert("El título es necesario");
         }
     }
     useEffect(() => {}, [dispatch]);
