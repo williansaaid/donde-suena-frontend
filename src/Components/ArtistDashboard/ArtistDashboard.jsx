@@ -10,7 +10,7 @@ const ArtistDashboard = () => {
     const { user } = useSelector((state) => state.sessionState);
 
     useEffect(() => {
-        dispatch(getArtistEvent(user.id));
+        dispatch(getArtistEvent(user.uid?user.uid:user.id));
     },[]);
 
     return (
