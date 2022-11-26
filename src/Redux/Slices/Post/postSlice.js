@@ -7,12 +7,12 @@ export const postSlice = createSlice
       posts: [],
   },
   reducers: {
-      getPostById: (state, action) => {
+    getPost: (state, action) => {
           state.posts = action.payload;
       },
   }
 })
 export const {
- getPostById
+ getPost
 } = postSlice.actions;
 export default postSlice.reducer;
