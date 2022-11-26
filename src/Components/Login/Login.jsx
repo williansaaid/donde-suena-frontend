@@ -42,6 +42,7 @@ const Login = () => {
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 localStorage.setItem("email", data.user.email);
                 dispatch(logUser(data.user));
                 window.location.reload();

@@ -17,6 +17,7 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
+    console.log(user.image);
 
     useEffect(() => {
         setOpen(false);
@@ -32,6 +33,7 @@ function Navbar() {
     };
     const handleLogout = () => {
         dispatch(logOut());
+        navigate("/");
     };
 
     return (
