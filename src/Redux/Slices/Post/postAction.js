@@ -9,6 +9,7 @@ export const getPosts=()=>(dispatch)=>{
     .catch((e) => console.log(e));
 }
 
+
 // export const getPostId =()=>(dispatch)=>{
 //   axios.get("http://localhost:3001/auth/artist/getPosts")
 //     .then((res)=>{
