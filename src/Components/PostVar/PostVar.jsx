@@ -8,7 +8,6 @@ import axios from "axios";
 export const PostVar = () => {
 
     const artistId= useSelector((state) => state.artistId);
-    console.log(artistId)
    
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
