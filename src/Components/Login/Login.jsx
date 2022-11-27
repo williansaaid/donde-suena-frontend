@@ -6,10 +6,9 @@ import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
-import star from "../../assets/img/star.jpg";
-import cuernitos from "../../assets/img/cuernitos.png";
+import guitar from "../../assets/img/GUITARRA-ELÉCTRICA.png";
+import cuernitos from "../../assets/img/MANO-ROCK-CUERNOS.png";
 import Loading from "react-loading";
-import { GrStar } from "react-icons/gr";
 import "./login.css";
 import * as Yup from "yup";
 
@@ -199,7 +198,7 @@ const Login = () => {
                         </div>
                         <button
                             type="submit"
-                            className="bg-customRed hover:bg-customGray text-white font-bold mt-10 mb-7 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
+                            className="bg-customRed hover:bg-customGray text-white font-bold mt-3 mb-7 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
                             disabled={isSubmitting}
                         >
                             Iniciar Sesión
@@ -221,47 +220,46 @@ const Login = () => {
                             </div>
                         </div>
                         {loginType && (
-                            <div className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
-                                <h3 className="block tracking-wide text-white text-s font-bold mb-2">
-                                    Soy:
+                            <div className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 rounded">
+                                <h3 className="  block tracking-wide text-white text-s font-bold mb-2">
+                                    SOY
                                 </h3>
-                                <div className="flex wrap gap-10 mt-3">
-                                    <div>
-                                        {/* <div className="rounded-full">
+
+                                <div className=" flex wrap gap-20 divide-blue-200">
+                                    <div
+                                        onClick={() => {
+                                            navigate("/register/artist");
+                                            handleSetModal();
+                                        }}
+                                        className="cursor-pointer "
+                                    >
+                                        <div className="rounded-full">
                                             <img
-                                                className="h-[60px]"
-                                                src={star}
+                                                className="h-[70px] mb-1"
+                                                src={guitar}
                                                 alt=""
                                             />
-                                        </div> */}
-                                        {/* <div className="text-white mb-3 m-auto">
-                                            <GrStar size={"4em"} />
-                                        </div> */}
-                                        <button
-                                            onClick={() => {
-                                                navigate("/register/artist");
-                                                handleSetModal();
-                                            }}
-                                            className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
-                                        >
+                                        </div>
+
+                                        <h3 className="block tracking-wide text-white text-s font-bold mb-2">
                                             Artista
-                                        </button>
+                                        </h3>
                                     </div>
-                                    <div>
-                                        {/* <img
+                                    <div
+                                        onClick={() => {
+                                            navigate("/register/user");
+                                            handleSetModal();
+                                        }}
+                                        className="cursor-pointer"
+                                    >
+                                        <img
                                             className="h-[60px] mb-3"
                                             src={cuernitos}
                                             alt=""
-                                        /> */}
-                                        <button
-                                            onClick={() => {
-                                                navigate("/register/user");
-                                                handleSetModal();
-                                            }}
-                                            className="bg-customRed hover:bg-customGray text-white font-bold mx-3 py-2 px-4 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed"
-                                        >
+                                        />
+                                        <h3 className="block tracking-wide text-white text-s font-bold mb-2">
                                             Publico
-                                        </button>
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
