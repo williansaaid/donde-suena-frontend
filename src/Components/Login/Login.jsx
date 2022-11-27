@@ -6,6 +6,7 @@ import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { login } from "../../Redux/Slices/Session/sessionActions";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+import star from "../../assets/img/star.jpg";
 import cuernitos from "../../assets/img/cuernitos.png";
 import Loading from "react-loading";
 import { GrStar } from "react-icons/gr";
@@ -226,6 +227,13 @@ const Login = () => {
                                 </h3>
                                 <div className="flex wrap gap-10 mt-3">
                                     <div>
+                                        {/* <div className="rounded-full">
+                                            <img
+                                                className="h-[60px]"
+                                                src={star}
+                                                alt=""
+                                            />
+                                        </div> */}
                                         {/* <div className="text-white mb-3 m-auto">
                                             <GrStar size={"4em"} />
                                         </div> */}
