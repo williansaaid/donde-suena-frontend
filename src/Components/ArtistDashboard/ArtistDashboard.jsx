@@ -38,6 +38,7 @@ const ArtistDashboard = () => {
     const confirmChangePassword = () => {
         Swal.fire({
             title: '¿Seguro quieres cambiar la contraseña?',
+            text: "Si confirmas se cerrará la sesión",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

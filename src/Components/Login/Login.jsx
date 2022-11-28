@@ -218,7 +218,7 @@ const Login = () => {
                             </div>
                         </div>
                         {loginType && (
-                            <div className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 rounded">
+                            <div className="w-full mx-auto max-w-2xl max-h-[120px] bg-customGray p-4 flex flex-col justify-center items-center gap-2 rounded">
                                 <h3 className="  block tracking-wide text-white text-s font-bold mb-2">
                                     SOY
                                 </h3>
