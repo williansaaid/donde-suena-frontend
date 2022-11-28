@@ -50,7 +50,7 @@ export const ArtistProfile = () => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
     
-    console.log(artistId)
+    
     // useEffect(() => {
     //     dispatch(getPostById(artistId?.nickname));
     // }, [dispatch,artistId?.nickname]);
