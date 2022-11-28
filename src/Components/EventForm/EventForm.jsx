@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
-import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -18,7 +17,6 @@ const EventCreation = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
-    const { events } = useSelector((state) => state.eventsState);
     const { genres } = useSelector((state) => state.genresState);
     const { user } = useSelector((state) => state.sessionState);
 
@@ -47,7 +45,6 @@ const EventCreation = () => {
         };
         try {
             const eventId = await dispatch(submitEventForm(formValues));
-            console.log(eventId);
             setSuccess(false);
             actions.resetForm();
             setGenresSelect([]);
