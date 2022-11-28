@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFavorite, getFavorites } from "../../Redux/Slices/Favorites/favoritesAction";
+import { getFavorites } from "../../Redux/Slices/Favorites/favoritesAction";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
 import { Link } from "react-router-dom";
 
@@ -15,16 +15,11 @@ const UserFavorites = () => {
         dispatch(getFavorites());
     }, []);
     const { artists } = useSelector(state => state.artistState)
-    
+
 
     useEffect(() => {
         dispatch(getArtists())
     }, [dispatch]);
-
-    // const handleDelete = (e) => {
-    //     e.preventDefault()
-    //     dispatch(deleteFavorite())
-    //   }
 
 
     return (
@@ -34,7 +29,7 @@ const UserFavorites = () => {
                     return (
                 <div class=" transition duration-500 hover:scale-90 hover:bg-customGray-600">
                 <div class="m-auto m-5 my-5 w-80 max-w-lg items-center justify-center overflow-hidden rounded-2xl bg-slate-600 shadow-xl">
-                     <div class="h-24 bg-slate-300"> </div> 
+                    <div class="h-24 bg-slate-300"></div>
                     <Link to={`/artistProfile/${artist.id}`} key={artist.id}>
                     <div class="-mt-20 flex justify-center">
                         <img
