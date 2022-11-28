@@ -81,7 +81,7 @@ export default function UserProfile() {
                             Mis Compras 🛒
                         </li>
                     </ul>
-                
+                    
                 <section
                     id="select-content"
                     className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
