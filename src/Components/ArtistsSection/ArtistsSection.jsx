@@ -21,7 +21,7 @@ export default function ArtistsSection() {
                             <Link to={`/artistProfile/${a.id}`} key={i}>
                                 <div className="flex items-center gap-4 p-4">
                                     <img
-                                        className="w-12 h-12 rounded-full"
+                                        className="w-12 h-12 rounded-full object-cover"
                                         src={a.image}
                                         alt=""
                                     />
