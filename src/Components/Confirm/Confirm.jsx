@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { confirmateToken } from "../../Redux/Slices/Session/sessionActions";
-import guitarrist from "../../assets/img/musico.png";
+// import guitarrist from "../../assets/img/musico.png";
 
 const Confirm = () => {
     const { token } = useParams();
@@ -29,7 +29,7 @@ const Confirm = () => {
                 </h3>
             </div>
 
-            <div>
+            {/* <div>
                 {
                     <img
                         className="h-[600px]"
@@ -37,7 +37,7 @@ const Confirm = () => {
                         alt="guitarrist "
                     ></img>
                 }
-            </div>
+            </div> */}
         </div>
     );
 };
