@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
 
@@ -9,15 +9,15 @@ import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
 import Tabs from "../TabSystemArtist/Tabs";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { id } = useParams();
     const { artistId } = useSelector((state) => state.artistId);
-    const posts= useSelector((state)=> state.posts)
-    
-   
+    const posts = useSelector((state) => state.posts);
+
     // const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
     // const contentArray = Array.from(
     //     document.querySelectorAll("#select-content")
@@ -49,13 +49,11 @@ export const ArtistProfile = () => {
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
-    
-    
+
+    console.log(artistId);
     // useEffect(() => {
     //     dispatch(getPostById(artistId?.nickname));
     // }, [dispatch,artistId?.nickname]);
-    
-
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
@@ -109,12 +107,21 @@ export const ArtistProfile = () => {
             </div>
             <div class="mt-6 py-6 border-t border-slate-200 text-center">
                 <div class="flex flex-wrap justify-center">
-                    <button
-                        className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg px-5 text-white"
-                        onClick={(e) => handleAddFav(e)}
-                    >
-                        Agregar a Favoritos ⭐
-                    </button>
+                    {user.artista ? (
+                        <button
+                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-3 px-5 text-white"
+                            onClick={() => navigate("/create/event")}
+                        >
+                            Crear Evento ⭐
+                        </button>
+                    ) : (
+                        <button
+                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg px-5 text-white"
+                            onClick={(e) => handleAddFav(e)}
+                        >
+                            Agregar a Favoritos ⭐
+                        </button>
+                    )}
                 </div>
             </div>
             <div class="flex justify-center mb-6">

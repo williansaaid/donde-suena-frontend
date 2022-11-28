@@ -1,5 +1,5 @@
 import { addDays, subDays } from "date-fns/esm";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFilter, getEvents } from "../../Redux/Slices/Event/eventActions";
 import { format } from "date-fns";
@@ -8,6 +8,8 @@ import DropdownGenreFilter from "./DropdownGenreFilter";
 
 function FilterBar() {
     const dispatch = useDispatch();
+
+    const [filterSelect, setFilterSelect] = useState("");
 
     function handleFilterDate(by) {
         let eventStart = "";
@@ -19,6 +21,8 @@ function FilterBar() {
         if (by === "week") eventStart = week;
         if (by === "month") eventStart = month;
         let now = format(subDays(new Date(), 1), "yyyy-MM-dd");
+
+        setFilterSelect(by);
 
         dispatch(
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
@@ -39,6 +43,7 @@ function FilterBar() {
                     <h1
                         className="cursor-pointer"
                         onClick={() => {
+                            setFilterSelect("");
                             dispatch(getEvents());
                         }}
                     >
@@ -56,7 +61,9 @@ function FilterBar() {
             <ul className="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
                 <li className="w-full">
                     <button
-                        className="cursor-pointer hover:bg-gray-400 w-full"
+                        className={`cursor-pointer ${
+                            filterSelect === "day" && "bg-gray-400"
+                        } hover:bg-gray-400 w-full`}
                         onClick={() => handleFilterDate("day")}
                         value={"day"}
                     >
@@ -65,7 +72,9 @@ function FilterBar() {
                 </li>
                 <li className="w-full">
                     <button
-                        className="cursor-pointer hover:bg-gray-400 w-full"
+                        className={`cursor-pointer ${
+                            filterSelect === "week" && "bg-gray-400"
+                        } hover:bg-gray-400 w-full`}
                         onClick={() => handleFilterDate("week")}
                         value={"week"}
                     >
@@ -74,7 +83,9 @@ function FilterBar() {
                 </li>
                 <li className="w-full">
                     <button
-                        className="cursor-pointer hover:bg-gray-400 w-full"
+                        className={`cursor-pointer ${
+                            filterSelect === "month" && "bg-gray-400"
+                        }  hover:bg-gray-400 w-full`}
                         onClick={() => handleFilterDate("month")}
                         value={"month"}
                     >

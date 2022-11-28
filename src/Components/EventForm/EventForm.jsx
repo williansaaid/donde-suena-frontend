@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
-import { useSelector } from "react-redux";
+import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const EventCreation = () => {
     const dispatch = useDispatch();
@@ -18,18 +18,18 @@ const EventCreation = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
+    const { events } = useSelector((state) => state.eventsState);
     const { genres } = useSelector((state) => state.genresState);
     const { user } = useSelector((state) => state.sessionState);
 
     if (!user.isLogged) {
         Swal.fire({
-        title: "Ocurrió un error",
-        text: "Debes Iniciar Sesión como Artista para crear un Evento",
-        icon: "error",
-        timer: 5000
+            title: "Ocurrió un error",
+            text: "Debes Iniciar Sesión como Artista para crear un Evento",
+            icon: "error",
+            timer: 5000,
         });
-        navigate("/");
-    };
+    }
 
     useEffect(() => {
         dispatch(getGenres());
@@ -38,19 +38,20 @@ const EventCreation = () => {
         genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);
     }, [genresSelect]);
 
-    const onSubmit = (values, actions) => {
+    const onSubmit = async (values, actions) => {
         const formValues = {
             ...values,
             image: image,
             genres: genresSelect,
-            artistName: user.nickname
+            artistName: user.nickname,
         };
         try {
-            dispatch(submitEventForm(formValues));
+            const eventId = await dispatch(submitEventForm(formValues));
+            console.log(eventId);
             setSuccess(false);
             actions.resetForm();
             setGenresSelect([]);
-            navigate("/");
+            navigate(`/details/${eventId}`);
         } catch (error) {
             console.log(error);
         }
