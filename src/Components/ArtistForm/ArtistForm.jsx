@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas/artistRegister";
@@ -40,7 +40,14 @@ const ArtistForm = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
+    const getAllGenres = useCallback(() => {
+        dispatch(getGenres());
+    }, [dispatch]);
+    useMemo(() => {
+        getAllGenres();
+    }, [getAllGenres]);
     const { genres } = useSelector((state) => state.genresState);
+    console.log(genres);
     function navegar() {
         navigate("/");
     }

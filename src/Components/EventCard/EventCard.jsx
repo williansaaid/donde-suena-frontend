@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 
 export const Events = () => {
     const { events } = useSelector((state) => state.eventsState);
@@ -18,9 +17,7 @@ export const Events = () => {
                     events.slice(0, visible).map((el, id) => {
                         return (
                             <Link to={`/details/${el.id}`} key={id}>
-                                <div
-                                    className="relative sm:h-50 w-80 rounded-lg"
-                                >
+                                <div className="relative sm:h-50 w-80 rounded-lg">
                                     <div>
                                         <div className="group flex  justify-center text-center relative overflow-hidden rounded-md cursor-pointer">
                                             <img
@@ -31,9 +28,7 @@ export const Events = () => {
                                             <div className="absolute bg-black w-full h-full opacity-50 transition-opacity duration-500 group-hover:opacity-80" />
                                             <div className="absolute p-3 w-full h-full bottom-0 bg- rounded-lg flex flex-col justify-items-center  justify-end text-left">
                                                 <div className="justify-items-center justify-end text-left">
-                                                    <p
-                                                        className="text-2xl italic uppercase font-bold text-gray-200"
-                                                    >
+                                                    <p className="text-2xl italic uppercase font-bold text-gray-200">
                                                         {el.name}
                                                     </p>
                                                 </div>
@@ -42,10 +37,16 @@ export const Events = () => {
                                                     📅 Fecha :{el.date}
                                                 </span>
                                                 <span className="text-sm text-gray-300 dark:text-gray-300">
-                                                    ⏰ Inicia: {el.start} - Finaliza: {el.end}
+                                                    ⏰ Inicia: {el.start} -
+                                                    Finaliza: {el.end}
                                                 </span>
                                                 <div>
-                                                    <button type="button" className="bg-transparent hover:bg-lime-400 text-gray-300 White font-semibold hover:text-white py- px-2 border-2 border-lime-400 hover:border-transparent rounded-xl transition duration-500">💵Compra por {el.price}$</button>
+                                                    <button
+                                                        type="button"
+                                                        className="bg-transparent hover:bg-lime-400 text-gray-300 White font-semibold hover:text-white py- px-2 border-2 border-lime-400 hover:border-transparent rounded-xl transition duration-500"
+                                                    >
+                                                        💵Compra por {el.price}$
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
