@@ -47,6 +47,16 @@ function Navbar() {
     };
     const handleLogout = () => {
         dispatch(logOut());
+        // si existe la propiedad email en el localStorage, la borra
+        if (localStorage.getItem("email")) {
+            const google = window.google;
+            google.accounts.id.disableAutoSelect();
+
+            google.accounts.id.revoke(localStorage.getItem("email"), (done) => {
+                localStorage.removeItem("email");
+                window.location.reload();
+            });
+        }
         navigate("/");
     };
     const handleArtistDashboard = () => {

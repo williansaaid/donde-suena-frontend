@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getArtistEvent } from "../../Redux/Slices/Artist/artistActions";
 
-
 const ArtistDashboard = () => {
     const dispatch = useDispatch();
     const { eventsArtist } = useSelector((state) => state.artistState);
@@ -54,35 +53,48 @@ const ArtistDashboard = () => {
                                                         <span>Fecha:</span>
                                                         <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.date}</p>
                                                     </div>
-                                                    <div className="flex justify-between items-center">
-                                                        <span>Ciudad:</span>
-                                                        <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.city}</p>
+                                                    <div className="flex flex-col gap-2 w-1/3 justify-center">
+                                                        <div className="flex justify-between items-center">
+                                                            <span>
+                                                                Empieza:
+                                                            </span>
+                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                {event.start}
+                                                            </p>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span>
+                                                                Termina:
+                                                            </span>
+                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                {event.end}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col gap-2 w-1/3 justify-center">
+                                                        <div className="flex justify-between items-center">
+                                                            <span>
+                                                                Boletos
+                                                                Disponibles:
+                                                            </span>
+                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                {event.quotas}
+                                                            </p>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span>Valor:</span>
+                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                {event.price}$
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col gap-2 w-1/3 justify-center">
-                                                    <div className="flex justify-between items-center">
-                                                        <span>Empieza:</span>
-                                                        <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.start}</p>
-                                                    </div>
-                                                    <div className="flex justify-between items-center">
-                                                        <span>Termina:</span>
-                                                        <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.end}</p>
-                                                    </div>
+                                                <div className="flex justify-start gap-10 items-center">
+                                                    <span>Direccion:</span>
+                                                    <p className="bg-gray-400 px-8 rounded-2xl text-customGray">
+                                                        {event.address}
+                                                    </p>
                                                 </div>
-                                                <div className="flex flex-col gap-2 w-1/3 justify-center">
-                                                    <div className="flex justify-between items-center">
-                                                        <span>Boletos Disponibles:</span>
-                                                        <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.quotas}</p>
-                                                    </div>
-                                                    <div className="flex justify-between items-center">
-                                                        <span>Valor:</span>
-                                                        <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.price}$</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex justify-start gap-10 items-center">
-                                                        <span>Direccion:</span>
-                                                        <p className="bg-gray-400 px-8 rounded-2xl text-customGray">{event.address}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -210,6 +222,5 @@ const ArtistDashboard = () => {
         </div>
     );
 };
-
 
 export default ArtistDashboard;
