@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+
 import { getPostById } from "../../Redux/Slices/Post/postSlice";
-import Tabs from "../TabSystemArtist/Tabs";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
-import Swal from "sweetalert2";
+import Tabs from "../TabSystemArtist/Tabs";
+import Swal from 'sweetalert2'
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
