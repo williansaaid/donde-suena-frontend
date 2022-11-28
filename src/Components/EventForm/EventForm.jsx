@@ -46,13 +46,8 @@ const EventCreation = () => {
             artistName: user.nickname,
         };
         try {
-            dispatch(await submitEventForm(formValues));
-            dispatch(await getEvents());
-            const filteredEvent = events.filter(
-                (el) => el.name === values.name
-            );
-            console.log(events);
-            const eventId = filteredEvent[0]?.id;
+            const eventId = await dispatch(submitEventForm(formValues));
+            console.log(eventId);
             setSuccess(false);
             actions.resetForm();
             setGenresSelect([]);
