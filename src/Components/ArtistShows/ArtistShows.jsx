@@ -1,33 +1,42 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getArtistEvent } from "../../Redux/Slices/Artist/artistActions";
 
-const ArtistShows = ({id}) => {
+const ArtistShows = ({ id }) => {
     const dispatch = useDispatch();
-    const eventsArtist = useSelector((state) => state?.artistState.eventsArtist);
+    const eventsArtist = useSelector(
+        (state) => state?.artistState.eventsArtist
+    );
 
     useEffect(() => {
         dispatch(getArtistEvent(id));
     }, [dispatch, id]);
-    
+
     return (
-        <div>
-            <div>
-                {eventsArtist &&
-                    eventsArtist?.map((el, id) => {
-                        return (
-                            <div
-                                key={id}
-                            >
-                                <h1>
-                                    {" "}
-                                    Evento : {el.name}
-                                </h1>
-                            </div>
-                        );
-                    })}
-            </div>
+        <div className="container mt-2">
+            {eventsArtist &&
+                eventsArtist?.map((el, id) => {
+                    return (
+                        <div key={id} 
+                        className="grid grid-cols-3 border border-black rounded-md items-center bg-neutral-800">
+                            <Link to={`/details/${el.id}`}>
+                                <div className="col-span-1">
+                                    <img
+                                        className="rounded-md"
+                                        src={el.image}
+                                        alt="eventImage"
+                                    />
+                                </div>
+                            </Link>
+                                <div className="col-span-2 flex flex-col justify-between ml-2">
+                                    <h2 className="text-xl font-semibold text-white">Evento : {el.name}</h2>
+                                    <h1 className="text-xl font-semibold text-white">Fecha : {el.date} </h1>
+                                    <h1 className="text-xl font-semibold text-white"> En : {el.city}</h1>
+                                </div>
+                        </div>
+                    );
+                })}
         </div>
     );
 };
