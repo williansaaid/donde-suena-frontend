@@ -3,47 +3,59 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+
+import { getPostById } from "../../Redux/Slices/Post/postSlice";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
-import Swal from "sweetalert2";
+import Tabs from "../TabSystemArtist/Tabs";
+import Swal from 'sweetalert2'
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { artistId } = useSelector((state) => state.artistId);
+    const posts= useSelector((state)=> state.posts)
+    
+   
+    // const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
+    // const contentArray = Array.from(
+    //     document.querySelectorAll("#select-content")
+    // );
 
-    const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
-    const contentArray = Array.from(
-        document.querySelectorAll("#select-content")
-    );
+    // tabsArray.forEach((tab) => {
+    //     tab.addEventListener("click", () => {
+    //         let target = tab;
+    //         //itero sobre los elementos y les saco el fondo activo
+    //         tabsArray.forEach((tab) => {
+    //             tab.classList.remove("bg-customRed");
+    //         });
 
-    tabsArray.forEach((tab) => {
-        tab.addEventListener("click", () => {
-            let target = tab;
-            //itero sobre los elementos y les saco el fondo activo
-            tabsArray.forEach((tab) => {
-                tab.classList.remove("bg-customRed");
-            });
+    //         const currentTab = tabsArray.indexOf(target);
 
-            const currentTab = tabsArray.indexOf(target);
-
-            contentArray.forEach((content) => {
-                if (contentArray.indexOf(content) === currentTab) {
-                    content.classList.remove("hidden");
-                } else if (contentArray.indexOf("content") !== currentTab) {
-                    content.classList.add("hidden");
-                }
-            });
-            target.classList.add("bg-customRed");
-        });
-    });
+    //         contentArray.forEach((content) => {
+    //             if (contentArray.indexOf(content) === currentTab) {
+    //                 content.classList.remove("hidden");
+    //             } else if (contentArray.indexOf("content") !== currentTab) {
+    //                 content.classList.add("hidden");
+    //             }
+    //         });
+    //         target.classList.add("bg-customRed");
+    //     });
+    // });
 
     const { user } = useSelector((state) => state.sessionState);
 
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
+    
+    console.log(artistId)
+    // useEffect(() => {
+    //     dispatch(getPostById(artistId?.nickname));
+    // }, [dispatch,artistId?.nickname]);
+    
+
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
@@ -139,7 +151,8 @@ export const ArtistProfile = () => {
                 </div>
             </div>
             <div>
-                <ul className="flex items-center justify-center">
+                <Tabs></Tabs>
+                {/* <ul className="flex items-center justify-center">
                     <li
                         id="select-tab"
                         className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
@@ -152,9 +165,9 @@ export const ArtistProfile = () => {
                     >
                         Eventos
                     </li>
-                </ul>
+                </ul> */}
             </div>
-            <section
+            {/* <section
                 id="select-content"
                 className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
             >
@@ -164,13 +177,13 @@ export const ArtistProfile = () => {
             </section>
             <section
                 id="select-content"
-                className="h-40 bg-gray-400 p-2 text-4xl flex items-center justify-center hidden"
+                className="h-90 bg-customGray p-2 text-4xl flex items-center justify-center hidden"
             >
                 <div>
                     <ArtistShows id={artistId.id} />
                 </div>
             </section>
-            <script src="/ArtistProfile"></script>
+            <script src="/ArtistProfile"></script> */}
         </div>
     );
 };
