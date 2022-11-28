@@ -20,6 +20,7 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
+    console.log(user.id);
 
     useEffect(() => {
         let handler = (e) => {
@@ -39,8 +40,8 @@ function Navbar() {
     }, [location.pathname]);
 
     const handleNavigate = () => {
-        if (!user.artista) navigate(`/userProfile/${user.uid}`);
-        else navigate(`artistProfile/${user.uid}`);
+        if (!user.artista) navigate(`/userProfile/${user.id}`);
+        else navigate(`artistProfile/${user.id}`);
     };
 
     const handleLogin = () => {
