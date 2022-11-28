@@ -220,7 +220,7 @@ const Login = () => {
                             </div>
                         </div>
                         {loginType && (
-                            <div className="w-full mx-auto max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 rounded">
+                            <div className="w-full mx-auto max-w-2xl max-h-[120px] bg-customGray p-4 flex flex-col justify-center items-center gap-2 rounded">
                                 <h3 className="  block tracking-wide text-white text-s font-bold mb-2">
                                     SOY
                                 </h3>
@@ -233,13 +233,13 @@ const Login = () => {
                                         }}
                                         className="cursor-pointer "
                                     >
-                                        {/* <div className="rounded-full">
+                                        <div className="rounded-full">
                                             <img
                                                 className="h-[70px] mb-1"
-                                                src={guitar}
+                                                src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669650346/Donde-Suena-Assets/GUITARRA-EL%C3%89CTRICA_yaung2.png"
                                                 alt=""
                                             />
-                                        </div> */}
+                                        </div>
 
                                         <h3 className="block tracking-wide text-white text-s font-bold mb-2">
                                             Artista
@@ -252,11 +252,11 @@ const Login = () => {
                                         }}
                                         className="cursor-pointer"
                                     >
-                                        {/* <img
+                                        <img
                                             className="h-[60px] mb-3"
-                                            src={cuernitos}
+                                            src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669650346/Donde-Suena-Assets/MANO-ROCK-CUERNOS_id2gif.png"
                                             alt=""
-                                        /> */}
+                                        />
                                         <h3 className="block tracking-wide text-white text-s font-bold mb-2">
                                             Publico
                                         </h3>

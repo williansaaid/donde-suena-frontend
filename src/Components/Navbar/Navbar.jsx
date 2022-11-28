@@ -4,6 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { logOut } from "../../Redux/Slices/Session/sessionActions";
+import { setScroll } from "../../Redux/Slices/Scroll/ScrollActions";
+
+import {
+    togleAtristState,
+    togleUserState,
+} from "../../Redux/Slices/Profile/ProfileActions";
 import DropdownItem from "./DropdownItem";
 import { IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
@@ -20,7 +26,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user.id);
 
     useEffect(() => {
         let handler = (e) => {
@@ -39,7 +44,19 @@ function Navbar() {
         setOpen(false);
     }, [location.pathname]);
 
+    const handleArtistProfile = (number) => {
+        dispatch(setScroll([0, 9999]));
+        dispatch(togleAtristState(number));
+
+        navigate(`artistProfile/${user.id}`);
+    };
+    const handleUserProfile = (number) => {
+        dispatch(togleUserState(number));
+        navigate(`/userProfile/${user.id}`);
+    };
+
     const handleNavigate = () => {
+        dispatch(setScroll([0, 0]));
         if (!user.artista) navigate(`/userProfile/${user.id}`);
         else navigate(`artistProfile/${user.id}`);
     };
@@ -135,24 +152,44 @@ function Navbar() {
                                                     text="Perfil"
                                                 />
                                             </div>
-                                            <div>
+                                            <div
+                                                onClick={() => {
+                                                    user.artista
+                                                        ? handleArtistProfile(2)
+                                                        : handleUserProfile(1);
+                                                }}
+                                            >
                                                 <DropdownItem
                                                     img={
                                                         <TiTicket
                                                             size={"1.3em"}
                                                         />
                                                     }
-                                                    text="Mis Tickets"
+                                                    text={
+                                                        !user.artista
+                                                            ? "Mis Tickets"
+                                                            : "Mis Shows"
+                                                    }
                                                 />
                                             </div>
-                                            <div>
+                                            <div
+                                                onClick={() => {
+                                                    user.artista
+                                                        ? handleArtistProfile(1)
+                                                        : handleUserProfile(2);
+                                                }}
+                                            >
                                                 <DropdownItem
                                                     img={
                                                         <AiOutlineStar
                                                             size={"1.3em"}
                                                         />
                                                     }
-                                                    text="Mis Favoritos"
+                                                    text={
+                                                        !user.artista
+                                                            ? "Mis Favoritos"
+                                                            : "Mi Feed"
+                                                    }
                                                 />
                                             </div>
 
