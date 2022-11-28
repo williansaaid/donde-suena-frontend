@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getArtistEvent } from "../../Redux/Slices/Artist/artistActions";
 import { deleteArtist, forgotPassword, logOut } from "../../Redux/Slices/Session/sessionActions";
 import Swal from "sweetalert2";
+import ArtistEditForm from "../ArtistEdit/ArtistEdit";
 
 
 const ArtistDashboard = () => {
@@ -34,12 +35,28 @@ const ArtistDashboard = () => {
         })
     };
 
+    const confirmChangePassword = () => {
+        Swal.fire({
+            title: '¿Seguro quieres cambiar la contraseña?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, quiero cambiarla!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(logOut());
+                dispatch(forgotPassword({email: user.email}));
+            }
+        })
+    };
+
     const handleEdit = () => {
         setEditInfo(!editInfo);
     };
     const handleChangePassword = () =>{
-        dispatch(logOut());
-        dispatch(forgotPassword({email: user.email}));
+        confirmChangePassword();
     };
     const handleDeleteAccount = () => {
         confirmDeletion();
@@ -151,96 +168,102 @@ const ArtistDashboard = () => {
                         <p className="text-3xl uppercase font-bold">
                             Mis Datos
                         </p>
-                        <Link to={`/reset-password/${user.token}`}
+                        <button
+                            type="button"
                             onClick={handleEdit}
                             className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-700 ease-in-out"
                         >
                             Editar Datos
-                        </Link>
+                        </button>
                     </div>
-                    <div className="w-5/6 p-8 bg-customGray rounded-3xl text-white flex flex-col justify-center items-center gap-8">
-                        <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
-                            <img src={user.image} className="object-cover"/>
+                    <div className="flex justify-center items-center">
+                    {editInfo ?
+                        <ArtistEditForm/> :
+                        <div className="w-5/6 p-8 bg-customGray rounded-3xl text-white flex flex-col justify-center items-center gap-8">
+                            <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
+                                <img src={user.image || "https://res.cloudinary.com/ds41xxspf/image/upload/v1669140075/Donde-Suena-Assets/user_snefch.png"} className="object-cover h-full w-full"/>
+                            </div>
+                            <h4 className="text-3xl font-bold uppercase italic border-2 rounded-3xl px-4 w-fit">
+                                {user.nickname}
+                            </h4>
+                            <div className="flex flex-wrap w-full justify-center gap-2 border-t-2 pt-8">
+                                <div className="flex items-center justify-start px-8 gap-8">
+                                    <p className="text-2xl font-semibold w-fit">
+                                        Email:
+                                    </p>
+                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
+                                        {user.email}
+                                    </p>
+                                </div>
+                                <div className="flex items-center justify-start px-8 gap-8">
+                                    <p className="text-2xl font-semibold w-fit">
+                                        Telefono:
+                                    </p>
+                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
+                                        {user.phone}
+                                    </p>
+                                </div>
+                                <div className="flex flex-col w-full gap-2">
+                                    <div className="flex items-center justify-between px-8 gap-8">
+                                        <p className="text-2xl font-semibold w-fit">
+                                            Spotify:
+                                        </p>
+                                        {user.spotify.length > 0 ?
+                                            <a className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6"
+                                                href={user.spotify}
+                                                target="_blank"
+                                            >
+                                                {user.spotify}
+                                            </a>
+                                            : <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
+                                                No hay un perfil de Spotify Vinculado
+                                            </p>
+                                        }
+                                    </div>
+                                    <div className="flex items-center justify-between px-8 gap-8">
+                                        <p className="text-2xl font-semibold w-fit">
+                                            Instagram:
+                                        </p>
+                                        {user.instagram.length > 0 ?
+                                            <a className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6"
+                                                href={user.instagram}
+                                                target="_blank"
+                                            >
+                                                {user.instagram}
+                                            </a>
+                                            : <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
+                                                No hay un perfil de Instagram Vinculado
+                                            </p>
+                                        }
+                                    </div>
+                                    <div className="flex items-center justify-between px-8 gap-8">
+                                        <p className="text-2xl font-semibold w-fit">
+                                            Twitter:
+                                        </p>
+                                        {user.twitter.length > 0 ?
+                                            <a className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6"
+                                                href={user.twitter}
+                                                target="_blank"
+                                            >
+                                                {user.twitter}
+                                            </a>
+                                            : <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
+                                                No hay un perfil de Twitter Vinculado
+                                            </p>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between px-8 gap-8 w-full overflow-y-auto">
+                                    <p className="text-2xl font-semibold w-fit">
+                                        Descripcion:
+                                    </p>
+                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
+                                        {user.description}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <h4 className="text-3xl font-bold uppercase italic border-2 rounded-3xl px-4 w-fit">
-                            {user.nickname}
-                        </h4>
-                        <div className="flex flex-wrap w-full justify-center gap-2 border-t-2 pt-8">
-                            <div className="flex items-center justify-start px-8 gap-8">
-                                <p className="text-2xl font-semibold w-fit">
-                                    Email:
-                                </p>
-                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
-                                    {user.email}
-                                </p>
-                            </div>
-                            <div className="flex items-center justify-start px-8 gap-8">
-                                <p className="text-2xl font-semibold w-fit">
-                                    Telefono:
-                                </p>
-                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
-                                    {user.phone}
-                                </p>
-                            </div>
-                            <div className="flex flex-col w-full gap-2">
-                                <div className="flex items-center justify-between px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Spotify:
-                                    </p>
-                                    {user.spotify.length > 0 ?
-                                        <a className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6"
-                                            href={user.spotify}
-                                            target="_blank"
-                                        >
-                                            {user.spotify}
-                                        </a>
-                                        : <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
-                                            No hay un perfil de Spotify Vinculado
-                                        </p>
-                                    }
-                                </div>
-                                <div className="flex items-center justify-between px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Instagram:
-                                    </p>
-                                    {user.instagram.length > 0 ?
-                                        <a className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6"
-                                            href={user.instagram}
-                                            target="_blank"
-                                        >
-                                            {user.instagram}
-                                        </a>
-                                        : <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
-                                            No hay un perfil de Instagram Vinculado
-                                        </p>
-                                    }
-                                </div>
-                                <div className="flex items-center justify-between px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Twitter:
-                                    </p>
-                                    {user.twitter.length > 0 ?
-                                        <a className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6"
-                                            href={user.twitter}
-                                            target="_blank"
-                                        >
-                                            {user.twitter}
-                                        </a>
-                                        : <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
-                                            No hay un perfil de Twitter Vinculado
-                                        </p>
-                                    }
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between px-8 gap-8 w-full">
-                                <p className="text-2xl font-semibold w-fit">
-                                    Descripcion:
-                                </p>
-                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-5/6">
-                                    {user.description}
-                                </p>
-                            </div>
-                        </div>
+                    }
                     </div>
                     <div className="flex justify-between gap-10 w-full border-t-2 py-4">
                         <button

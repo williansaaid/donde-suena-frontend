@@ -145,7 +145,7 @@ function Navbar() {
                                                     text="Perfil"
                                                 />
                                             </div>
-                                            <div>
+                                            <div className={user.artista ? "hidden" : "active"}>
                                                 <DropdownItem
                                                     img={
                                                         <TiTicket
@@ -155,7 +155,7 @@ function Navbar() {
                                                     text="Mis Tickets"
                                                 />
                                             </div>
-                                            <div>
+                                            <div className={user.artista ? "hidden" : "active"}>
                                                 <DropdownItem
                                                     img={
                                                         <AiOutlineStar
@@ -172,7 +172,7 @@ function Navbar() {
                                                             size={"1.3em"}
                                                         />
                                                     }
-                                                    text="Logout"
+                                                    text="Cerrar Sesión"
                                                 />
                                             </div>
                                         </ul>

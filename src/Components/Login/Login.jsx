@@ -66,7 +66,7 @@ const Login = () => {
             } else if (notification.isSkippedMoment()) {
                 console.log("El usuario ha decidido no iniciar sesión");
             }
-            setTimeout(handleSetModal, 5000);
+            setTimeout(handleSetModal, 3000);
         });
     };
 

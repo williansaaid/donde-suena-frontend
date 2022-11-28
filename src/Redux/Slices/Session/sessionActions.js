@@ -11,7 +11,7 @@ const successCreationAlert = () => {
         title: "Un paso mas..",
         text: "Revise su casilla de correo para completar el registro!",
         icon: "success",
-        timer: 2000,
+        timer: 3000,
     });
 };
 const rejectedAlert = () => {
@@ -29,7 +29,7 @@ const errorCreationAlert = (error) => {
         title: "Ocurrió un error",
         text: `${error}`,
         icon: "error",
-        timer: 5000,
+        timer: 3000,
     });
 };
 const successConfirmAlert = () => {
@@ -63,6 +63,15 @@ const sendEmailAlert = () => {
     Swal.fire({
         title: "Un paso mas...",
         text: "Revise su casilla de correo para completar el proceso!",
+        icon: "success",
+        timer: 3000,
+    });
+};
+
+const successEditAlert = () => {
+    Swal.fire({
+        title: "Todo en Orden",
+        text: "Los cambios se veran reflejados cuando vuelvas a Iniciar Sesión!",
         icon: "success",
         timer: 3000,
     });
@@ -148,7 +157,6 @@ export const deleteArtist = (id) => (dispatch) => {
     axios
         .delete(`auth/deleteArtist/${id}`)
         .then((res) => {
-            console.log(res);
             dispatch(logoutUser());
         })
         .catch((e) => {
@@ -157,3 +165,16 @@ export const deleteArtist = (id) => (dispatch) => {
             : console.log(e);
         })
 }
+
+export const editArtistForm = (values, id) => (dispatch) => {
+    axios
+        .put(`/auth/updateArtist/${id}`, values)
+        .then((res) => {
+            successEditAlert();
+        })
+        .catch((e) => {
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
+};
