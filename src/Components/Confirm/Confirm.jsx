@@ -29,7 +29,7 @@ const Confirm = () => {
                 </h3>
             </div>
 
-            <div>
+            {/* <div>
                 {
                     // <img
                     //     className="h-[600px]"
@@ -37,7 +37,7 @@ const Confirm = () => {
                     //     alt="guitarrist "
                     // ></img>
                 }
-            </div>
+            </div> */}
         </div>
     );
 };

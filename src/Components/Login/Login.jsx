@@ -233,13 +233,13 @@ const Login = () => {
                                         }}
                                         className="cursor-pointer "
                                     >
-                                        <div className="rounded-full">
-                                            {/* <img
+                                        {/* <div className="rounded-full">
+                                            <img
                                                 className="h-[70px] mb-1"
                                                 src={guitar}
                                                 alt=""
-                                            /> */}
-                                        </div>
+                                            />
+                                        </div> */}
 
                                         <h3 className="block tracking-wide text-white text-s font-bold mb-2">
                                             Artista
