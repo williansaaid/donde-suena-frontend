@@ -3,18 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
-<<<<<<< HEAD
 import { getPostById } from "../../Redux/Slices/Post/postSlice";
-import ArtistShows from "../ArtistShows/ArtistShows";
-import PostCard from "../PostCard/PostCard";
 import Tabs from "../TabSystemArtist/Tabs";
-import Swal from 'sweetalert2'
-=======
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
 import Swal from "sweetalert2";
->>>>>>> 77bb0f866f8790663d4174aa754946ec625dfcf0
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
