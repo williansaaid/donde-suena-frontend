@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ArtistShows from "../ArtistShows/ArtistShows";
-import PostCard from "../PostCard/PostCard";
+import PostDumb from "../PostDumb/PostDumb";
 import { useSelector } from "react-redux";
 import "./Tabs.css";
 
@@ -36,7 +36,7 @@ function Tabs() {
                     }
                 >
                     <p>
-                        <PostCard nickname={artistId.nickname} />
+                        <PostDumb nickname={artistId.nickname} />
                     </p>
                 </div>
 
