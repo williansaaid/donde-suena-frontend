@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllFavs, addFav } from "./favoritesSlice";
+import { getAllFavs, addFav, deleteFav } from "./favoritesSlice";
 
 export const getFavorites = () => (dispatch) => {
     axios("/auth/getFavoritesArtists")
@@ -13,3 +13,10 @@ export const addFavorite = (idA, idU) => (dispatch) => {
         .then((res) => dispatch(addFav(res.data)))
         .catch((e) => console.log(e));
 };
+
+export const deleteFavorite = (id) => (dispatch) => {
+    axios
+    .delete(`auth/deleteFavoriteArtist/${id}`)
+    .then((res) => dispatch(deleteFav(res.data)))
+    .catch((e) => console.log(e));
+}
