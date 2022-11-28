@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,11 +12,25 @@ import { AiOutlineStar } from "react-icons/ai";
 import "./Navbar.css";
 function Navbar() {
     const location = useLocation();
+    const menuRef = useRef();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
+
+    useEffect(() => {
+        let handler = (e) => {
+            if (!menuRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        };
+    });
 
     useEffect(() => {
         setOpen(false);
@@ -32,12 +46,13 @@ function Navbar() {
     };
     const handleLogout = () => {
         dispatch(logOut());
+        navigate("/");
     };
 
     return (
         <>
             {!location.pathname.includes("/register") && (
-                <nav className="bg-customGray relative w-full">
+                <nav className="bg-customGray relative w-full px-3">
                     <div className="container mx-auto flex justify-between items-center pb-3">
                         <img
                             onClick={() => navigate("/")}
@@ -69,21 +84,7 @@ function Navbar() {
                                     <a>Mi Cuenta</a>
                                 </div>
                             ) : (
-                                // <div
-                                //     onClick={handleLogout}
-                                //     className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
-                                // >
-                                //     <img
-                                //         className="h-full"
-                                //         src={
-                                //             "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
-                                //         }
-                                //         alt="account icon"
-                                //     />
-                                //     <a>Logout</a>
-                                // </div>
-
-                                <div className="menu-container">
+                                <div className="menu-container" ref={menuRef}>
                                     <div
                                         onClick={() => setOpen(!open)}
                                         className="ml-5 mr-2 cursor-pointer"
