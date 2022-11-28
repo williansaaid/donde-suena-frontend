@@ -14,18 +14,16 @@ export const commentsSlice = createSlice({
         addComment: (state, action ) => {
           state.comments = action.payload
         },
-        deleteComment: (state,action) =>{
+        deleteComments: (state,action) =>{
           state.comments =action.payload
-        }
+        },
        editComment: (state , action ) => {
         state.comments =action.payload
        },
-       replyComment : (state,action) => {
-        state.comments=action.payload
-       },
+      
 
      },
 
 });
-export const { getAllComments,addComment, editComment, replyComment} = commentsSlice.actions;
+export const { getAllComments,addComment, editComment, deleteComments} = commentsSlice.actions;
 export default commentsSlice.reducer;
