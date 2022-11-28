@@ -7,8 +7,8 @@ import axios from "axios";
 
 export const PostVar = () => {
   
-    const artistId = useSelector((state) => state.artistID);
-    console.log(artistId)
+    const artistId = useSelector((state) => state.artistId);
+    console.log(artistId);
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -43,6 +43,8 @@ export const PostVar = () => {
     
 
     const isLogged = user.isLogged;
+    const imagen = user.image
+    const nickname = user.nickname
     const isArtist = user.artista || false;
     const token = user.token || null;
 
@@ -62,26 +64,25 @@ export const PostVar = () => {
                 artist: "",
                 description: "",
             });
-        } else {
-            postValues.image
-                ? alert("La imágen es necesaria")
-                : alert("El título es necesario");
         }
     }
     useEffect(() => {}, [dispatch]);
     
     return (
-
+// el isArtist nos permite renderizar la postBar en caso de que el usuario logueado sea artista , un usuario comun solo podria ver el home  
         <div >
             {" "}
-            {true  &&
+            {isArtist &&
              <div className="flex items-center justify-center p-5 bg-gray-200 ">
              <form
                  className="flex flex-col items-center justify-center bg-customGray   w-3/4 p-5 gap-3 max-w-xl rounded-xl"
                  onSubmit={handleSubmit}
              >
+              <img src={imagen} alt="user profile"
+               class="object-cover w-14 h-14 border-2 border-gray-300 rounded-full"
+              />
                  <p className="text-white font-bold text-2xl uppercase text-center">
-                 {/* nombre del artista  */}
+                 {nickname}
                  </p>
                  
                  {/* <input
