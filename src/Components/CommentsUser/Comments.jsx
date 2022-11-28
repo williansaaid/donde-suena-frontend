@@ -1,10 +1,11 @@
 //recordar nunca pasar user id a la api NO ES SEGURO
 import { useEffect, useState } from "react";
-import { getComments , createComment, deleteComment, updateComment, } from "./getComments";
+import {createComment, deleteComment, updateComment, } from "../../Redux/Slices/Comments/commentsAction";
+import { getComments } from "./getComments";
 import { Comment } from "./Comment";
 import { CommentForm} from "./CommentForm"
 
-export const Comments = ({currentUserId}) =>{
+export const Comments = ({id}) =>{
   
   const [backendComments , setBackendComments]= useState([])
   //en la proxima funcion seteamos el estado para luego ser editado 
@@ -14,7 +15,7 @@ export const Comments = ({currentUserId}) =>{
     (backendComment)=> backendComment.parentId===null
   );
 
-  //Para hacer las respuestas tenemos que recordar que los nuevos comentarios siempre se guardan arriba , pero en cambio cuando hacemos una respuesta los comentarios nuevos se guardaran abajo , por lo tanto hacemos esa logica con un filter para que las respuestas se generen abajo. EL HOMBRE DEL TUTO ESCRIBIO COMMEND , CREO QUE ES ERROR PERO FIJARSE BIEN
+  //Para hacer las respuestas tenemos que recordar que los nuevos comentarios siempre se guardan arriba , pero en cambio cuando hacemos una respuesta los comentarios nuevos se guardaran abajo , por lo tanto hacemos esa logica con un filter para que las respuestas se generen abajo. 
   const getReplies= commentId =>{
     return backendComments.filter(backendComments=>backendComments.parentId===commentId).sort((a,b) => new Date(a.createdAt).getTime()  - new Date(b.createdAt).getTime()) //con el sort ordeno en ascendente 
   }
@@ -66,7 +67,7 @@ const  modifyComment = (text , commentId) =>{
    key={rootComment.id} 
    comment ={rootComment} 
    replies ={getReplies(rootComment.id)}
-   currentUserId={currentUserId}
+   currentUserId={id}
    addComment={addComment}
    eliminateComment={eliminateComment}
    activeComment  ={activeComment}

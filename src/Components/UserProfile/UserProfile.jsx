@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -81,17 +82,20 @@ export default function UserProfile() {
                             Mis Compras 🛒
                         </li>
                     </ul>
-                    
-                <section
-                    id="select-content"
-                    className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
-                > <UserFavorites/></section>
-                <section
-                    id="select-content"
-                    className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
-                >
-                    <MyShopping />
-                </section>
+
+                    <section
+                        id="select-content"
+                        className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
+                    >
+                        {" "}
+                        <UserFavorites />
+                    </section>
+                    <section
+                        id="select-content"
+                        className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
+                    >
+                        <MyShopping />
+                    </section>
                 </div>
             </div>
         </div>

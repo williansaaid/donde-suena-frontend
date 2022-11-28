@@ -29,15 +29,15 @@ const Confirm = () => {
                 </h3>
             </div>
 
-            <div>
+            {/* <div>
                 {
-                    <img
-                        className="h-[600px]"
-                        src={""/* guitarrist */}
-                        alt="guitarrist "
-                    ></img>
+                    // <img
+                    //     className="h-[600px]"
+                    //     src={guitarrist}
+                    //     alt="guitarrist "
+                    // ></img>
                 }
-            </div>
+            </div> */}
         </div>
     );
 };

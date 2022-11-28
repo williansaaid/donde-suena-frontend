@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,22 +9,39 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
 import { TiTicket } from "react-icons/ti";
 import { AiOutlineStar } from "react-icons/ai";
+import { FaAngleDown } from "react-icons/fa";
+
 import "./Navbar.css";
 function Navbar() {
     const location = useLocation();
+    const menuRef = useRef();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
+    console.log(user.id);
+
+    useEffect(() => {
+        let handler = (e) => {
+            if (!menuRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        };
+    });
 
     useEffect(() => {
         setOpen(false);
     }, [location.pathname]);
 
     const handleNavigate = () => {
-        if (!user.artista) navigate(`/userProfile/${user.uid}`);
-        else navigate(`artistProfile/${user.uid}`);
+        if (!user.artista) navigate(`/userProfile/${user.id}`);
+        else navigate(`artistProfile/${user.id}`);
     };
 
     const handleLogin = () => {
@@ -32,12 +49,13 @@ function Navbar() {
     };
     const handleLogout = () => {
         dispatch(logOut());
+        navigate("/");
     };
 
     return (
         <>
             {!location.pathname.includes("/register") && (
-                <nav className="bg-customGray relative w-full">
+                <nav className="bg-customGray relative w-full px-3">
                     <div className="container mx-auto flex justify-between items-center pb-3">
                         <img
                             onClick={() => navigate("/")}
@@ -69,27 +87,23 @@ function Navbar() {
                                     <a>Mi Cuenta</a>
                                 </div>
                             ) : (
-                                // <div
-                                //     onClick={handleLogout}
-                                //     className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
-                                // >
-                                //     <img
-                                //         className="h-full"
-                                //         src={
-                                //             "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
-                                //         }
-                                //         alt="account icon"
-                                //     />
-                                //     <a>Logout</a>
-                                // </div>
-
-                                <div className="menu-container">
+                                <div className="menu-container" ref={menuRef}>
                                     <div
                                         onClick={() => setOpen(!open)}
-                                        className="ml-5 mr-2 cursor-pointer"
+                                        className="flex ml-5 mr-2 cursor-pointer"
                                     >
+                                        <div className="text-white mx-1 mt-6">
+                                            <FaAngleDown
+                                                className="text-white"
+                                                size={"1.3rem"}
+                                            />
+                                        </div>
+                                        <h3 className="tracking-wide text-white text-s font-bold mb-2 pt-5">
+                                            {user.firstName[0].toUpperCase() +
+                                                user.firstName.slice(1)}
+                                        </h3>
                                         <img
-                                            className="h-[4.3em] rounded-full"
+                                            className="h-[4.3em] ml-3 rounded-full"
                                             src={user.image}
                                             alt="foto de perfil"
                                         />

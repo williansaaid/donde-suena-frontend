@@ -4,12 +4,26 @@ export const commentsSlice = createSlice({
     name: "comments",
     initialState: {
         comments: [],
+        artists:[],
+        users:[],
     },
     reducers: {
         getAllComments: (state, action) => {
             state.comments = action.payload;
         },
-    },
+        addComment: (state, action ) => {
+          state.comments = action.payload
+        },
+        deleteComments: (state,action) =>{
+          state.comments =action.payload
+        },
+       editComment: (state , action ) => {
+        state.comments =action.payload
+       },
+      
+
+     },
+
 });
-export const { getAllComments } = commentsSlice.actions;
+export const { getAllComments,addComment, editComment, deleteComments} = commentsSlice.actions;
 export default commentsSlice.reducer;

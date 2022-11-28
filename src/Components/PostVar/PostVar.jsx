@@ -6,10 +6,9 @@ import { postArtist , } from "../../Redux/Slices/Artist/artistActions";
 import axios from "axios";
 
 export const PostVar = () => {
-
-    const artistId= useSelector((state) => state.artistId);
-    console.log(artistId)
-   
+  
+    const artistId = useSelector((state) => state.artistId);
+    console.log(artistId);
     const dispatch = useDispatch();
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -56,7 +55,7 @@ export const PostVar = () => {
             image: image,
             artists: user.nickname,
         };
-        if (postValues.image) {
+        if (postValues) {
             dispatch(postArtist(postValues));
             setSuccess(false);
             setImage("");
@@ -76,15 +75,15 @@ export const PostVar = () => {
             {isArtist &&
              <div className="flex items-center justify-center p-5 bg-gray-200 ">
              <form
-                 className="flex flex-col items-center justify-center bg-customGray   w-3/4 p-5 gap-3 max-w-xl rounded-xl"
+                 className="flex flex-col items-center justify-center bg-customGray   w-3/4 p-5 gap-3 max-w-xl rounded-xl py-10"
                  onSubmit={handleSubmit}
              >
+              <div className=" flex start items-start  w-full gap-3">
+
               <img src={imagen} alt="user profile"
-               class="object-cover w-14 h-14 border-2 border-gray-300 rounded-full"
-              />
-                 <p className="text-white font-bold text-2xl uppercase text-center">
-                 {nickname}
-                 </p>
+               class="object-cover w-14 h-14 border-2 border-gray-300 rounded-full mb-5"
+               />
+                
                  
                  {/* <input
                      class="w-full text-customGray bg-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-gray-500 py-2 px-4"
@@ -98,11 +97,12 @@ export const PostVar = () => {
                      type="textarea"
                      rows="2"
                      name="description"
-                     placeholder="Qué vas a compartir hoy ?"
+                     placeholder={`Qué vas a compartir hoy ${nickname} ?`}
                      value={input.description}
                      onChange={handleChange}
                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-xl py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 scroll-y"
-                 />
+                     />
+                     </div>
                  <div className="w-full border-2 flex flex-col justify-center items-center rounded-xl p-4 gap-4">
                      {/* <label
                          htmlFor="image"
@@ -112,7 +112,7 @@ export const PostVar = () => {
                      </label> */}
                      <input
                          id="image"
-                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400 cursor-pointer"
+                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400 cursor-pointer mb-2"
                          type="file"
                          accept="image/jpg, image/png, image/jpeg "
                          onChange={uploadImage}
@@ -132,7 +132,7 @@ export const PostVar = () => {
                      ) : null}
                  </div>
                  <button
-                     class="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out"
+                     class="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out mt-5"
                      type="submit"
                  >
                      Publicar
