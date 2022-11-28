@@ -1,17 +1,13 @@
 import { addDays, subDays } from "date-fns/esm";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { setFilter, getEvents } from "../../Redux/Slices/Event/eventActions";
 import { format } from "date-fns";
-import { getGenres } from "../../Redux/Slices/Genres/genresAction";
+import DropdownPlaceFilter from "./DropdownPlaceFilter";
+import DropdownGenreFilter from "./DropdownGenreFilter";
 
 function FilterBar() {
     const dispatch = useDispatch();
-    const { genres } = useSelector((state) => state.genresState);
-
-    useEffect(() => {
-        dispatch(getGenres());
-    }, [dispatch]);
 
     function handleFilterDate(by) {
         let eventStart = "";
@@ -28,10 +24,7 @@ function FilterBar() {
             setFilter(`?filter[beginDate]=${now}&filter[endDate]=${eventStart}`)
         );
     }
-    function handleFilterByGenre() {
-        const artistGenre = genres?.map((g) => g.name);
-        console.log(artistGenre);
-    }
+
     return (
         <nav className="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
             <ul className="flex justify-around w-3/12 ml-10 mb-20">
@@ -53,26 +46,10 @@ function FilterBar() {
                     </h1>
                 </li>
                 <li className="flex items-center gap-x-1.5">
-                    <img
-                        className="max-h-5"
-                        src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
-                        alt="locationIcon"
-                        height="20px"
-                        width="20px"
-                    />
-                    <h1>Lugar</h1>
+                    <DropdownPlaceFilter />
                 </li>
                 <li className="flex items-center gap-x-1.5">
-                    <button onClick={() => handleFilterByGenre("genero")}>
-                        <img
-                            className="max-h-5 hover:rotate-90 transition duration-500"
-                            src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_G%C3%A9nero_j8vpju.png"
-                            alt="genresIcon"
-                            height="20px"
-                            width="20px"
-                        />
-                    </button>
-                    <h1>Genero</h1>
+                    <DropdownGenreFilter />
                 </li>
             </ul>
 
