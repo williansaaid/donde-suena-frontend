@@ -55,8 +55,6 @@ export const ArtistProfile = () => {
             timer: 1500
           })
     }
-   
-    
 
     return (
         <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
