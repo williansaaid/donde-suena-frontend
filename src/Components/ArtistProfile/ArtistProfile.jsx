@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+
 import { getPostById } from "../../Redux/Slices/Post/postSlice";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostCard from "../PostCard/PostCard";
 import Tabs from "../TabSystemArtist/Tabs";
@@ -42,7 +44,7 @@ export const ArtistProfile = () => {
     //     });
     // });
 
-    const {user} = useSelector((state) => state.sessionState);
+    const { user } = useSelector((state) => state.sessionState);
 
     useEffect(() => {
         dispatch(getArtistsById(id));
@@ -56,18 +58,18 @@ export const ArtistProfile = () => {
 
 
     function handleAddFav(e) {
+        if (!user.isLogged) dispatch(setLoginModal());
+
         e.preventDefault();
-        dispatch(addFavorite(id, user.uid));
+        dispatch(addFavorite(id, user.id));
         Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Nuevo Favorito Agregado',
+            position: "top-end",
+            icon: "success",
+            title: "Nuevo Favorito Agregado",
             showConfirmButton: false,
-            timer: 1500
-          })
+            timer: 1500,
+        });
     }
-   
-    
 
     return (
         <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
@@ -170,7 +172,7 @@ export const ArtistProfile = () => {
                 className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
             >
                 <div>
-                    <PostCard nickname={artistId.nickname}/>
+                    <PostCard nickname={artistId.nickname} />
                 </div>
             </section>
             <section
@@ -178,7 +180,7 @@ export const ArtistProfile = () => {
                 className="h-90 bg-customGray p-2 text-4xl flex items-center justify-center hidden"
             >
                 <div>
-                    <ArtistShows id={artistId.id}/>
+                    <ArtistShows id={artistId.id} />
                 </div>
             </section>
             <script src="/ArtistProfile"></script> */}
