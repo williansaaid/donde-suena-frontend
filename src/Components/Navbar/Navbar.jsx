@@ -9,6 +9,8 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
 import { TiTicket } from "react-icons/ti";
 import { AiOutlineStar } from "react-icons/ai";
+import { FaAngleDown } from "react-icons/fa";
+
 import "./Navbar.css";
 function Navbar() {
     const location = useLocation();
@@ -18,6 +20,7 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
+    console.log(user.id);
 
     useEffect(() => {
         let handler = (e) => {
@@ -37,8 +40,8 @@ function Navbar() {
     }, [location.pathname]);
 
     const handleNavigate = () => {
-        if (!user.artista) navigate(`/userProfile/${user.uid}`);
-        else navigate(`artistProfile/${user.uid}`);
+        if (!user.artista) navigate(`/userProfile/${user.id}`);
+        else navigate(`artistProfile/${user.id}`);
     };
 
     const handleLogin = () => {
@@ -97,10 +100,20 @@ function Navbar() {
                                 <div className="menu-container" ref={menuRef}>
                                     <div
                                         onClick={() => setOpen(!open)}
-                                        className="ml-5 mr-2 cursor-pointer"
+                                        className="flex ml-5 mr-2 cursor-pointer"
                                     >
+                                        <div className="text-white mx-1 mt-6">
+                                            <FaAngleDown
+                                                className="text-white"
+                                                size={"1.3rem"}
+                                            />
+                                        </div>
+                                        <h3 className="tracking-wide text-white text-s font-bold mb-2 pt-5">
+                                            {user.firstName[0].toUpperCase() +
+                                                user.firstName.slice(1)}
+                                        </h3>
                                         <img
-                                            className="h-[4.3em] rounded-full"
+                                            className="h-[4.3em] ml-3 rounded-full"
                                             src={user.image}
                                             alt="foto de perfil"
                                         />
