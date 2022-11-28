@@ -20,7 +20,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user.id);
 
     useEffect(() => {
         let handler = (e) => {
@@ -57,7 +56,7 @@ function Navbar() {
     return (
         <>
                 <nav className="bg-customGray relative w-full flex items-center justify-center h-28">
-                    <div className="container flex justify-between items-center min-w-full px-20">
+                    <div className="container flex justify-between items-center min-w-full px-5">
                         <img
                             onClick={() => navigate("/")}
                             className="h-20 cursor-pointer animate-pulse"
@@ -91,20 +90,19 @@ function Navbar() {
                                 <div className="menu-container" ref={menuRef}>
                                     <div
                                         onClick={() => setOpen(!open)}
-                                        className="flex justify-center items-center ml-5 mr-2 h-20 w-20 bg-gray-500 rounded-full cursor-pointer"
+                                        className="flex justify-center items-center ml-5 mr-2 h-auto bg-gray-500 rounded-full cursor-pointer gap-2 pl-2"
                                     >
-                                        <div className="text-white mx-1 mt-6">
+                                        <div className="text-white flex justify-center items-center">
                                             <FaAngleDown
                                                 className="text-white"
                                                 size={"1.3rem"}
                                             />
                                         </div>
-                                        <h3 className="tracking-wide text-white text-s font-bold mb-2 pt-5">
-                                            {user.firstName[0].toUpperCase() +
-                                                user.firstName.slice(1)}
+                                        <h3 className="tracking-wide text-white text-s font-bold">
+                                            {user.artista ? user.nickname : user.firstName}
                                         </h3>
                                         <img
-                                            className="object-cover rounded-full"
+                                            className="object-cover rounded-full h-20 w-20"
                                             src={user.image}
                                             alt="foto de perfil"
                                         />
@@ -115,7 +113,7 @@ function Navbar() {
                                         }`}
                                     >
                                         <ul>
-                                            <div className={!user.artista ? "inactive" : "active"}
+                                            <div className={!user.artista ? "hidden" : "active"}
                                                 onClick={handleArtistDashboard}
                                             >
                                                 <DropdownItem

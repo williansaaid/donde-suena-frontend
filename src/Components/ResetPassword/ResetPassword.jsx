@@ -23,12 +23,12 @@ const ResetPassword = () => {
                         errors.password = "Required";
                     } else if (values.password.length < 6) {
                         errors.password =
-                            "Password must be at least 6 characters";
+                            "Al menos debe tener 6 caracteres";
                     }
                     if (!values.confirmPassword) {
-                        errors.confirmPassword = "Required";
+                        errors.confirmPassword = "Requerido";
                     } else if (values.confirmPassword !== values.password) {
-                        errors.confirmPassword = "Passwords must match";
+                        errors.confirmPassword = "No coinciden";
                     }
                     return errors;
                 }}
@@ -39,11 +39,11 @@ const ResetPassword = () => {
                 }}
             >
                 {({ isSubmitting, errors }) => (
-                    <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
-                        <h4 className="text-2xl font-bold text-customYellow">
+                    <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded bord">
+                        <h4 className="text-3xl uppercase font-bold text-customYellow text-white">
                             Cambia tu contraseña
                         </h4>
-                        <div className="flex flex-wrap w-full">
+                        <div className="flex flex-wrap w-full justify-center">
                             <div className="w-full md:w-1/2 px-3">
                                 <label
                                     htmlFor="password"
@@ -68,7 +68,6 @@ const ResetPassword = () => {
                                     )}
                                 </ErrorMessage>
                             </div>
-
                             <div className="w-full md:w-1/2 px-3">
                                 <label
                                     htmlFor="confirmPassword"
@@ -94,9 +93,8 @@ const ResetPassword = () => {
                                     )}
                                 </ErrorMessage>
                             </div>
-
                             <button
-                                className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-8 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-3 mb-3"
+                                className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-8 rounded border-2 border-transparent focus:outline-none focus:shadow-outline uppercase hover:text-customRed hover:border-customRed my-3"
                                 type="submit"
                                 disabled={isSubmitting}
                             >

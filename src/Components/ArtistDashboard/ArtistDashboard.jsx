@@ -105,7 +105,7 @@ const ArtistDashboard = () => {
                         <p className="text-3xl uppercase font-bold">
                             Mis Datos
                         </p>
-                        <Link to={"/create/event"}
+                        <Link to={`/reset-password/${user.token}`}
                             onClick={handleEdit}
                             className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-700 ease-in-out"
                         >
@@ -197,9 +197,10 @@ const ArtistDashboard = () => {
                         </div>
                     </div>
                     <div className="flex justify-between gap-10 w-full border-t-2 py-4">
-                        <p className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-500 ease-in-out">
+                        <Link to={`/`}
+                            className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-500 ease-in-out">
                             Cambiar Contraseña
-                        </p>
+                        </Link>
                         <p className="text-lg text-white italic font-semibold bg-black px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-1000 ease-in-out">
                             Borrar Cuenta
                         </p>
