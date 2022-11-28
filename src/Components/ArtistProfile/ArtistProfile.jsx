@@ -109,7 +109,7 @@ export const ArtistProfile = () => {
                 <div class="flex flex-wrap justify-center">
                     {user.artista ? (
                         <button
-                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg px-5 text-white"
+                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-3 px-5 text-white"
                             onClick={() => navigate("/create/event")}
                         >
                             Crear Evento ⭐

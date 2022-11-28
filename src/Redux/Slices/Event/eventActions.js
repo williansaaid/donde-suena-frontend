@@ -38,14 +38,12 @@ export const getEventsById = (id) => (dispatch) => {
 };
 
 export const submitEventForm = (values) => (dispatch) => {
-    let eventId = "";
-    axios
-
+    return axios
         .post("/event/createEvent", values)
         .then((res) => {
             successCreationAlert();
             console.log(res.data.event.id);
-            eventId = res.data.event.id;
+            return res.data.event.id;
         })
         .catch((e) => {
             console.log(e);
@@ -53,7 +51,6 @@ export const submitEventForm = (values) => (dispatch) => {
                 ? errorCreationAlert(e.response.data.msg)
                 : console.log(e);
         });
-    return eventId;
 };
 export const getEventByName = (name) => (dispatch) => {
     axios(`/event/getEvents?filter[name]=${name}`)
