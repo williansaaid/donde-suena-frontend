@@ -56,7 +56,7 @@ const resetPasswordAlert = () => {
         title: "Contraseña Actualizada",
         text: "Por favor vuelva a iniciar sesión",
         icon: "success",
-        timer: 2000,
+        timer: 3000,
     });
 };
 const sendEmailAlert = () => {
@@ -64,7 +64,7 @@ const sendEmailAlert = () => {
         title: "Un paso mas...",
         text: "Revise su casilla de correo para completar el proceso!",
         icon: "success",
-        timer: 2000,
+        timer: 3000,
     });
 };
 
@@ -98,7 +98,6 @@ export const forgotPassword = (email) => (dispatch) => {
     axios
         .put("/auth/forget-password", email)
         .then((res) => {
-            console.log(res);
             sendEmailAlert();
         })
         .catch((e) => console.log(e));
@@ -144,3 +143,17 @@ export const logOut = () => (dispatch) => {
     dispatch(logoutUser());
     logOutAlert();
 };
+
+export const deleteArtist = (id) => (dispatch) => {
+    axios
+        .delete(`auth/deleteArtist/${id}`)
+        .then((res) => {
+            console.log(res);
+            dispatch(logoutUser());
+        })
+        .catch((e) => {
+            e.response.data
+            ? errorCreationAlert(e.response.data.msg)
+            : console.log(e);
+        })
+}

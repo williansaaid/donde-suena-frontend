@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getArtistEvent } from "../../Redux/Slices/Artist/artistActions";
+import { deleteArtist, forgotPassword, logOut } from "../../Redux/Slices/Session/sessionActions";
+import Swal from "sweetalert2";
+
 
 const ArtistDashboard = () => {
     const dispatch = useDispatch();
@@ -9,9 +12,38 @@ const ArtistDashboard = () => {
     const { user } = useSelector((state) => state.sessionState);
     const [editInfo, setEditInfo] = useState(false);
 
+    const confirmDeletion = () => {
+        Swal.fire({
+            title: '¿Seguro quieres eliminar tu cuenta?',
+            text: "Este cambio no se podrá revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, elimínala!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteArtist(user.uid?user.uid:user.id));
+                Swal.fire(
+                    'Cuenta Eliminada!',
+                    'Te vamos a extrañar :(',
+                    'success'
+                )
+            }
+        })
+    };
+
     const handleEdit = () => {
         setEditInfo(!editInfo);
-    }
+    };
+    const handleChangePassword = () =>{
+        dispatch(logOut());
+        dispatch(forgotPassword({email: user.email}));
+    };
+    const handleDeleteAccount = () => {
+        confirmDeletion();
+    };
 
     useEffect(() => {
         setEditInfo(false);
@@ -40,56 +72,58 @@ const ArtistDashboard = () => {
                         eventsArtist.map((event) => {
                             return (
                                 <div key={event.id}
-                                    className="flex rounded-3xl p-8 bg-customGray text-white items-center w-fit my-4"
+                                    className="flex rounded-3xl p-8 bg-customGray text-white items-center w-1/3 my-4"
                                 >
                                     <div className="flex flex-col w-full gap-8">
                                         <h4 className="text-2xl font-bold uppercase border-2 rounded-3xl px-4 w-fit">
                                             {event.name}
                                         </h4>
                                         <div className="flex flex-col w-full gap-4">
-                                            <div className="flex justify-between gap-4">
-                                                <div className="flex flex-col gap-2 w-1/3 justify-center">
-                                                    <div className="flex justify-between items-center">
-                                                        <span>Fecha:</span>
-                                                        <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.date}</p>
-                                                    </div>
-                                                    <div className="flex flex-col gap-2 w-1/3 justify-center">
-                                                        <div className="flex justify-between items-center">
-                                                            <span>
-                                                                Empieza:
-                                                            </span>
-                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
-                                                                {event.start}
-                                                            </p>
+                                            <div className="flex justify-between gap-4 flex-col">
+                                                <div className="flex flex-col gap-2 w-full justify-center">
+                                                    <div className="flex w-full gap-2">
+                                                        <div className="flex flex-col gap-2 justify-center w-1/2">
+                                                            <div className="flex justify-between items-center">
+                                                                <span>Fecha:</span>
+                                                                <p className="bg-gray-400 px-4 rounded-2xl text-customGray">{event.date}</p>
+                                                            </div>
+                                                            <div className="flex justify-between items-center">
+                                                                <span>
+                                                                    Empieza:
+                                                                </span>
+                                                                <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                    {event.start}
+                                                                </p>
+                                                            </div>
+                                                            <div className="flex justify-between items-center">
+                                                                <span>
+                                                                    Termina:
+                                                                </span>
+                                                                <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                    {event.end}
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div className="flex justify-between items-center">
-                                                            <span>
-                                                                Termina:
-                                                            </span>
-                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
-                                                                {event.end}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex flex-col gap-2 w-1/3 justify-center">
-                                                        <div className="flex justify-between items-center">
-                                                            <span>
-                                                                Boletos
-                                                                Disponibles:
-                                                            </span>
-                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
-                                                                {event.quotas}
-                                                            </p>
-                                                        </div>
-                                                        <div className="flex justify-between items-center">
-                                                            <span>Valor:</span>
-                                                            <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
-                                                                {event.price}$
-                                                            </p>
+                                                        <div className="flex flex-col gap-2 w-1/2 justify-center">
+                                                            <div className="flex justify-between items-center">
+                                                                <span>
+                                                                    Boletos
+                                                                    Disponibles:
+                                                                </span>
+                                                                <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                    {event.quotas}
+                                                                </p>
+                                                            </div>
+                                                            <div className="flex justify-between items-center">
+                                                                <span>Valor:</span>
+                                                                <p className="bg-gray-400 px-4 rounded-2xl text-customGray">
+                                                                    {event.price}$
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex justify-start gap-10 items-center">
+                                                <div className="flex justify-start gap-10 items-center w-full">
                                                     <span>Direccion:</span>
                                                     <p className="bg-gray-400 px-8 rounded-2xl text-customGray">
                                                         {event.address}
@@ -209,13 +243,18 @@ const ArtistDashboard = () => {
                         </div>
                     </div>
                     <div className="flex justify-between gap-10 w-full border-t-2 py-4">
-                        <Link to={`/`}
+                        <button
+                            type="button"
+                            onClick={handleChangePassword}
                             className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-500 ease-in-out">
                             Cambiar Contraseña
-                        </Link>
-                        <p className="text-lg text-white italic font-semibold bg-black px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-1000 ease-in-out">
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleDeleteAccount}
+                            className="text-lg text-white italic font-semibold bg-black px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-1000 ease-in-out">
                             Borrar Cuenta
-                        </p>
+                        </button>
                     </div>
                 </div>
             </div>

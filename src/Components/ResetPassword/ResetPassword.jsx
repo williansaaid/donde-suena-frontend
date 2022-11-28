@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
-import { resetPassword } from "../../Redux/Slices/Session/sessionActions";
+import { logOut, resetPassword } from "../../Redux/Slices/Session/sessionActions";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +35,8 @@ const ResetPassword = () => {
                 onSubmit={(values, { setSubmitting }) => {
                     dispatch(resetPassword(values, token));
                     setSubmitting(false);
-                    setTimeout(navegar, 2000);
+                    dispatch(logOut());
+                    navegar();
                 }}
             >
                 {({ isSubmitting, errors }) => (
