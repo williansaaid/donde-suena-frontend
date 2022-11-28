@@ -8,7 +8,7 @@ function reloadPage() {
 
 const successCreationAlert = () => {
     Swal.fire({
-        title: "Registro exitoso!",
+        title: "Un paso mas..",
         text: "Revise su casilla de correo para completar el registro!",
         icon: "success",
         timer: 2000,
@@ -24,7 +24,6 @@ const rejectedAlert = () => {
         reloadPage();
     }, 2500);
 };
-
 const errorCreationAlert = (error) => {
     Swal.fire({
         title: "Ocurrió un error",
@@ -33,7 +32,6 @@ const errorCreationAlert = (error) => {
         timer: 5000,
     });
 };
-
 const successConfirmAlert = () => {
     Swal.fire({
         title: "Todo en orden!",
@@ -45,11 +43,26 @@ const successConfirmAlert = () => {
         reloadPage();
     }, 2500);
 };
-
 const logOutAlert = () => {
     Swal.fire({
         title: "Sesión Cerrada",
         text: "Esperamos verte pronto!",
+        icon: "success",
+        timer: 2000,
+    });
+};
+const resetPasswordAlert = () => {
+    Swal.fire({
+        title: "Contraseña Actualizada",
+        text: "Por favor vuelva a iniciar sesión",
+        icon: "success",
+        timer: 2000,
+    });
+};
+const sendEmailAlert = () => {
+    Swal.fire({
+        title: "Un paso mas...",
+        text: "Revise su casilla de correo para completar el proceso!",
         icon: "success",
         timer: 2000,
     });
@@ -86,7 +99,7 @@ export const forgotPassword = (email) => (dispatch) => {
         .put("/auth/forget-password", email)
         .then((res) => {
             console.log(res);
-            alert("Se ha enviado un email a su casilla");
+            sendEmailAlert();
         })
         .catch((e) => console.log(e));
 };
@@ -95,8 +108,7 @@ export const resetPassword = (values, token) => (dispatch) => {
     axios
         .put(`/auth/new-password/${token}`, values)
         .then((res) => {
-            console.log(res);
-            alert("Contraseña cambiada exitosamente");
+            resetPasswordAlert();
         })
         .catch((e) => console.log(e));
 };

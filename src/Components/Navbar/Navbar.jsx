@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { logOut } from "../../Redux/Slices/Session/sessionActions";
 import DropdownItem from "./DropdownItem";
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosCog, IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
 import { TiTicket } from "react-icons/ti";
 import { AiOutlineStar } from "react-icons/ai";
@@ -43,7 +43,6 @@ function Navbar() {
         if (!user.artista) navigate(`/userProfile/${user.id}`);
         else navigate(`artistProfile/${user.id}`);
     };
-
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
@@ -51,12 +50,14 @@ function Navbar() {
         dispatch(logOut());
         navigate("/");
     };
+    const handleArtistDashboard = () => {
+        navigate(`/myDashboard`)
+    }
 
     return (
         <>
-            {!location.pathname.includes("/register") && (
-                <nav className="bg-customGray relative w-full px-3">
-                    <div className="container mx-auto flex justify-between items-center pb-3">
+                <nav className="bg-customGray relative w-full flex items-center justify-center h-28">
+                    <div className="container flex justify-between items-center min-w-full px-20">
                         <img
                             onClick={() => navigate("/")}
                             className="h-20 cursor-pointer animate-pulse"
@@ -65,8 +66,8 @@ function Navbar() {
                             }
                             alt="logo"
                         />
-                        <div className="flex items-center">
-                            {!location.pathname.includes("/detail") && (
+                        <div className="flex items-center justify-center gap-8">
+                            {location.pathname.length === 1 && (
                                 <div className="my-9">
                                     <SearchBar />
                                 </div>
@@ -90,7 +91,7 @@ function Navbar() {
                                 <div className="menu-container" ref={menuRef}>
                                     <div
                                         onClick={() => setOpen(!open)}
-                                        className="flex ml-5 mr-2 cursor-pointer"
+                                        className="flex justify-center items-center ml-5 mr-2 h-20 w-20 bg-gray-500 rounded-full cursor-pointer"
                                     >
                                         <div className="text-white mx-1 mt-6">
                                             <FaAngleDown
@@ -103,18 +104,29 @@ function Navbar() {
                                                 user.firstName.slice(1)}
                                         </h3>
                                         <img
-                                            className="h-[4.3em] ml-3 rounded-full"
+                                            className="object-cover rounded-full"
                                             src={user.image}
                                             alt="foto de perfil"
                                         />
                                     </div>
-
                                     <div
                                         className={`dropdown-menu ${
                                             open ? "active" : "inactive"
                                         }`}
                                     >
                                         <ul>
+                                            <div className={!user.artista ? "inactive" : "active"}
+                                                onClick={handleArtistDashboard}
+                                            >
+                                                <DropdownItem
+                                                    img={
+                                                        <IoIosCog
+                                                            size={"1.3rem"}
+                                                        />
+                                                    }
+                                                    text="Dashboard"
+                                                />
+                                            </div>
                                             <div onClick={handleNavigate}>
                                                 <DropdownItem
                                                     img={
@@ -145,7 +157,6 @@ function Navbar() {
                                                     text="Mis Favoritos"
                                                 />
                                             </div>
-
                                             <div onClick={handleLogout}>
                                                 <DropdownItem
                                                     img={
@@ -163,7 +174,6 @@ function Navbar() {
                         </div>
                     </div>
                 </nav>
-            )}
         </>
     );
 }
