@@ -9,7 +9,7 @@
   }
   
   .container2 {
-    display: flex;
+    display:contents;
     flex-direction: column;
     position: relative;
     width: 500px;
