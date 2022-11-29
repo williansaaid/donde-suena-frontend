@@ -94,6 +94,7 @@ function App() {
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path={"/postHome"} element={<PostHome />} />
+                    
                     <Route
                         path={"/userProfile/:id"}
                         element={<UserProfile />}

@@ -60,7 +60,8 @@ export const PostCard = ({props}) => {
                                     </div>
                                     <p class="text-xs text-gray-500 text-right">Oct 15th 8:33pm</p>
                                 </div>
-                                <Comments/>
+                                <Comments idposts={el.id}/>
+                               
                             </div>
                       
                     );

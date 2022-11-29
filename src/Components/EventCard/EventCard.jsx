@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const Events = () => {
     const { events } = useSelector((state) => state.eventsState);
     const [visible, setVisible] = useState(4);
-
+    
     const showMoreEvents = () => {
         setVisible((prevValue) => prevValue + 4);
     };
