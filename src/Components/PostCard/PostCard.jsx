@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
-
+import {Comments} from "../CommentsUser/Comments"
 
 export const PostCard = ({props}) => {
     const dispatch = useDispatch();
@@ -60,7 +60,7 @@ export const PostCard = ({props}) => {
                                     </div>
                                     <p class="text-xs text-gray-500 text-right">Oct 15th 8:33pm</p>
                                 </div>
-                            
+                                <Comments/>
                             </div>
                       
                     );
