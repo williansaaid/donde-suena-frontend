@@ -26,11 +26,8 @@ export const postArtist = (values) => (dispatch) => {
 
 export const getArtistsById = (id) => (dispatch) => {
     axios(`/auth/getArtistById/${id}`)
-        .then((res) => {
-            console.log(res.data);
-            dispatch(getAllArtistById(res.data.artistID));
-        })
-
+        .then((res) =>{
+            dispatch(getAllArtistById(res.data.artistID))})
         .catch((e) => console.log(e));
 };
 

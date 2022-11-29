@@ -4,8 +4,9 @@ export const commentsSlice = createSlice({
     name: "comments",
     initialState: {
         comments: [],
-        artists:[],
-        users:[],
+        commentsId: [],
+        
+      
     },
     reducers: {
         getAllComments: (state, action) => {
