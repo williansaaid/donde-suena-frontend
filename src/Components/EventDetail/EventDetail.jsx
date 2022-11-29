@@ -54,7 +54,7 @@ const noTicketsDesired = () => {
 const EventDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [query, setQuery] = useState({});
     const { detail } = useSelector((state) => state.detailState);
     const [quantity, setQuantity] = useState(1);
@@ -69,6 +69,23 @@ const EventDetail = () => {
 
     const modal = () => {
         dispatch(setLoginModal());
+    };
+
+    const artistCantPurchase = () => {
+        Swal.fire({
+            title: 'No puedes comprar tickets',
+            text: 'Debes iniciar sesión como "Público"',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iniciar sesión como "Público"',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                modal();
+            }
+        })
     };
 
     useEffect(() => {
@@ -88,21 +105,23 @@ const EventDetail = () => {
     const handlePurchase = () => {
         setOrder(false);
         dispatch(clearUrl());
-        if (ticketsAvailable === 0) {
-            noTickets();
-        } else {
-            if (ticketsAvailable < quantity) {
-                noTicketsDesired();
+        if(!user.artista){
+            if (ticketsAvailable === 0) {
+                noTickets();
             } else {
-                setOrder(true);
-                let detailsPurchase = {
-                    quantity: parseInt(quantity),
-                    priceTotal: detail.price,
-                    id: id,
-                };
-                dispatch(ticketPurchase(detailsPurchase));
+                if (ticketsAvailable < quantity) {
+                    noTicketsDesired();
+                } else {
+                    setOrder(true);
+                    let detailsPurchase = {
+                        quantity: parseInt(quantity),
+                        priceTotal: detail.price,
+                        id: id,
+                    };
+                    dispatch(ticketPurchase(detailsPurchase));
+                }
             }
-        }
+        } else artistCantPurchase();
     };
 
     const handleQuantity = (e) => {
@@ -116,12 +135,14 @@ const EventDetail = () => {
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
+
     }, []);
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
         if (query.hasOwnProperty("payment_id") && query.payment_id === "null") {
             failedPurchase();
+            window.history.pushState(null, "Details", `/details/${id}`);
         } else if (
             query.hasOwnProperty("payment_id") &&
             query.payment_id !== "null"
@@ -134,6 +155,7 @@ const EventDetail = () => {
             );
             dispatch(getQuantityTickets(id));
             successPurchase();
+            window.history.pushState(null, "Details", `/details/${id}`);
         }
     }, [query]);
 
@@ -247,6 +269,7 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
+<<<<<<< HEAD
                                 {!user.artista && (
                                     <button
                                         {...(isLogged
@@ -268,6 +291,27 @@ const EventDetail = () => {
                                         </p>
                                     </button>
                                 )}
+=======
+                                <button
+                                    {...(isLogged
+                                        ? {
+                                            onClick: handlePurchase,
+                                            className:
+                                                "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                        }
+                                        : {
+                                            onClick: () => {
+                                                modal();
+                                            },
+                                            className:
+                                                "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                        })}
+                                >
+                                    <p className="font-bold uppercase">
+                                        Comprar
+                                    </p>
+                                </button>
+>>>>>>> 72f6da64775aa08bdb544ff0b754c7cf3b00d52f
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (
