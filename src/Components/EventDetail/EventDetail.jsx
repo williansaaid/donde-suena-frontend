@@ -111,6 +111,7 @@ const EventDetail = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 100);
         dispatch(clearUrl());
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
@@ -246,25 +247,27 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                <button
-                                    {...(isLogged
-                                        ? {
-                                              onClick: handlePurchase,
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          }
-                                        : {
-                                              onClick: () => {
-                                                  modal();
-                                              },
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          })}
-                                >
-                                    <p className="font-bold uppercase">
-                                        Comprar
-                                    </p>
-                                </button>
+                                {!user.artista && (
+                                    <button
+                                        {...(isLogged
+                                            ? {
+                                                  onClick: handlePurchase,
+                                                  className:
+                                                      "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                              }
+                                            : {
+                                                  onClick: () => {
+                                                      modal();
+                                                  },
+                                                  className:
+                                                      "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                              })}
+                                    >
+                                        <p className="font-bold uppercase">
+                                            Comprar
+                                        </p>
+                                    </button>
+                                )}
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (

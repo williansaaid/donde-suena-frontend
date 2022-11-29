@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export const PostDumb = ({posteos}) => {
-    
+export const PostDumb = ({ posteos }) => {
+    console.log(posteos);
     return (
         <div>
             {posteos &&
@@ -52,4 +52,4 @@ export const PostDumb = ({posteos}) => {
     );
 };
 
-export default PostDumb
+export default PostDumb;
