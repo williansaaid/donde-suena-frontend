@@ -109,7 +109,11 @@ export const forgotPassword = (email) => (dispatch) => {
         .then((res) => {
             sendEmailAlert();
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
 };
 
 export const resetPassword = (values, token) => (dispatch) => {
