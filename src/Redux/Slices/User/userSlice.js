@@ -22,6 +22,9 @@ export const userSlice = createSlice({
         getDataUserId: (state, action) => {
             state.userId = action.payload;
         },
+        createAllTicketMP: (state, action) => {
+            state.tickets = [...state.tickets, action.payload];
+        },
     },
 });
 export const {
@@ -29,6 +32,7 @@ export const {
     paymentOrder,
     clearPaymentOrder,
     getDataUserId,
+    createAllTicket,
 } = userSlice.actions;
 
 export default userSlice.reducer;

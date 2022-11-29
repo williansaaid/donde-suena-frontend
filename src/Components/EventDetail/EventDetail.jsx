@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
+import { ticketPurchase, clearUrl, createTicketMP, sendInvoice } from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
@@ -67,6 +67,11 @@ const EventDetail = () => {
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
 
+    let payment_id = query.payment_id
+    let purchasedQuantity = query.purchasedQuantity
+
+
+
     const modal = () => {
         dispatch(setLoginModal());
     };
@@ -88,6 +93,8 @@ const EventDetail = () => {
         });
     };
 
+
+
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -97,10 +104,12 @@ const EventDetail = () => {
         setTimeout(() => {
             dispatch(changeLoading());
         }, 500);
-    }, []);
+    }, [dispatch]);
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
+
+
 
     const handlePurchase = () => {
         setOrder(false);
@@ -129,13 +138,20 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
+
+
+
     useEffect(() => {
         window.scrollTo(0, 100);
         dispatch(clearUrl());
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
-    }, []);
+
+    }, [dispatch, id, searchParams]);
+
+
+
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
@@ -152,11 +168,29 @@ const EventDetail = () => {
                     id: id,
                 })
             );
+
             dispatch(getQuantityTickets(id));
+            dispatch(
+                sendInvoice({
+                    name: user.firstName,
+                    email: user.email,
+                    quantity: parseInt(query.purchasedQuantity),
+                    id: id
+                })
+            );
+
+            dispatch(createTicketMP(payment_id, purchasedQuantity, {
+                priceTotal: detail.price,
+                date: detail.date,
+                event: detail.name,
+                user: user.firstName
+            }))
+
             successPurchase();
+
             window.history.pushState(null, "Details", `/details/${id}`);
         }
-    }, [query]);
+    }, [dispatch, query, user.firstName]);
 
     return (
         <div>
@@ -193,20 +227,7 @@ const EventDetail = () => {
                                 {detail.name}
                             </h1>
                             <p className="leading-relaxed">
-                                {detail.description}arcu ac tortor dignissim
-                                convallis aenean et tortor at risus viverra
-                                adipiscing at in tellus integer feugiat
-                                scelerisque varius morbi enim nunc faucibus a
-                                pellentesque sit amet porttitor eget dolor morbi
-                                non arcu risus quis varius quam quisque id diam
-                                vel quam elementum pulvinar etiam non quam lacus
-                                suspendisse faucibus interdum posuere lorem
-                                ipsum dolor sit amet consectetur adipiscing elit
-                                duis tristique sollicitudin nibh sit amet
-                                commodo nulla facilisi nullam vehicula ipsum a
-                                arcu cursus vitae congue mauris rhoncus aenean
-                                vel elit scelerisque mauris pellentesque
-                                pulvinar pellentesque habitant morbi tristique
+                                {detail.description}
                             </p>
                             <p className="leading-relaxed">
                                 <span className="font-bold mr-2">
@@ -272,17 +293,17 @@ const EventDetail = () => {
                                     <button
                                         {...(isLogged
                                             ? {
-                                                  onClick: handlePurchase,
-                                                  className:
-                                                      "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                              }
+                                                onClick: handlePurchase,
+                                                className:
+                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                            }
                                             : {
-                                                  onClick: () => {
-                                                      modal();
-                                                  },
-                                                  className:
-                                                      "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                              })}
+                                                onClick: () => {
+                                                    modal();
+                                                },
+                                                className:
+                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                            })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar
@@ -300,6 +321,7 @@ const EventDetail = () => {
                                                     <img
                                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
                                                         className="h-30 object-cover"
+                                                        alt=""
                                                     />
                                                 </div>
                                             </a>
@@ -355,6 +377,6 @@ const EventDetail = () => {
                 </section>
             }
         </div>
-    );
+    )
 };
 export default EventDetail;
