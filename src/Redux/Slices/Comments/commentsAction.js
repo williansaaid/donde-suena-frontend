@@ -1,16 +1,24 @@
 import axios from "axios";
 
-import {getAllComments , addComment , editComment , deleteComments} from "./commentsSlices"; 
+import {getAllComments, getCommentsById , addComment , editComment , deleteComments} from "./commentsSlices"; 
 
 export const getComments =(id) =>(dispatch) =>{
-  axios.post(`http://localhost:3001/auth/artist/getComments/${id}`)
+  axios.get(`http://localhost:3001/auth/artist/getComments/${id}`)
   .then((res)=>{
-    dispatch(getAllComments(res.data.id))
+    dispatch(getCommentsById(res.data.comments[0].id))
+   
   } )
   .catch((e)=>console.log(e));
 }
 export const createComment =(comments)=>(dispatch)=>{
   axios.post("http://localhost:3001/auth/user/createComment", comments)
+    .then((res)=>{
+      console.log(res.data.newComment)
+      dispatch(addComment(res.data.newComment))})
+    .catch((e) => console.log(e));
+}
+export const createCommentArtist =(comments)=>(dispatch)=>{
+  axios.post("http://localhost:3001/auth/artist/createComment", comments)
     .then((res)=>{
       console.log(res.data.newComment)
       dispatch(addComment(res.data.newComment))})
