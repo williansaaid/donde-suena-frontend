@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
 import { forgotPassword } from "../../Redux/Slices/Session/sessionActions";
+import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 
 const ForgotPassword = () => {
     const dispatch = useDispatch();
+
     return (
         <div className="h-full w-full flex flex-col items-center justify-center font-source-sans">
             <Formik

@@ -190,7 +190,10 @@ const Login = () => {
                             </ErrorMessage>
                         </div>
                         <div className="w-full md:w-3/3 px-3  font-bold text-m text-gray-400 hover:text-gray-500 cursor-pointer ">
-                            <span className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed">
+                            <span
+                                onClick={handleSetModal}
+                                className="inline-block align-baseline font-bold text-xs text-gray-400 hover:text-customRed"
+                            >
                                 <Link to="/forgotPassword">
                                     Olvidaste tu contraseña?
                                 </Link>
