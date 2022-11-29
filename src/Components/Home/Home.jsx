@@ -19,6 +19,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getEvents());
+        window.scrollTo(0, 0);
     }, []);
 
     const loadingCallback = useCallback(() => {
