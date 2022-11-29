@@ -24,6 +24,7 @@ import addFav from "./Slices/Favorites/favoritesSlice";
 import team from "./Slices/Team/teamSlice";
 import deleteF from "./Slices/Favorites/favoritesSlice";
 
+
 const persistConfig = {
     key: "root",
     storage,
