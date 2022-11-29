@@ -15,9 +15,9 @@ export const ArtistProfile = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { artistId } = useSelector((state) => state.artistId);
-    const posts= useSelector((state)=> state.posts)
-    
-   
+    const posts = useSelector((state) => state.posts)
+
+
     // const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
     // const contentArray = Array.from(
     //     document.querySelectorAll("#select-content")
@@ -49,19 +49,19 @@ export const ArtistProfile = () => {
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
-    
+
     console.log(artistId)
     // useEffect(() => {
     //     dispatch(getPostById(artistId?.nickname));
     // }, [dispatch,artistId?.nickname]);
-    
+
 
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
 
         e.preventDefault();
-        dispatch(addFavorite(id, user.id));
+        dispatch(addFavorite(id, user.uid));
         Swal.fire({
             position: "top-end",
             icon: "success",

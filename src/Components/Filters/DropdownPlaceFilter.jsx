@@ -37,7 +37,7 @@ export default function DropdownPlaceFilter() {
                 <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Buenos Aires"}>Buenos Aires</li>
                 <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Lima"}>Lima</li>
                 <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cordoba"}>Cordoba</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Medellin"}>Medellin</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Medellín"}>Medellín</li>
                 <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Santiago"}>Santiago</li>
                 <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rio Cuarto"}>Rio Cuarto</li>
                 <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rosario"}>Rosario</li>

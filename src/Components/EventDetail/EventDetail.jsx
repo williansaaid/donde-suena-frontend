@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
+import { ticketPurchase, clearUrl, createTicketMP } from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
@@ -66,6 +66,12 @@ const EventDetail = () => {
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
+
+    let payment_id = query.payment_id
+    let purchasedQuantity = query.purchasedQuantity
+    console.log(payment_id)
+    console.log(purchasedQuantity)
+
 
     const modal = () => {
         dispatch(setLoginModal());
@@ -131,7 +137,15 @@ const EventDetail = () => {
                     id: id,
                 })
             );
+
             dispatch(getQuantityTickets(id));
+
+            dispatch(createTicketMP(payment_id, purchasedQuantity, {
+                priceTotal: detail.price,
+                date: detail.date,
+                event: detail.name,
+                user: user.firstName
+            }))
             successPurchase();
         }
     }, [query]);
@@ -249,17 +263,17 @@ const EventDetail = () => {
                                 <button
                                     {...(isLogged
                                         ? {
-                                              onClick: handlePurchase,
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          }
+                                            onClick: handlePurchase,
+                                            className:
+                                                "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                        }
                                         : {
-                                              onClick: () => {
-                                                  modal();
-                                              },
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          })}
+                                            onClick: () => {
+                                                modal();
+                                            },
+                                            className:
+                                                "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                        })}
                                 >
                                     <p className="font-bold uppercase">
                                         Comprar
@@ -331,6 +345,6 @@ const EventDetail = () => {
                 </section>
             }
         </div>
-    );
+    )
 };
 export default EventDetail;
