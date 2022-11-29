@@ -15,7 +15,7 @@ const PostHome = () => {
         <div>
           {/* esta hardcodeado el id del usuario  , tendria que ser el current id */}
           {/* <Comments currentUserId="1"/> */}
-          <Comments/>
+          
         </div>
         </div>
     );
