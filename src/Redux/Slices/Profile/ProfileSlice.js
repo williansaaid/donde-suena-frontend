@@ -4,7 +4,7 @@ const ProfileSlice = createSlice({
     name: "profile",
 
     initialState: {
-        profileUserState: 1,
+        profileUserState: false,
         profileArtistState: 1,
     },
 

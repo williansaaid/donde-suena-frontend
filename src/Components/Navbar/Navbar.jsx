@@ -44,6 +44,11 @@ function Navbar() {
     useEffect(() => {
         setOpen(false);
     }, [location.pathname]);
+    useEffect(() => {
+        if (!location.pathname.includes("/userProfile")) {
+            dispatch(togleUserState(false));
+        }
+    });
 
     const handleArtistProfile = (number) => {
         dispatch(setScroll([0, 9999]));
@@ -51,8 +56,8 @@ function Navbar() {
 
         navigate(`artistProfile/${user.id}`);
     };
-    const handleUserProfile = (number) => {
-        dispatch(togleUserState(number));
+    const handleUserProfile = () => {
+        dispatch(togleUserState(true));
         navigate(`/userProfile/${user.id}`);
     };
 
@@ -121,11 +126,14 @@ function Navbar() {
                                     onClick={() => setOpen(!open)}
                                     className="flex justify-center items-center ml-5 mr-2 h-auto bg-gray-500 rounded-full cursor-pointer gap-2 pl-2"
                                 >
-                                    <div className="text-white flex justify-center items-center">
-                                        <FaAngleDown
-                                            className="text-white"
-                                            size={"1.3rem"}
-                                        />
+                                    <div
+                                        className={
+                                            !open
+                                                ? "text-white flex justify-center items-center"
+                                                : "rotate-180 transition duration-500 text-white flex justify-center items-center"
+                                        }
+                                    >
+                                        <FaAngleDown size={"1.3rem"} />
                                     </div>
                                     <h3 className="tracking-wide text-white text-s font-bold">
                                         {user.artista
@@ -173,7 +181,7 @@ function Navbar() {
                                             onClick={() => {
                                                 user.artista
                                                     ? handleArtistProfile(2)
-                                                    : handleUserProfile(1);
+                                                    : handleUserProfile();
                                             }}
                                         >
                                             <DropdownItem
@@ -191,7 +199,7 @@ function Navbar() {
                                             onClick={() => {
                                                 user.artista
                                                     ? handleArtistProfile(1)
-                                                    : handleUserProfile(2);
+                                                    : handleNavigate();
                                             }}
                                         >
                                             <DropdownItem

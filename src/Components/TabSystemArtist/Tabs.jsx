@@ -48,9 +48,9 @@ function Tabs() {
                             : "content"
                     }
                 >
-                    <p>
+                    <div>
                         <PostDumb post={postsId} />
-                    </p>
+                    </div>
                 </div>
 
                 <div
@@ -60,9 +60,9 @@ function Tabs() {
                             : "content"
                     }
                 >
-                    <p>
+                    <div>
                         <ArtistShows id={artistId.id} />
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
