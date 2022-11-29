@@ -84,13 +84,13 @@ export default function UserProfile() {
                     <ul className="flex items-center justify-center bg-white">
                         <li
                             id="select-tab"
-                            className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+                            className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
                         >
                             Mis artistas Favoritos ⭐
                         </li>
                         <li
                             id="select-tab"
-                            className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
+                            className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
                         >
                             Mis Compras 🛒
                         </li>
