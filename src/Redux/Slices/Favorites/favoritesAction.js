@@ -15,8 +15,7 @@ export const addFavorite = (idA, idU) => (dispatch) => {
 };
 
 export const deleteFavorite = (id) => (dispatch) => {
-    axios
-    .delete(`auth/deleteFavoriteArtist/${id}`)
-    .then((res) => dispatch(deleteFav(res.data)))
+    axios.delete(`/auth/deleteFavoriteArtist/${id}`)
+    .then((res) => (deleteFav(res.data)))
     .catch((e) => console.log(e));
 }

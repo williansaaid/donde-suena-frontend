@@ -26,6 +26,7 @@ import commentsId from "./Slices/Comments/commentsSlices";
 import profile from "./Slices/Profile/ProfileSlice";
 import scroll from "./Slices/Scroll/ScrollSlice";
 
+
 const persistConfig = {
     key: "root",
     storage,
@@ -54,7 +55,6 @@ const rootReducer = combineReducers({
     artistId: artistId,
     addFav: addFav,
     teamState: team,
-    deleteF: deleteF,
     profileState: profile,
     scrollState: scroll,
     commentsId:commentsId,
