@@ -6,16 +6,15 @@ import {
 } from "../../Redux/Slices/Favorites/favoritesAction";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
 import { Link } from "react-router-dom";
-import Loading from "../Loading/Loading"
 
 const UserFavorites = () => {
     const dispatch = useDispatch();
     const { favorites } = useSelector((state) => state.favoritesState);
-    const { artists } = useSelector((state) => state.artistState);
 
     useEffect(() => {
         dispatch(getFavorites());
     }, []);
+    const { artists } = useSelector((state) => state.artistState);
 
     useEffect(() => {
         dispatch(getArtists());
@@ -27,7 +26,7 @@ const UserFavorites = () => {
     };
 
     return (
-        <div class="w-full flex justify-around flex-wrap ">
+        <div className="overflow-y-auto max-h-[1000px] w-full flex justify-around flex-wrap ">
             {favorites &&
                 favorites?.map((artist) => {
                     return (
