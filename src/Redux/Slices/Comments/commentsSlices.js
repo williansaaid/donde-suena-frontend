@@ -1,22 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
 export const commentsSlice = createSlice({
     name: "comments",
     initialState: {
         comments: [],
-        commentsId: [],
-        
-      
+        commentsId:[],
+        reply:[],
+        delete:[],
+
     },
     reducers: {
         getAllComments: (state, action) => {
             state.comments = action.payload;
         },
+        getCommentById:(state,action) =>{
+          state.commentsId=action.payload
+        },
         addComment: (state, action ) => {
-          state.comments = action.payload
+          state.reply = action.payload
         },
         deleteComments: (state,action) =>{
-          state.comments =action.payload
+          state.delete =action.payload
         },
        editComment: (state , action ) => {
         state.comments =action.payload
@@ -26,5 +32,5 @@ export const commentsSlice = createSlice({
      },
 
 });
-export const { getAllComments,addComment, editComment, deleteComments} = commentsSlice.actions;
+export const { getAllComments,getCommentsById,addComment, editComment, deleteComments} = commentsSlice.actions;
 export default commentsSlice.reducer;

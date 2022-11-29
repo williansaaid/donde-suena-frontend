@@ -1,60 +1,68 @@
 //recordar nunca pasar user id a la api NO ES SEGURO
-import { useEffect, useState } from "react";
-import {createComment, deleteComment, updateComment, } from "../../Redux/Slices/Comments/commentsAction";
-import { getComments } from "./getComments";
+import { useEffect, useState, } from "react";
+import { getComments, createComment, deleteComment, updateComment, } from "../../Redux/Slices/Comments/commentsAction";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Comment } from "./Comment";
 import { CommentForm} from "./CommentForm"
 
-export const Comments = ({id}) =>{
-  
-  const [backendComments , setBackendComments]= useState([])
+export const Comments = (props) =>{
+  const {id}=useParams();
+  const dispatch = useDispatch();
+  const {commentsId}=useSelector((state)=>state.commentsId)
+  const [comments, setCommentsId]=useState([])
+  // const [backendComments , setBackendComments]= useState([id])
   //en la proxima funcion seteamos el estado para luego ser editado 
   const [activeComment , setActiveComment]=useState (null)
   // aca manejamos el comentario raiz y luego renderizamos sus respuestas  sabemos que es el comentario raiz por que el parent id es null
-  const rootComments =backendComments.filter(
-    (backendComment)=> backendComment.parentId===null
+  const rootComments =commentsId.filter(
+    (commentsId)=> commentsId.parent===null
   );
 
-  //Para hacer las respuestas tenemos que recordar que los nuevos comentarios siempre se guardan arriba , pero en cambio cuando hacemos una respuesta los comentarios nuevos se guardaran abajo , por lo tanto hacemos esa logica con un filter para que las respuestas se generen abajo. 
+
+  //Para hacer las respuestas tenemos que recordar que los nuevos comentarios siempre se guardan arriba , pero en cambio cuando hacemos una respuesta los comentarios nuevos se guardaran abajo , por lo tanto hacemos esa logica con un filter para que las respuestas se generen abajo. EL HOMBRE DEL TUTO ESCRIBIO COMMEND , CREO QUE ES ERROR PERO FIJARSE BIEN
   const getReplies= commentId =>{
-    return backendComments.filter(backendComments=>backendComments.parentId===commentId).sort((a,b) => new Date(a.createdAt).getTime()  - new Date(b.createdAt).getTime()) //con el sort ordeno en ascendente 
+    return commentsId.filter(commentsId=>commentsId.parent===commentId).sort((a,b) => new Date(a.createdAt).getTime()  - new Date(b.createdAt).getTime()) //con el sort ordeno en ascendente 
   }
   //agrego los comentarios del form a los que ya estan 
-  const addComment =(text , parentId) =>{
+  const addComment =(text ,parent) =>{
     // console.log ("addComment", text , parentId)
-    createComment(text, parentId).then(comment =>{
-      setBackendComments([comment,...backendComments])
+    createComment(text, parent);
+    dispatch(comment =>{
+      setCommentsId([comment,...comments])
       setActiveComment(null)
     })
   }
 const eliminateComment =(commentId) =>{
   if(window.confirm("Seguro que quieres eliminar el comentario?")){  
     deleteComment(commentId).then(()=>{
-      const updatedBackendComments = backendComments.filter(
-        (backendComment)=>backendComment.id !== commentId
+      const updatedBackendComments = commentsId.filter(
+        (commentsId)=>commentsId.id !== commentId
       );
-        setBackendComments(updatedBackendComments)
+      setCommentsId(updatedBackendComments)
     })
   }
 }
 const  modifyComment = (text , commentId) =>{
   updateComment(text , commentId).then(() =>{
-    const updatedBackendComments =backendComments.map(backendComment=>{
-      if (backendComment.id ===commentId){
-        return { ...backendComment , body:text}
+    const updatedBackendComments =commentsId.map(commentsId=>{
+      if (commentsId.id ===commentId){
+        return { ...commentsId , body:text}
     }
-    return backendComment
+    return commentsId
    } )
-   setBackendComments(updatedBackendComments)
+   setCommentsId(updatedBackendComments)
    setActiveComment (null)
   })
 }
-  
-  useEffect(()=>{
-      getComments().then((data)=>{
-        setBackendComments(data)
-      });
-  },  [] ) ;
+  console.log(commentsId)
+  // useEffect((data)=>{
+  //     dispatch(getComments(id));
+  //       setBackendComments(data.comments[0].id)
+  //     } ,[dispatch,id] ) ;
+       
+      
+      
   return (
    
     <div className="comments">
