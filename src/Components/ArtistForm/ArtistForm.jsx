@@ -7,30 +7,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 
-// const genres = [
-//     "Clásica",
-//     "Blues",
-//     "Jazz",
-//     "Soul",
-//     "R&B",
-//     "Rock",
-//     "Folk",
-//     "Metal",
-//     "Disco",
-//     "Pop",
-//     "Hip-Hop",
-//     "Funk",
-//     "House",
-//     "Techno",
-//     "Salsa",
-//     "Bachata",
-//     "Cumbia",
-//     "Reggae",
-//     "Bossa Nova",
-//     "Merengue",
-//     "Urbano",
-// ];
-
 const ArtistForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -40,14 +16,14 @@ const ArtistForm = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
+    const { genres } = useSelector((state) => state.genresState);
+
     const getAllGenres = useCallback(() => {
         dispatch(getGenres());
     }, [dispatch]);
     useMemo(() => {
         getAllGenres();
     }, [getAllGenres]);
-    const { genres } = useSelector((state) => state.genresState);
-    console.log(genres);
     function navegar() {
         navigate("/");
     }
@@ -68,7 +44,7 @@ const ArtistForm = () => {
 
             actions.resetForm();
             setGenresSelect([]);
-            setTimeout(navegar, 5000);
+            setTimeout(navegar, 3000);
         } catch (error) {
             console.log(error);
         }

@@ -22,7 +22,10 @@ import artistId from "./Slices/Artist/artistSlice";
 import userId from "./Slices/User/userSlice";
 import addFav from "./Slices/Favorites/favoritesSlice";
 import team from "./Slices/Team/teamSlice";
-import commentsId from "./Slices/Comments/commentsSlices"
+import commentsId from "./Slices/Comments/commentsSlices";
+import profile from "./Slices/Profile/ProfileSlice";
+import scroll from "./Slices/Scroll/ScrollSlice";
+
 const persistConfig = {
     key: "root",
     storage,
@@ -51,7 +54,9 @@ const rootReducer = combineReducers({
     artistId: artistId,
     addFav: addFav,
     teamState: team,
-    commentsId:commentsId
+    profileState: profile,
+    scrollState: scroll,
+    commentsId:commentsId,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
