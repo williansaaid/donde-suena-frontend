@@ -23,6 +23,8 @@ import userId from "./Slices/User/userSlice";
 import addFav from "./Slices/Favorites/favoritesSlice";
 import team from "./Slices/Team/teamSlice";
 import users from "./Slices/Users/usersSlice";
+import profile from "./Slices/Profile/ProfileSlice";
+import scroll from "./Slices/Scroll/ScrollSlice";
 
 const persistConfig = {
     key: "root",
@@ -53,6 +55,8 @@ const rootReducer = combineReducers({
     addFav: addFav,
     teamState: team,
     usersState: users,
+    profileState: profile,
+    scrollState: scroll,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
