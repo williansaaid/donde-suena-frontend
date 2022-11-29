@@ -11,7 +11,6 @@ export const PostCard = ({ props }) => {
     const [visible, setVisible] = useState();
     const [comment, setComment] = useState("");
     const { artists } = useSelector((state) => state.artistState);
-    console.log(artists);
 
     useEffect(() => {
         dispatch(getPosts());
@@ -35,13 +34,13 @@ export const PostCard = ({ props }) => {
                                     <img
                                         class="w-12 h-12 rounded-full object-cover 
                                   shadow "
-                                        src={el.artists[0]?.image}
+                                        src={el.artists[0].image}
                                         alt="avatar"
                                     />
                                     <div className="grid-rows-{2} ">
                                         <div className="flex-grow pl-3 mr-10 bg-customWhite">
                                             <h2 className="text-lg font-semibold text-gray-900 -mt-1 ml-1 ">
-                                                {el.artists[0]?.nickname}
+                                                {el.artists[0].nickname}
                                             </h2>
 
                                             <div className="w-full mb-4 ">
@@ -63,7 +62,7 @@ export const PostCard = ({ props }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <Comments />
+                                {/* <Comments/> */}
                             </div>
                         </div>
                     );

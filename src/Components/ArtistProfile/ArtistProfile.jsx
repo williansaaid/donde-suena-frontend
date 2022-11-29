@@ -92,7 +92,7 @@ export const ArtistProfile = () => {
             <div className="mt-6 py-6 border-t border-slate-200 text-center">
                 <div
                     className={
-                        user.artista && id !== user.uid
+                        user.artista && id !== user.id
                             ? "hidden"
                             : "flex flex-wrap justify-center"
                     }
@@ -129,7 +129,9 @@ export const ArtistProfile = () => {
                         </div>
                     ) : (
                         <button
-                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 px-5 text-white"
+                            className={
+                                "cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 px-5 text-white"
+                            }
                             onClick={(e) => handleAddFav(e)}
                         >
                             Agregar a Favoritos ⭐
@@ -174,20 +176,6 @@ export const ArtistProfile = () => {
 
             <div>
                 <Tabs></Tabs>
-                {/* <ul className="flex items-center justify-center">
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
-                    >
-                        Publicaciones
-                    </li>
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
-                    >
-                        Eventos
-                    </li>
-                </ul> */}
             </div>
         </div>
     );

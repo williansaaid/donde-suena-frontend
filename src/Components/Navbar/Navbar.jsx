@@ -49,7 +49,7 @@ function Navbar() {
         dispatch(setScroll([0, 9999]));
         dispatch(togleAtristState(number));
 
-        navigate(`artistProfile/${user.uid}`);
+        navigate(`artistProfile/${user.id}`);
     };
     const handleUserProfile = (number) => {
         dispatch(togleUserState(number));
@@ -59,7 +59,7 @@ function Navbar() {
     const handleNavigate = () => {
         dispatch(setScroll([0, 0]));
         if (!user.artista) navigate(`/userProfile/${user.id}`);
-        else navigate(`artistProfile/${user.uid}`);
+        else navigate(`artistProfile/${user.id}`);
     };
     const handleLogin = () => {
         dispatch(setLoginModal());
