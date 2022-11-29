@@ -28,47 +28,54 @@ export const UsersAdmin = () => {
         dispatch(getAllUsers());
     }, [dispatch]);
     return (
-        <div className="overflow-hidden text-gray-700 ">
-            <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
-                <div className="flex flex-wrap -m-1 md:-m-2">
-                    {users.map((el) => {
+        <div>
+            <div className="relative max-w-md h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
+                <div className="overflow-auto flex flex-col divide-y h-full border rounded-2xl">
+                    <div className="flex justify-center">
+                        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+                            Usuarios
+                        </h1>
+                    </div>
+                    {users?.map((a, i) => {
                         return (
-                            <div className="flex flex-wrap w-1/3" key={el.id}>
-                                <div className="flex flex-wrap w-1/3">
-                                    <div
-                                        className="flex justify-between items-center"
-                                        key={el.id}
+                            <div
+                                className="flex items-center gap-4 p-4 flex-"
+                                key={i}
+                            >
+                                <img
+                                    className="w-12 h-12 rounded-full object-cover"
+                                    src={a.image}
+                                    alt=""
+                                />
+                                <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
+                                    {a.firstName} {a.lastName}
+                                </strong>
+                                <div
+                                    className="flex items-center gap-4 p-4 cursor-pointer bg-red-500 rounded-md text-white font-bold hover:bg-red-600 transition duration-300"
+                                    onClick={() => tashEvent(a.id)}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-6 w-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
                                     >
-                                        <div className="flex justify-between items-center">
-                                            <div
-                                                type="button"
-                                                className="cursor-pointer bg-transparent hover:bg-red-400 text-gray-300 White font-semibold hover:text-white py- px-2 border-2 border-red-700 hover:border-transparent rounded-xl transition duration-500"
-                                                onClick={() => tashEvent(el.id)}
-                                            >
-                                                🗑️
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="w-full p-2 md:p-2">
-                                        <div className="flex flex-wrap w-full">
-                                            <div className="w-full p-2 md:p-2">
-                                                <div className="relative sm:h-50 w-80 rounded-lg">
-                                                    <img
-                                                        className="block object-cover object-center w-full h-full rounded-lg"
-                                                        src={el.image}
-                                                        alt="imagen no encontrada"
-                                                    />
-                                                    {el.firstName}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M6 18L18 6M6 6l12 12"
+                                        />
+                                    </svg>
                                 </div>
                             </div>
                         );
                     })}
                 </div>
             </div>
+            <br />
+            <br />
         </div>
     );
 };
