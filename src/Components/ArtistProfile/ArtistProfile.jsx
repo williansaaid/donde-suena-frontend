@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
-
-import { getPostById } from "../../Redux/Slices/Post/postSlice";
+import { setPostvarModal } from "../../Redux/Slices/Modals/modalActions";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
-import ArtistShows from "../ArtistShows/ArtistShows";
-import PostCard from "../PostCard/PostCard";
+import { getPostId } from "../../Redux/Slices/Post/postAction";
 import Tabs from "../TabSystemArtist/Tabs";
 import Swal from "sweetalert2";
+import ReactModal from "react-modal";
+import { PostVar } from "../PostVar/PostVar";
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
@@ -17,63 +17,33 @@ export const ArtistProfile = () => {
     const { id } = useParams();
     const { artistId } = useSelector((state) => state.artistId);
     const { scroll } = useSelector((state) => state.scrollState);
-
-    // const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
-    // const contentArray = Array.from(
-    //     document.querySelectorAll("#select-content")
-    // );
-
-    // tabsArray.forEach((tab) => {
-    //     tab.addEventListener("click", () => {
-    //         let target = tab;
-    //         //itero sobre los elementos y les saco el fondo activo
-    //         tabsArray.forEach((tab) => {
-    //             tab.classList.remove("bg-customRed");
-    //         });
-
-    //         const currentTab = tabsArray.indexOf(target);
-
-    //         contentArray.forEach((content) => {
-    //             if (contentArray.indexOf(content) === currentTab) {
-    //                 content.classList.remove("hidden");
-    //             } else if (contentArray.indexOf("content") !== currentTab) {
-    //                 content.classList.add("hidden");
-    //             }
-    //         });
-    //         target.classList.add("bg-customRed");
-    //     });
-    // });
-
+    const { postVarOpen } = useSelector((state) => state.modalState);
     const { user } = useSelector((state) => state.sessionState);
+    console.log(user);
 
     useEffect(() => {
+        dispatch(getPostId(id));
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
-    // const handleScroll = useCallback(() => {
-    //     // let coordenadas = scroll[0] + ", " + scroll[1];
-    //     // console.log(coordenadas);
-    //     let coordenadaX = scroll[0];
-    //     let coordenadaY = scroll[1];
-    //     console.log(coordenadaX);
-    //     console.log(coordenadaY);
-    // }, [scroll]);
+
     useEffect(() => {
         let coordenadaX = scroll[0];
         let coordenadaY = scroll[1];
         window.scroll(coordenadaX, coordenadaY);
-
-        // return window.scrollTo(0, 0);
     }, []);
 
     // useEffect(() => {
     //     dispatch(getPostById(artistId?.nickname));
     // }, [dispatch,artistId?.nickname]);
+    const handleSetModal = () => {
+        dispatch(setPostvarModal());
+    };
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
 
         e.preventDefault();
-        dispatch(addFavorite(id, user.id));
+        dispatch(addFavorite(id, user.uid));
         Swal.fire({
             position: "top-end",
             icon: "success",
@@ -128,15 +98,40 @@ export const ArtistProfile = () => {
                     }
                 >
                     {user.artista ? (
-                        <button
-                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 px-5 text-white"
-                            onClick={() => navigate("/create/event")}
-                        >
-                            Crear Evento ⭐
-                        </button>
+                        <div>
+                            <ReactModal
+                                isOpen={postVarOpen}
+                                ariaHideApp={false}
+                                className="modal w-full mx-auto max-w-2xl"
+                                onRequestClose={handleSetModal}
+                                style={{
+                                    overlay: {
+                                        zIndex: 1000,
+                                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                                        objectFit: "contain",
+                                    },
+                                }}
+                            >
+                                <PostVar />
+                            </ReactModal>
+                            <button
+                                className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 mr-3 px-5 text-white"
+                                onClick={() => navigate("/create/event")}
+                            >
+                                Crear Evento ⭐
+                            </button>
+                            <button
+                                className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 ml-3 px-5 text-white"
+                                onClick={() => dispatch(setPostvarModal())}
+                            >
+                                Crear Publicacion ⭐
+                            </button>
+                        </div>
                     ) : (
                         <button
-                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 px-5 text-white"
+                            className={
+                                "cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 px-5 text-white"
+                            }
                             onClick={(e) => handleAddFav(e)}
                         >
                             Agregar a Favoritos ⭐
@@ -144,6 +139,7 @@ export const ArtistProfile = () => {
                     )}
                 </div>
             </div>
+
             <div className="flex justify-center mb-6">
                 <div className="p-3 text-center">
                     <a
@@ -177,40 +173,10 @@ export const ArtistProfile = () => {
                     </a>
                 </div>
             </div>
+
             <div>
                 <Tabs></Tabs>
-                {/* <ul className="flex items-center justify-center">
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
-                    >
-                        Publicaciones
-                    </li>
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
-                    >
-                        Eventos
-                    </li>
-                </ul> */}
             </div>
-            {/* <section
-                id="select-content"
-                className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
-            >
-                <div>
-                    <PostCard nickname={artistId.nickname} />
-                </div>
-            </section>
-            <section
-                id="select-content"
-                className="h-90 bg-customGray p-2 text-4xl flex items-center justify-center hidden"
-            >
-                <div>
-                    <ArtistShows id={artistId.id} />
-                </div>
-            </section>
-            <script src="/ArtistProfile"></script> */}
         </div>
     );
 };

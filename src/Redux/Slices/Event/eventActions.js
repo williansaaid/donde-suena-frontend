@@ -67,7 +67,6 @@ export const setFilter = (payload) => (dispatch) => {
     axios
         .get("/event/getEvents" + payload)
         .then((res) => {
-            console.log(res);
             dispatch(filteredEvents(res.data.events));
         })
         .catch((e) => {
