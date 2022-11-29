@@ -19,6 +19,7 @@ export const ArtistProfile = () => {
     const { scroll } = useSelector((state) => state.scrollState);
     const { postVarOpen } = useSelector((state) => state.modalState);
     const { user } = useSelector((state) => state.sessionState);
+    console.log(user);
 
     useEffect(() => {
         dispatch(getPostId(id));
@@ -91,7 +92,7 @@ export const ArtistProfile = () => {
             <div className="mt-6 py-6 border-t border-slate-200 text-center">
                 <div
                     className={
-                        user.artista && id !== user.id
+                        user.artista && id !== user.uid
                             ? "hidden"
                             : "flex flex-wrap justify-center"
                     }
