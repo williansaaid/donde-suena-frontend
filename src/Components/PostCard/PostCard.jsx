@@ -3,14 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
-<<<<<<< HEAD
-
-export const PostCard = ({ props }) => {
-=======
 import {Comments} from "../CommentsUser/Comments"
 
 export const PostCard = ({props}) => {
->>>>>>> 72f6da64775aa08bdb544ff0b754c7cf3b00d52f
     const dispatch = useDispatch();
     const { posts } = useSelector((state) => state.posts);
     const [visible, setVisible] = useState();
