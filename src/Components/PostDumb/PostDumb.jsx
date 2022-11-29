@@ -1,33 +1,36 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../Redux/Slices/Post/postAction";
+import { useParams } from "react-router-dom";
+import { getPostId } from "../../Redux/Slices/Post/postAction";
 
 export const PostDumb = () => {
     const dispatch = useDispatch();
-    const { posts } = useSelector((state) => state.posts);
-    console.log(posts);
+    const {  postsId } = useSelector((state) => state.posts);
+    console.log(postsId);
+    const {id} = useParams()
 
     useEffect(() => {
-        dispatch(getPosts());
+        dispatch(getPostId(id));
     }, [dispatch]);
 
     return (
         <div>
-            {posts &&
-                posts?.map((el) => {
+            <h1>{postsId.nickname}</h1>
+            {postsId.posts&&
+                postsId.posts?.map((el) => {
                     return (
                         <div className="min h-50 bg-gray-200 flex items-center justify-center">
                             <div className="mt-5 w-3/4 flex-col items-center mx-auto rounded-lg bg-white shadow p-5 text-gray-800 bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl">
                                 <img
                                     class="w-12 h-12 rounded-full object-cover 
                                   shadow mr-2"
-                                    src={el.artists[0].image}
+                                    src={el.image}
                                     alt="avatar"
                                 />
-                                artist={el.artist}
+                                artist={el.nickname}
                                 <div class="w-full  mr-70">
                                     <p class="text-xs text-gray-500 text-right">
-                                        Date {el.date}
+                                        Date October 15{el.date}
                                     </p>
                                 </div>
                                 <div className="w-full flex mb-4 p-2">

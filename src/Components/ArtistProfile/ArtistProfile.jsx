@@ -27,9 +27,7 @@ export const ArtistProfile = () => {
     }, [dispatch, id]);
 
     console.log(artistId);
-    useEffect(() => {
-        dispatch(getPostById(artistId?.nickname));
-    }, [dispatch,artistId?.nickname]);
+  
     // const handleScroll = useCallback(() => {
     //     // let coordenadas = scroll[0] + ", " + scroll[1];
     //     // console.log(coordenadas);
