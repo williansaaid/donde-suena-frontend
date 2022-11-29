@@ -43,7 +43,7 @@ export const ArtistProfile = () => {
         if (!user.isLogged) dispatch(setLoginModal());
 
         e.preventDefault();
-        dispatch(addFavorite(id, user.id));
+        dispatch(addFavorite(id, user.uid));
         Swal.fire({
             position: "top-end",
             icon: "success",

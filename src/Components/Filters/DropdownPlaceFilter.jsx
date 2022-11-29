@@ -31,64 +31,17 @@ export default function DropdownPlaceFilter() {
                     </svg>
                 </span>
             </button>
-            <ul
-                className="flex flex-row grid grid-cols-3 bg-customGray border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
-                onClick={(e) => handlePlaceFilter(e)}
-            >
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Buenos Aires"}
-                >
-                    Buenos Aires
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Lima"}
-                >
-                    Lima
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Cordoba"}
-                >
-                    Cordoba
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Medellin"}
-                >
-                    Medellin
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Santiago"}
-                >
-                    Santiago
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Rio Cuarto"}
-                >
-                    Rio Cuarto
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Rosario"}
-                >
-                    Rosario
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"La Plata"}
-                >
-                    La Plata
-                </li>
-                <li
-                    className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
-                    value={"Cali"}
-                >
-                    Cali
-                </li>
+            <ul class="flex flex-row grid grid-cols-3 bg-customGray border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32" onClick={(e) => handlePlaceFilter(e)}>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Buenos Aires"}>Buenos Aires</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Lima"}>Lima</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cordoba"}>Cordoba</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Medellín"}>Medellín</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Santiago"}>Santiago</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rio Cuarto"}>Rio Cuarto</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rosario"}>Rosario</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"La Plata"}>La Plata</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cali"}>Cali</li>
+
             </ul>
         </div>
     );
