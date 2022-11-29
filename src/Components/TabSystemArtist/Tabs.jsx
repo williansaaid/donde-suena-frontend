@@ -4,6 +4,7 @@ import PostDumb from "../PostDumb/PostDumb";
 import { useSelector, useDispatch } from "react-redux";
 import { togleAtristState } from "../../Redux/Slices/Profile/ProfileActions";
 import { setScroll } from "../../Redux/Slices/Scroll/ScrollActions";
+
 import "./Tabs.css";
 
 function Tabs() {
@@ -11,6 +12,9 @@ function Tabs() {
     const dispatch = useDispatch();
     const { profileArtistState } = useSelector((state) => state.profileState);
     const { artistId } = useSelector((state) => state.artistId);
+    const { postsId } = useSelector((state) => state.posts);
+    console.log(postsId);
+
     const toggleTab = (index) => {
         dispatch(setScroll([0, 9999]));
         dispatch(togleAtristState(index));
@@ -45,7 +49,7 @@ function Tabs() {
                     }
                 >
                     <p>
-                        <PostDumb nickname={artistId.nickname} />
+                        <PostDumb post={postsId} />
                     </p>
                 </div>
 

@@ -5,9 +5,9 @@ import { getPostId } from "../../Redux/Slices/Post/postAction";
 
 export const PostDumb = () => {
     const dispatch = useDispatch();
-    const {  postsId } = useSelector((state) => state.posts);
+    const { postsId } = useSelector((state) => state.posts);
     console.log(postsId);
-    const {id} = useParams()
+    const { id } = useParams();
 
     useEffect(() => {
         dispatch(getPostId(id));
@@ -16,7 +16,7 @@ export const PostDumb = () => {
     return (
         <div>
             <h1>{postsId.nickname}</h1>
-            {postsId.posts&&
+            {postsId.posts &&
                 postsId.posts?.map((el) => {
                     return (
                         <div className="min h-50 bg-gray-200 flex items-center justify-center">
