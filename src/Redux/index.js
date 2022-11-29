@@ -22,11 +22,8 @@ import artistId from "./Slices/Artist/artistSlice";
 import userId from "./Slices/User/userSlice";
 import addFav from "./Slices/Favorites/favoritesSlice";
 import team from "./Slices/Team/teamSlice";
-<<<<<<< HEAD
 import users from "./Slices/Users/usersSlice";
-=======
 import commentsId from "./Slices/Comments/commentsSlices";
->>>>>>> 72f6da64775aa08bdb544ff0b754c7cf3b00d52f
 import profile from "./Slices/Profile/ProfileSlice";
 import scroll from "./Slices/Scroll/ScrollSlice";
 
@@ -61,7 +58,7 @@ const rootReducer = combineReducers({
     usersState: users,
     profileState: profile,
     scrollState: scroll,
-    commentsId:commentsId,
+    commentsId: commentsId,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
