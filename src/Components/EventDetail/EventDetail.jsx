@@ -71,6 +71,7 @@ const EventDetail = () => {
     let purchasedQuantity = query.purchasedQuantity
     console.log(payment_id)
     console.log(purchasedQuantity)
+    console.log(detail)
 
 
     const modal = () => {
@@ -94,6 +95,8 @@ const EventDetail = () => {
         })
     };
 
+
+
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -103,10 +106,12 @@ const EventDetail = () => {
         setTimeout(() => {
             dispatch(changeLoading());
         }, 500);
-    }, []);
+    }, [dispatch]);
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
+
+
 
     const handlePurchase = () => {
         setOrder(false);
@@ -135,13 +140,19 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
+
+
+
     useEffect(() => {
         dispatch(clearUrl());
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
 
-    }, []);
+    }, [dispatch, id, searchParams]);
+
+
+
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
@@ -167,10 +178,12 @@ const EventDetail = () => {
                 event: detail.name,
                 user: user.firstName
             }))
+
             successPurchase();
+
             window.history.pushState(null, "Details", `/details/${id}`);
         }
-    }, [query]);
+    }, [dispatch, query, user.firstName]);
 
     return (
         <div>
@@ -312,6 +325,7 @@ const EventDetail = () => {
                                                     <img
                                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
                                                         className="h-30 object-cover"
+                                                        alt=""
                                                     />
                                                 </div>
                                             </a>

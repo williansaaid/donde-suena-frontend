@@ -28,7 +28,7 @@ import scroll from "./Slices/Scroll/ScrollSlice";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["sessionState"],
+    whitelist: ["sessionState", "detailState"],
 };
 
 const rootReducer = combineReducers({
