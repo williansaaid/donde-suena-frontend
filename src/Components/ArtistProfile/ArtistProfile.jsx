@@ -3,63 +3,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { getArtistsById } from "../../Redux/Slices/Artist/artistActions";
 import { addFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
-
-import { getPostById } from "../../Redux/Slices/Post/postSlice";
+import { setPostvarModal } from "../../Redux/Slices/Modals/modalActions";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
-import ArtistShows from "../ArtistShows/ArtistShows";
-import PostCard from "../PostCard/PostCard";
+import { getPostId } from "../../Redux/Slices/Post/postAction";
 import Tabs from "../TabSystemArtist/Tabs";
 import Swal from "sweetalert2";
+import ReactModal from "react-modal";
+import { PostVar } from "../PostVar/PostVar";
 
 export const ArtistProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
     const { artistId } = useSelector((state) => state.artistId);
-    const posts = useSelector((state) => state.posts);
-
-    // const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
-    // const contentArray = Array.from(
-    //     document.querySelectorAll("#select-content")
-    // );
-
-    // tabsArray.forEach((tab) => {
-    //     tab.addEventListener("click", () => {
-    //         let target = tab;
-    //         //itero sobre los elementos y les saco el fondo activo
-    //         tabsArray.forEach((tab) => {
-    //             tab.classList.remove("bg-customRed");
-    //         });
-
-    //         const currentTab = tabsArray.indexOf(target);
-
-    //         contentArray.forEach((content) => {
-    //             if (contentArray.indexOf(content) === currentTab) {
-    //                 content.classList.remove("hidden");
-    //             } else if (contentArray.indexOf("content") !== currentTab) {
-    //                 content.classList.add("hidden");
-    //             }
-    //         });
-    //         target.classList.add("bg-customRed");
-    //     });
-    // });
-
+    const { scroll } = useSelector((state) => state.scrollState);
+    const { postVarOpen } = useSelector((state) => state.modalState);
     const { user } = useSelector((state) => state.sessionState);
+    console.log(user);
 
     useEffect(() => {
+        dispatch(getPostId(id));
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
 
-    console.log(artistId);
+    useEffect(() => {
+        let coordenadaX = scroll[0];
+        let coordenadaY = scroll[1];
+        window.scroll(coordenadaX, coordenadaY);
+    }, []);
+
     // useEffect(() => {
     //     dispatch(getPostById(artistId?.nickname));
     // }, [dispatch,artistId?.nickname]);
+    const handleSetModal = () => {
+        dispatch(setPostvarModal());
+    };
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
 
         e.preventDefault();
-        dispatch(addFavorite(id, user.id));
+        dispatch(addFavorite(id, user.uid));
         Swal.fire({
             position: "top-end",
             icon: "success",
@@ -70,53 +54,84 @@ export const ArtistProfile = () => {
     }
 
     return (
-        <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
-            <div class="px-6">
-                <div class="flex flex-wrap justify-center">
-                    <div class="w-full flex justify-center">
-                        <div class="relative">
+        <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
+            <div className="px-6">
+                <div className="flex flex-wrap justify-center">
+                    <div className="w-full flex justify-center">
+                        <div className="relative">
                             <img
                                 src={artistId.image}
-                                class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                                className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
                                 alt=""
                             />
                         </div>
                     </div>
-                    <div class="w-full text-center mt-20">
-                        <div class="flex justify-center lg:pt-4 pt-8 pb-0">
-                            <div class="p-3 text-center">
-                                <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">
+                    <div className="w-full text-center mt-20">
+                        <div className="flex justify-center lg:pt-4 pt-8 pb-0">
+                            <div className="p-3 text-center">
+                                <span className="text-xl font-bold block uppercase tracking-wide text-slate-700">
                                     1,360
                                 </span>
-                                <span class="text-sm text-slate-400">
+                                <span className="text-sm text-slate-400">
                                     Publicaciones
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-2">
-                    <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">
+                <div className="text-center mt-2">
+                    <h3 className="text-2xl text-slate-700 font-bold leading-normal mb-1">
                         {artistId.nickname}
                     </h3>
-                    <div class="text-xs mt-0 mb-2 text-slate-400 font-bold">
-                        <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>
+                    <div className="text-xs mt-0 mb-2 text-slate-400 font-bold">
+                        <i className="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>
                         {artistId.description}
                     </div>
                 </div>
             </div>
-            <div class="mt-6 py-6 border-t border-slate-200 text-center">
-                <div class="flex flex-wrap justify-center">
+            <div className="mt-6 py-6 border-t border-slate-200 text-center">
+                <div
+                    className={
+                        user.artista && id !== user.id
+                            ? "hidden"
+                            : "flex flex-wrap justify-center"
+                    }
+                >
                     {user.artista ? (
-                        <button
-                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-3 px-5 text-white"
-                            onClick={() => navigate("/create/event")}
-                        >
-                            Crear Evento ⭐
-                        </button>
+                        <div>
+                            <ReactModal
+                                isOpen={postVarOpen}
+                                ariaHideApp={false}
+                                className="modal w-full mx-auto max-w-2xl"
+                                onRequestClose={handleSetModal}
+                                style={{
+                                    overlay: {
+                                        zIndex: 1000,
+                                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                                        objectFit: "contain",
+                                    },
+                                }}
+                            >
+                                <PostVar />
+                            </ReactModal>
+                            <button
+                                className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 mr-3 px-5 text-white"
+                                onClick={() => navigate("/create/event")}
+                            >
+                                Crear Evento ⭐
+                            </button>
+                            <button
+                                className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 ml-3 px-5 text-white"
+                                onClick={() => dispatch(setPostvarModal())}
+                            >
+                                Crear Publicacion ⭐
+                            </button>
+                        </div>
                     ) : (
                         <button
-                            className="cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg px-5 text-white"
+                            className={
+                                "cursor-pointer bg-red-500 hover:bg-red-800 rounded-lg py-2 px-5 text-white"
+                            }
                             onClick={(e) => handleAddFav(e)}
                         >
                             Agregar a Favoritos ⭐
@@ -124,8 +139,9 @@ export const ArtistProfile = () => {
                     )}
                 </div>
             </div>
-            <div class="flex justify-center mb-6">
-                <div class="p-3 text-center">
+
+            <div className="flex justify-center mb-6">
+                <div className="p-3 text-center">
                     <a
                         href={artistId.instagram}
                         target="_blank"
@@ -138,7 +154,7 @@ export const ArtistProfile = () => {
                         />
                     </a>
                 </div>
-                <div class="p-3 text-center">
+                <div className="p-3 text-center">
                     <a href={artistId.twitter} target="_blank" rel="noreferrer">
                         <img
                             className="cursor-pointer h-8"
@@ -147,7 +163,7 @@ export const ArtistProfile = () => {
                         />
                     </a>
                 </div>
-                <div class="p-3 text-center">
+                <div className="p-3 text-center">
                     <a href={artistId.spotify} target="_blank" rel="noreferrer">
                         <img
                             className="cursor-pointer h-8"
@@ -157,40 +173,10 @@ export const ArtistProfile = () => {
                     </a>
                 </div>
             </div>
+
             <div>
                 <Tabs></Tabs>
-                {/* <ul className="flex items-center justify-center">
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
-                    >
-                        Publicaciones
-                    </li>
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
-                    >
-                        Eventos
-                    </li>
-                </ul> */}
             </div>
-            {/* <section
-                id="select-content"
-                className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
-            >
-                <div>
-                    <PostCard nickname={artistId.nickname} />
-                </div>
-            </section>
-            <section
-                id="select-content"
-                className="h-90 bg-customGray p-2 text-4xl flex items-center justify-center hidden"
-            >
-                <div>
-                    <ArtistShows id={artistId.id} />
-                </div>
-            </section>
-            <script src="/ArtistProfile"></script> */}
         </div>
     );
 };

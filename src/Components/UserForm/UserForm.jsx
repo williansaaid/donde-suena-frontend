@@ -46,7 +46,7 @@ const UserForm = () => {
                 onSubmit={(values, { setSubmitting }) => {
                     dispatch(submitUserForm({ ...values, image: image }));
                     setSubmitting(false);
-                    setTimeout(navegar, 5000);
+                    setTimeout(navegar, 3000);
                 }}
                 validationSchema={validationSchema}
             >

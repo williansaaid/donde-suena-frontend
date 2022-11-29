@@ -1,27 +1,40 @@
-import { useState } from "react";
+// import { useState } from "react"
 import ArtistShows from "../ArtistShows/ArtistShows";
 import PostDumb from "../PostDumb/PostDumb";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { togleAtristState } from "../../Redux/Slices/Profile/ProfileActions";
+import { setScroll } from "../../Redux/Slices/Scroll/ScrollActions";
+
 import "./Tabs.css";
 
 function Tabs() {
-    const [toggleState, setToggleState] = useState(1);
+    // const [toggleState, setToggleState] = useState(1);
+    const dispatch = useDispatch();
+    const { profileArtistState } = useSelector((state) => state.profileState);
     const { artistId } = useSelector((state) => state.artistId);
+    const { postsId } = useSelector((state) => state.posts);
+    console.log(postsId);
+
     const toggleTab = (index) => {
-        setToggleState(index);
+        dispatch(setScroll([0, 9999]));
+        dispatch(togleAtristState(index));
     };
 
     return (
         <div className="container2">
             <div className="bloc-tabs">
                 <button
-                    className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+                    className={
+                        profileArtistState === 1 ? "tabs active-tabs" : "tabs"
+                    }
                     onClick={() => toggleTab(1)}
                 >
                     Feed
                 </button>
                 <button
-                    className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+                    className={
+                        profileArtistState === 2 ? "tabs active-tabs" : "tabs"
+                    }
                     onClick={() => toggleTab(2)}
                 >
                     Shows
@@ -30,19 +43,19 @@ function Tabs() {
             <div className="content-tabs">
                 <div
                     className={
-                        toggleState === 1
+                        profileArtistState === 1
                             ? "content  active-content"
                             : "content"
                     }
                 >
                     <p>
-                        <PostDumb nickname={artistId.nickname} />
+                        <PostDumb post={postsId} />
                     </p>
                 </div>
 
                 <div
                     className={
-                        toggleState === 2
+                        profileArtistState === 2
                             ? "content  active-content"
                             : "content"
                     }

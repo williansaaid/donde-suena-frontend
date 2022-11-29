@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase, clearUrl } from "../../Redux/Slices/User/userAction";
+import { ticketPurchase, clearUrl, createTicketMP } from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
@@ -54,7 +54,7 @@ const noTicketsDesired = () => {
 const EventDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [query, setQuery] = useState({});
     const { detail } = useSelector((state) => state.detailState);
     const [quantity, setQuantity] = useState(1);
@@ -67,9 +67,33 @@ const EventDetail = () => {
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
 
+    let payment_id = query.payment_id
+    let purchasedQuantity = query.purchasedQuantity
+
+
+
     const modal = () => {
         dispatch(setLoginModal());
     };
+
+    const artistCantPurchase = () => {
+        Swal.fire({
+            title: "No puedes comprar tickets",
+            text: 'Debes iniciar sesión como "Público"',
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: 'Iniciar sesión como "Público"',
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                modal();
+            }
+        });
+    };
+
+
 
     useEffect(() => {
         dispatch(getEventsById(id));
@@ -80,29 +104,33 @@ const EventDetail = () => {
         setTimeout(() => {
             dispatch(changeLoading());
         }, 500);
-    }, []);
+    }, [dispatch]);
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
 
+
+
     const handlePurchase = () => {
         setOrder(false);
         dispatch(clearUrl());
-        if (ticketsAvailable === 0) {
-            noTickets();
-        } else {
-            if (ticketsAvailable < quantity) {
-                noTicketsDesired();
+        if (!user.artista) {
+            if (ticketsAvailable === 0) {
+                noTickets();
             } else {
-                setOrder(true);
-                let detailsPurchase = {
-                    quantity: parseInt(quantity),
-                    priceTotal: detail.price,
-                    id: id,
-                };
-                dispatch(ticketPurchase(detailsPurchase));
+                if (ticketsAvailable < quantity) {
+                    noTicketsDesired();
+                } else {
+                    setOrder(true);
+                    let detailsPurchase = {
+                        quantity: parseInt(quantity),
+                        priceTotal: detail.price,
+                        id: id,
+                    };
+                    dispatch(ticketPurchase(detailsPurchase));
+                }
             }
-        }
+        } else artistCantPurchase();
     };
 
     const handleQuantity = (e) => {
@@ -110,17 +138,26 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
+
+
+
     useEffect(() => {
+        window.scrollTo(0, 100);
         dispatch(clearUrl());
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
-    }, []);
+
+    }, [dispatch, id, searchParams]);
+
+
+
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
         if (query.hasOwnProperty("payment_id") && query.payment_id === "null") {
             failedPurchase();
+            window.history.pushState(null, "Details", `/details/${id}`);
         } else if (
             query.hasOwnProperty("payment_id") &&
             query.payment_id !== "null"
@@ -131,10 +168,21 @@ const EventDetail = () => {
                     id: id,
                 })
             );
+
             dispatch(getQuantityTickets(id));
+
+            dispatch(createTicketMP(payment_id, purchasedQuantity, {
+                priceTotal: detail.price,
+                date: detail.date,
+                event: detail.name,
+                user: user.firstName
+            }))
+
             successPurchase();
+
+            window.history.pushState(null, "Details", `/details/${id}`);
         }
-    }, [query]);
+    }, [dispatch, query, user.firstName]);
 
     return (
         <div>
@@ -246,25 +294,27 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                <button
-                                    {...(isLogged
-                                        ? {
-                                              onClick: handlePurchase,
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          }
-                                        : {
-                                              onClick: () => {
-                                                  modal();
-                                              },
-                                              className:
-                                                  "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                          })}
-                                >
-                                    <p className="font-bold uppercase">
-                                        Comprar
-                                    </p>
-                                </button>
+                                {!user.artista && (
+                                    <button
+                                        {...(isLogged
+                                            ? {
+                                                onClick: handlePurchase,
+                                                className:
+                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                            }
+                                            : {
+                                                onClick: () => {
+                                                    modal();
+                                                },
+                                                className:
+                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                            })}
+                                    >
+                                        <p className="font-bold uppercase">
+                                            Comprar
+                                        </p>
+                                    </button>
+                                )}
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (
@@ -276,6 +326,7 @@ const EventDetail = () => {
                                                     <img
                                                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668792016/Donde-Suena-Assets/mercado-pago_pxshfi.png"
                                                         className="h-30 object-cover"
+                                                        alt=""
                                                     />
                                                 </div>
                                             </a>
@@ -331,6 +382,6 @@ const EventDetail = () => {
                 </section>
             }
         </div>
-    );
+    )
 };
 export default EventDetail;

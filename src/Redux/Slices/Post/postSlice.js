@@ -4,7 +4,7 @@ export const postSlice = createSlice({
     name: "posts",
     initialState: {
         posts: [],
-        postsId: [],
+        postsId: {},
     },
     reducers: {
         getPostById: (state, action) => {
