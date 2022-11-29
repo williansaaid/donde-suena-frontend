@@ -18,37 +18,18 @@ export const ArtistProfile = () => {
     const { artistId } = useSelector((state) => state.artistId);
     const { scroll } = useSelector((state) => state.scrollState);
 
-    // const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
-    // const contentArray = Array.from(
-    //     document.querySelectorAll("#select-content")
-    // );
 
-    // tabsArray.forEach((tab) => {
-    //     tab.addEventListener("click", () => {
-    //         let target = tab;
-    //         //itero sobre los elementos y les saco el fondo activo
-    //         tabsArray.forEach((tab) => {
-    //             tab.classList.remove("bg-customRed");
-    //         });
-
-    //         const currentTab = tabsArray.indexOf(target);
-
-    //         contentArray.forEach((content) => {
-    //             if (contentArray.indexOf(content) === currentTab) {
-    //                 content.classList.remove("hidden");
-    //             } else if (contentArray.indexOf("content") !== currentTab) {
-    //                 content.classList.add("hidden");
-    //             }
-    //         });
-    //         target.classList.add("bg-customRed");
-    //     });
-    // });
 
     const { user } = useSelector((state) => state.sessionState);
 
     useEffect(() => {
         dispatch(getArtistsById(id));
     }, [dispatch, id]);
+
+    console.log(artistId);
+    useEffect(() => {
+        dispatch(getPostById(artistId?.nickname));
+    }, [dispatch,artistId?.nickname]);
     // const handleScroll = useCallback(() => {
     //     // let coordenadas = scroll[0] + ", " + scroll[1];
     //     // console.log(coordenadas);
@@ -65,9 +46,6 @@ export const ArtistProfile = () => {
         // return window.scrollTo(0, 0);
     }, []);
 
-    // useEffect(() => {
-    //     dispatch(getPostById(artistId?.nickname));
-    // }, [dispatch,artistId?.nickname]);
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
@@ -179,38 +157,7 @@ export const ArtistProfile = () => {
             </div>
             <div>
                 <Tabs></Tabs>
-                {/* <ul className="flex items-center justify-center">
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
-                    >
-                        Publicaciones
-                    </li>
-                    <li
-                        id="select-tab"
-                        className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
-                    >
-                        Eventos
-                    </li>
-                </ul> */}
             </div>
-            {/* <section
-                id="select-content"
-                className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
-            >
-                <div>
-                    <PostCard nickname={artistId.nickname} />
-                </div>
-            </section>
-            <section
-                id="select-content"
-                className="h-90 bg-customGray p-2 text-4xl flex items-center justify-center hidden"
-            >
-                <div>
-                    <ArtistShows id={artistId.id} />
-                </div>
-            </section>
-            <script src="/ArtistProfile"></script> */}
         </div>
     );
 };
