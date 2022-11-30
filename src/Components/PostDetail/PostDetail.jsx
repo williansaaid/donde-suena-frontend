@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
  import { useParams } from "react-router-dom";
 import { getComments } from "../../Redux/Slices/Comments/commentsAction"
 import { Comments } from "../CommentsUser/Comments";
-
+import {DateTime} from "../DateTime/DateTime"
 export const  PostDetail =()=>{
   const dispatch = useDispatch();
-  const {postDetail} =useSelector((state)=>state.postDetail);
+  const {postDetail} =useSelector((state)=>state?.postDetail);
   const {id}=useParams();
-  
+ 
   useEffect(()=>{dispatch(getComments(id))},[dispatch,id])
   
   console.log(postDetail)
@@ -22,14 +22,14 @@ export const  PostDetail =()=>{
                                     <img
                                         class="w-12 h-12 rounded-full object-cover 
                                   shadow "
-                                        src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                        src={postDetail.artists[0]?.image}
                                         // {postDetail.image}
                                         alt="avatar"
                                     />
                                     <div className="grid-rows-{2} ">
                                         <div className="flex-grow pl-3 mr-10 bg-customWhite">
                                             <h2 className="text-lg font-semibold text-gray-900 -mt-1 ml-1 ">
-                                                Nickname
+                                                {postDetail.artists[0]?.nickname}
                                             </h2>
 
                                             <div className="w-full mb-4 ">
@@ -51,8 +51,8 @@ export const  PostDetail =()=>{
                                         </div>
                                     </div>
                                 </div>
-                             
-                               
+                             <DateTime/>
+                                                        
                             </div>
                         </div>
                         <div  className="min h-50 bg-gray-200 flex items-center justify-center object-top">
