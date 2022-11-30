@@ -14,44 +14,52 @@ export const PostDumb = () => {
     }, [dispatch]);
 
     return (
-        <div>
-            <h1>{postsId.nickname}</h1>
-            {postsId.posts &&
-                postsId.posts?.map((el) => {
-                    return (
-                        <div className="min h-50 bg-gray-200 flex items-center justify-center">
-                            <div className="mt-5 w-3/4 flex-col items-center mx-auto rounded-lg bg-white shadow p-5 text-gray-800 bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl">
-                                <img
-                                    class="w-12 h-12 rounded-full object-cover 
-                                  shadow mr-2"
-                                    src={el.image}
-                                    alt="avatar"
-                                />
-                                artist={el.nickname}
-                                <div class="w-full  mr-70">
-                                    <p class="text-xs text-gray-500 text-right">
-                                        Date October 15{el.date}
-                                    </p>
-                                </div>
-                                <div className="w-full flex mb-4 p-2">
-                                    <img
-                                        className="w-52 h-16"
-                                        src={el.image ? el.image : ""}
-                                        alt="postImage"
-                                    />
-                                    <div className="grid-rows-{2}">
-                                        <div className="flex-grow pl-3 mr-10">
-                                            <div className="w-full mb-4">
-                                                <p className="mt-3 text-gray-700 text-sm ml-3">
-                                                    {el.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+        <div class=" rounded overflow-hidden border w-full bg-white mx-3 md:mx-0 lg:mx-0">
+            {postsId.posts?.length &&
+                postsId.posts?.map((el, i) => {
+                    return <div key={i} className="border-b-8 border-customGray ">
+            <div class="w-full flex justify-between p-3">
+                <div class="flex">
+                   
+                    <span class="pt-1 ml-2 font-bold text-sm flex items-center">
+                        <img
+                            class="w-12 h-12 rounded-full object-cover shadow mr-2 text-right font-bold"
+                            src={postsId.image}
+                            alt="avatar"
+                        />
+                        {postsId.nickname}
+                    </span>
+                </div>
+                <span class="px-2 hover:bg-gray-300 cursor-pointer rounded">
+                    <i class="fas fa-ellipsis-h pt-2 text-lg"></i>
+                </span>
+            </div>
+                        {console.log(el)}
+                        <img
+                            class="w-full bg-cover"
+                            src={el.image}
+                            alt={"postImage"}
+                        />
+                        <div class="px-3 pb-2">
+                            <div class="pt-2">
+                                <i class="far fa-heart cursor-pointer"></i>
+                                <span class="text-sm text-gray-400 font-medium">
+                                    {el.likes.length}
+                                </span>
+                            </div>
+                            <div class="pt-1">
+                                <div class="mb-2 text-sm">
+                                    <span class="font-medium mr-2">
+                                        {postsId.nickname}
+                                    </span>{" "}
+                                    {el.description}
                                 </div>
                             </div>
+                            <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">
+                                {el.comments.length}
+                            </div>
                         </div>
-                    );
+                    </div>;
                 })}
         </div>
     );
