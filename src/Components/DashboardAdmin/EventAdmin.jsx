@@ -1,9 +1,12 @@
-import { deleteEvent, getEvents } from "../../Redux/Slices/Event/eventActions";
+import {
+    deleteEvent,
+    getEvents,
+    changeStateEvent,
+} from "../../Redux/Slices/Event/eventActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Graphics } from "./Graphics/Graphics";
 
 export const EventAdmin = ({ eventSearch }) => {
     const dispatch = useDispatch();
@@ -26,6 +29,23 @@ export const EventAdmin = ({ eventSearch }) => {
         });
     };
 
+    const addEventAgain = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "El lugar volverá a estar disponible para los usuarios",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(changeStateEvent(id));
+                window.location.reload();
+            }
+        });
+    };
+
     useEffect(() => {
         dispatch(getEvents());
     }, [dispatch]);
@@ -36,8 +56,6 @@ export const EventAdmin = ({ eventSearch }) => {
     return (
         <div>
             <div className="relative  h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
-                {eventSearch ? null : <Graphics events={events} />}
-
                 <div className="overflow-auto flex flex-col divide-y h-full border rounded-2xl">
                     <div className="flex justify-center">
                         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
@@ -80,7 +98,10 @@ export const EventAdmin = ({ eventSearch }) => {
                                     </svg>
                                 </div>
                                 {a.state === false && (
-                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                    <div
+                                        onClick={() => addEventAgain(a.id)}
+                                        className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-6 w-6"

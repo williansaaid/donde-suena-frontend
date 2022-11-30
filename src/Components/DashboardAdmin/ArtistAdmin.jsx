@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {
     getArtists,
     deleteArtist,
+    changeStateArtist,
 } from "../../Redux/Slices/Artist/artistActions";
 import Swal from "sweetalert2";
 
@@ -27,6 +28,22 @@ export const ArtistAdmin = ({ artistSearch }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteArtist(id));
+                window.location.reload();
+            }
+        });
+    };
+    const addArtistAgain = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "El Artista volverá a estar disponible para los usuarios",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(changeStateArtist(id));
                 window.location.reload();
             }
         });
@@ -81,7 +98,10 @@ export const ArtistAdmin = ({ artistSearch }) => {
                                     </svg>
                                 </div>
                                 {a.state === false && (
-                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                    <div
+                                        onClick={() => addArtistAgain(a.id)}
+                                        className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-6 w-6"

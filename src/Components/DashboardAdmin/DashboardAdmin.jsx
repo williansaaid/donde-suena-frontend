@@ -3,13 +3,14 @@ import { ArtistAdmin } from "./ArtistAdmin";
 import { EventAdmin } from "./EventAdmin";
 import { UsersAdmin } from "./UsersAdmin";
 import { PlacesAdmin } from "./PlacesAdmin";
-import { CreatePlace } from "./CreatePlace";
+import { Navegacion } from "./Navegacion";
 import { getSearch, cleanSearch } from "../../Redux/Slices/Search/searchAction";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { Graphics } from "./Graphics/Graphics";
 
 const DashboardAdmin = () => {
-    const user = useSelector((state) => state.sessionState?.user);
     const search = useSelector((state) => state.searchState?.search);
     const dispatch = useDispatch();
     const [value, setValue] = useState("");
@@ -56,7 +57,13 @@ const DashboardAdmin = () => {
         setValue(e.target.value);
     };
 
+    const user = useSelector((state) => state.sessionState?.user);
     const isAdmin = user.admin || false;
+
+    if (!isAdmin) {
+        return <Navigate to="/" />;
+    }
+
     return (
         <div>
             <form
@@ -77,7 +84,6 @@ const DashboardAdmin = () => {
                     Search
                 </button>
             </form>
-
             {search?.artists?.length > 0 && (
                 <ArtistAdmin artistSearch={search.artists} />
             )}
@@ -104,10 +110,21 @@ const DashboardAdmin = () => {
                 </div>
             )}
 
-            <EventAdmin />
-            <PlacesAdmin />
-            <UsersAdmin />
-            <ArtistAdmin />
+            <div className="flex justify-around ">
+                <div className="flex flex-col w-1/4 mr-4">
+                    <Navegacion />
+                </div>
+                <div className="flex flex-col w-5/4">
+                    <Routes>
+                        <Route path="/" element={<EventAdmin />} />
+                        <Route path="estadisticas" element={<Graphics />} />
+                        <Route path="artistas" element={<ArtistAdmin />} />
+                        <Route path="eventos" element={<EventAdmin />} />
+                        <Route path="lugares" element={<PlacesAdmin />} />
+                        <Route path="usuarios" element={<UsersAdmin />} />
+                    </Routes>
+                </div>
+            </div>
         </div>
     );
 };

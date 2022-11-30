@@ -1,4 +1,8 @@
-import { deleteUser, getAllUsers } from "../../Redux/Slices/Users/usersAction";
+import {
+    deleteUser,
+    getAllUsers,
+    changeStateUser,
+} from "../../Redux/Slices/Users/usersAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -19,6 +23,23 @@ export const UsersAdmin = ({ userSearch }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteUser(id));
+                window.location.reload();
+            }
+        });
+    };
+
+    const addArtistUsers = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "El Artista volverá a estar disponible para los usuarios",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(changeStateUser(id));
                 window.location.reload();
             }
         });
@@ -76,7 +97,10 @@ export const UsersAdmin = ({ userSearch }) => {
                                     </svg>
                                 </div>
                                 {a.state === false && (
-                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                    <div
+                                        onClick={() => addArtistUsers(a.id)}
+                                        className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-6 w-6"

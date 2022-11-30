@@ -9,7 +9,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase, clearUrl, createTicketMP, sendInvoice } from "../../Redux/Slices/User/userAction";
+import {
+    ticketPurchase,
+    clearUrl,
+    createTicketMP,
+    sendInvoice,
+} from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
@@ -67,10 +72,8 @@ const EventDetail = () => {
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
 
-    let payment_id = query.payment_id
-    let purchasedQuantity = query.purchasedQuantity
-
-
+    let payment_id = query.payment_id;
+    let purchasedQuantity = query.purchasedQuantity;
 
     const modal = () => {
         dispatch(setLoginModal());
@@ -93,8 +96,6 @@ const EventDetail = () => {
         });
     };
 
-
-
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -108,8 +109,6 @@ const EventDetail = () => {
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
-
-
 
     const handlePurchase = () => {
         setOrder(false);
@@ -138,20 +137,13 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
-
-
-
     useEffect(() => {
         window.scrollTo(0, 100);
         dispatch(clearUrl());
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
-
     }, [dispatch, id, searchParams]);
-
-
-
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
@@ -175,16 +167,18 @@ const EventDetail = () => {
                     name: user.firstName,
                     email: user.email,
                     quantity: parseInt(query.purchasedQuantity),
-                    id: id
+                    id: id,
                 })
             );
 
-            dispatch(createTicketMP(payment_id, purchasedQuantity, {
-                priceTotal: detail.price,
-                date: detail.date,
-                event: detail.name,
-                user: user.firstName
-            }))
+            dispatch(
+                createTicketMP(payment_id, purchasedQuantity, {
+                    priceTotal: detail.price,
+                    date: detail.date,
+                    event: detail.name,
+                    user: user.firstName,
+                })
+            );
 
             successPurchase();
 
@@ -293,17 +287,17 @@ const EventDetail = () => {
                                     <button
                                         {...(isLogged
                                             ? {
-                                                onClick: handlePurchase,
-                                                className:
-                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                            }
+                                                  onClick: handlePurchase,
+                                                  className:
+                                                      "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                              }
                                             : {
-                                                onClick: () => {
-                                                    modal();
-                                                },
-                                                className:
-                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                            })}
+                                                  onClick: () => {
+                                                      modal();
+                                                  },
+                                                  className:
+                                                      "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                              })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar
@@ -377,6 +371,6 @@ const EventDetail = () => {
                 </section>
             }
         </div>
-    )
+    );
 };
 export default EventDetail;

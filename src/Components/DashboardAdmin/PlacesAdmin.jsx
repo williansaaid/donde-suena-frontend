@@ -3,6 +3,7 @@ import {
     deletePlaces,
     createPlaces,
     updatePlaces,
+    changeStatePlace,
 } from "../../Redux/Slices/Places/placesAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -10,6 +11,23 @@ import Swal from "sweetalert2";
 export const PlacesAdmin = ({ placeSearch }) => {
     const dispatch = useDispatch();
     let { places } = useSelector((state) => state.placesState);
+
+    const addPlaceAgain = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "El lugar volverá a estar disponible para los usuarios",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(changeStatePlace(id));
+                window.location.reload();
+            }
+        });
+    };
 
     const trashEmpty = (id) => {
         Swal.fire({
@@ -187,12 +205,6 @@ export const PlacesAdmin = ({ placeSearch }) => {
                                     <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
                                         {a.postCode}
                                     </strong>
-                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
-                                        {a.phone}
-                                    </strong>
-                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
-                                        {a.email}
-                                    </strong>
                                 </div>
                                 <div
                                     className="flex items-center gap-4 p-4 cursor-pointer bg-red-500 rounded-md text-white font-bold hover:bg-red-600 transition duration-300"
@@ -233,7 +245,10 @@ export const PlacesAdmin = ({ placeSearch }) => {
                                     </svg>
                                 </div>
                                 {a.state === false && (
-                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                    <div
+                                        onClick={() => addPlaceAgain(a.id)}
+                                        className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-6 w-6"
