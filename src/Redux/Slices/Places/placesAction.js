@@ -49,9 +49,9 @@ export const createPlaces = (place) => (dispatch) => {
         });
 };
 
-export const updatePlaces = (place) => (dispatch) => {
+export const updatePlaces = (id, values) => (dispatch) => {
     axios
-        .put(`/place/updatePlace/${place.id}`, place)
+        .put(`/place/updatePlace/${id}`, values)
         .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };

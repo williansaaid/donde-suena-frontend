@@ -15,7 +15,7 @@ export const ArtistAdmin = () => {
         dispatch(getArtists());
     }, [dispatch]);
 
-    const tashEvent = (id) => {
+    const trashEmpty = (id) => {
         Swal.fire({
             title: "¿Estás seguro?",
             text: "No podrás revertir esta acción",
@@ -59,7 +59,7 @@ export const ArtistAdmin = () => {
                                 </Link>
                                 <div
                                     className="flex items-center gap-4 p-4 cursor-pointer bg-red-500 rounded-md text-white font-bold hover:bg-red-600 transition duration-300"
-                                    onClick={() => tashEvent(a.id)}
+                                    onClick={() => trashEmpty(a.id)}
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ export const ArtistAdmin = () => {
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                             strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
+                                            d="M17 6V5C17 3.89543 16.1046 3 15 3H9C7.89543 3 7 3.89543 7 5V6H4C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8H5V19C5 20.6569 6.34315 22 8 22H16C17.6569 22 19 20.6569 19 19V8H20C20.5523 8 21 7.55228 21 7C21 6.44772 20.5523 6 20 6H17ZM15 5H9V6H15V5ZM17 8H7V19C7 19.5523 7.44772 20 8 20H16C16.5523 20 17 19.5523 17 19V8Z"
                                         />
                                     </svg>
                                 </div>

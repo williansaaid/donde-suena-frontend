@@ -7,6 +7,9 @@ import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 const ForgotPassword = () => {
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(setLoginModal());
+    });
     return (
         <div className="h-full w-full flex flex-col items-center justify-center font-source-sans">
             <Formik
@@ -14,13 +17,13 @@ const ForgotPassword = () => {
                 validate={(values) => {
                     const errors = {};
                     if (!values.email) {
-                        errors.email = "Required";
+                        errors.email = "Requerido";
                     } else if (
                         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                             values.email
                         )
                     ) {
-                        errors.email = "Invalid email address";
+                        errors.email = "Dirección email inválida";
                     }
                     return errors;
                 }}
@@ -31,10 +34,10 @@ const ForgotPassword = () => {
             >
                 {({ isSubmitting, errors }) => (
                     <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
-                        <h4 className="text-2xl font-bold text-customYellow">
+                        <h4 className="text-3xl font-bold text-white uppercase">
                             Recupera tu contraseña
                         </h4>
-                        <div className="flex flex-wrap w-full">
+                        <div className="flex flex-wrap w-full justify-evenly">
                             <div className="w-full md:w-1/2 px-3">
                                 <label
                                     htmlFor="email"
@@ -61,7 +64,7 @@ const ForgotPassword = () => {
                                 </ErrorMessage>
                             </div>
                             <button
-                                className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-8 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-3 mb-3"
+                                className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-8 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-3 mb-3 h-fit w-fit transition duration-300 ease-in-out"
                                 type="submit"
                                 disabled={isSubmitting}
                             >

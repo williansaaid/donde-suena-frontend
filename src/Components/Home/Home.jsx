@@ -46,7 +46,7 @@ const Home = () => {
                 <div className="flex flex-wrap py-10">
                     <div className="w-1/6 max-h-screen flex flex-col items-center pt-20 gap-8">
                         <h3 className="text-xl font-semibold text-customGray uppercase italic lg:text-2xl text-center">
-                            Artistas Favoritos
+                            Todos los Artistas
                         </h3>
                         <ArtistsSection />
                     </div>
@@ -61,6 +61,15 @@ const Home = () => {
                             Talento Emergente
                         </h3>
                         <ArtistsSection />
+                    </div>
+                    <div className="fixed bottom-40 right-1">
+                        <a href="https://wa.me/51961392140" target="_blank">
+                            <img
+                                className="h-20 cursor-pointer"
+                                src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669761037/Donde-Suena-Assets/WhatsApp_tzq2en.png"
+                                alt="WhatsApp"
+                            />
+                        </a>
                     </div>
                 </div>
             </div>

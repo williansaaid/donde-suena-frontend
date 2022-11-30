@@ -42,7 +42,7 @@ function App() {
                     <Route
                         path="/admin"
                         element={
-                            isAdmin && token ? (
+                            isAdmin && isLogged ? (
                                 <DashboardAdmin />
                             ) : (
                                 <Navigate to="/" />

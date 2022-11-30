@@ -6,14 +6,12 @@ import {
 } from "../../Redux/Slices/Places/placesAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-
 export const PlacesAdmin = () => {
     const dispatch = useDispatch();
     const { places } = useSelector((state) => state.placesState);
 
-    const tashEvent = (id) => {
+    const trashEmpty = (id) => {
         Swal.fire({
             title: "¿Estás seguro?",
             text: "No podrás revertir esta acción",
@@ -42,6 +40,7 @@ export const PlacesAdmin = () => {
             <input id="email" class="swal2-input" placeholder="Email">
             <input id="image" class="swal2-input" placeholder="Imagen">
             `,
+
             focusConfirm: false,
             preConfirm: () => {
                 return {
@@ -55,10 +54,78 @@ export const PlacesAdmin = () => {
                 };
             },
         }).then((result) => {
-            console.log(result.value);
-            dispatch(createPlaces(result.value));
-            window.location.reload();
+            if (result.isConfirmed) {
+                // si le falta algun campo  no se crea
+                if (
+                    !result.value.name ||
+                    !result.value.address ||
+                    !result.value.city ||
+                    !result.value.postCode ||
+                    !result.value.phone ||
+                    !result.value.email ||
+                    !result.value.image
+                ) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Faltan campos",
+                    });
+                    return;
+                }
+
+                dispatch(createPlaces(result.value));
+                window.location.reload();
+            }
         });
+    };
+
+    const updatePlace = (place) => {
+        Swal.fire({
+            title: "Actualizar lugar",
+            html: `
+            <input id="name" class="swal2-input" placeholder="Nombre" value="${place.name}">
+            <input id="address" class="swal2-input" placeholder="Dirección" value="${place.address}">
+            <input id="city" class="swal2-input" placeholder="Ciudad" value="${place.city}">
+            <input id="postCode" class="swal2-input" placeholder="PostCode" value="${place.postCode}">
+            <input id="phone" class="swal2-input" placeholder="phone" value="${place.phone}">
+            <input id="email" class="swal2-input" placeholder="Email" value="${place.email}">
+            <input id="image" class="swal2-input" placeholder="Imagen" value="${place.image}">
+            `,
+            focusConfirm: false,
+            preConfirm: () => {
+                return {
+                    name: document.getElementById("name").value,
+                    address: document.getElementById("address").value,
+                    city: document.getElementById("city").value,
+                    postCode: document.getElementById("postCode").value,
+                    phone: document.getElementById("phone").value,
+                    email: document.getElementById("email").value,
+                    image: document.getElementById("image").value,
+                };
+            },
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    // si el usuario no cambia nada, no se actualiza
+                    if (
+                        result.value.name === place.name &&
+                        result.value.address === place.address &&
+                        result.value.city === place.city &&
+                        result.value.postCode === place.postCode &&
+                        result.value.phone === place.phone &&
+                        result.value.email === place.email &&
+                        result.value.image === place.image
+                    ) {
+                        return;
+                    }
+
+                    dispatch(updatePlaces(place.id, result.value));
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     useEffect(() => {
@@ -66,7 +133,7 @@ export const PlacesAdmin = () => {
     }, [dispatch]);
     return (
         <div>
-            <div className="relative max-w-md h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
+            <div className="relative  h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
                 <div className="overflow-auto flex flex-col divide-y h-full border rounded-2xl">
                     <div className="flex justify-center">
                         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
@@ -96,23 +163,35 @@ export const PlacesAdmin = () => {
                     </div>
                     {places?.map((a, i) => {
                         return (
-                            <div
-                                className="flex items-center gap-4 p-4"
-                                key={i}
-                            >
-                                <Link to={`/details/${a.id}`}>
-                                    <img
-                                        className="w-12 h-12 rounded-full object-cover"
-                                        src={a.image}
-                                        alt=""
-                                    />
-                                    <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
-                                        {a.name}
+                            <div className="flex items-center gap-4" key={i}>
+                                <img
+                                    className="w-12 h-12 rounded-full object-cover"
+                                    src={a.image}
+                                    alt=""
+                                />
+                                <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
+                                    {a.name}
+                                </strong>
+                                <div className="flex items-center gap-4">
+                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
+                                        {a.address}
                                     </strong>
-                                </Link>
+                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
+                                        {a.city}
+                                    </strong>
+                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
+                                        {a.postCode}
+                                    </strong>
+                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
+                                        {a.phone}
+                                    </strong>
+                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
+                                        {a.email}
+                                    </strong>
+                                </div>
                                 <div
                                     className="flex items-center gap-4 p-4 cursor-pointer bg-red-500 rounded-md text-white font-bold hover:bg-red-600 transition duration-300"
-                                    onClick={() => tashEvent(a.id)}
+                                    onClick={() => trashEmpty(a.id)}
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -126,6 +205,25 @@ export const PlacesAdmin = () => {
                                             strokeLinejoin="round"
                                             strokeWidth={2}
                                             d="M6 18L18 6M6 6l12 12"
+                                        />
+                                    </svg>
+                                </div>
+                                <div
+                                    onClick={() => updatePlace(a)}
+                                    className="flex items-center gap-4 p-4 cursor-pointer bg-yellow-500 rounded-md text-white font-bold hover:bg-yellow-600 transition duration-300"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-6 w-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M3,18 L14.9997108,6 L18,9 L6,21 L3,21 L3,18 Z M16,5 L17.9997108,3 L21,6 L18.9989741,8.00102587 L16,5 Z"
                                         />
                                     </svg>
                                 </div>
