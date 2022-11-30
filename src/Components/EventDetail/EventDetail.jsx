@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import {
-    getEventsById,
-    updateTickets,
-    getQuantityTickets,
-} from "../../Redux/Slices/Event/eventActions";
+import { getEventsById, updateTickets, getQuantityTickets } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
@@ -70,8 +66,6 @@ const EventDetail = () => {
     let payment_id = query.payment_id
     let purchasedQuantity = query.purchasedQuantity
 
-
-
     const modal = () => {
         dispatch(setLoginModal());
     };
@@ -93,8 +87,6 @@ const EventDetail = () => {
         });
     };
 
-
-
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -105,11 +97,10 @@ const EventDetail = () => {
             dispatch(changeLoading());
         }, 500);
     }, [dispatch]);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
-
-
 
     const handlePurchase = () => {
         setOrder(false);
@@ -138,9 +129,6 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
-
-
-
     useEffect(() => {
         window.scrollTo(0, 100);
         dispatch(clearUrl());
@@ -149,9 +137,6 @@ const EventDetail = () => {
         setOrder(false);
 
     }, [dispatch, id, searchParams]);
-
-
-
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
@@ -226,9 +211,9 @@ const EventDetail = () => {
                             <h1 className="font-bold uppercase text-3xl text-center my-5">
                                 {detail.name}
                             </h1>
-                            <p className="leading-relaxed">
+                            <div className="leading-relaxed h-fit w-full overflow-hidden">
                                 {detail.description}
-                            </p>
+                            </div>
                             <p className="leading-relaxed">
                                 <span className="font-bold mr-2">
                                     ⏰ Hora de Inicio:
@@ -289,27 +274,27 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                {!user.artista && (
+                                {
                                     <button
                                         {...(isLogged
                                             ? {
                                                 onClick: handlePurchase,
                                                 className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
                                             }
                                             : {
                                                 onClick: () => {
                                                     modal();
                                                 },
                                                 className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
                                             })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar
                                         </p>
                                     </button>
-                                )}
+                                }
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (

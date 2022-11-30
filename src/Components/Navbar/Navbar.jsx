@@ -5,11 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { logOut } from "../../Redux/Slices/Session/sessionActions";
 import { setScroll } from "../../Redux/Slices/Scroll/ScrollActions";
-
-import {
-    togleAtristState,
-    togleUserState,
-} from "../../Redux/Slices/Profile/ProfileActions";
+import { togleAtristState, togleUserState } from "../../Redux/Slices/Profile/ProfileActions";
 import DropdownItem from "./DropdownItem";
 import { IoIosCog, IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
@@ -18,6 +14,7 @@ import { AiOutlineStar } from "react-icons/ai";
 import { FaAngleDown } from "react-icons/fa";
 
 import "./Navbar.css";
+
 function Navbar() {
     const location = useLocation();
     const menuRef = useRef();
@@ -26,7 +23,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user);
 
     useEffect(() => {
         let handler = (e) => {
@@ -44,6 +40,7 @@ function Navbar() {
     useEffect(() => {
         setOpen(false);
     }, [location.pathname]);
+
     useEffect(() => {
         if (!location.pathname.includes("/userProfile")) {
             dispatch(togleUserState(false));
@@ -56,6 +53,7 @@ function Navbar() {
 
         navigate(`artistProfile/${user.id}`);
     };
+
     const handleUserProfile = () => {
         dispatch(togleUserState(true));
         navigate(`/userProfile/${user.id}`);
@@ -66,9 +64,11 @@ function Navbar() {
         if (!user.artista) navigate(`/userProfile/${user.id}`);
         else navigate(`artistProfile/${user.id}`);
     };
+
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
+
     const handleLogout = () => {
         dispatch(logOut());
         // si existe la propiedad email en el localStorage, la borra
@@ -83,17 +83,22 @@ function Navbar() {
         }
         navigate("/");
     };
+    
     const handleArtistDashboard = () => {
         navigate(`/myDashboard`);
+    };
+    
+    const handleAdminDashboard = () => {
+        navigate(`/admin`);
     };
 
     return (
         <>
-            <nav className="bg-customGray relative w-full flex items-center justify-center h-28">
+            <nav className="bg-customGray relative w-full flex items-center justify-center h-32">
                 <div className="container flex justify-between items-center min-w-full px-5">
                     <img
                         onClick={() => navigate("/")}
-                        className="h-20 cursor-pointer animate-pulse"
+                        className="h-20 cursor-pointer animate-pulse mb-4 ml-6"
                         src={
                             "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                         }
@@ -109,7 +114,7 @@ function Navbar() {
                         {!user.isLogged ? (
                             <div
                                 onClick={handleLogin}
-                                className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                                className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3 mr-6"
                             >
                                 <img
                                     className="h-full"
@@ -151,7 +156,21 @@ function Navbar() {
                                         open ? "active" : "inactive"
                                     }`}
                                 >
-                                    <ul>
+                                    <ul><div
+                                            className={
+                                                !user.admin
+                                                    ? "hidden"
+                                                    : "active"
+                                            }
+                                            onClick={handleAdminDashboard}
+                                        >
+                                            <DropdownItem
+                                                img={
+                                                    <IoIosCog size={"1.3rem"} />
+                                                }
+                                                text="Dashboard"
+                                            />
+                                        </div>
                                         <div
                                             className={
                                                 !user.artista

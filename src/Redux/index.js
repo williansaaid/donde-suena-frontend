@@ -26,8 +26,7 @@ import users from "./Slices/Users/usersSlice";
 import commentsId from "./Slices/Comments/commentsSlices";
 import profile from "./Slices/Profile/ProfileSlice";
 import scroll from "./Slices/Scroll/ScrollSlice";
-
-
+import postDetail from "./Slices/Comments/commentsSlices"
 const persistConfig = {
     key: "root",
     storage,
@@ -59,7 +58,8 @@ const rootReducer = combineReducers({
     usersState: users,
     profileState: profile,
     scrollState: scroll,
-    commentsId: commentsId,
+    commentsId:commentsId,
+    postDetail:postDetail
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
