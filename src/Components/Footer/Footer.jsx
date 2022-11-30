@@ -14,7 +14,7 @@ export default function Footer() {
                     <footer className="md:flex md:items-center md:justify-between md:p-4">
                         <img
                             onClick={() => navigate("/")}
-                            className="h-20"
+                            className="h-20 ml-6"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
@@ -43,7 +43,7 @@ export default function Footer() {
                                 />
                             </li>
                         </ul>
-                        <ul className="flex flex-wrap items-center text-sm sm:mt-4">
+                        <ul className="flex flex-wrap items-center text-base sm:mt-4 mr-6">
                             <li>
                                 <a href="/team" className="text-white">
                                     Sobre Nosotros
