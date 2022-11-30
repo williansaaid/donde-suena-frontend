@@ -37,20 +37,18 @@ export const getEventsById = (id) => (dispatch) => {
         .catch((e) => console.log(e));
 };
 
-export const submitEventForm = (values) => (dispatch) => {
-    return axios
-        .post("/event/createEvent", values)
-        .then((res) => {
+export const submitEventForm = (values) => {
+    return async function (){
+        try {
+            const res = await axios.post("/event/createEvent", values);
             successCreationAlert();
-            console.log(res.data.event.id);
             return res.data.event.id;
-        })
-        .catch((e) => {
-            console.log(e);
+        } catch (e) {
             e.response.data
                 ? errorCreationAlert(e.response.data.msg)
                 : console.log(e);
-        });
+        }
+    }
 };
 export const getEventByName = (name) => async (dispatch) => {
     try {

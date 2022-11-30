@@ -24,7 +24,7 @@ import DashboardAdmin from "./Components/DashboardAdmin/DashboardAdmin";
 
 import { useSelector } from "react-redux";
 import ArtistShows from "./Components/ArtistShows/ArtistShows";
-
+import PostDetail from "./Components/PostDetail/PostDetail";
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
 
@@ -106,6 +106,7 @@ function App() {
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path={"/postHome"} element={<PostHome />} />
+                    <Route path={"/postHome/:id"} element={<PostDetail/>}/>
                     <Route
                         path={"/userProfile/:id"}
                         element={<UserProfile />}
