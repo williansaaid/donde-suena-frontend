@@ -1,25 +1,27 @@
-
+import { useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
 
 
-export const Comment = ({comment , replies ,currentUserId , eliminateComment ,addComment, activeComment ,setActiveComment , parentId=null, modifyComment}) =>{
+export const Comment = ({comments , replies ,currentUserId , eliminateComment ,addComment, activeComment ,setActiveComment , parentId=null, modifyComment,idposts}) =>{
  //en el caso de que el usuario no este logeado , su user id es null , por lo tanto solo puede responder si esta logeado 
+ const user = useSelector((state) => state.sessionState?.user)
+ const artists=useSelector((state)=>state.sessionState?.artists)
  const isEditing =
     activeComment &&
-    activeComment.id === comment.id &&
+    activeComment.id === comments.id &&
     activeComment.type === "editing";
   const isReplying =
     activeComment &&
-    activeComment.id === comment.id &&
+    activeComment.id === comments.id &&
     activeComment.type === "replying";
   const canReply = Boolean (currentUserId)
-  const canEdit =currentUserId ===comment.userId
-  const canDelete = currentUserId===comment.userId
+  const canEdit =currentUserId ===comments.userId
+  const canDelete = currentUserId===comments.userId
   //la variable createdAt me permite que se pueda ver la fecha de "una Manera mas amistosa"
-  const createdAt = new Date(comment.createdAt).toLocaleDateString();
+  const createdAt = new Date(comments.createdAt).toLocaleDateString();
   
  
- const replyId = parentId? parentId : comment.id;
+ const replyId = parentId? parentId : comments.id;
   
  
  return (
@@ -32,20 +34,21 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
   <img className="object-cover w-12 h-12 border-2 border-gray-300 rounded-full" alt="Noob master's avatar"
                     src="https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80"/>
   <div className="flex-col mt-1">
-  <div class="flex items-center flex-1 px-4 font-bold leading-tight">  {comment.username}
+  <div class="flex items-center flex-1 px-4 font-bold leading-tight">  {comments.username}
                         <span class="ml-2 text-xs font-normal text-gray-500">{createdAt}</span>
                         </div>
                         {  !isEditing &&  <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">
-      {comment.body}
+      {comments.body}
       </div>}
       
       {isEditing && (
         <CommentForm
         submitLabel="Update"
         hasCancelButton
-        initialText={comment.body}
-        handleSubmit={(text)=>modifyComment(text,comment.id)}
+        initialText={comments.body}
+        handleSubmit={(text)=>modifyComment(text,comments.id)}
         handleCancel={()=>setActiveComment(null)}
+        idposts={idposts}
         />
         )}
   </div>
@@ -54,19 +57,20 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
 <div className="comment-right part">
   <div className="comment-content">
     <div className="comment-Author">
-      {comment.username}
+      {comments.username}
       <div>{createdAt}</div>
     </div>
   {  !isEditing &&  <div className="comment-text">
-      {comment.body}
+      {comments.body}
       </div>}
       {isEditing && (
         <CommentForm
         submitLabel="Update"
         hasCancelButton
-        initialText={comment.body}
-        handleSubmit={(text)=>modifyComment(text,comment.id)}
+        initialText={comments.body}
+        handleSubmit={(text)=>modifyComment(text,comments.id)}
         handleCancel={()=>setActiveComment(null)}
+        idposts={idposts}
         />
         )}
       <div className="comments-actions-buttons "  class="flex items-stretch">
@@ -74,7 +78,7 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
        && 
        <button className="comments-actions-buttons " class=" ml-7 mr-2 text-sm font-medium leading-loose text-gray-600"
        onClick={()=>
-        setActiveComment({ id:comment.id ,type:"replying"})} 
+        setActiveComment({ id:comments.id ,type:"replying"})} 
         >
           <div class="flex flex-row">
           <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-response-30_bgrxrb.png" alt="respondericon" width="20px"/>
@@ -85,7 +89,7 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
         {canEdit   &&
         <button className=" ml-3 mr-6 text-sm font-medium leading-loose text-gray-600"
         onClick={()=>
-          setActiveComment({ id:comment.id ,type:"editing"})}
+          setActiveComment({ id:comments.id ,type:"editing"})}
           >
             <div class="flex flex-row">
 <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-pencil-30_ufpgqp.png" alt="editarIcono" width="20px"/>
@@ -95,7 +99,7 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
       { canDelete && 
       <button 
       className=" ml-3 mr-6 text-sm font-medium leading-loose text-gray-600"
-      onClick={()=> eliminateComment (comment.id)} 
+      onClick={()=> eliminateComment (comments.id)} 
       >
         <div class="flex flex-row">
 <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-trash-can-30_ygzque.png" alt="eliminarIcono" width="20px"/>
@@ -109,6 +113,7 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
       <CommentForm
       submitLabel="Contestar"
       handleSubmit={(text)=> addComment (text, replyId)}
+                                                                      
       />
       
       
@@ -128,7 +133,8 @@ export const Comment = ({comment , replies ,currentUserId , eliminateComment ,ad
           setActiveComment={setActiveComment}
           modifyComment={modifyComment}
           // no es parent id por que es cuando creo una respuesta crea form de comments de vuelta
-          parentId={comment.id}
+          parentId={comments.id}
+          idposts={idposts}
           /> 
           // replies lo seteamos como un array vacio ya que las respuestas no pueden anidar otra respuestas , por tema de rendimiento a gran escala , recordar que tenemos que pasarle el current user id por que en cada respuesta hay que otorgar la misma info en que adentro de nuestro comentario 
           
