@@ -64,6 +64,7 @@ export const PostVar = () => {
                 artist: "",
                 description: "",
             });
+            window.location.reload();
         }
     }
     useEffect(() => {}, [dispatch]);
