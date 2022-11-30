@@ -27,7 +27,7 @@ export default function DropdownGenreFilter() {
                     height="20px"
                     width="20px"
                 />
-                <span className="pr-1 font-semibold flex-1">Genero</span>
+                <span className="pr-1 font-semibold flex-1">Género</span>
                 <span>
                     <svg
                         className="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out"

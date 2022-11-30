@@ -12,9 +12,11 @@ const UserForm = () => {
     const [loading, setLoading] = useState("");
     const [success, setSuccess] = useState(false);
     const [image, setImage] = useState("");
+
     function navegar() {
         navigate("/");
     }
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -29,6 +31,7 @@ const UserForm = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
             <Formik
@@ -156,7 +159,6 @@ const UserForm = () => {
                                 )}
                             </ErrorMessage>
                         </div>
-                        {/* </div> */}
                         <div className="flex flex-wrap w-full">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label
@@ -285,6 +287,11 @@ const UserForm = () => {
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400"
                             />
                         </div>
+                        {image ?
+                            <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
+                                <img src={image} className="object-cover w-full h-full" alt="preview"/>
+                            </div> : null
+                        }
                         <div className="flex flex-row-reverse items-center justify-center gap-2 mt-3">
                             <label
                                 htmlFor="acceptedTerms"

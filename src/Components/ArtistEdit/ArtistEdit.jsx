@@ -14,6 +14,7 @@ const ArtistEditForm = () => {
     const [loading, setLoading] = useState("");
     const [success, setSuccess] = useState(false);
     const [ id ] = useState(user.uid?user.uid:user.id);
+
     const onSubmit = (values, actions) => {
         const formValues = {
             ...values,
@@ -28,6 +29,7 @@ const ArtistEditForm = () => {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -42,6 +44,7 @@ const ArtistEditForm = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
         useFormik({
             initialValues: {
@@ -55,7 +58,6 @@ const ArtistEditForm = () => {
             validationSchema: editArtistSchema,
             onSubmit,
         });
-
 
     return (
         <div className="h-full w-full flex flex-col items-center justify-center bg-customGray font-source-sans rounded-3xl">

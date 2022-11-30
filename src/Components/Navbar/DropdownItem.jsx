@@ -10,7 +10,6 @@ export default function DropdownItem(props) {
                 ) : (
                     <div>{props.img}</div>
                 )}
-
                 <a className="font-medim"> {props.text} </a>
             </div>
         </li>
