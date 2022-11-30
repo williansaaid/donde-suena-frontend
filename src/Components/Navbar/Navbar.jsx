@@ -26,7 +26,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user);
 
     useEffect(() => {
         let handler = (e) => {

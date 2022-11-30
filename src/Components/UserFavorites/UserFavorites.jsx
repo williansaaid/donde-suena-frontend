@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const UserFavorites = () => {
     const dispatch = useDispatch();
     const { favorites } = useSelector((state) => state.favoritesState);
+    console.log(favorites);
 
     useEffect(() => {
         dispatch(getFavorites());
