@@ -3,6 +3,7 @@ import {
     getAllArtists,
     getAllArtistById,
     getArtistEvents,
+    cleanAllDetail,
 } from "./artistSlice";
 
 export const getArtists = () => (dispatch) => {
@@ -52,3 +53,6 @@ export const deleteArtist = (id) => (dispatch) => {
             console.log(e);
         });
 };
+export const cleanDetail = () => (dispatch) => {
+    dispatch(cleanAllDetail([]))
+}

@@ -16,12 +16,16 @@ export const artistSlice = createSlice({
         },
         getArtistEvents: (state, action) => {
             state.eventsArtist = action.payload;
-        }
+        },
+        cleanAllDetail: (state, action) =>{
+            state.eventsArtist = action.payload;
+        },
     }
 })
 export const {
     getAllArtists,
     getAllArtistById,
-    getArtistEvents
+    getArtistEvents,
+    cleanAllDetail,
 } = artistSlice.actions;
 export default artistSlice.reducer;
