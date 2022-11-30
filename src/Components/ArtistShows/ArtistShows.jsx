@@ -14,12 +14,12 @@ const ArtistShows = ({ id }) => {
     }, [dispatch, id]);
 
     return (
-        <div className="container mt-2">
+        <div className="container mt-2 ">
             {eventsArtist &&
                 eventsArtist?.map((el, id) => {
                     return (
                         <div key={id} 
-                        className="grid grid-cols-3 border border-black rounded-md items-center bg-neutral-800">
+                        className="grid grid-cols-3 border border-black rounded-md items-center bg-neutral-800 mb-2">
                             <Link to={`/details/${el.id}`}>
                                 <div className="col-span-1">
                                     <img
