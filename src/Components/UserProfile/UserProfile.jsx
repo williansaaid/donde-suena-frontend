@@ -52,6 +52,9 @@ export default function UserProfile() {
     useEffect(() => {
         if (profileUserState && tabsArray[1]) {
             handleChangeTab(tabsArray[1]);
+            // } else handleChangeTab(tabsArray[0]);
+        } else if (!profileUserState && tabsArray[1]) {
+            handleChangeTab(tabsArray[0]);
         }
     }, [tabsArray]);
 
