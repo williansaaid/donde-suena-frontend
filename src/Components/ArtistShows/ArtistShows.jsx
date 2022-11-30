@@ -19,11 +19,11 @@ const ArtistShows = () => {
     }, [dispatch, id]);
 
     return (
-        <div class="max-w-2xl w-full lg:flex items-center ">
+        <div class="max-w-2xl w-full lg:flex-col items-center ">
             {eventsArtist &&
                 eventsArtist?.map((el, id) => {
                     return (
-                        <div class="border-r border-b border-l border-grey-light  lg:border-t lg:border-grey-light bg-gray-300 rounded-t rounded-b lg:rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                        <div class="border-r border-b-8 border-l border-customGray  lg:border-t lg:border-grey-light bg-gray-300 rounded-t rounded-b lg:rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                             <div class="mb-8">
                                 <Link to={`/details/${el.id}`}>
                                     <div>

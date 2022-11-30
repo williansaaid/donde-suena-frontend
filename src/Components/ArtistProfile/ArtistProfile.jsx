@@ -58,7 +58,7 @@ export const ArtistProfile = () => {
             <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                     <div className="w-full flex justify-center">
-                        <div className="relative">
+                        <div className="relative w-60 h-60">
                             <img
                                 src={artistId.image}
                                 className="shadow-xl shadow-customGray rounded-full items-center p-2 mt-10"
