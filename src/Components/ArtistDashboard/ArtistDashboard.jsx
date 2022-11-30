@@ -90,7 +90,7 @@ const ArtistDashboard = () => {
                         eventsArtist.map((event) => {
                             return (
                                 <div key={event.id}
-                                    className="flex rounded-3xl p-8 bg-customGray text-white items-center w-1/3 my-4"
+                                    className="flex rounded-3xl p-8 bg-customGray text-white items-center w-1/3 m-4"
                                 >
                                     <div className="flex flex-col w-full gap-8">
                                         <h4 className="text-2xl font-bold uppercase border-2 rounded-3xl px-4 w-fit">

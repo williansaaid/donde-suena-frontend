@@ -226,9 +226,9 @@ const EventDetail = () => {
                             <h1 className="font-bold uppercase text-3xl text-center my-5">
                                 {detail.name}
                             </h1>
-                            <p className="leading-relaxed">
+                            <div className="leading-relaxed h-fit w-full overflow-hidden">
                                 {detail.description}
-                            </p>
+                            </div>
                             <p className="leading-relaxed">
                                 <span className="font-bold mr-2">
                                     ⏰ Hora de Inicio:
@@ -289,27 +289,27 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                {!user.artista && (
+                                {
                                     <button
                                         {...(isLogged
                                             ? {
                                                 onClick: handlePurchase,
                                                 className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
                                             }
                                             : {
                                                 onClick: () => {
                                                     modal();
                                                 },
                                                 className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
                                             })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar
                                         </p>
                                     </button>
-                                )}
+                                }
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (

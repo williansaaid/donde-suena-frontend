@@ -26,7 +26,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
-    console.log(user);
 
     useEffect(() => {
         let handler = (e) => {
@@ -85,6 +84,9 @@ function Navbar() {
     };
     const handleArtistDashboard = () => {
         navigate(`/myDashboard`);
+    };
+    const handleAdminDashboard = () => {
+        navigate(`/admin`);
     };
 
     return (
@@ -151,7 +153,21 @@ function Navbar() {
                                         open ? "active" : "inactive"
                                     }`}
                                 >
-                                    <ul>
+                                    <ul><div
+                                            className={
+                                                !user.admin
+                                                    ? "hidden"
+                                                    : "active"
+                                            }
+                                            onClick={handleAdminDashboard}
+                                        >
+                                            <DropdownItem
+                                                img={
+                                                    <IoIosCog size={"1.3rem"} />
+                                                }
+                                                text="Dashboard"
+                                            />
+                                        </div>
                                         <div
                                             className={
                                                 !user.artista
