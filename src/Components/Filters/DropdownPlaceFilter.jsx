@@ -12,18 +12,16 @@ export default function DropdownPlaceFilter() {
 
     return (
         <div className="group inline-block">
-            <button className="outline-none focus:outline-none px-3 py-1 bg-customGray rounded-sm flex items-center min-w-32 gap-x-1.5">
+            <button className="outline-none focus:outline-none px-3 py-1 bg-customGray rounded-sm flex items-center min-w-32 gap-2">
                 <img
-                    className="max-h-5"
+                    className="h-5 w-auto"
                     src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Locaci%C3%B3n_y0tkpm.png"
                     alt="locationIcon"
-                    height="20px"
-                    width="20px"
                 />
-                <span className="pr-1 font-semibold flex-1">Lugar</span>
+                <span className="font-semibold flex-1">Lugar</span>
                 <span>
                     <svg
-                        className="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+                        className="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-300 ease-in-out"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                     >
@@ -31,17 +29,16 @@ export default function DropdownPlaceFilter() {
                     </svg>
                 </span>
             </button>
-            <ul class="flex flex-row grid grid-cols-3 bg-customGray border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32" onClick={(e) => handlePlaceFilter(e)}>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Buenos Aires"}>Buenos Aires</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Lima"}>Lima</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cordoba"}>Cordoba</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Medellín"}>Medellín</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Santiago"}>Santiago</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rio Cuarto"}>Rio Cuarto</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rosario"}>Rosario</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"La Plata"}>La Plata</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cali"}>Cali</li>
-
+            <ul class="grid grid-cols-3 bg-customGray border rounded-xl transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32 overflow-hidden" onClick={(e) => handlePlaceFilter(e)}>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Buenos Aires"}>Buenos Aires</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Lima"}>Lima</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Cordoba"}>Cordoba</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Medellín"}>Medellín</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Santiago"}>Santiago</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Rio Cuarto"}>Rio Cuarto</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Rosario"}>Rosario</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"La Plata"}>La Plata</li>
+                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer transition duration-200 ease-in-out" value={"Cali"}>Cali</li>
             </ul>
         </div>
     );

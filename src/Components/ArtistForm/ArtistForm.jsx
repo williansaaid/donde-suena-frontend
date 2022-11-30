@@ -99,7 +99,7 @@ const ArtistForm = () => {
         });
 
     return (
-        <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
+        <div className="min-h-screen w-full flex flex-col items-center justify-center bg-event font-source-sans">
             <form
                 onSubmit={handleSubmit}
                 autoComplete="on"

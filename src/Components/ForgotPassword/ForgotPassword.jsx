@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
 import { forgotPassword } from "../../Redux/Slices/Session/sessionActions";
-import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+    const navegar = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(setLoginModal());
-    });
     return (
-        <div className="h-full w-full flex flex-col items-center justify-center font-source-sans">
+        <div className="h-screen w-full flex flex-col items-center justify-center font-source-sans bg-event">
             <Formik
                 initialValues={{ email: "" }}
                 validate={(values) => {
@@ -30,14 +28,15 @@ const ForgotPassword = () => {
                 onSubmit={(values, { setSubmitting }) => {
                     dispatch(forgotPassword(values));
                     setSubmitting(false);
+                    navegar("/");
                 }}
             >
                 {({ isSubmitting, errors }) => (
-                    <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded">
+                    <Form className="w-full max-w-2xl bg-customGray p-8 flex flex-col justify-center items-center gap-4 rounded-xl">
                         <h4 className="text-3xl font-bold text-white uppercase">
                             Recupera tu contraseña
                         </h4>
-                        <div className="flex flex-wrap w-full justify-evenly">
+                        <div className="flex flex-wrap w-full justify-evenly items-center">
                             <div className="w-full md:w-1/2 px-3">
                                 <label
                                     htmlFor="email"
@@ -48,6 +47,7 @@ const ForgotPassword = () => {
                                 <Field
                                     type="email"
                                     name="email"
+                                    id="email"
                                     placeholder="ejemplo@gmail.com"
                                     className={
                                         errors.email
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
                                 </ErrorMessage>
                             </div>
                             <button
-                                className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-8 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed mt-3 mb-3 h-fit w-fit transition duration-300 ease-in-out"
+                                className="bg-customRed hover:bg-customGray text-white font-bold py-2 px-8 rounded border-2 border-transparent focus:outline-none focus:shadow-outline hover:text-customRed hover:border-customRed h-fit w-fit transition duration-300 ease-in-out"
                                 type="submit"
                                 disabled={isSubmitting}
                             >

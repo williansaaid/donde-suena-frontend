@@ -14,7 +14,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <div className="h-full w-full flex flex-col items-center justify-center font-source-sans">
+        <div className="h-screen w-full flex flex-col items-center justify-center font-source-sans bg-event">
             <Formik
                 initialValues={{ password: "", confirmPassword: "" }}
                 validate={(values) => {
@@ -40,7 +40,7 @@ const ResetPassword = () => {
                 }}
             >
                 {({ isSubmitting, errors }) => (
-                    <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded bord">
+                    <Form className="w-full max-w-2xl bg-customGray p-4 flex flex-col justify-center items-center gap-2 my-8 rounded-xl">
                         <h4 className="text-3xl uppercase font-bold text-customYellow text-white">
                             Cambia tu contraseña
                         </h4>

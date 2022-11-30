@@ -12,6 +12,9 @@ module.exports = {
             fontFamily: {
                 "source-sans": ["Source Sans Pro", "sans-serif"],
             },
+            backgroundImage: {
+                "event": "url('https://res.cloudinary.com/ds41xxspf/image/upload/v1669831211/Donde-Suena-Assets/wallpaperflare.com_wallpaper_rg8fgx.jpg')"
+            }
         },
     },
     plugins: [],

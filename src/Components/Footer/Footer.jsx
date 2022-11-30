@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Footer() {
@@ -14,7 +14,7 @@ export default function Footer() {
                     <footer className="md:flex md:items-center md:justify-between md:p-4">
                         <img
                             onClick={() => navigate("/")}
-                            className="h-20 ml-6"
+                            className="h-20 ml-6 cursor-pointer animate-pulse"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
@@ -46,13 +46,13 @@ export default function Footer() {
                                 </li>
                             </ul>
                             <p className="text-white">
-                                © DondeSuena {new Date().getFullYear()} - Hecho con ♫ por Los Magios.
+                                © DondeSuena {new Date().getFullYear()} - Hecho con ♫ por <Link to={"/team"} className="hover:text-customRed font-bold transition duration-200 ease-in-out">Los Magios</Link>.
                             </p>
                         </div>
                         </div>
-                        <ul className="flex flex-wrap items-center text-base sm:mt-4 mr-6">
+                        <ul className="flex flex-wrap items-center text-base mr-6">
                             <li>
-                                <a href="/team" className="text-white">
+                                <a href="/team" className="text-white italic font-bold border-b-2 border-transparent px-4 py-2 hover:text-customRed hover:border-customRed transition duration-500 ease-in-out">
                                     Sobre Nosotros
                                 </a>
                             </li>
