@@ -49,6 +49,7 @@ const ArtistForm = () => {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -63,6 +64,7 @@ const ArtistForm = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     function handleGenres(event) {
         if (genresSelect.includes(event.target.value)) {
             alert("Ese género ya está enlistado");
@@ -74,6 +76,7 @@ const ArtistForm = () => {
             }
         }
     }
+    
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }

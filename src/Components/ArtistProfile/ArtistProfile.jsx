@@ -19,7 +19,6 @@ export const ArtistProfile = () => {
     const { scroll } = useSelector((state) => state.scrollState);
     const { postVarOpen } = useSelector((state) => state.modalState);
     const { user } = useSelector((state) => state.sessionState);
-    console.log(user);
 
     useEffect(() => {
         dispatch(getPostId(id));
@@ -174,7 +173,6 @@ export const ArtistProfile = () => {
                     </a>
                 </div>
             </div>
-
             <div>
                 <Tabs></Tabs>
             </div>

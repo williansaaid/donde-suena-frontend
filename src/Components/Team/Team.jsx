@@ -109,7 +109,6 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-
                 <div className="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
                     <div className="mb-8">
                         <img
@@ -153,7 +152,6 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-
                 <div className="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
                     <div className="mb-8">
                         <img
@@ -197,7 +195,6 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-
                 <div className="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
                     <div className="mb-8">
                         <img
@@ -241,7 +238,6 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-
                 <div className="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
                     <div className="mb-8">
                         <img
@@ -285,7 +281,6 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-
                 <div className="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
                     <div className="mb-8">
                         <img
@@ -329,7 +324,6 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-
                 <div className="group w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 hover:bg-customGray duration-300">
                     <div className="mb-8">
                         <img

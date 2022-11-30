@@ -12,9 +12,11 @@ const UserForm = () => {
     const [loading, setLoading] = useState("");
     const [success, setSuccess] = useState(false);
     const [image, setImage] = useState("");
+
     function navegar() {
         navigate("/");
     }
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -29,6 +31,7 @@ const UserForm = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center font-source-sans bg-event">
             <Formik
@@ -156,7 +159,6 @@ const UserForm = () => {
                                 )}
                             </ErrorMessage>
                         </div>
-                        {/* </div> */}
                         <div className="flex flex-wrap w-full">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label
