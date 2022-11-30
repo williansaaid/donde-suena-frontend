@@ -458,6 +458,14 @@ const EventCreation = () => {
                         />
                     </div>
                 </div>
+                { image ?
+                    <div className="flex flex-col gap-4 w-full h-96 px-3">
+                        <p
+                            className="uppercase text-white font-bold"
+                        >Preview Póster Publicitario</p>
+                        <img src={image} className="w-full h-full border-2 object-cover"/>
+                    </div> : null
+                }
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
                         <label

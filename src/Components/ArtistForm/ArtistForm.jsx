@@ -486,6 +486,11 @@ const ArtistForm = () => {
                         />
                     </div>
                 </div>
+                {image ?
+                    <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
+                        <img src={image} className="object-cover w-full h-full" alt="preview"/>
+                    </div> : null
+                }
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
                         <label
