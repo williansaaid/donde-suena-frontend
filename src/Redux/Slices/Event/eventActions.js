@@ -50,14 +50,18 @@ export const submitEventForm = (values) => {
         }
     }
 };
-export const getEventByName = (name) => (dispatch) => {
-    axios(`/event/getEvents?filter[name]=${name}`)
-        .then((res) => dispatch(getEventsByName(res.data.events)))
-        .catch((e) => {
-            e.response.data
-                ? errorCreationAlert(e.response.data.msg)
-                : console.log(e);
-        });
+export const getEventByName = (name) => async (dispatch) => {
+    try {
+        const { data } = await axios(`/event/getEvents?filter[name]=${name}`);
+        const response = await data;
+        dispatch(getEventsByName(response.events));
+        return response;
+    } catch (e) {
+        console.log(e);
+        e.response.data
+            ? errorCreationAlert(e.response.data.msg)
+            : console.log(e);
+    }
 };
 
 export const setFilter = (payload) => (dispatch) => {
