@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase, clearUrl, createTicketMP } from "../../Redux/Slices/User/userAction";
+import { ticketPurchase, clearUrl, createTicketMP, sendInvoice } from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
@@ -170,6 +170,14 @@ const EventDetail = () => {
             );
 
             dispatch(getQuantityTickets(id));
+            dispatch(
+                sendInvoice({
+                    name: user.firstName,
+                    email: user.email,
+                    quantity: parseInt(query.purchasedQuantity),
+                    id: id
+                })
+            );
 
             dispatch(createTicketMP(payment_id, purchasedQuantity, {
                 priceTotal: detail.price,
@@ -218,22 +226,9 @@ const EventDetail = () => {
                             <h1 className="font-bold uppercase text-3xl text-center my-5">
                                 {detail.name}
                             </h1>
-                            <p className="leading-relaxed">
-                                {detail.description}arcu ac tortor dignissim
-                                convallis aenean et tortor at risus viverra
-                                adipiscing at in tellus integer feugiat
-                                scelerisque varius morbi enim nunc faucibus a
-                                pellentesque sit amet porttitor eget dolor morbi
-                                non arcu risus quis varius quam quisque id diam
-                                vel quam elementum pulvinar etiam non quam lacus
-                                suspendisse faucibus interdum posuere lorem
-                                ipsum dolor sit amet consectetur adipiscing elit
-                                duis tristique sollicitudin nibh sit amet
-                                commodo nulla facilisi nullam vehicula ipsum a
-                                arcu cursus vitae congue mauris rhoncus aenean
-                                vel elit scelerisque mauris pellentesque
-                                pulvinar pellentesque habitant morbi tristique
-                            </p>
+                            <div className="leading-relaxed h-fit w-full overflow-hidden">
+                                {detail.description}
+                            </div>
                             <p className="leading-relaxed">
                                 <span className="font-bold mr-2">
                                     ⏰ Hora de Inicio:
@@ -294,27 +289,27 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                {!user.artista && (
+                                {
                                     <button
                                         {...(isLogged
                                             ? {
                                                 onClick: handlePurchase,
                                                 className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
                                             }
                                             : {
                                                 onClick: () => {
                                                     modal();
                                                 },
                                                 className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
                                             })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar
                                         </p>
                                     </button>
-                                )}
+                                }
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (

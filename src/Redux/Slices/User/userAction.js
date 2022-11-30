@@ -5,9 +5,7 @@ import {
     paymentOrder,
     clearPaymentOrder,
     getDataUserId,
-    createAllTicket,
-    logUser,
-    getFavs,
+    createAllTicket
 } from "./userSlice";
 
 export const ticketPurchase = (values) => (dispatch) => {
@@ -45,3 +43,14 @@ export const getUserById = (id) => (dispatch) => {
         .then((res) => dispatch(getDataUserId(res.data.user)))
         .catch((e) => console.log(e));
 };
+
+export const sendInvoice = (values) => {
+    return async function (){
+        try {
+            const response = await axios.post(`/auth/user/sendInvoice`, values);
+            console.log(response.data.msg);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

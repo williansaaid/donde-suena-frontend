@@ -20,16 +20,17 @@ import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import ArtistDashboard from "./Components/ArtistDashboard/ArtistDashboard";
 import Team from "./Components/Team/Team";
+import DashboardAdmin from "./Components/DashboardAdmin/DashboardAdmin";
 
 import { useSelector } from "react-redux";
 import ArtistShows from "./Components/ArtistShows/ArtistShows";
-
+import PostDetail from "./Components/PostDetail/PostDetail";
 function App() {
     const user = useSelector((state) => state.sessionState?.user);
 
     const isLogged = user.isLogged;
     const isArtist = user.artista || false;
-    // const isAdmin = user.admin || false;
+    const isAdmin = user.admin || false;
     const token = user.token || null;
     return (
         <BrowserRouter>
@@ -38,6 +39,17 @@ function App() {
                 <Login />
 
                 <Routes>
+                    <Route
+                        path="/admin"
+                        element={
+                            isAdmin && isLogged ? (
+                                <DashboardAdmin />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        }
+                    />
+
                     <Route path={"/"} element={<Home />} />
                     <Route
                         path={"/forgotPassword"}
@@ -94,6 +106,7 @@ function App() {
                     <Route path={"/confirm/:token"} element={<Confirm />} />
                     <Route path={"/postVar"} element={<PostVar />} />
                     <Route path={"/postHome"} element={<PostHome />} />
+                    <Route path={"/postHome/:id"} element={<PostDetail/>}/>
                     <Route
                         path={"/userProfile/:id"}
                         element={<UserProfile />}

@@ -9,14 +9,14 @@ export const commentsSlice = createSlice({
         commentsId:[],
         reply:[],
         delete:[],
-
+        postDetail:[],
     },
     reducers: {
         getAllComments: (state, action) => {
-            state.comments = action.payload;
+            state.comments = [...state.comments,action.payload];
         },
         getCommentById:(state,action) =>{
-          state.commentsId=action.payload
+          state.postDetail=action.payload
         },
         addComment: (state, action ) => {
           state.reply = action.payload
@@ -32,5 +32,5 @@ export const commentsSlice = createSlice({
      },
 
 });
-export const { getAllComments,getCommentsById,addComment, editComment, deleteComments} = commentsSlice.actions;
+export const { getAllComments,getCommentById,addComment, editComment, deleteComments} = commentsSlice.actions;
 export default commentsSlice.reducer;

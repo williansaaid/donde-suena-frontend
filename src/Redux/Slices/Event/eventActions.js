@@ -37,30 +37,31 @@ export const getEventsById = (id) => (dispatch) => {
         .catch((e) => console.log(e));
 };
 
-export const submitEventForm = (values) => (dispatch) => {
-    return axios
-        .post("/event/createEvent", values)
-        .then((res) => {
+export const submitEventForm = (values) => {
+    return async function (){
+        try {
+            const res = await axios.post("/event/createEvent", values);
             successCreationAlert();
-            console.log(res.data.event.id);
             return res.data.event.id;
-        })
-        .catch((e) => {
-            console.log(e);
+        } catch (e) {
             e.response.data
                 ? errorCreationAlert(e.response.data.msg)
                 : console.log(e);
-        });
+        }
+    }
 };
-export const getEventByName = (name) => (dispatch) => {
-    axios(`/event/getEvents?filter[name]=${name}`)
-        .then((res) => dispatch(getEventsByName(res.data.events)))
-        .catch((e) => {
-            console.log(e);
-            e.response.data
-                ? errorCreationAlert(e.response.data.msg)
-                : console.log(e);
-        });
+export const getEventByName = (name) => async (dispatch) => {
+    try {
+        const { data } = await axios(`/event/getEvents?filter[name]=${name}`);
+        const response = await data;
+        dispatch(getEventsByName(response.events));
+        return response;
+    } catch (e) {
+        console.log(e);
+        e.response.data
+            ? errorCreationAlert(e.response.data.msg)
+            : console.log(e);
+    }
 };
 
 export const setFilter = (payload) => (dispatch) => {
@@ -87,5 +88,12 @@ export const getQuantityTickets = (id) => (dispatch) => {
         .then((res) => {
             dispatch(quantityTickets(res.data.stock.quotas));
         })
+        .catch((e) => console.log(e));
+};
+
+export const deleteEvent = (id) => (dispatch) => {
+    axios
+        .delete(`/event/deleteEvent/${id}`)
+        .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };

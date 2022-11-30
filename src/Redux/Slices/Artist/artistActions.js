@@ -3,6 +3,7 @@ import {
     getAllArtists,
     getAllArtistById,
     getArtistEvents,
+    cleanAllDetail,
 } from "./artistSlice";
 
 export const getArtists = () => (dispatch) => {
@@ -26,8 +27,9 @@ export const postArtist = (values) => (dispatch) => {
 
 export const getArtistsById = (id) => (dispatch) => {
     axios(`/auth/getArtistById/${id}`)
-        .then((res) =>{
-            dispatch(getAllArtistById(res.data.artistID))})
+        .then((res) => {
+            dispatch(getAllArtistById(res.data.artistID));
+        })
         .catch((e) => console.log(e));
 };
 
@@ -38,3 +40,19 @@ export const getArtistEvent = (id) => (dispatch) => {
         })
         .catch((e) => console.log(e));
 };
+
+export const deleteArtist = (id) => (dispatch) => {
+    axios
+        .delete(`/auth/deleteArtist/${id}`)
+        .then((res) => {
+            console.log(res);
+            dispatch(res);
+            alert("Artista Eliminado Exitosamente");
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+};
+export const cleanDetail = () => (dispatch) => {
+    dispatch(cleanAllDetail([]))
+}
