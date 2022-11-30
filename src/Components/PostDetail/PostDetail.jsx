@@ -14,10 +14,10 @@ export const  PostDetail =()=>{
   
   console.log(postDetail)
 
-  return (<div>
+  return (<div className="flex flex-col gray-200  ">
 
-<div className="min h-50 bg-gray-200 flex items-center justify-center gap-5 ">
-                            <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl   ">
+<div className="h-23 bg-gray-200 flex items-center justify-center  ">
+                            <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex bg-white shadow-lg rounded-lg md:max-w-2xl   ">
                                 <div className="w-full flex mb-4">
                                     <img
                                         class="w-12 h-12 rounded-full object-cover 
@@ -51,36 +51,44 @@ export const  PostDetail =()=>{
                                         </div>
                                     </div>
                                 </div>
-                                <Comments idposts={postDetail.id}/>
+                             
                                
                             </div>
                         </div>
-          
+                        <div  className="min h-50 bg-gray-200 flex items-center justify-center object-top">
+                          <div className="w-11/12">
+                        <Comments idposts={postDetail.id} className="w-3.5"/>
+
+                          </div>
+
+                        </div>
 
   {postDetail.comments?.map((el)=>(
       
-      
 
-    <div key={el.id} class="flex justify-center relative top-1/3">
-      <div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
-      <div class="relative flex gap-4">
-      <img src={el.users[0]?.image}  class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="" loading="lazy"/>
+<section class="relative flex items-center justify-center   bg-gray-200 min-w-screen">
+<div key={el.id} class="container px-0 mx-auto sm:px-5">
+<div
+            class="flex-col w-full py-4 mx-auto bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
+<div class="flex flex-row">
+<img class="object-cover w-12 h-12 border-2 border-gray-300 rounded-full" alt="avatar"
+                    src={el.users[0]?.image}/>
+                    <div class="flex-col mt-1">
+                    <div class="flex items-center flex-1 px-4 font-bold leading-tight">{el.users[0]?.firstName}
+                    <span class="ml-2 text-xs font-normal text-gray-500">Fecha</span>
+                    </div>
+                    <div class="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">{el.body}
+                    </div>
       {/* <img src={el.users[0]?.image} alt="imagen" /> */}
-      <div class="flex flex-col w-full">
-            <div class="flex flex-row justify-between">
-            <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{el.users[0]?.firstName}</p>
-            <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
-            </div>
-            <p class="text-gray-400 text-sm">Fecha</p>
-            </div>
-      {el.users[0]?.firstName}
-      {el.body}
+      
       </div>
       </div>
-      <p class="-mt-4 text-gray-500"> {el.body}</p>
+      
+      </div>
       </div>
       
      
+</section>
 ))}
   
   </div>

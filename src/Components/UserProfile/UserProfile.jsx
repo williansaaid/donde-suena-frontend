@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { getUserById } from "../../Redux/Slices/User/userAction";
 import UserFavorites from "../UserFavorites/UserFavorites";
 import MyShopping from "../MyShopping/MyShopping";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 export default function UserProfile() {
     const dispatch = useDispatch();
@@ -77,7 +77,7 @@ export default function UserProfile() {
                     <div className="flex justify-center mt-6 py-6 border-t border-slate-200">
                         <div className=" block uppercase tracking-wideflex justify-center mt-10text-2xl text-slate-300 font-bold leading-normal mb-1 mr-14">
                             {userId.email}
-                            <FontAwesomeIcon icon="fa-regular fa-image" />
+                   
                         </div>
                     </div>
                     <div className="flex justify-center mt-10 text-2xl text-slate-700 font-bold leading-normal mb-1 mr-14"></div>
