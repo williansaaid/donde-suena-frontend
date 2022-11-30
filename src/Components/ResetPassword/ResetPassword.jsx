@@ -9,6 +9,7 @@ const ResetPassword = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { token } = useParams();
+    
     function navegar() {
         navigate("/");
     }

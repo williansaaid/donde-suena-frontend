@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import {
-    getEventsById,
-    updateTickets,
-    getQuantityTickets,
-} from "../../Redux/Slices/Event/eventActions";
+import { getEventsById, updateTickets, getQuantityTickets } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
@@ -74,8 +70,13 @@ const EventDetail = () => {
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
 
+<<<<<<< HEAD
     let payment_id = query.payment_id;
     let purchasedQuantity = query.purchasedQuantity;
+=======
+    let payment_id = query.payment_id
+    let purchasedQuantity = query.purchasedQuantity
+>>>>>>> 1168dc0de08646fd2fa0cba600c8d655c87c907a
 
     const modal = () => {
         dispatch(setLoginModal());
@@ -108,6 +109,7 @@ const EventDetail = () => {
             dispatch(changeLoading());
         }, 500);
     }, [dispatch]);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);

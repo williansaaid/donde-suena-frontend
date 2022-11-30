@@ -63,6 +63,7 @@ const EventCreation = () => {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -77,9 +78,11 @@ const EventCreation = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     function handlePlaces(event) {
         setPlaceChosen(event.target.value);
     }
+
     function handleGenres(event) {
         if (genresSelect.includes(event.target.value)) {
             Swal.fire({
@@ -101,6 +104,7 @@ const EventCreation = () => {
             }
         }
     }
+    
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }

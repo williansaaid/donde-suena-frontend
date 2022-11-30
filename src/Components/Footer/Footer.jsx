@@ -14,7 +14,7 @@ export default function Footer() {
                     <footer className="md:flex md:items-center md:justify-between md:p-4">
                         <img
                             onClick={() => navigate("/")}
-                            className="h-20 ml-6"
+                            className="h-20 ml-6 mt-2"
                             src={
                                 "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                             }
@@ -24,8 +24,8 @@ export default function Footer() {
                             <li>
                                 <img
                                     className="object-contain h-10 w-10 cursor-pointer"
-                                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668573857/Donde-Suena-Assets/ig-white_onltii.png"
-                                    alt="instagram logo"
+                                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668574467/Donde-Suena-Assets/pngfind.com-efectos-png-photoscape-3874615_spqlvq.png"
+                                    alt="facebook logo"
                                 />
                             </li>
                             <li>
@@ -38,12 +38,12 @@ export default function Footer() {
                             <li>
                                 <img
                                     className="object-contain h-10 w-10 cursor-pointer"
-                                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668574467/Donde-Suena-Assets/pngfind.com-efectos-png-photoscape-3874615_spqlvq.png"
-                                    alt="facebook logo"
+                                    src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668573857/Donde-Suena-Assets/ig-white_onltii.png"
+                                    alt="instagram logo"
                                 />
                             </li>
                         </ul>
-                        <ul className="flex flex-wrap items-center text-base sm:mt-4 mr-6">
+                        <ul className="flex flex-wrap items-center text-base sm:mt-8 mr-6">
                             <li>
                                 <a href="/team" className="text-white">
                                     Sobre Nosotros

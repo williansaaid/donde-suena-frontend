@@ -9,10 +9,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "react-loading";
 import "./login.css";
 import * as Yup from "yup";
-
-// import { useDispatch, useSelector } from "react-redux";
 import ReactModal from "react-modal";
 import { logUser } from "../../Redux/Slices/Session/sessionSlice";
+
 const Login = () => {
     const dispatch = useDispatch();
     // const googleToken = useSelector((state) => state.googleToken);
@@ -20,12 +19,12 @@ const Login = () => {
     const location = useLocation();
     const { loginOpen } = useSelector((state) => state.modalState);
     const [loading, setLoading] = useState(false);
-
     const [loginType, setLoginType] = useState(false);
 
     const handleSetModal = () => {
         dispatch(setLoginModal());
     };
+
     function handleCredentialResponse(response) {
         const body = { id_token: response.credential };
         let url = window.location.hostname.includes("localhost")
@@ -225,7 +224,6 @@ const Login = () => {
                                 <h3 className="  block tracking-wide text-white text-s font-bold mb-2">
                                     SOY
                                 </h3>
-
                                 <div className=" flex wrap gap-20 divide-blue-200">
                                     <div
                                         onClick={() => {
@@ -241,7 +239,6 @@ const Login = () => {
                                                 alt="Guitarra"
                                             />
                                         </div>
-
                                         <h3 className="block tracking-wide text-white text-s font-bold mb-2">
                                             Artista
                                         </h3>
