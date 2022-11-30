@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getArtistEvent } from "../../Redux/Slices/Artist/artistActions";
 
-const ArtistShows = ({ id }) => {
+const ArtistShows = () => {
     const dispatch = useDispatch();
     const eventsArtist = useSelector(
         (state) => state?.artistState.eventsArtist
     );
+    const { id } = useParams();
 
     useEffect(() => {
         dispatch(getArtistEvent(id));
@@ -18,8 +19,10 @@ const ArtistShows = ({ id }) => {
             {eventsArtist &&
                 eventsArtist?.map((el, id) => {
                     return (
-                        <div key={id} 
-                        className="grid grid-cols-3 border border-black rounded-md items-center bg-neutral-800">
+                        <div
+                            key={id}
+                            className="grid grid-cols-3 border border-black rounded-md items-center bg-neutral-800"
+                        >
                             <Link to={`/details/${el.id}`}>
                                 <div className="col-span-1">
                                     <img
@@ -29,11 +32,18 @@ const ArtistShows = ({ id }) => {
                                     />
                                 </div>
                             </Link>
-                                <div className="col-span-2 flex flex-col justify-between ml-2">
-                                    <h2 className="text-xl font-semibold text-white">Evento : {el.name}</h2>
-                                    <h1 className="text-xl font-semibold text-white">Fecha : {el.date} </h1>
-                                    <h1 className="text-xl font-semibold text-white"> En : {el.city}</h1>
-                                </div>
+                            <div className="col-span-2 flex flex-col justify-between ml-2">
+                                <h2 className="text-xl font-semibold text-white">
+                                    Evento : {el.name}
+                                </h2>
+                                <h1 className="text-xl font-semibold text-white">
+                                    Fecha : {el.date}{" "}
+                                </h1>
+                                <h1 className="text-xl font-semibold text-white">
+                                    {" "}
+                                    En : {el.city}
+                                </h1>
+                            </div>
                         </div>
                     );
                 })}
