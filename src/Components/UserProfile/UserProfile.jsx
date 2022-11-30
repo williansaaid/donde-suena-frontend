@@ -13,7 +13,7 @@ export default function UserProfile() {
     const { id } = useParams();
     const { userId } = useSelector((state) => state.userIdState);
     const { profileUserState } = useSelector((state) => state.profileState);
-  
+
     const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
     const contentArray = Array.from(
         document.querySelectorAll("#select-content")
@@ -58,10 +58,12 @@ export default function UserProfile() {
         <div className="container min-w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 ">
                 <div className="hidden bg-customRed md:block pt-10">
+                    <button>Editar Perfil</button>
                     <div className="relative w-full flex justify-center h-52">
                         <img
                             src={userId.image}
                             className="shadow-xl rounded-full align-middle border-none absolute -ml-20 lg:-ml-16 max-w-[150px]"
+                            alt=""
                         />
                     </div>
                     <img
