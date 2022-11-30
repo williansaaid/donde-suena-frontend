@@ -19,6 +19,7 @@ import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
 import Swal from "sweetalert2";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const successPurchase = () => {
     Swal.fire({
@@ -67,7 +68,8 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
     const { ticketsAvailable } = useSelector((state) => state.eventsState);
-    const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
+
+    const location = useGoogleAddress(`${detail.address}, ${detail.city}`);
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
@@ -106,6 +108,7 @@ const EventDetail = () => {
             dispatch(changeLoading());
         }, 500);
     }, [dispatch]);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
@@ -196,8 +199,8 @@ const EventDetail = () => {
                             !loading ? "flex mx-10 my-16 gap-8" : "hidden"
                         }
                     >
-                        <div className="w-1/2 flex flex-col gap-4">
-                            <div className="relative rounded-lg overflow-hidden">
+                        <div className="w-1/2 flex flex-col">
+                            <div className="relative rounded-lg overflow-hidden mb-10">
                                 <img
                                     alt="event"
                                     className="object-cover rounded-lg border-gray-200 w-full"
@@ -213,6 +216,10 @@ const EventDetail = () => {
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="flex flex-end mt-3 mb-3">
+                                <FaMapMarkerAlt />
+                                <span className="font-bold mx-2">{`${detail.address}, ${detail.city}`}</span>
                             </div>
                             <Map data={location}></Map>
                         </div>

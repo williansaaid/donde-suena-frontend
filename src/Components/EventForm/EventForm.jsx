@@ -63,6 +63,7 @@ const EventCreation = () => {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -77,9 +78,11 @@ const EventCreation = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     function handlePlaces(event) {
         setPlaceChosen(event.target.value);
     }
+
     function handleGenres(event) {
         if (genresSelect.includes(event.target.value)) {
             Swal.fire({
@@ -101,6 +104,7 @@ const EventCreation = () => {
             }
         }
     }
+    
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }
@@ -458,6 +462,14 @@ const EventCreation = () => {
                         />
                     </div>
                 </div>
+                { image ?
+                    <div className="flex flex-col gap-4 w-full h-96 px-3">
+                        <p
+                            className="uppercase text-white font-bold"
+                        >Preview Póster Publicitario</p>
+                        <img src={image} className="w-full h-full border-2 object-cover"/>
+                    </div> : null
+                }
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
                         <label

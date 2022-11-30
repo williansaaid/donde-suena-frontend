@@ -15,6 +15,7 @@ const Confirm = () => {
             confirmButtonText: "Cool",
         });
     };
+
     useEffect(() => {
         alert();
         dispatch(confirmateToken(token));
@@ -27,7 +28,6 @@ const Confirm = () => {
                     Redireccionando...
                 </h3>
             </div>
-
             <div>
                 {
                     <img

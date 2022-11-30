@@ -15,6 +15,7 @@ export const PostCard = ({ props }) => {
     useEffect(() => {
         dispatch(getPosts());
     }, [dispatch]);
+    
     const showMorePost = () => {
         setVisible((prevValue) => prevValue + 4);
     };

@@ -2,20 +2,20 @@ import React from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const Map = ({ data }) => {
-    // console.log(data);
     const defaultCenter = {
         lat: Object.keys(data).length && data.geometry.location.lat,
         lng: Object.keys(data).length && data.geometry.location.lng,
     };
+    console.log(defaultCenter);
 
     const style = {
         height: "50vh",
         width: "100%",
     };
-    // const { GOOGLE_API } = process.env;
-    // console.log(GOOGLE_API);
+    const api = process.env.REACT_APP_API_MAPS;
+    console.log(defaultCenter);
     return (
-        <LoadScript googleMapsApiKey="AIzaSyCkC7K_lCQfEnc18o2ho_lfkqwHNgLtee4">
+        <LoadScript googleMapsApiKey={api}>
             <GoogleMap
                 mapContainerStyle={style}
                 zoom={9}

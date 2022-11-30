@@ -48,9 +48,13 @@ export default function UserProfile() {
     useEffect(() => {
         dispatch(getUserById(id));
     }, [dispatch, id]);
+
     useEffect(() => {
         if (profileUserState && tabsArray[1]) {
             handleChangeTab(tabsArray[1]);
+            // } else handleChangeTab(tabsArray[0]);
+        } else if (!profileUserState && tabsArray[1]) {
+            handleChangeTab(tabsArray[0]);
         }
     }, [tabsArray]);
 
@@ -97,12 +101,10 @@ export default function UserProfile() {
                             Mis Compras 🛒
                         </li>
                     </ul>
-
                     <section
                         id="select-content"
                         className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
                     >
-                        {" "}
                         <UserFavorites />
                     </section>
                     <section
