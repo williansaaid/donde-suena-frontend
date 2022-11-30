@@ -89,3 +89,10 @@ export const getQuantityTickets = (id) => (dispatch) => {
         })
         .catch((e) => console.log(e));
 };
+
+export const deleteEvent = (id) => (dispatch) => {
+    axios
+        .delete(`/event/deleteEvent/${id}`)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+};

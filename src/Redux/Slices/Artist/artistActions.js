@@ -26,8 +26,9 @@ export const postArtist = (values) => (dispatch) => {
 
 export const getArtistsById = (id) => (dispatch) => {
     axios(`/auth/getArtistById/${id}`)
-        .then((res) =>{
-            dispatch(getAllArtistById(res.data.artistID))})
+        .then((res) => {
+            dispatch(getAllArtistById(res.data.artistID));
+        })
         .catch((e) => console.log(e));
 };
 
@@ -37,4 +38,17 @@ export const getArtistEvent = (id) => (dispatch) => {
             dispatch(getArtistEvents(res.data.events));
         })
         .catch((e) => console.log(e));
+};
+
+export const deleteArtist = (id) => (dispatch) => {
+    axios
+        .delete(`/auth/deleteArtist/${id}`)
+        .then((res) => {
+            console.log(res);
+            dispatch(res);
+            alert("Artista Eliminado Exitosamente");
+        })
+        .catch((e) => {
+            console.log(e);
+        });
 };
