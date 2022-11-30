@@ -12,7 +12,6 @@ import ArtistsSection from "../ArtistsSection/ArtistsSection";
 
 const Home = () => {
     const dispatch = useDispatch();
-
     const { loading } = useSelector((state) => state.loadingState);
     const location = useLocation();
     const path = location.pathname;

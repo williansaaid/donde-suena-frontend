@@ -10,6 +10,7 @@ function SearchBar() {
         e.preventDefault();
         setName(e.target.value);
     }
+
     function handleSearch(e) {
         e.preventDefault();
         if (e.key === "Enter" && name !== "") {
@@ -17,6 +18,7 @@ function SearchBar() {
             setName("");
         }
     }
+
     function handleSearchButton(e) {
         e.preventDefault();
         // if (name !== ("") ) {
@@ -47,4 +49,5 @@ function SearchBar() {
         </div>
     );
 }
+
 export default SearchBar;

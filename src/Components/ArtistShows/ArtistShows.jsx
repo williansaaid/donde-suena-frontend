@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import {
-    getArtistEvent,
-    cleanDetail,
-} from "../../Redux/Slices/Artist/artistActions";
+import { getArtistEvent, cleanDetail } from "../../Redux/Slices/Artist/artistActions";
 
 const ArtistShows = () => {
     const dispatch = useDispatch();
     const { eventsArtist } = useSelector((state) => state.artistState);
     const { id } = useParams();
-
-    console.log(eventsArtist);
 
     useEffect(() => {
         dispatch(getArtistEvent(id));

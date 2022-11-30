@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import {
-    getEventsById,
-    updateTickets,
-    getQuantityTickets,
-} from "../../Redux/Slices/Event/eventActions";
+import { getEventsById, updateTickets, getQuantityTickets } from "../../Redux/Slices/Event/eventActions";
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
@@ -70,8 +66,6 @@ const EventDetail = () => {
     let payment_id = query.payment_id
     let purchasedQuantity = query.purchasedQuantity
 
-
-
     const modal = () => {
         dispatch(setLoginModal());
     };
@@ -93,8 +87,6 @@ const EventDetail = () => {
         });
     };
 
-
-
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -105,11 +97,10 @@ const EventDetail = () => {
             dispatch(changeLoading());
         }, 500);
     }, [dispatch]);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
-
-
 
     const handlePurchase = () => {
         setOrder(false);
@@ -138,9 +129,6 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
-
-
-
     useEffect(() => {
         window.scrollTo(0, 100);
         dispatch(clearUrl());
@@ -149,9 +137,6 @@ const EventDetail = () => {
         setOrder(false);
 
     }, [dispatch, id, searchParams]);
-
-
-
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));

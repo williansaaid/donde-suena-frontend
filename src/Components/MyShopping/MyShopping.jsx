@@ -26,7 +26,6 @@ const MyShopping = (props) => {
         show = [...show, { ticket, evento: evento[0] }];
         return show;
     });
-    console.log(ticketsData);
 
     return (
         <div>
