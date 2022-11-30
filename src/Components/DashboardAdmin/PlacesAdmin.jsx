@@ -7,9 +7,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-export const PlacesAdmin = () => {
+export const PlacesAdmin = ({ placeSearch }) => {
     const dispatch = useDispatch();
-    const { places } = useSelector((state) => state.placesState);
+    let { places } = useSelector((state) => state.placesState);
 
     const trashEmpty = (id) => {
         Swal.fire({
@@ -131,6 +131,10 @@ export const PlacesAdmin = () => {
     useEffect(() => {
         dispatch(getPlaces());
     }, [dispatch]);
+
+    if (placeSearch) {
+        places = [...placeSearch];
+    }
     return (
         <div>
             <div className="relative  h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
@@ -166,9 +170,10 @@ export const PlacesAdmin = () => {
                             <div className="flex items-center gap-4" key={i}>
                                 <img
                                     className="w-12 h-12 rounded-full object-cover"
-                                    src={a.image}
-                                    alt=""
+                                    src={a.image || "https://picsum.photos/200"}
+                                    alt="Not found"
                                 />
+
                                 <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
                                     {a.name}
                                 </strong>
@@ -227,6 +232,24 @@ export const PlacesAdmin = () => {
                                         />
                                     </svg>
                                 </div>
+                                {a.state === false && (
+                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                            />
+                                        </svg>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}

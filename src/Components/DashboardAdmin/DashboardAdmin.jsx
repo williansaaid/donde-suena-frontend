@@ -1,21 +1,109 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ArtistAdmin } from "./ArtistAdmin";
 import { EventAdmin } from "./EventAdmin";
 import { UsersAdmin } from "./UsersAdmin";
 import { PlacesAdmin } from "./PlacesAdmin";
-import { Select } from "./Select";
+import { CreatePlace } from "./CreatePlace";
+import { getSearch, cleanSearch } from "../../Redux/Slices/Search/searchAction";
+import { useState } from "react";
+import Swal from "sweetalert2";
+
 const DashboardAdmin = () => {
     const user = useSelector((state) => state.sessionState?.user);
+    const search = useSelector((state) => state.searchState?.search);
+    const dispatch = useDispatch();
+    const [value, setValue] = useState("");
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Debes ingresar un valor para buscar",
+                confirmButtonColor: "#f8b500",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setValue("");
+                }
+            });
+        } else {
+            dispatch(getSearch(value));
+            setValue("");
+
+            // si todos los valores son null, entonces no hay resultados
+            if (
+                search?.artists === null &&
+                search?.events === null &&
+                search?.places === null &&
+                search?.users === null
+            ) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "No se encontraron resultados",
+                    confirmButtonColor: "#f8b500",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setValue("");
+                    }
+                });
+            }
+        }
+    };
+
+    const inputHandler = (e) => {
+        setValue(e.target.value);
+    };
 
     const isAdmin = user.admin || false;
     return (
         <div>
-            <Select />
-            <div className="flex justify-center">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-                    Dashboard
-                </h1>
-            </div>
+            <form
+                className="flex justify-center items-center gap-2 mt-4 mb-4 mx-4 p-2 rounded-md bg-gray-100 dark:bg-slate-800 ring-slate-900/5"
+                onSubmit={handleSearch}
+            >
+                <input
+                    className="w-1/2 h-10 rounded-lg border-2 border-gray-300 bg-white dark:bg-slate-800 dark:text-white dark:border-slate-800 focus:outline-none focus:border-indigo-500 text-base px-4"
+                    type="text"
+                    placeholder="Search"
+                    value={value}
+                    onChange={(e) => inputHandler(e)}
+                />
+                <button
+                    className="w-1/4 h-10 rounded-lg border-2 border-gray-300 bg-green-500 dark:bg-slate-800 dark:text-white dark:border-slate-800 focus:outline-none focus:border-indigo-500 text-base px-4 hover:bg-green-400 dark:hover:bg-slate-700 transition duration-300 ease-in-out"
+                    type="submit"
+                >
+                    Search
+                </button>
+            </form>
+
+            {search?.artists?.length > 0 && (
+                <ArtistAdmin artistSearch={search.artists} />
+            )}
+            {search?.events?.length > 0 && (
+                <EventAdmin eventSearch={search.events} />
+            )}
+            {search?.users?.length > 0 && (
+                <UsersAdmin userSearch={search.users} />
+            )}
+            {search?.places?.length > 0 && (
+                <PlacesAdmin placeSearch={search.places} />
+            )}
+            {(search?.artists ||
+                search?.places ||
+                search?.events ||
+                search?.users) && (
+                <div
+                    className="flex justify-center items-center gap-2 mt-4 mb-4 mx-4 p-2 rounded-md bg-gray-100 dark:bg-slate-800 ring-slate-900/5"
+                    onClick={() => dispatch(cleanSearch(""))}
+                >
+                    <button className="w-1/4 h-10 rounded-lg border-2 border-gray-300 bg-red-500 dark:bg-slate-800 dark:text-white dark:border-slate-800 focus:outline-none focus:border-indigo-500 text-base px-4 hover:bg-red-400 dark:hover:bg-red-700 transition duration-300 ease-in-out ">
+                        Clear Search
+                    </button>
+                </div>
+            )}
+
             <EventAdmin />
             <PlacesAdmin />
             <UsersAdmin />

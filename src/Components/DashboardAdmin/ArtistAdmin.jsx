@@ -7,9 +7,9 @@ import {
 } from "../../Redux/Slices/Artist/artistActions";
 import Swal from "sweetalert2";
 
-export const ArtistAdmin = () => {
+export const ArtistAdmin = ({ artistSearch }) => {
     const dispatch = useDispatch();
-    const { artists } = useSelector((state) => state.artistState);
+    let { artists } = useSelector((state) => state.artistState);
 
     useEffect(() => {
         dispatch(getArtists());
@@ -31,6 +31,10 @@ export const ArtistAdmin = () => {
             }
         });
     };
+
+    if (artistSearch) {
+        artists = [...artistSearch];
+    }
 
     return (
         <div>
@@ -76,6 +80,24 @@ export const ArtistAdmin = () => {
                                         />
                                     </svg>
                                 </div>
+                                {a.state === false && (
+                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                            />
+                                        </svg>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}

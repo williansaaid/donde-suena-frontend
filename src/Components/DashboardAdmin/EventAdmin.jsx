@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Graphics } from "./Graphics/Graphics";
 
-export const EventAdmin = () => {
+export const EventAdmin = ({ eventSearch }) => {
     const dispatch = useDispatch();
-    const { events } = useSelector((state) => state.eventsState);
+    let { events } = useSelector((state) => state.eventsState);
 
     const trashEmpty = (id) => {
         Swal.fire({
@@ -29,10 +29,15 @@ export const EventAdmin = () => {
     useEffect(() => {
         dispatch(getEvents());
     }, [dispatch]);
+
+    if (eventSearch) {
+        events = [...eventSearch];
+    }
     return (
         <div>
             <div className="relative  h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
-                <Graphics events={events} />
+                {eventSearch ? null : <Graphics events={events} />}
+
                 <div className="overflow-auto flex flex-col divide-y h-full border rounded-2xl">
                     <div className="flex justify-center">
                         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
@@ -74,6 +79,24 @@ export const EventAdmin = () => {
                                         />
                                     </svg>
                                 </div>
+                                {a.state === false && (
+                                    <div className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                            />
+                                        </svg>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}
