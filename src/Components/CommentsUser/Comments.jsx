@@ -1,16 +1,20 @@
 //recordar nunca pasar user id a la api NO ES SEGURO
-import { useEffect, useState, } from "react";
+import {  useEffect, useState, } from "react";
 import { getComments, createComment, deleteComment, updateComment, } from "../../Redux/Slices/Comments/commentsAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Comment } from "./Comment";
 import { CommentForm} from "./CommentForm"
 
-export const Comments = (props) =>{
+export const Comments = ({idposts}) =>{
+  const artists = useSelector(state => state.artists) 
+
   const {id}=useParams();
   const dispatch = useDispatch();
   const {commentsId}=useSelector((state)=>state.commentsId)
+  const {posts} =useSelector((state)=>state.posts)
   const [comments, setCommentsId]=useState([])
+    
   // const [backendComments , setBackendComments]= useState([id])
   //en la proxima funcion seteamos el estado para luego ser editado 
   const [activeComment , setActiveComment]=useState (null)
@@ -29,8 +33,8 @@ export const Comments = (props) =>{
     // console.log ("addComment", text , parentId)
     createComment(text, parent);
     dispatch(comment =>{
-      setCommentsId([comment,...comments])
-      setActiveComment(null)
+      setCommentsId([...comments,comment])
+      setActiveComment();
     })
   }
 const eliminateComment =(commentId) =>{
@@ -55,12 +59,12 @@ const  modifyComment = (text , commentId) =>{
    setActiveComment (null)
   })
 }
-  console.log(commentsId)
-  // useEffect((data)=>{
-  //     dispatch(getComments(id));
-  //       setBackendComments(data.comments[0].id)
-  //     } ,[dispatch,id] ) ;
-       
+
+  useEffect(()=>{
+     posts.map((p)=>dispatch(getComments(p.id)))
+    
+        } ,[dispatch,posts] ) ;
+
       
       
   return (
@@ -68,23 +72,32 @@ const  modifyComment = (text , commentId) =>{
     <div className="comments">
       
      
-      <CommentForm submitLabel="Enviar" handleSubmit={addComment}/>
+      <CommentForm 
+      submitLabel="Enviar" 
+      handleSubmit={addComment}
+      idposts={idposts} />
+      
       <div className="comments-container">
+        <div>
+
     {rootComments.map((rootComment)=>(
-   <Comment 
-   key={rootComment.id} 
-   comment ={rootComment} 
-   replies ={getReplies(rootComment.id)}
-   currentUserId={id}
-   addComment={addComment}
-   eliminateComment={eliminateComment}
-   activeComment  ={activeComment}
-   setActiveComment={setActiveComment}
-   modifyComment={modifyComment}
-  
-   />
-   //no es ideal llamar una funcion en el hecho pero al tener una pagina con pocos comentarios no hay problema
-    ))}
+      <Comment 
+      key={rootComment.id} 
+      comment ={rootComment} 
+      replies ={getReplies(rootComment.id)}
+      currentUserId={id}
+      addComment={addComment}
+      eliminateComment={eliminateComment}
+      activeComment  ={activeComment}
+      setActiveComment={setActiveComment}
+      modifyComment={modifyComment}
+      idposts={idposts}
+      />
+      
+      // agregar handle submit
+      //no es ideal llamar una funcion en el hecho pero al tener una pagina con pocos comentarios no hay problema
+      ))}
+      </div>
       </div>
     </div>
   )

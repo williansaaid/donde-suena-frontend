@@ -9,11 +9,17 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGoogleAddress from "../../hooks/useGoogleAddress";
 import Map from "../Map/Map";
-import { ticketPurchase, clearUrl, createTicketMP, sendInvoice } from "../../Redux/Slices/User/userAction";
+import {
+    ticketPurchase,
+    clearUrl,
+    createTicketMP,
+    sendInvoice,
+} from "../../Redux/Slices/User/userAction";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import Loading from "../Loading/Loading";
 import { changeLoading } from "../../Redux/Slices/Loading/LoadingActions";
 import Swal from "sweetalert2";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const successPurchase = () => {
     Swal.fire({
@@ -62,15 +68,14 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
     const { ticketsAvailable } = useSelector((state) => state.eventsState);
-    const location = useGoogleAddress("TEATRO VORTERIX, CF, Argentina");
+
+    const location = useGoogleAddress(`${detail.address}, ${detail.city}`);
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
 
-    let payment_id = query.payment_id
-    let purchasedQuantity = query.purchasedQuantity
-
-
+    let payment_id = query.payment_id;
+    let purchasedQuantity = query.purchasedQuantity;
 
     const modal = () => {
         dispatch(setLoginModal());
@@ -93,8 +98,6 @@ const EventDetail = () => {
         });
     };
 
-
-
     useEffect(() => {
         dispatch(getEventsById(id));
     }, [dispatch, id]);
@@ -105,11 +108,10 @@ const EventDetail = () => {
             dispatch(changeLoading());
         }, 500);
     }, [dispatch]);
+
     useEffect(() => {
         loadingCallback();
     }, [loadingCallback]);
-
-
 
     const handlePurchase = () => {
         setOrder(false);
@@ -138,20 +140,13 @@ const EventDetail = () => {
         setQuantity(e.target.value);
     };
 
-
-
-
     useEffect(() => {
         window.scrollTo(0, 100);
         dispatch(clearUrl());
         dispatch(getQuantityTickets(id));
         setQuery(Object.fromEntries([...searchParams]));
         setOrder(false);
-
     }, [dispatch, id, searchParams]);
-
-
-
 
     useEffect(() => {
         dispatch(getQuantityTickets(id));
@@ -175,16 +170,18 @@ const EventDetail = () => {
                     name: user.firstName,
                     email: user.email,
                     quantity: parseInt(query.purchasedQuantity),
-                    id: id
+                    id: id,
                 })
             );
 
-            dispatch(createTicketMP(payment_id, purchasedQuantity, {
-                priceTotal: detail.price,
-                date: detail.date,
-                event: detail.name,
-                user: user.firstName
-            }))
+            dispatch(
+                createTicketMP(payment_id, purchasedQuantity, {
+                    priceTotal: detail.price,
+                    date: detail.date,
+                    event: detail.name,
+                    user: user.firstName,
+                })
+            );
 
             successPurchase();
 
@@ -202,8 +199,8 @@ const EventDetail = () => {
                             !loading ? "flex mx-10 my-16 gap-8" : "hidden"
                         }
                     >
-                        <div className="w-1/2 flex flex-col gap-4">
-                            <div className="relative rounded-lg overflow-hidden">
+                        <div className="w-1/2 flex flex-col">
+                            <div className="relative rounded-lg overflow-hidden mb-10">
                                 <img
                                     alt="event"
                                     className="object-cover rounded-lg border-gray-200 w-full"
@@ -220,15 +217,19 @@ const EventDetail = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex flex-end mt-3 mb-3">
+                                <FaMapMarkerAlt />
+                                <span className="font-bold mx-2">{`${detail.address}, ${detail.city}`}</span>
+                            </div>
                             <Map data={location}></Map>
                         </div>
                         <div className="w-1/2 bg-gray-300 rounded-lg p-8 flex flex-col gap-4">
                             <h1 className="font-bold uppercase text-3xl text-center my-5">
                                 {detail.name}
                             </h1>
-                            <p className="leading-relaxed">
+                            <div className="leading-relaxed h-fit w-full overflow-hidden">
                                 {detail.description}
-                            </p>
+                            </div>
                             <p className="leading-relaxed">
                                 <span className="font-bold mr-2">
                                     ⏰ Hora de Inicio:
@@ -289,27 +290,27 @@ const EventDetail = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                {!user.artista && (
+                                {
                                     <button
                                         {...(isLogged
                                             ? {
-                                                onClick: handlePurchase,
-                                                className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                            }
+                                                  onClick: handlePurchase,
+                                                  className:
+                                                      "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                              }
                                             : {
-                                                onClick: () => {
-                                                    modal();
-                                                },
-                                                className:
-                                                    "flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                            })}
+                                                  onClick: () => {
+                                                      modal();
+                                                  },
+                                                  className:
+                                                      "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                              })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar
                                         </p>
                                     </button>
-                                )}
+                                }
                                 <div>
                                     {order ? (
                                         paymentUrl.length > 0 ? (
@@ -377,6 +378,6 @@ const EventDetail = () => {
                 </section>
             }
         </div>
-    )
+    );
 };
 export default EventDetail;

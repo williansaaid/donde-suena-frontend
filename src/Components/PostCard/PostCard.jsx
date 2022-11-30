@@ -15,6 +15,7 @@ export const PostCard = ({ props }) => {
     useEffect(() => {
         dispatch(getPosts());
     }, [dispatch]);
+    
     const showMorePost = () => {
         setVisible((prevValue) => prevValue + 4);
     };
@@ -26,7 +27,7 @@ export const PostCard = ({ props }) => {
     return (
         <div>
             {posts &&
-                posts?.map((el, id) => {
+                posts?.map((el,id ) => {
                     return (
                         <div className="min h-50 bg-gray-200 flex items-center justify-center gap-5 ">
                             <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl   ">
@@ -62,7 +63,8 @@ export const PostCard = ({ props }) => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <Comments/> */}
+                                {/* <Comments idposts={el.id}/> */}
+                               
                             </div>
                         </div>
                     );

@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
+import { getPlaces } from "../../Redux/Slices/Places/placesAction";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -17,6 +18,8 @@ const EventCreation = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
+    const [placeChosen, setPlaceChosen] = useState("");
+    const { places } = useSelector((state) => state.placesState);
     const { genres } = useSelector((state) => state.genresState);
     const { user } = useSelector((state) => state.sessionState);
 
@@ -30,29 +33,37 @@ const EventCreation = () => {
     }
 
     useEffect(() => {
+        dispatch(getPlaces());
         dispatch(getGenres());
     }, []);
+
     useEffect(() => {
         genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);
     }, [genresSelect]);
 
     const onSubmit = async (values, actions) => {
+        const location = placeChosen.split("*");
         const formValues = {
             ...values,
             image: image,
             genres: genresSelect,
             artistName: user.nickname,
+            city: location[0],
+            address: location[1],
         };
         try {
             const eventId = await dispatch(submitEventForm(formValues));
+            console.log(formValues);
             setSuccess(false);
             actions.resetForm();
             setGenresSelect([]);
+            setPlaceChosen({});
             navigate(`/details/${eventId}`);
         } catch (error) {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -67,17 +78,33 @@ const EventCreation = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
+    function handlePlaces(event) {
+        setPlaceChosen(event.target.value);
+    }
+
     function handleGenres(event) {
         if (genresSelect.includes(event.target.value)) {
-            alert("Ese género ya está enlistado");
+            Swal.fire({
+                title: "Ooops...",
+                text: "Ese género ya está enlistado",
+                icon: "warning",
+                timer: 2000,
+            });
         } else {
             if (genresSelect.length > 2)
-                alert("La máxima cantidad de géneros posibles es 3");
+                Swal.fire({
+                    title: "Ooops...",
+                    text: "La máxima cantidad de géneros posibles es 3",
+                    icon: "warning",
+                    timer: 2000,
+                });
             else {
                 setGenresSelect([...genresSelect, event.target.value]);
             }
         }
     }
+    
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }
@@ -91,8 +118,6 @@ const EventCreation = () => {
                 end: "",
                 price: 0,
                 quotas: 0,
-                city: "",
-                address: "",
                 description: "",
                 phone: "",
                 agreeTerms: false,
@@ -213,59 +238,36 @@ const EventCreation = () => {
                         />
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 w-full">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label
-                            htmlFor="city"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
-                        >
-                            Ciudad
-                            {errors.city && touched.city ? (
-                                <span className="text-customRed italic pl-1 text-xs font-semibold">
-                                    {errors.city}
-                                </span>
-                            ) : null}
-                        </label>
-                        <input
-                            id="city"
-                            type="text"
-                            placeholder="Ciudad"
-                            value={values.city}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={
-                                errors.city && touched.city
-                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            }
-                        />
-                    </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <label
-                            htmlFor="address"
-                            className="block tracking-wide text-white text-s font-bold mb-2"
-                        >
-                            Dirección
-                            {errors.address && touched.address ? (
-                                <span className="text-customRed italic pl-1 text-xs font-semibold">
-                                    {errors.address}
-                                </span>
-                            ) : null}
-                        </label>
-                        <input
-                            id="address"
-                            type="text"
-                            placeholder="Dirección del Local"
-                            value={values.address}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={
-                                errors.address && touched.address
-                                    ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            }
-                        />
-                    </div>
+                <div className="w-full px-3">
+                    <label
+                        htmlFor="address"
+                        className="block tracking-wide text-white text-s font-bold mb-2"
+                    >
+                        Locación
+                        {/* {errors.address ? (
+                            <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                {errors.address}
+                            </span>
+                        ) : null} */}
+                    </label>
+                    <select
+                        name="address"
+                        value={placeChosen}
+                        onChange={handlePlaces}
+                        className="rounded py-2 pl-3 w-full focus:outline-none bg-gray-200 focus:bg-white"
+                    >
+                        <option value="" disabled>
+                            Lugares Disponibles
+                        </option>
+                        {places.length > 0 &&
+                            places.map((place, key) => {
+                                return (
+                                    <option key={key} value={`${place.city}*${place.address}`}>
+                                        {`${place.name}`}
+                                    </option>
+                                );
+                            })}
+                    </select>
                 </div>
                 <div className="flex flex-wrap -mx-3 w-full">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -460,6 +462,14 @@ const EventCreation = () => {
                         />
                     </div>
                 </div>
+                { image ?
+                    <div className="flex flex-col gap-4 w-full h-96 px-3">
+                        <p
+                            className="uppercase text-white font-bold"
+                        >Preview Póster Publicitario</p>
+                        <img src={image} className="w-full h-full border-2 object-cover"/>
+                    </div> : null
+                }
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
                         <label

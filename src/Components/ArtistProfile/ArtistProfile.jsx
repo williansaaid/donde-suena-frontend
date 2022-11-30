@@ -19,7 +19,6 @@ export const ArtistProfile = () => {
     const { scroll } = useSelector((state) => state.scrollState);
     const { postVarOpen } = useSelector((state) => state.modalState);
     const { user } = useSelector((state) => state.sessionState);
-    console.log(user);
 
     useEffect(() => {
         dispatch(getPostId(id));
@@ -41,33 +40,34 @@ export const ArtistProfile = () => {
 
     function handleAddFav(e) {
         if (!user.isLogged) dispatch(setLoginModal());
-
-        e.preventDefault();
-        dispatch(addFavorite(id, user.id));
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Nuevo Favorito Agregado",
-            showConfirmButton: false,
-            timer: 1500,
-        });
+        else {
+            e.preventDefault();
+            dispatch(addFavorite(id, user.id));
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Nuevo Favorito Agregado",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
     }
 
     return (
-        <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-20">
+        <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-52">
             <div className="px-6">
                 <div className="flex flex-wrap justify-center">
-                    <div className="w-full flex justify-center">
-                        <div className="relative">
+                    <div className="w-full flex justify-center h-48">
+                        <div className="relative bottom-40">
                             <img
                                 src={artistId.image}
-                                className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
-                                alt=""
+                                className="shadow-xl shadow-customGray rounded-full items-center p-2 h-80 w-80 object-cover"
+                                alt="profileImage"
                             />
                         </div>
                     </div>
-                    <div className="w-full text-center mt-20">
-                        <div className="flex justify-center lg:pt-4 pt-8 pb-0">
+                    <div className="w-full text-center">
+                        <div className="flex justify-center lg:pt-4 pt-8">
                             <div className="p-3 text-center">
                                 <span className="text-xl font-bold block uppercase tracking-wide text-slate-700">
                                     1,360
@@ -173,7 +173,6 @@ export const ArtistProfile = () => {
                     </a>
                 </div>
             </div>
-
             <div>
                 <Tabs></Tabs>
             </div>

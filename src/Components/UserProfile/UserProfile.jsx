@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { getUserById } from "../../Redux/Slices/User/userAction";
 import UserFavorites from "../UserFavorites/UserFavorites";
 import MyShopping from "../MyShopping/MyShopping";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function UserProfile() {
     const dispatch = useDispatch();
@@ -48,9 +48,13 @@ export default function UserProfile() {
     useEffect(() => {
         dispatch(getUserById(id));
     }, [dispatch, id]);
+
     useEffect(() => {
         if (profileUserState && tabsArray[1]) {
             handleChangeTab(tabsArray[1]);
+            // } else handleChangeTab(tabsArray[0]);
+        } else if (!profileUserState && tabsArray[1]) {
+            handleChangeTab(tabsArray[0]);
         }
     }, [tabsArray]);
 
@@ -79,7 +83,7 @@ export default function UserProfile() {
                     <div className="flex justify-center mt-6 py-6 border-t border-slate-200">
                         <div className=" block uppercase tracking-wideflex justify-center mt-10text-2xl text-slate-300 font-bold leading-normal mb-1 mr-14">
                             {userId.email}
-                            <FontAwesomeIcon icon="fa-regular fa-image" />
+                            {/* <FontAwesomeIcon icon="fa-regular fa-image" /> */}
                         </div>
                     </div>
                     <div className="flex justify-center mt-10 text-2xl text-slate-700 font-bold leading-normal mb-1 mr-14"></div>
@@ -88,23 +92,21 @@ export default function UserProfile() {
                     <ul className="flex items-center justify-center bg-white">
                         <li
                             id="select-tab"
-                            className="p-2 rounded-t w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+                            className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
                         >
                             Mis artistas Favoritos ⭐
                         </li>
                         <li
                             id="select-tab"
-                            className="p-2 rounded-t w-full font-bold cursor-pointer hover:bg-red-300"
+                            className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
                         >
                             Mis Compras 🛒
                         </li>
                     </ul>
-
                     <section
                         id="select-content"
                         className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
                     >
-                        {" "}
                         <UserFavorites />
                     </section>
                     <section

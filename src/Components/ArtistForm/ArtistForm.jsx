@@ -49,6 +49,7 @@ const ArtistForm = () => {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -63,6 +64,7 @@ const ArtistForm = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
     function handleGenres(event) {
         if (genresSelect.includes(event.target.value)) {
             alert("Ese género ya está enlistado");
@@ -74,6 +76,7 @@ const ArtistForm = () => {
             }
         }
     }
+    
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }
@@ -486,6 +489,11 @@ const ArtistForm = () => {
                         />
                     </div>
                 </div>
+                {image ?
+                    <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
+                        <img src={image} className="object-cover w-full h-full" alt="preview"/>
+                    </div> : null
+                }
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
                         <label
