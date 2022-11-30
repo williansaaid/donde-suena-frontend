@@ -84,11 +84,11 @@ function Navbar() {
 
     return (
         <>
-            <nav className="bg-customGray relative w-full flex items-center justify-center h-28">
+            <nav className="bg-customGray relative w-full flex items-center justify-center h-32">
                 <div className="container flex justify-between items-center min-w-full px-5">
                     <img
                         onClick={() => navigate("/")}
-                        className="h-20 cursor-pointer animate-pulse"
+                        className="h-20 cursor-pointer animate-pulse mb-4 ml-6"
                         src={
                             "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
                         }
@@ -104,7 +104,7 @@ function Navbar() {
                         {!user.isLogged ? (
                             <div
                                 onClick={handleLogin}
-                                className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                                className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3 mr-6"
                             >
                                 <img
                                     className="h-full"
