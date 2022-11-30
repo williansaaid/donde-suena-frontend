@@ -38,11 +38,14 @@ export const PostCard = ({ props }) => {
                                         alt="avatar"
                                     />
                                     <div className="grid-rows-{2} ">
+                                      <div className="">
+                                      <h2 className="ml-60">  <DateTime ></DateTime></h2>
+                                      </div>
                                         <div className="flex-grow pl-3 mr-10 bg-customWhite">
                                             <h2 className="text-lg font-semibold text-gray-900 -mt-1 ml-1 ">
                                                 {el.artists[0].nickname}
                                             </h2>
-
+                                              
                                             <div className="w-full mb-4 ">
                                                 <p className="mt-3 text-gray-700 text-sm ml-1 pb-5 object-contain">
                                                     {el.description}
@@ -57,18 +60,24 @@ export const PostCard = ({ props }) => {
                                                         }
                                                         alt=""
                                                     />
+                                          
+                                                
+                                               
                                                 </div>
-                                                <div>
-                                                       <DateTime></DateTime>
-                                                </div>
+                                               
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {/* <Comments idposts={el.id}/> */}
                                
+                                <div>
+                                
+                                </div>
                             </div>
+                           
                         </div>
+                        
+                        
                     );
                 })}
         </div>

@@ -7,7 +7,7 @@ export const DateTime =()=>{
       return (
         <div>
           <h2 type="text" readOnly="true">{displaytodaysdate}  </h2>
-          <h3>{displayTime}</h3>
+          
         </div>
       )
 }

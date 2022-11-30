@@ -17,13 +17,15 @@ const [showForm,setShowForm] =useState(false);
 
   const  handleSubmit=(e)=>{
     e.preventDefault();
-    dispatch(createComment({
+    dispatch (createComment({
       body: text,
       date: new Date(),
       user: user.firstName,
       postId: idposts
     }))
+
     setText("");
+    window.location.reload(true)
    }
    const handleChange=(e)=>{
    e.preventDefault();
@@ -41,6 +43,7 @@ const [showForm,setShowForm] =useState(false);
         {showForm? (
         <form onSubmit={handleSubmit} 
         class="w-full max-w-xl bg-gray-200 px-4 pt-2 bg-gray-200"
+        
         >  
         <div class="w-full md:w-full px-3 mb-1 mt-0 ">
     
@@ -49,7 +52,9 @@ const [showForm,setShowForm] =useState(false);
           <textarea
     
     className="comment-form-textarea"
-    class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Escribe tu comentario...' required
+    class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" 
+    
+    name="body" placeholder='Escribe tu comentario...' required
     value={text}
     onChange={handleChange}
     />
@@ -74,7 +79,7 @@ const [showForm,setShowForm] =useState(false);
             </div>
         
         </form>
-        ): ( <button onClick={()=> setShowForm(true)}  className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded ml-">Añadir Comentario</button>
+        ): ( <button onClick={()=> setShowForm(true) }  className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded ml-">Añadir Comentario</button>
       )}
 
     </React.Fragment>
