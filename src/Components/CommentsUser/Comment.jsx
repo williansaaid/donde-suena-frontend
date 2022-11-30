@@ -3,7 +3,7 @@ import CommentForm from "./CommentForm";
 
 
 export const Comment = ({comments , replies ,currentUserId , eliminateComment ,addComment, activeComment ,setActiveComment , parentId=null, modifyComment,idposts}) =>{
- //en el caso de que el usuario no este logeado , su user id es null , por lo tanto solo puede responder si esta logeado 
+ //en el caso de que el usuario no este logeado , su user id es null , por lo tanto solo puede responder si esta logeado
  const user = useSelector((state) => state.sessionState?.user)
  const artists=useSelector((state)=>state.sessionState?.artists)
  const isEditing =
@@ -19,13 +19,13 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
   const canDelete = currentUserId===comments.userId
   //la variable createdAt me permite que se pueda ver la fecha de "una Manera mas amistosa"
   const createdAt = new Date(comments.createdAt).toLocaleDateString();
-  
- 
+
+
  const replyId = parentId? parentId : comments.id;
-  
- 
+
+
  return (
-  <section   className ="flex items-center justify-center  antialiased bg-white bg-gray-100 min-w-screen ml-14 " >
+  <section   className ="flex items-center justify-center  antialiased bg-white  min-w-screen ml-14 " >
 
     <div className="container  ml-14 sm:px-5 ">
 <div className="flex-col w-full py-4 mx-auto bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
@@ -40,7 +40,7 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
                         {  !isEditing &&  <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">
       {comments.body}
       </div>}
-      
+
       {isEditing && (
         <CommentForm
         submitLabel="Update"
@@ -74,11 +74,11 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
         />
         )}
       <div className="comments-actions-buttons "  class="flex items-stretch">
-       {canReply 
-       && 
+       {canReply
+       &&
        <button className="comments-actions-buttons " class=" ml-7 mr-2 text-sm font-medium leading-loose text-gray-600"
        onClick={()=>
-        setActiveComment({ id:comments.id ,type:"replying"})} 
+        setActiveComment({ id:comments.id ,type:"replying"})}
         >
           <div class="flex flex-row">
           <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-response-30_bgrxrb.png" alt="respondericon" width="20px"/>
@@ -96,10 +96,10 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
           Editar
             </div>
           </button>}
-      { canDelete && 
-      <button 
+      { canDelete &&
+      <button
       className=" ml-3 mr-6 text-sm font-medium leading-loose text-gray-600"
-      onClick={()=> eliminateComment (comments.id)} 
+      onClick={()=> eliminateComment (comments.id)}
       >
         <div class="flex flex-row">
 <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-trash-can-30_ygzque.png" alt="eliminarIcono" width="20px"/>
@@ -113,18 +113,18 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
       <CommentForm
       submitLabel="Contestar"
       handleSubmit={(text)=> addComment (text, replyId)}
-                                                                      
+
       />
-      
-      
+
+
       )}
-    
+
     {replies.length > 0  && (
-      <div className="replies"> 
+      <div className="replies">
       {replies.map(reply =>(
         <Comment
-        comment={reply} 
-        key={reply.id} 
+        comment={reply}
+        key={reply.id}
         replies={[]}
           currentUserId={currentUserId}
           addComment={addComment}
@@ -135,16 +135,16 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
           // no es parent id por que es cuando creo una respuesta crea form de comments de vuelta
           parentId={comments.id}
           idposts={idposts}
-          /> 
-          // replies lo seteamos como un array vacio ya que las respuestas no pueden anidar otra respuestas , por tema de rendimiento a gran escala , recordar que tenemos que pasarle el current user id por que en cada respuesta hay que otorgar la misma info en que adentro de nuestro comentario 
-          
+          />
+          // replies lo seteamos como un array vacio ya que las respuestas no pueden anidar otra respuestas , por tema de rendimiento a gran escala , recordar que tenemos que pasarle el current user id por que en cada respuesta hay que otorgar la misma info en que adentro de nuestro comentario
+
           ))}
       </div>
     )}
   </div>
 </div>
 
-    
+
     </section>
   )
 }
