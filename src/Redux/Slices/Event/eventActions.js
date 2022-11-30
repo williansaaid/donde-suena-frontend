@@ -67,7 +67,6 @@ export const setFilter = (payload) => (dispatch) => {
     axios
         .get("/event/getEvents" + payload)
         .then((res) => {
-            console.log(res);
             dispatch(filteredEvents(res.data.events));
         })
         .catch((e) => {
@@ -88,5 +87,12 @@ export const getQuantityTickets = (id) => (dispatch) => {
         .then((res) => {
             dispatch(quantityTickets(res.data.stock.quotas));
         })
+        .catch((e) => console.log(e));
+};
+
+export const deleteEvent = (id) => (dispatch) => {
+    axios
+        .delete(`/event/deleteEvent/${id}`)
+        .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };

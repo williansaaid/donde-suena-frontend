@@ -5,8 +5,7 @@ import {
     paymentOrder,
     clearPaymentOrder,
     getDataUserId,
-    logUser,
-    getFavs,
+    createAllTicket
 } from "./userSlice";
 
 export const ticketPurchase = (values) => (dispatch) => {
@@ -15,6 +14,18 @@ export const ticketPurchase = (values) => (dispatch) => {
         .then((res) => dispatch(paymentOrder(res.data)))
         .catch((e) => console.log(e));
 };
+
+export const createTicketMP =
+    (payment_id, purchasedQuantity, values) => (dispatch) => {
+        console.log(values);
+        axios
+            .post(
+                `/auth/user/createTicketMP?payment_id=${payment_id}&purchasedQuantity=${purchasedQuantity}`,
+                values
+            )
+            .then((res) => dispatch(createAllTicket(res.data.newTicket)))
+            .catch((e) => console.log(e));
+    };
 
 export const getTicketsByUser = (id) => (dispatch) => {
     axios(`/auth/user/getTickets/${id}`)
@@ -32,3 +43,14 @@ export const getUserById = (id) => (dispatch) => {
         .then((res) => dispatch(getDataUserId(res.data.user)))
         .catch((e) => console.log(e));
 };
+
+export const sendInvoice = (values) => {
+    return async function (){
+        try {
+            const response = await axios.post(`/auth/user/sendInvoice`, values);
+            console.log(response.data.msg);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

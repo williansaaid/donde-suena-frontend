@@ -26,6 +26,7 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const user = useSelector((state) => state.sessionState.user);
+    console.log(user);
 
     useEffect(() => {
         let handler = (e) => {
@@ -43,6 +44,11 @@ function Navbar() {
     useEffect(() => {
         setOpen(false);
     }, [location.pathname]);
+    useEffect(() => {
+        if (!location.pathname.includes("/userProfile")) {
+            dispatch(togleUserState(false));
+        }
+    });
 
     const handleArtistProfile = (number) => {
         dispatch(setScroll([0, 9999]));
@@ -50,8 +56,8 @@ function Navbar() {
 
         navigate(`artistProfile/${user.id}`);
     };
-    const handleUserProfile = (number) => {
-        dispatch(togleUserState(number));
+    const handleUserProfile = () => {
+        dispatch(togleUserState(true));
         navigate(`/userProfile/${user.id}`);
     };
 
@@ -78,148 +84,154 @@ function Navbar() {
         navigate("/");
     };
     const handleArtistDashboard = () => {
-        navigate(`/myDashboard`)
-    }
+        navigate(`/myDashboard`);
+    };
 
     return (
         <>
-                <nav className="bg-customGray relative w-full flex items-center justify-center h-28">
-                    <div className="container flex justify-between items-center min-w-full px-5">
-                        <img
-                            onClick={() => navigate("/")}
-                            className="h-20 cursor-pointer animate-pulse"
-                            src={
-                                "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
-                            }
-                            alt="logo"
-                        />
-                        <div className="flex items-center justify-center gap-8">
-                            {location.pathname.length === 1 && (
-                                <div className="my-9">
-                                    <SearchBar />
-                                </div>
-                            )}
+            <nav className="bg-customGray relative w-full flex items-center justify-center h-28">
+                <div className="container flex justify-between items-center min-w-full px-5">
+                    <img
+                        onClick={() => navigate("/")}
+                        className="h-20 cursor-pointer animate-pulse"
+                        src={
+                            "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png"
+                        }
+                        alt="logo"
+                    />
+                    <div className="flex items-center justify-center gap-8">
+                        {location.pathname.length === 1 && (
+                            <div className="my-9">
+                                <SearchBar />
+                            </div>
+                        )}
 
-                            {!user.isLogged ? (
+                        {!user.isLogged ? (
+                            <div
+                                onClick={handleLogin}
+                                className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                            >
+                                <img
+                                    className="h-full"
+                                    src={
+                                        "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
+                                    }
+                                    alt="account icon"
+                                />
+                                <a>Mi Cuenta</a>
+                            </div>
+                        ) : (
+                            <div className="menu-container" ref={menuRef}>
                                 <div
-                                    onClick={handleLogin}
-                                    className="cursor-pointer text-white bg-customRed rounded-lg ml-10 items-center p-2 flex h-10 gap-3 px-3"
+                                    onClick={() => setOpen(!open)}
+                                    className="flex justify-center items-center ml-5 mr-2 h-auto bg-gray-500 rounded-full cursor-pointer gap-2 pl-2"
                                 >
-                                    <img
-                                        className="h-full"
-                                        src={
-                                            "https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Mi_cuenta_tdlcab.png"
-                                        }
-                                        alt="account icon"
-                                    />
-                                    <a>Mi Cuenta</a>
-                                </div>
-                            ) : (
-                                <div className="menu-container" ref={menuRef}>
                                     <div
-                                        onClick={() => setOpen(!open)}
-                                        className="flex justify-center items-center ml-5 mr-2 h-auto bg-gray-500 rounded-full cursor-pointer gap-2 pl-2"
+                                        className={
+                                            !open
+                                                ? "text-white flex justify-center items-center"
+                                                : "rotate-180 transition duration-500 text-white flex justify-center items-center"
+                                        }
                                     >
-                                        <div className="text-white flex justify-center items-center">
-                                            <FaAngleDown
-                                                className="text-white"
-                                                size={"1.3rem"}
+                                        <FaAngleDown size={"1.3rem"} />
+                                    </div>
+                                    <h3 className="tracking-wide text-white text-s font-bold">
+                                        {user.artista
+                                            ? user.nickname
+                                            : user.firstName}
+                                    </h3>
+                                    <img
+                                        className="object-cover rounded-full h-20 w-20"
+                                        src={user.image}
+                                        alt="foto de perfil"
+                                    />
+                                </div>
+                                <div
+                                    className={`dropdown-menu ${
+                                        open ? "active" : "inactive"
+                                    }`}
+                                >
+                                    <ul>
+                                        <div
+                                            className={
+                                                !user.artista
+                                                    ? "hidden"
+                                                    : "active"
+                                            }
+                                            onClick={handleArtistDashboard}
+                                        >
+                                            <DropdownItem
+                                                img={
+                                                    <IoIosCog size={"1.3rem"} />
+                                                }
+                                                text="Dashboard"
                                             />
                                         </div>
-                                        <h3 className="tracking-wide text-white text-s font-bold">
-                                            {user.artista ? user.nickname : user.firstName}
-                                        </h3>
-                                        <img
-                                            className="object-cover rounded-full h-20 w-20"
-                                            src={user.image}
-                                            alt="foto de perfil"
-                                        />
-                                    </div>
-                                    <div
-                                        className={`dropdown-menu ${
-                                            open ? "active" : "inactive"
-                                        }`}
-                                    >
-                                        <ul>
-                                            <div className={!user.artista ? "hidden" : "active"}
-                                                onClick={handleArtistDashboard}
-                                            >
-                                                <DropdownItem
-                                                    img={
-                                                        <IoIosCog
-                                                            size={"1.3rem"}
-                                                        />
-                                                    }
-                                                    text="Dashboard"
-                                                />
-                                            </div>
-                                            <div onClick={handleNavigate}>
-                                                <DropdownItem
-                                                    img={
-                                                        <IoPersonOutline
-                                                            size={"1.3em"}
-                                                        />
-                                                    }
-                                                    text="Mi Perfil"
-                                                />
-                                            </div>
-                                            <div
-                                                onClick={() => {
-                                                    user.artista
-                                                        ? handleArtistProfile(2)
-                                                        : handleUserProfile(1);
-                                                }}
-                                            >
-                                                <DropdownItem
-                                                    img={
-                                                        <TiTicket
-                                                            size={"1.3em"}
-                                                        />
-                                                    }
-                                                    text={
-                                                        !user.artista
-                                                            ? "Mis Tickets"
-                                                            : "Mis Shows"
-                                                    }
-                                                />
-                                            </div>
-                                            <div
-                                                onClick={() => {
-                                                    user.artista
-                                                        ? handleArtistProfile(1)
-                                                        : handleUserProfile(2);
-                                                }}
-                                            >
-                                                <DropdownItem
-                                                    img={
-                                                        <AiOutlineStar
-                                                            size={"1.3em"}
-                                                        />
-                                                    }
-                                                    text={
-                                                        !user.artista
-                                                            ? "Mis Favoritos"
-                                                            : "Mi Feed"
-                                                    }
-                                                />
-                                            </div>
-                                            <div onClick={handleLogout}>
-                                                <DropdownItem
-                                                    img={
-                                                        <IoIosLogOut
-                                                            size={"1.3em"}
-                                                        />
-                                                    }
-                                                    text="Cerrar Sesión"
-                                                />
-                                            </div>
-                                        </ul>
-                                    </div>
+                                        <div onClick={handleNavigate}>
+                                            <DropdownItem
+                                                img={
+                                                    <IoPersonOutline
+                                                        size={"1.3em"}
+                                                    />
+                                                }
+                                                text="Mi Perfil"
+                                            />
+                                        </div>
+                                        <div
+                                            onClick={() => {
+                                                user.artista
+                                                    ? handleArtistProfile(2)
+                                                    : handleUserProfile();
+                                            }}
+                                        >
+                                            <DropdownItem
+                                                img={
+                                                    <TiTicket size={"1.3em"} />
+                                                }
+                                                text={
+                                                    !user.artista
+                                                        ? "Mis Tickets"
+                                                        : "Mis Shows"
+                                                }
+                                            />
+                                        </div>
+                                        <div
+                                            onClick={() => {
+                                                user.artista
+                                                    ? handleArtistProfile(1)
+                                                    : handleNavigate();
+                                            }}
+                                        >
+                                            <DropdownItem
+                                                img={
+                                                    <AiOutlineStar
+                                                        size={"1.3em"}
+                                                    />
+                                                }
+                                                text={
+                                                    !user.artista
+                                                        ? "Mis Favoritos"
+                                                        : "Mi Feed"
+                                                }
+                                            />
+                                        </div>
+                                        <div onClick={handleLogout}>
+                                            <DropdownItem
+                                                img={
+                                                    <IoIosLogOut
+                                                        size={"1.3em"}
+                                                    />
+                                                }
+                                                text="Cerrar Sesión"
+                                            />
+                                        </div>
+                                    </ul>
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
-                </nav>
+                </div>
+            </nav>
         </>
     );
 }
