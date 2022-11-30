@@ -5,11 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { logOut } from "../../Redux/Slices/Session/sessionActions";
 import { setScroll } from "../../Redux/Slices/Scroll/ScrollActions";
-
-import {
-    togleAtristState,
-    togleUserState,
-} from "../../Redux/Slices/Profile/ProfileActions";
+import { togleAtristState, togleUserState } from "../../Redux/Slices/Profile/ProfileActions";
 import DropdownItem from "./DropdownItem";
 import { IoIosCog, IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
@@ -18,6 +14,7 @@ import { AiOutlineStar } from "react-icons/ai";
 import { FaAngleDown } from "react-icons/fa";
 
 import "./Navbar.css";
+
 function Navbar() {
     const location = useLocation();
     const menuRef = useRef();
@@ -43,6 +40,7 @@ function Navbar() {
     useEffect(() => {
         setOpen(false);
     }, [location.pathname]);
+
     useEffect(() => {
         if (!location.pathname.includes("/userProfile")) {
             dispatch(togleUserState(false));
@@ -55,6 +53,7 @@ function Navbar() {
 
         navigate(`artistProfile/${user.id}`);
     };
+
     const handleUserProfile = () => {
         dispatch(togleUserState(true));
         navigate(`/userProfile/${user.id}`);
@@ -65,9 +64,11 @@ function Navbar() {
         if (!user.artista) navigate(`/userProfile/${user.id}`);
         else navigate(`artistProfile/${user.id}`);
     };
+
     const handleLogin = () => {
         dispatch(setLoginModal());
     };
+
     const handleLogout = () => {
         dispatch(logOut());
         // si existe la propiedad email en el localStorage, la borra
@@ -82,9 +83,11 @@ function Navbar() {
         }
         navigate("/");
     };
+    
     const handleArtistDashboard = () => {
         navigate(`/myDashboard`);
     };
+    
     const handleAdminDashboard = () => {
         navigate(`/admin`);
     };
