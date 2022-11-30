@@ -86,7 +86,7 @@ function Navbar() {
         navigate(`/myDashboard`);
     };
     const handleAdminDashboard = () => {
-        navigate(`/`);
+        navigate(`/admin`);
     };
 
     return (
@@ -153,7 +153,21 @@ function Navbar() {
                                         open ? "active" : "inactive"
                                     }`}
                                 >
-                                    <ul>
+                                    <ul><div
+                                            className={
+                                                !user.admin
+                                                    ? "hidden"
+                                                    : "active"
+                                            }
+                                            onClick={handleAdminDashboard}
+                                        >
+                                            <DropdownItem
+                                                img={
+                                                    <IoIosCog size={"1.3rem"} />
+                                                }
+                                                text="Dashboard"
+                                            />
+                                        </div>
                                         <div
                                             className={
                                                 !user.artista
