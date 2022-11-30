@@ -9,14 +9,14 @@ export const commentsSlice = createSlice({
         commentsId:[],
         reply:[],
         delete:[],
-
+        postDetail:[],
     },
     reducers: {
         getAllComments: (state, action) => {
             state.comments = [...state.comments,action.payload];
         },
         getCommentById:(state,action) =>{
-          state.commentsId=action.payload
+          state.postDetail=action.payload
         },
         addComment: (state, action ) => {
           state.reply = action.payload

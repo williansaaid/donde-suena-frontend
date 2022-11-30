@@ -5,7 +5,7 @@ import {getAllComments, getCommentById , addComment , editComment , deleteCommen
 export const getComments =(id) =>(dispatch) =>{
   axios.get(`http://localhost:3001/auth/artist/getComments/${id}`)
   .then((res)=>{ console.log(res.data.commentsId)
-    dispatch(getCommentById(res.data.commentsId.comments))
+    dispatch(getCommentById(res.data.commentsId))
    
   } )
   .catch((e)=>console.log(e));
