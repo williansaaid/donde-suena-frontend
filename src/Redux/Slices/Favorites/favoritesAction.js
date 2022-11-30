@@ -8,8 +8,7 @@ export const getFavorites = () => (dispatch) => {
 };
 
 export const addFavorite = (idA, idU) => (dispatch) => {
-    axios
-        .post(`/auth/postFavoriteArtist/${idA}?userId=${idU}`)
+    axios.post(`/auth/postFavoriteArtist/${idA}?userId=${idU}`)
         .then((res) => dispatch(addFav(res.data)))
         .catch((e) => console.log(e));
 };

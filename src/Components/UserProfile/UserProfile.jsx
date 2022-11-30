@@ -13,7 +13,7 @@ export default function UserProfile() {
     const { id } = useParams();
     const { userId } = useSelector((state) => state.userIdState);
     const { profileUserState } = useSelector((state) => state.profileState);
-    console.log(profileUserState);
+  
     const tabsArray = Array.from(document.querySelectorAll("#select-tab"));
     const contentArray = Array.from(
         document.querySelectorAll("#select-content")
