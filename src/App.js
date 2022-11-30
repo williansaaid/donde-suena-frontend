@@ -34,7 +34,7 @@ function App() {
     const token = user.token || null;
     return (
         <BrowserRouter>
-            <div className="App w-full h-full">
+            <div className="App w-full min-h-screen">
                 <Navbar />
                 <Login />
 
