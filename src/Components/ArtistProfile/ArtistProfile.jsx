@@ -61,8 +61,8 @@ export const ArtistProfile = () => {
                         <div className="relative">
                             <img
                                 src={artistId.image}
-                                className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
-                                alt=""
+                                className="shadow-xl shadow-customGray rounded-full items-center p-2 mt-10"
+                                alt="profileImage"
                             />
                         </div>
                     </div>
