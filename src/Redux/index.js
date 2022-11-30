@@ -9,21 +9,34 @@ import places from "../Redux/Slices/Places/placesSlice";
 import favorites from "../Redux/Slices/Favorites/favoritesSlice";
 import genres from "../Redux/Slices/Genres/genresSlice";
 import purchased from "../Redux/Slices/Purchased/purchasedSlice";
+import session from "./Slices/Session/sessionSlice";
 import user from "./Slices/User/userSlice";
 import artist from "./Slices/Artist/artistSlice";
 import filter from "./Slices/Filter/filterSlice";
 import map from "./Slices/Map/mapSlice";
+import loading from "./Slices/Loading/LoadingSlices";
 import userPublic from "./Slices/User/userSlice";
-
-
+import posts from "./Slices/Post/postSlice";
+import comments from "./Slices/Comments/commentsSlices";
+import artistId from "./Slices/Artist/artistSlice";
+import userId from "./Slices/User/userSlice";
+import addFav from "./Slices/Favorites/favoritesSlice";
+import team from "./Slices/Team/teamSlice";
+import users from "./Slices/Users/usersSlice";
+import commentsId from "./Slices/Comments/commentsSlices";
+import profile from "./Slices/Profile/ProfileSlice";
+import scroll from "./Slices/Scroll/ScrollSlice";
+import postDetail from "./Slices/Comments/commentsSlices"
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["userState"],
+    whitelist: ["sessionState", "detailState"],
 };
 
 const rootReducer = combineReducers({
+    loadingState: loading,
     userState: user,
+    sessionState: session,
     detailState: detail,
     modalState: login,
     eventsState: events,
@@ -34,20 +47,23 @@ const rootReducer = combineReducers({
     artistState: artist,
     filterState: filter,
     mapState: map,
-    userPublicState: userPublic
+    userPublicState: userPublic,
+    userIdState: userId,
+    userStateTickets: user,
+    posts: posts,
+    comments: comments,
+    artistId: artistId,
+    addFav: addFav,
+    teamState: team,
+    usersState: users,
+    profileState: profile,
+    scrollState: scroll,
+    commentsId:commentsId,
+    postDetail:postDetail
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default configureStore({
     reducer: persistedReducer,
-
-    // events: events,
-    // detail: detail,
-    // modal: modal,
-    // places: places,
-    // favorites: favorites,
-    // genres: genres,
-    // purchased: purchased,
-    // user: user,
     middleware: [thunk],
 });

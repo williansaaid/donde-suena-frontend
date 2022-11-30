@@ -6,6 +6,7 @@ export const userSlice = createSlice({
         modal: false,
         tickets: [],
         paymentUrl: "",
+        userId: [],
     },
     reducers: {
         paymentOrder: (state, action) => {
@@ -18,9 +19,20 @@ export const userSlice = createSlice({
         clearPaymentOrder: (state) => {
             state.paymentUrl = "";
         },
+        getDataUserId: (state, action) => {
+            state.userId = action.payload;
+        },
+        createAllTicketMP: (state, action) => {
+            state.tickets = [...state.tickets, action.payload];
+        },
     },
 });
-export const { logUser, getAllTicketsByUser, paymentOrder, clearPaymentOrder } =
-    userSlice.actions;
+export const {
+    getAllTicketsByUser,
+    paymentOrder,
+    clearPaymentOrder,
+    getDataUserId,
+    createAllTicket,
+} = userSlice.actions;
 
 export default userSlice.reducer;

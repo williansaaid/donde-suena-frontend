@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { eventSchema } from "../../schemas/eventCreation";
 import { submitEventForm } from "../../Redux/Slices/Event/eventActions";
-import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
-import { getPlaces } from "../../Redux/Slices/Places/placesAction";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
-import { useSelector } from "react-redux";
+import { getPlaces } from "../../Redux/Slices/Places/placesAction";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const EventCreation = () => {
     const dispatch = useDispatch();
@@ -19,40 +18,52 @@ const EventCreation = () => {
     const [defaultGenre, setDefaultGenre] = useState("");
     const [genresSelect, setGenresSelect] = useState([]);
     const [genreEmpty, setGenreEmpty] = useState(true);
+    const [placeChosen, setPlaceChosen] = useState("");
     const { places } = useSelector((state) => state.placesState);
     const { genres } = useSelector((state) => state.genresState);
-    const { user } = useSelector((state) => state.userState);
-    console.log(user);
+    const { user } = useSelector((state) => state.sessionState);
 
     if (!user.isLogged) {
-        dispatch(setLoginModal());
-        navigate("/");
+        Swal.fire({
+            title: "Ocurrió un error",
+            text: "Debes Iniciar Sesión como Artista para crear un Evento",
+            icon: "error",
+            timer: 5000,
+        });
     }
 
     useEffect(() => {
         dispatch(getPlaces());
         dispatch(getGenres());
     }, []);
+
     useEffect(() => {
         genresSelect.length > 0 ? setGenreEmpty(false) : setGenreEmpty(true);
     }, [genresSelect]);
 
-    const onSubmit = (values, actions) => {
+    const onSubmit = async (values, actions) => {
+        const location = placeChosen.split("*");
         const formValues = {
             ...values,
             image: image,
             genres: genresSelect,
+            artistName: user.nickname,
+            city: location[0],
+            address: location[1],
         };
-        console.log(formValues);
         try {
-            dispatch(submitEventForm(formValues));
+            const eventId = await dispatch(submitEventForm(formValues));
+            console.log(formValues);
             setSuccess(false);
             actions.resetForm();
             setGenresSelect([]);
+            setPlaceChosen({});
+            navigate(`/details/${eventId}`);
         } catch (error) {
             console.log(error);
         }
     };
+
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -67,17 +78,33 @@ const EventCreation = () => {
         setImage(res.data.secure_url);
         setLoading(false);
     };
+
+    function handlePlaces(event) {
+        setPlaceChosen(event.target.value);
+    }
+
     function handleGenres(event) {
         if (genresSelect.includes(event.target.value)) {
-            alert("Ese género ya está enlistado");
+            Swal.fire({
+                title: "Ooops...",
+                text: "Ese género ya está enlistado",
+                icon: "warning",
+                timer: 2000,
+            });
         } else {
             if (genresSelect.length > 2)
-                alert("La máxima cantidad de géneros posibles es 3");
+                Swal.fire({
+                    title: "Ooops...",
+                    text: "La máxima cantidad de géneros posibles es 3",
+                    icon: "warning",
+                    timer: 2000,
+                });
             else {
                 setGenresSelect([...genresSelect, event.target.value]);
             }
         }
     }
+    
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }
@@ -91,7 +118,6 @@ const EventCreation = () => {
                 end: "",
                 price: 0,
                 quotas: 0,
-                placeName: "",
                 description: "",
                 phone: "",
                 agreeTerms: false,
@@ -214,20 +240,20 @@ const EventCreation = () => {
                 </div>
                 <div className="w-full px-3">
                     <label
-                        htmlFor="placeName"
+                        htmlFor="address"
                         className="block tracking-wide text-white text-s font-bold mb-2"
                     >
-                        Lugar
-                        {errors.placeName ? (
+                        Locación
+                        {/* {errors.address ? (
                             <span className="text-customRed italic pl-1 text-xs font-semibold">
-                                {errors.placeName}
+                                {errors.address}
                             </span>
-                        ) : null}
+                        ) : null} */}
                     </label>
                     <select
-                        name="placeName"
-                        value={values.placeName}
-                        onChange={handleChange}
+                        name="address"
+                        value={placeChosen}
+                        onChange={handlePlaces}
                         className="rounded py-2 pl-3 w-full focus:outline-none bg-gray-200 focus:bg-white"
                     >
                         <option value="" disabled>
@@ -236,8 +262,8 @@ const EventCreation = () => {
                         {places.length > 0 &&
                             places.map((place, key) => {
                                 return (
-                                    <option key={key} value={place.name}>
-                                        {`"${place.name}" --- ${place.address}`}
+                                    <option key={key} value={`${place.city}*${place.address}`}>
+                                        {`${place.name}`}
                                     </option>
                                 );
                             })}
@@ -436,6 +462,14 @@ const EventCreation = () => {
                         />
                     </div>
                 </div>
+                { image ?
+                    <div className="flex flex-col gap-4 w-full h-96 px-3">
+                        <p
+                            className="uppercase text-white font-bold"
+                        >Preview Póster Publicitario</p>
+                        <img src={image} className="w-full h-full border-2 object-cover"/>
+                    </div> : null
+                }
                 <div className="flex flex-col items-center">
                     <div className="flex flex-row-reverse items-center justify-center gap-2">
                         <label

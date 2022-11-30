@@ -34,7 +34,6 @@ export const eventSchema = yup.object().shape({
             }
         )
         .required("*"),
-    placeName: yup.string().required("*"),
     quotas: yup
         .number()
         .min(1, "(Mín: 1 entrada)")

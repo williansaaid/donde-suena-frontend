@@ -1,12 +1,24 @@
 import axios from "axios";
+import { getPost, getPostById} from "./postSlice";
 
-import { getPostById } from "./postSlice";
-
-export const getPostId =()=>(dispatch)=>{
-  axios.get("http://localhost:3001/auth/artist/getPost/aadd8222-ee5d-482b-8464-b59d33b90ab2")
+export const getPostId =(id)=>(dispatch)=>{
+  axios.get(`/auth/artist/getPost/${id}`)
     .then((res)=>{
-      console.log(res.data.postId.posts)
-      dispatch(getPostById(res.data.postId.posts))})
+      console.log(res.data)
+      dispatch(getPostById(res.data.postId))})
+      .catch((e) => console.log(e));
+    }
+export const getPosts=()=>(dispatch)=>{
+  axios.get("/auth/artist/getPosts/")
+    .then((res)=>dispatch(getPost(res.data.allPosts)))
     .catch((e) => console.log(e));
 }
+
+// export const getPostById =()=>(dispatch)=>{
+//   axios.get("/auth/artist/getPosts")
+//     .then((res)=>{
+//       console.log(res.data.allPosts)
+//       dispatch(getPostById(res.data.allPosts))})
+//     .catch((e) => console.log(e));
+// }
 
