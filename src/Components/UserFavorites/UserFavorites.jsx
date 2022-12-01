@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites, deleteFavorite } from "../../Redux/Slices/Favorites/favoritesAction";
+import {
+    getFavorites,
+    deleteFavorite,
+} from "../../Redux/Slices/Favorites/favoritesAction";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -9,9 +12,13 @@ const UserFavorites = () => {
     const dispatch = useDispatch();
     const { favorites } = useSelector((state) => state.favoritesState);
 
-    useEffect(() => {
+    const callback = useCallback(() => {
         dispatch(getFavorites());
-    }, [dispatch]);
+    }, [dispatch, favorites]);
+
+    useMemo(() => {
+        callback();
+    }, [callback]);
 
     useEffect(() => {
         dispatch(getArtists());
@@ -30,14 +37,19 @@ const UserFavorites = () => {
 
     return (
         <div className="w-full grid grid-cols-3 overflow-y-auto bg-gradient-to-tl from-customGray to-customRed">
-            {favorites.length ?
+            {favorites.length ? (
                 favorites.map((artist) => {
                     return (
-                        <div className="transition duration-300 hover:scale-95 hover:bg-customGray-600 h-fit" key={artist.id}>
+                        <div
+                            className="transition duration-300 hover:scale-95 hover:bg-customGray-600 h-fit"
+                            key={artist.id}
+                        >
                             <div className="flex flex-col m-5 w-80 h-64 items-center justify-center overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl border border-transparent hover:border-white transition duration-500 ease-in-out">
                                 <button
                                     className="p-2 text-center text-white transition bg-customRed rounded-full hover:bg-red-400 focus:outline-none absolute top-5 right-5 cursor-pointer"
-                                    onClick={() => handleDeleteFavorite(artist.id)}
+                                    onClick={() =>
+                                        handleDeleteFavorite(artist.id)
+                                    }
                                     value={artist.id}
                                 >
                                     <svg
@@ -72,13 +84,13 @@ const UserFavorites = () => {
                         </div>
                     );
                 })
-                : <div
-                    className="flex flex-col m-5 w-1/2 h-fit p-8 items-center justify-center overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl border border-transparent hover:border-white transition duration-500 ease-in-out">
+            ) : (
+                <div className="flex flex-col m-5 w-1/2 h-fit p-8 items-center justify-center overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl border border-transparent hover:border-white transition duration-500 ease-in-out">
                     <p className="text-center text-white italic">
                         No tienes Artistas Favoritos
                     </p>
                 </div>
-            }
+            )}
         </div>
     );
 };
