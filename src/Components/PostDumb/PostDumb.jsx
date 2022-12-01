@@ -34,12 +34,20 @@ export const PostDumb = () => {
                                     <i class="fas fa-ellipsis-h pt-2 text-lg"></i>
                                 </span>
                             </div>
-                            {console.log(el)}
-                            <img
-                                class="w-full bg-cover"
-                                src={el.image}
-                                alt={"postImage"}
-                            />
+                            <div>
+                                {el.image.includes(".mp4") && (
+                                    <video width="750" height="500" controls>
+                                        <source src={el.image} type="video/mp4" />
+                                    </video>
+                                )}
+                                {!el.image.includes(".mp4") && (
+                                    <img
+                                        class="w-full bg-cover"
+                                        alt={"postImage"}
+                                        src={el.image}
+                                    />
+                                )}
+                            </div>
                             <div class="px-3 pb-2">
                                 <div class="pt-1">
                                     <div class="mb-2 text-sm">
