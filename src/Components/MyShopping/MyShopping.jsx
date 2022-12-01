@@ -29,7 +29,7 @@ const MyShopping = (props) => {
     });
 
     return (
-        <div className="w-full flex justify-around flex-wrap h-screen max-h-screen overflow-y-auto bg-gradient-to-tr from-customGray to-customRed">
+        <div className="w-full flex justify-around flex-wrap overflow-y-auto bg-gradient-to-tr from-customGray to-customRed">
             {ticketsData.length?
                 ticketsData.flat().map((el) => {
                     return (

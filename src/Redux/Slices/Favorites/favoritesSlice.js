@@ -5,23 +5,21 @@ export const favoritesSlice = createSlice({
     initialState: {
         favorites: [],
         addFav: [],
-        
     },
 
     reducers: {
         getAllFavs: (state, action) => {
             state.favorites = action.payload;
         },
-        addFav: (state,action) => {
+        addFav: (state, action) => {
             state.addFav = action.payload;
         },
-        deleteFav: (state,action) => {
-            state = action.payload;
-        }
-
+        deleteFav: (state, action) => {
+            state.favorites = action.payload;
+        },
     },
 });
 
-export const { getAllFavs, addFav, deleteFav} = favoritesSlice.actions;
+export const { getAllFavs, addFav, deleteFav } = favoritesSlice.actions;
 
 export default favoritesSlice.reducer;

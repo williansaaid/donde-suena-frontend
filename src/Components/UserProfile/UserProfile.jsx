@@ -7,12 +7,15 @@ import { getUserById } from "../../Redux/Slices/User/userAction";
 import UserEditForm from "../UserEdit/UserEdit";
 import UserFavorites from "../UserFavorites/UserFavorites";
 import MyShopping from "../MyShopping/MyShopping";
+import { deleteUser, forgotPassword, logOut } from "../../Redux/Slices/Session/sessionActions";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function UserProfile() {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const { id } = useParams();
     const { userId } = useSelector((state) => state.userIdState);
     const { profileUserState } = useSelector((state) => state.profileState);
@@ -63,13 +66,60 @@ export default function UserProfile() {
         }
     }, [tabsArray]);
 
+    const confirmDeletion = () => {
+        Swal.fire({
+            title: '¿Seguro quieres eliminar tu cuenta?',
+            text: "Este cambio no se podrá revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, elimínala!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteUser(userId.id?userId.id:userId.id));
+                Swal.fire(
+                    'Cuenta Eliminada!',
+                    'Te vamos a extrañar :(',
+                    'success'
+                )
+                setTimeout(navigate("/"), 3000);
+            }
+        })
+    };
+
+    const confirmChangePassword = () => {
+        Swal.fire({
+            title: '¿Seguro quieres cambiar la contraseña?',
+            text: "Si confirmas se cerrará la sesión",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, quiero cambiarla!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(logOut());
+                dispatch(forgotPassword({email: userId.email}));
+            }
+        })
+    };
+
     const handleEdit = () => {
         setEditInfo(!editInfo);
+    };
+    const handleChangePassword = () =>{
+        confirmChangePassword();
+    };
+    const handleDeleteAccount = () => {
+        confirmDeletion();
     };
 
     return (
         <div className="container min-w-full min-h-screen w-full bg-gray-400 flex flex-col p-12 gap-10 text-customGray justify-center items-center">
-            <div className="flex justify-start gap-10 w-full border-b-2 pb-4">
+            <div className="flex justify-center gap-10 w-full border-b-2 pb-4">
                 <p className="text-3xl uppercase font-bold">Mis Datos</p>
                 <button
                     type="button"
@@ -78,113 +128,168 @@ export default function UserProfile() {
                 >
                     Editar Datos
                 </button>
+                <div className="flex gap-10">
+                    <button
+                        type="button"
+                        onClick={handleChangePassword}
+                        className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-500 ease-in-out"
+                    >
+                        Cambiar Contraseña
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleDeleteAccount}
+                        className="text-lg text-white italic font-semibold bg-black px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-1000 ease-in-out"
+                    >
+                        Borrar Cuenta
+                    </button>
+                </div>
             </div>
-            <div className="grid grid-cols-2">
-                <div className="flex justify-center items-center">
-                    {editInfo ? (
-                        <UserEditForm />
-                    ) : (
-                        <div className="w-5/6 p-8 bg-customGray rounded-3xl text-white flex flex-col justify-center items-center gap-8">
-                            <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
-                                <img
-                                    src={
-                                        userId.image ||
-                                        "https://res.cloudinary.com/ds41xxspf/image/upload/v1669140075/Donde-Suena-Assets/user_snefch.png"
-                                    }
-                                    className="object-cover h-full w-full"
-                                    alt=""
-                                />
+            <div className="flex justify-center items-center">
+                {editInfo ? (
+                    <UserEditForm />
+                ) : (
+                    <div className="w-5/6 p-8 bg-customGray rounded-3xl text-white flex flex-col justify-center items-center gap-8">
+                        <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
+                            <img
+                                src={
+                                    userId.image ||
+                                    "https://res.cloudinary.com/ds41xxspf/image/upload/v1669140075/Donde-Suena-Assets/user_snefch.png"
+                                }
+                                className="object-cover h-full w-full"
+                                alt=""
+                            />
+                        </div>
+                        <h4 className="text-3xl font-bold uppercase italic border-2 rounded-3xl px-4 w-fit">
+                            {userId.firstName} {userId.lastName}
+                        </h4>
+                        <div className="flex-col">
+                            <div className="flex items-center justify-start px-8 gap-8">
+                                <p className="text-2xl font-semibold w-fit">
+                                    Email:
+                                </p>
+                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
+                                    {userId.email}
+                                </p>
                             </div>
-                            <h4 className="text-3xl font-bold uppercase italic border-2 rounded-3xl px-4 w-fit">
-                                {userId.firstName} {userId.lastName}
-                            </h4>
-                            <div className="flex-col">
-                                <div className="flex items-center justify-start px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Email:
-                                    </p>
-                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
-                                        {userId.email}
-                                    </p>
-                                </div>
-                                <div className="flex items-center justify-start px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Dni:
-                                    </p>
-                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
-                                        {userId.dni}
-                                    </p>
-                                </div>
-                                <div className="flex items-center justify-start px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Birthday:
-                                    </p>
-                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
-                                        {userId.birthday}
-                                    </p>
-                                </div>
-                                <div className="flex items-center justify-start px-8 gap-8">
-                                    <p className="text-2xl font-semibold w-fit">
-                                        Phone:
-                                    </p>
-                                    <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
-                                        {userId.phone}
-                                    </p>
-                                </div>
+                            <div className="flex items-center justify-start px-8 gap-8">
+                                <p className="text-2xl font-semibold w-fit">
+                                    Dni:
+                                </p>
+                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
+                                    {userId.dni}
+                                </p>
+                            </div>
+                            <div className="flex items-center justify-start px-8 gap-8">
+                                <p className="text-2xl font-semibold w-fit">
+                                    Birthday:
+                                </p>
+                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
+                                    {userId.birthday}
+                                </p>
+                            </div>
+                            <div className="flex items-center justify-start px-8 gap-8">
+                                <p className="text-2xl font-semibold w-fit">
+                                    Phone:
+                                </p>
+                                <p className="text-xl bg-gray-400 rounded-3xl text-customGray px-6 w-fit">
+                                    {userId.phone}
+                                </p>
                             </div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
+            </div>
 
-                <div className=" bg-customGray">
-                    <div>
-                        <ul className="flex items-center justify-center bg-white ">
-                            <li
-                                id="select-tab"
-                                className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
-                            >
-                                Mis artistas Favoritos ⭐
-                            </li>
-                            <li
-                                id="select-tab"
-                                className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
-                            >
-                                Mis Compras 🛒
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="overflow-scroll">
-                        <section
-                            id="select-content"
-                            className="overflow-auto flex flex-col divide-y h-full border rounded-2xl "
-                        >
-                            <UserFavorites />
-                        </section>
-                        <section
-                            id="select-content"
-                            className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
-                        >
-                            <MyShopping />
-                        </section>
-                    </div>
-                </div>
-            </div>
-            <div className="flex justify-between gap-10 w-full border-t-2 py-4">
-                <button
-                    type="button"
-                    // onClick={handleChangePassword}
-                    className="text-lg text-white italic font-semibold bg-customRed px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-500 ease-in-out"
+            <div className=" bg-customGray">
+                <ul className="flex items-center justify-center bg-white">
+                    <li
+                        id="select-tab"
+                        className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+                    >
+                        Mis artistas Favoritos ⭐
+                    </li>
+                    <li
+                        id="select-tab"
+                        className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
+                    >
+                        Mis Compras 🛒
+                    </li>
+                </ul>
+                <section
+                    id="select-content"
+                    className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
                 >
-                    Cambiar Contraseña
-                </button>
-                <button
-                    type="button"
-                    // onClick={handleDeleteAccount}
-                    className="text-lg text-white italic font-semibold bg-black px-4 rounded-xl border-4 border-transparent hover:bg-white hover:text-customRed hover:border-customRed transition duration-1000 ease-in-out"
+                    <UserFavorites />
+                </section>
+                <section
+                    id="select-content"
+                    className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
                 >
-                    Borrar Cuenta
-                </button>
+                    <MyShopping />
+                </section>
             </div>
-        </div>
-    );
+        </div>
+    );
 }
+
+// <div className="container min-w-full">
+//     <div className="grid grid-cols-1 md:grid-cols-2 ">
+//         <div className="hidden bg-customRed md:block pt-10">
+//             <button>Editar Perfil</button>
+//             <div className="relative w-full flex justify-center h-52">
+//                 <img
+//                     src={userId.image}
+//                     className="shadow-xl rounded-full align-middle border-none absolute -ml-20 lg:-ml-16 max-w-[150px]"
+//                     alt=""
+//                 />
+//             </div>
+//             <img
+//                 src="https://static.wixstatic.com/media/cc66dc_47b22f588e3b4f1f882bec92cdac68e0~mv2.gif"
+//                 alt=""
+//                 width="750px"
+//                 height="5px"
+//                 className="mt-10"
+//             />
+//             <h3 className=" flex justify-center mt-10 mr-14 text-2xl text-black font-bold mb-1">
+//                 {userId.firstName} {userId.lastName}
+//             </h3>
+//             <div className="flex justify-center mt-6 py-6 border-t border-slate-200">
+//                 <div className=" block uppercase tracking-wideflex justify-center mt-10text-2xl text-slate-300 font-bold leading-normal mb-1 mr-14">
+//                     {userId.email}
+//                     {/* <FontAwesomeIcon icon="fa-regular fa-image" /> */}
+//                 </div>
+//             </div>
+//             <div className="flex justify-center mt-10 text-2xl text-slate-700 font-bold leading-normal mb-1 mr-14"></div>
+//         </div>
+// <div className=" bg-customGray">
+//     <ul className="flex items-center justify-center bg-white">
+//         <li
+//             id="select-tab"
+//             className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+//         >
+//             Mis artistas Favoritos ⭐
+//         </li>
+//         <li
+//             id="select-tab"
+//             className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
+//         >
+//             Mis Compras 🛒
+//         </li>
+//     </ul>
+//     <section
+//         id="select-content"
+//         className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
+//     >
+//         <UserFavorites />
+//     </section>
+//     <section
+//         id="select-content"
+//         className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
+//     >
+//         <MyShopping />
+//     </section>
+// </div>
+// </div>
+
+// </div>

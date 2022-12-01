@@ -30,7 +30,7 @@ const UserEditForm = () => {
             dispatch(editUserForm(formValues, id));
             setSuccess(false);
             actions.resetForm();
-            // setTimeout(navigate("/"), 3000);
+            setTimeout(navigate("/"), 3000);
         } catch (error) {
             console.log(error);
         }
@@ -115,19 +115,46 @@ const UserEditForm = () => {
                     <input
                         id="dni"
                         type="dni"
-                        rows="2"
-                        placeholder={`Más sobre ${values.nickname}...`}
-                        value={values.description}
+                        
+                        placeholder={`Escribe tu DNI`}
+                        value={values.dni}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         className={
-                            errors.description && touched.description
+                            errors.dni && touched.dni
                                 ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 scroll-y"
                         }
                     />
                 </div>
-                <div className="w-full px-3 mb-3 flex flex-col gap-2">
+                <div className="w-full px-3">
+                    <label
+                        htmlFor="dni"
+                        className="block tracking-wide text-white text-s font-bold mb-2"
+                    >
+                        Fecha de nacimiento
+                        {errors.birthday && touched.birthday ? (
+                            <span className="text-customRed italic pl-1 text-xs font-semibold">
+                                {errors.birthday}
+                            </span>
+                        ) : null}
+                    </label>
+                    <input
+                        id="birthday"
+                        type="birthday"
+                        
+                        placeholder={`Fecha de nacimiento`}
+                        value={values.birthday}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={
+                            errors.birthday && touched.birthday
+                                ? "appearance-none block w-full bg-red-100 text-gray-700 border border-customRed rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 scroll-y"
+                        }
+                    />
+                </div>
+                {/* <div className="w-full px-3 mb-3 flex flex-col gap-2">
                     <p className="block tracking-wide text-white text-lg font-bold text-center">
                         Sitios Web
                     </p>
@@ -209,7 +236,7 @@ const UserEditForm = () => {
                             }
                         />
                     </div>
-                </div>
+                </div> */}
                 <div className="flex flex-wrap w-full">
                     <div className="w-full md:w-1/2 mb-6 md:mb-0 px-3">
                         <label
