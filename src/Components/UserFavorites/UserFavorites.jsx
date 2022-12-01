@@ -11,7 +11,7 @@ const UserFavorites = () => {
 
     useEffect(() => {
         dispatch(getFavorites());
-    }, [favorites]);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getArtists());
@@ -29,7 +29,7 @@ const UserFavorites = () => {
     };
 
     return (
-        <div className="w-full flex justify-around flex-wrap h-screen max-h-screen overflow-y-auto bg-gradient-to-tl from-customGray to-customRed">
+        <div className="w-full grid grid-cols-3 overflow-y-auto bg-gradient-to-tl from-customGray to-customRed">
             {favorites.length ?
                 favorites.map((artist) => {
                     return (
