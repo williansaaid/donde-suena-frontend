@@ -28,9 +28,8 @@ export const createCommentArtist =(comments)=>(dispatch)=>{
 // }
 
 export const deleteComment=(id)=>(dispatch) =>{
-    axios.delete (`/auth/user/deleteComment/${id}`)
-    .then((res)=>{
-    dispatch(deleteComments(res.data.id))
+    axios.delete(`/auth/user/deleteComment/${id}`)
+    .then((res)=>{(deleteComments(res.data))
     })
     .catch((e)=>console.log(e))
 }

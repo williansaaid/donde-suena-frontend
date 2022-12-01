@@ -165,16 +165,41 @@ export const deleteArtist = (id) => (dispatch) => {
         })
         .catch((e) => {
             e.response.data
-            ? errorCreationAlert(e.response.data.msg)
-            : console.log(e);
-        })
-}
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
+};
 
 export const editArtistForm = (values, id) => (dispatch) => {
     axios
         .put(`/auth/updateArtist/${id}`, values)
         .then((res) => {
             successEditAlert();
+        })
+        .catch((e) => {
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
+};
+
+export const editUserForm = (values, id) => (dispatch) => {
+    axios
+        .patch(`/auth/updateUser/${id}`, values)
+        .then((res) => {
+            successEditAlert();
+        })
+        .catch((e) => {
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
+};
+export const deleteUser = (id) => (dispatch) => {
+    axios
+        .delete(`auth/user/deleteUser/${id}`)
+        .then((res) => {
+            dispatch(logoutUser());
         })
         .catch((e) => {
             e.response.data

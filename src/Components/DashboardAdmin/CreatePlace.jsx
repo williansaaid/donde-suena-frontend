@@ -1,18 +1,18 @@
-import { useState } from "react";
+import {
+    createPlaces,
+    updatePlaces,
+} from "../../Redux/Slices/Places/placesAction";
+import { useDispatch, useSelector } from "react-redux";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { useState } from "react";
 
-export const Select = () => {
+export const CreatePlace = () => {
     const [value, setValue] = useState(null);
 
     console.log(value);
 
     const handleChange = (e) => {
-        setValue(e);
-        const ubication = {};
-        ubication.address = e.value.terms[0].value;
-        ubication.city = e.value.terms[1].value;
-        ubication.state = e.value.terms[2].value;
-        ubication.country = e.value.terms[3].value;
+        setValue(e.label);
     };
 
     return (

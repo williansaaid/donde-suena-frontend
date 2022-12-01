@@ -13,7 +13,6 @@ const Map = ({ data }) => {
         width: "100%",
     };
     const api = process.env.REACT_APP_API_MAPS;
-    console.log(defaultCenter);
     return (
         <LoadScript googleMapsApiKey={api}>
             <GoogleMap

@@ -7,16 +7,16 @@ import { Comment } from "./Comment";
 import { CommentForm} from "./CommentForm"
 
 export const Comments = ({idposts}) =>{
-  const artists = useSelector(state => state.artists) 
+  const artists = useSelector(state => state.artists)
 
   const {id}=useParams();
   const dispatch = useDispatch();
   const {commentsId}=useSelector((state)=>state.commentsId)
   const {posts} =useSelector((state)=>state.posts)
   const [comments, setCommentsId]=useState([])
-    
+
   // const [backendComments , setBackendComments]= useState([id])
-  //en la proxima funcion seteamos el estado para luego ser editado 
+  //en la proxima funcion seteamos el estado para luego ser editado
   const [activeComment , setActiveComment]=useState (null)
   // aca manejamos el comentario raiz y luego renderizamos sus respuestas  sabemos que es el comentario raiz por que el parent id es null
   const rootComments =commentsId.filter(
@@ -26,9 +26,9 @@ export const Comments = ({idposts}) =>{
 
   //Para hacer las respuestas tenemos que recordar que los nuevos comentarios siempre se guardan arriba , pero en cambio cuando hacemos una respuesta los comentarios nuevos se guardaran abajo , por lo tanto hacemos esa logica con un filter para que las respuestas se generen abajo. EL HOMBRE DEL TUTO ESCRIBIO COMMEND , CREO QUE ES ERROR PERO FIJARSE BIEN
   const getReplies= commentId =>{
-    return commentsId.filter(commentsId=>commentsId.parent===commentId).sort((a,b) => new Date(a.createdAt).getTime()  - new Date(b.createdAt).getTime()) //con el sort ordeno en ascendente 
+    return commentsId.filter(commentsId=>commentsId.parent===commentId).sort((a,b) => new Date(a.createdAt).getTime()  - new Date(b.createdAt).getTime()) //con el sort ordeno en ascendente
   }
-  //agrego los comentarios del form a los que ya estan 
+  //agrego los comentarios del form a los que ya estan
   const addComment =(text ,parent) =>{
     // console.log ("addComment", text , parentId)
     createComment(text, parent);
@@ -38,7 +38,7 @@ export const Comments = ({idposts}) =>{
     })
   }
 const eliminateComment =(commentId) =>{
-  if(window.confirm("Seguro que quieres eliminar el comentario?")){  
+  if(window.confirm("Seguro que quieres eliminar el comentario?")){
     deleteComment(commentId).then(()=>{
       const updatedBackendComments = commentsId.filter(
         (commentsId)=>commentsId.id !== commentId
@@ -62,28 +62,28 @@ const  modifyComment = (text , commentId) =>{
 
   useEffect(()=>{
      posts.map((p)=>dispatch(getComments(p.id)))
-    
+
         } ,[dispatch,posts] ) ;
 
-      
-      
+
+
   return (
-   
+
     <div className="comments">
-      
-     
-      <CommentForm 
-      submitLabel="Enviar" 
+
+
+      <CommentForm
+      submitLabel="Enviar"
       handleSubmit={addComment}
       idposts={idposts} />
-      
-      <div className="comments-container">
-        <div>
+
+      <div className="">
+        <div className=" ">
 
     {rootComments.map((rootComment)=>(
-      <Comment 
-      key={rootComment.id} 
-      comment ={rootComment} 
+      <Comment
+      key={rootComment.id}
+      comment ={rootComment}
       replies ={getReplies(rootComment.id)}
       currentUserId={id}
       addComment={addComment}
@@ -93,7 +93,7 @@ const  modifyComment = (text , commentId) =>{
       modifyComment={modifyComment}
       idposts={idposts}
       />
-      
+
       // agregar handle submit
       //no es ideal llamar una funcion en el hecho pero al tener una pagina con pocos comentarios no hay problema
       ))}

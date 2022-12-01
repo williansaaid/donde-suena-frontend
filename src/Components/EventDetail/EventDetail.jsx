@@ -68,8 +68,7 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
     const { ticketsAvailable } = useSelector((state) => state.eventsState);
-
-    const location = useGoogleAddress(`${detail.address}, ${detail.city}`);
+    let location = useGoogleAddress(`${detail.address}, ${detail.city}`);
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
@@ -106,7 +105,7 @@ const EventDetail = () => {
         dispatch(changeLoading());
         setTimeout(() => {
             dispatch(changeLoading());
-        }, 500);
+        }, 1000);
     }, [dispatch]);
 
     useEffect(() => {
@@ -187,6 +186,10 @@ const EventDetail = () => {
 
             window.history.pushState(null, "Details", `/details/${id}`);
         }
+
+        return () => {
+            location = "";
+        };
     }, [dispatch, query, user.firstName]);
 
     return (

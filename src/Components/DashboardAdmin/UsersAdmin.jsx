@@ -1,11 +1,15 @@
-import { deleteUser, getAllUsers } from "../../Redux/Slices/Users/usersAction";
+import {
+    deleteUser,
+    getAllUsers,
+    changeStateUser,
+} from "../../Redux/Slices/Users/usersAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-export const UsersAdmin = () => {
+export const UsersAdmin = ({ userSearch }) => {
     const dispatch = useDispatch();
-    const { users } = useSelector((state) => state.usersState);
+    let { users } = useSelector((state) => state.usersState);
 
     const trashEmpty = (id) => {
         Swal.fire({
@@ -24,9 +28,31 @@ export const UsersAdmin = () => {
         });
     };
 
+    const addArtistUsers = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "El Artista volverá a estar disponible para los usuarios",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(changeStateUser(id));
+                window.location.reload();
+            }
+        });
+    };
+
     useEffect(() => {
         dispatch(getAllUsers());
     }, [dispatch]);
+
+    if (userSearch) {
+        users = [...userSearch];
+    }
+
     return (
         <div>
             <div className="relative max-w-md h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
@@ -36,6 +62,7 @@ export const UsersAdmin = () => {
                             Usuarios
                         </h1>
                     </div>
+
                     {users?.map((a, i) => {
                         return (
                             <div
@@ -69,6 +96,27 @@ export const UsersAdmin = () => {
                                         />
                                     </svg>
                                 </div>
+                                {a.state === false && (
+                                    <div
+                                        onClick={() => addArtistUsers(a.id)}
+                                        className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                            />
+                                        </svg>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}

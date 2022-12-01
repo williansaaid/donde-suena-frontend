@@ -38,7 +38,7 @@ export const getEventsById = (id) => (dispatch) => {
 };
 
 export const submitEventForm = (values) => {
-    return async function (){
+    return async function () {
         try {
             const res = await axios.post("/event/createEvent", values);
             successCreationAlert();
@@ -48,7 +48,7 @@ export const submitEventForm = (values) => {
                 ? errorCreationAlert(e.response.data.msg)
                 : console.log(e);
         }
-    }
+    };
 };
 export const getEventByName = (name) => async (dispatch) => {
     try {
@@ -71,7 +71,7 @@ export const setFilter = (payload) => (dispatch) => {
             dispatch(filteredEvents(res.data.events));
         })
         .catch((e) => {
-            e.response.data
+            e.response.data && payload.includes("name")
                 ? errorCreationAlert(e.response.data.msg)
                 : console.log(e);
         });
@@ -94,6 +94,13 @@ export const getQuantityTickets = (id) => (dispatch) => {
 export const deleteEvent = (id) => (dispatch) => {
     axios
         .delete(`/event/deleteEvent/${id}`)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+};
+
+export const changeStateEvent = (id) => (dispatch) => {
+    axios
+        .put(`/event/changeStateEvent/${id}`)
         .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };
