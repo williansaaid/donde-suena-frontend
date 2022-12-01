@@ -14,12 +14,12 @@ const ArtistShows = () => {
     }, [dispatch, id]);
 
     return (
-        <div class="max-w-2xl w-full lg:flex-col items-center ">
+        <div className="max-w-2xl w-full lg:flex-col items-center ">
             {eventsArtist &&
                 eventsArtist?.map((el, id) => {
                     return (
-                        <div class="border-r border-b-8 border-l border-customGray  lg:border-t lg:border-grey-light bg-gray-300 rounded-t rounded-b lg:rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                            <div class="mb-8">
+                        <div className="border-r border-b-8 border-l border-customGray  lg:border-t lg:border-grey-light bg-gray-300 rounded-t rounded-b lg:rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                            <div className="mb-8">
                                 <Link to={`/details/${el.id}`}>
                                     <div>
                                         <img
@@ -29,19 +29,19 @@ const ArtistShows = () => {
                                         />
                                     </div>
                                 </Link>
-                                <div class="text-black font-bold text-xl mb-2">
+                                <div className="text-black font-bold text-xl mb-2">
                                     Evento : {el.name}
                                 </div>
-                                <div class="text-sm">
-                                    <p class="text-grey-darker text-base font-bold">
+                                <div className="text-sm">
+                                    <p className="text-grey-darker text-base font-bold">
                                         Fecha : {el.date}{" "}
                                     </p>
-                                    <p class="text-black font-bold leading-none">
+                                    <p className="text-black font-bold leading-none">
                                         En : {el.city}
                                     </p>
                                 </div>
                             </div>
-                            <div class="flex items-center"></div>
+                            <div className="flex items-center"></div>
                         </div>
                     );
                 })}

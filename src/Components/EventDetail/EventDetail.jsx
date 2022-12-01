@@ -68,8 +68,7 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
     const { ticketsAvailable } = useSelector((state) => state.eventsState);
-
-    const location = useGoogleAddress(`${detail.address}, ${detail.city}`);
+    let location = useGoogleAddress(`${detail.address}, ${detail.city}`);
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;
@@ -187,6 +186,10 @@ const EventDetail = () => {
 
             window.history.pushState(null, "Details", `/details/${id}`);
         }
+
+        return () => {
+            location = "";
+        }
     }, [dispatch, query, user.firstName]);
 
     return (
@@ -221,7 +224,7 @@ const EventDetail = () => {
                                 <FaMapMarkerAlt />
                                 <span className="font-bold mx-2">{`${detail.address}, ${detail.city}`}</span>
                             </div>
-                            <Map data={location}></Map>
+                            {/* <Map data={location}></Map> */}
                         </div>
                         <div className="w-1/2 bg-gray-300 rounded-lg p-8 flex flex-col gap-4">
                             <h1 className="font-bold uppercase text-3xl text-center my-5">
@@ -294,17 +297,17 @@ const EventDetail = () => {
                                     <button
                                         {...(isLogged
                                             ? {
-                                                  onClick: handlePurchase,
-                                                  className:
-                                                      "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                              }
+                                                onClick: handlePurchase,
+                                                className:
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                            }
                                             : {
-                                                  onClick: () => {
-                                                      modal();
-                                                  },
-                                                  className:
-                                                      "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
-                                              })}
+                                                onClick: () => {
+                                                    modal();
+                                                },
+                                                className:
+                                                    "flex text-white bg-customRed border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg",
+                                            })}
                                     >
                                         <p className="font-bold uppercase">
                                             Comprar

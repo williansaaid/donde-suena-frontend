@@ -33,10 +33,9 @@ function App() {
     const isAdmin = user.admin || false;
     const token = user.token || null;
     return (
-        <div className="App w-full h-full">
+        <div className="App w-full min-h-screen">
             <Navbar />
             <Login />
-
             <Routes>
                 <Route
                     path="/admin/*"
@@ -114,7 +113,6 @@ function App() {
                 <Route path="/myDashboard" element={<ArtistDashboard />} />
                 <Route path="/team" element={<Team />} />
             </Routes>
-
             <Footer />
         </div>
     );

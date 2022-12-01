@@ -104,7 +104,7 @@ const EventCreation = () => {
             }
         }
     }
-    
+
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }
@@ -127,7 +127,7 @@ const EventCreation = () => {
         });
 
     return (
-        <div className="h-full w-full flex flex-col items-center justify-center bg-customBlack font-source-sans">
+        <div className="min-h-screen w-full flex flex-col items-center justify-center bg-event font-source-sans">
             <form
                 onSubmit={handleSubmit}
                 autoComplete="off"
