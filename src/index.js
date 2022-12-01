@@ -8,7 +8,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./Redux/index";
 import axios from "axios";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const persistor = persistStore(store);
@@ -16,7 +16,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <PersistGate persistor={persistor}>
         <Provider store={store}>
-            <App />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/*" element={<App />}></Route>
+                </Routes>
+            </BrowserRouter>
         </Provider>
     </PersistGate>
 );
