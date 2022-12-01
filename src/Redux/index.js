@@ -26,17 +26,14 @@ import users from "./Slices/Users/usersSlice";
 import commentsId from "./Slices/Comments/commentsSlices";
 import profile from "./Slices/Profile/ProfileSlice";
 import scroll from "./Slices/Scroll/ScrollSlice";
-import search from "./Slices/Search/searchSlice";
-
-import postDetail from "./Slices/Comments/commentsSlices";
+import postDetail from "./Slices/Comments/commentsSlices"
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["sessionState", "detailState", "postDetail"],
+    whitelist: ["sessionState", "detailState","postDetail"],
 };
 
 const rootReducer = combineReducers({
-    searchState: search,
     loadingState: loading,
     userState: user,
     sessionState: session,
@@ -61,12 +58,12 @@ const rootReducer = combineReducers({
     usersState: users,
     profileState: profile,
     scrollState: scroll,
-    commentsId: commentsId,
-    postDetail: postDetail,
+    commentsId:commentsId,
+    postDetail:postDetail
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default configureStore({
     reducer: persistedReducer,
-    middleware: [thunk],
+    middleware: [thunk],
 });
