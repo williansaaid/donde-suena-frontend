@@ -97,3 +97,10 @@ export const deleteEvent = (id) => (dispatch) => {
         .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };
+
+export const changeStateEvent = (id) => (dispatch) => {
+    axios
+        .put(`/event/changeStateEvent/${id}`)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+};

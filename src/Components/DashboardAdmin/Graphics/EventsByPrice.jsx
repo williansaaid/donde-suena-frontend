@@ -31,5 +31,24 @@ export const EventsByPrice = ({ events }) => {
             ],
         });
     }, [events]);
-    return <Line data={userData} />;
+
+    return (
+        <Line
+            data={userData}
+            options={{
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+                datasets: {
+                    line: {
+                        tension: 0.4,
+                    },
+                },
+            }}
+            redraw={true}
+            updateMode={"update"}
+        />
+    );
 };

@@ -44,7 +44,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[0]?.iconGithub}
                                     alt="Github"
                                 />
@@ -57,7 +57,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[0]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -88,7 +88,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[1]?.iconGithub}
                                     alt="Github"
                                 />
@@ -101,7 +101,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[1]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -131,7 +131,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[2]?.iconGithub}
                                     alt="Github"
                                 />
@@ -144,7 +144,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[2]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -174,7 +174,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[3]?.iconGithub}
                                     alt="Github"
                                 />
@@ -187,7 +187,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[3]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -217,7 +217,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[4]?.iconGithub}
                                     alt="Github"
                                 />
@@ -230,7 +230,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[4]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -260,7 +260,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[5]?.iconGithub}
                                     alt="Github"
                                 />
@@ -273,7 +273,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[5]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -303,7 +303,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[6]?.iconGithub}
                                     alt="Github"
                                 />
@@ -316,7 +316,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[6]?.iconLinkedin}
                                     alt="Linkedin"
                                 />
@@ -346,7 +346,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8 "
+                                    className="cursor-pointer h-8 "
                                     src={team[7]?.iconGithub}
                                     alt="Github"
                                 />
@@ -359,7 +359,7 @@ export default function Team() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    classNameName="cursor-pointer h-8"
+                                    className="cursor-pointer h-8"
                                     src={team[7]?.iconLinkedin}
                                     alt="Linkedin"
                                 />

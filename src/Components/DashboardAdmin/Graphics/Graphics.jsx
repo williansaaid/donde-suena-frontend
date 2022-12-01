@@ -1,6 +1,15 @@
 import { EventsByPrice } from "./EventsByPrice";
 import { EventsCountGenre } from "./EventsCountGenre";
-export const Graphics = ({ events }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getEvents } from "../../../Redux/Slices/Event/eventActions";
+export const Graphics = () => {
+    const { events } = useSelector((state) => state.eventsState);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getEvents());
+    }, [dispatch]);
     return (
         <div className="flex ">
             <div className="flex flex-col gap-4 w-1/2">
