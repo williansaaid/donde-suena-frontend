@@ -54,5 +54,18 @@ export const deleteArtist = (id) => (dispatch) => {
         });
 };
 export const cleanDetail = () => (dispatch) => {
-    dispatch(cleanAllDetail([]))
-}
+    dispatch(cleanAllDetail([]));
+};
+
+export const changeStateArtist = (id) => (dispatch) => {
+    axios
+        .put(`/auth/changeStateArtist/${id}`)
+        .then((res) => {
+            console.log(res);
+            dispatch(res);
+            alert("Artista Agregado Exitosamente");
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+};
