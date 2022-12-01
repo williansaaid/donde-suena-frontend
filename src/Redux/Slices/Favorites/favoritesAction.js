@@ -8,13 +8,17 @@ export const getFavorites = () => (dispatch) => {
 };
 
 export const addFavorite = (idA, idU) => (dispatch) => {
-    axios.post(`/auth/postFavoriteArtist/${idA}?userId=${idU}`)
+    axios
+        .post(`/auth/postFavoriteArtist/${idA}?userId=${idU}`)
         .then((res) => dispatch(addFav(res.data)))
         .catch((e) => console.log(e));
 };
 
 export const deleteFavorite = (id) => (dispatch) => {
-    axios.delete(`/auth/deleteFavoriteArtist/${id}`)
-    .then((res) => (deleteFav(res.data)))
-    .catch((e) => console.log(e));
-}
+    axios
+        .delete(`/auth/deleteFavoriteArtist/${id}`)
+        .then((res) => {
+            dispatch(res);
+        })
+        .catch((e) => console.log(e));
+};
