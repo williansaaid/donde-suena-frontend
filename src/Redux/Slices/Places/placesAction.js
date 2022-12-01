@@ -55,3 +55,10 @@ export const updatePlaces = (id, values) => (dispatch) => {
         .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };
+
+export const changeStatePlace = (id) => (dispatch) => {
+    axios
+        .put(`/place/changeStatePlace/${id}`)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+};
