@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getArtists } from "../../Redux/Slices/Artist/artistActions";
 import { Comments } from "../CommentsUser/Comments";
-import {DateTime} from "../DateTime/DateTime"
+import { DateTime } from "../DateTime/DateTime";
 export const PostCard = ({ props }) => {
     const dispatch = useDispatch();
     const { posts } = useSelector((state) => state.posts);
@@ -26,7 +26,7 @@ export const PostCard = ({ props }) => {
     return (
         <div>
             {posts &&
-                posts?.map((el,id ) => {
+                posts?.map((el, id) => {
                     return (
                         <div className="min h-50 bg-gray-200 flex items-center justify-center gap-5 ">
                             <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex mb-12 md:max-w-2xl">
@@ -38,7 +38,10 @@ export const PostCard = ({ props }) => {
                                     />
                                     <div className="grid-rows-{2} ">
                                         <div className="">
-                                        <h2 className="ml-60">  <DateTime ></DateTime></h2>
+                                            <h2 className="ml-60">
+                                                {" "}
+                                                <DateTime></DateTime>
+                                            </h2>
                                         </div>
                                         <div className="flex-grow pl-3 mr-10 bg-customWhite">
                                             <h2 className="text-lg font-semibold text-gray-900 -mt-1 ml-1 ">
@@ -49,14 +52,38 @@ export const PostCard = ({ props }) => {
                                                     {el.description}
                                                 </p>
                                                 <div class="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ">
-                                                    <img className="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ml-20"
+                                                    {/* <img
+                                                        className="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ml-20"
                                                         src={
                                                             el.image
                                                                 ? el.image
                                                                 : null
                                                         }
                                                         alt=""
-                                                    />
+                                                    /> */}
+                                                    {el.image.includes(
+                                                        ".mp4"
+                                                    ) && (
+                                                        <video
+                                                            width="750"
+                                                            height="500"
+                                                            controls
+                                                        >
+                                                            <source
+                                                                src={el.image}
+                                                                type="video/mp4"
+                                                            />
+                                                        </video>
+                                                    )}
+                                                    {!el.image.includes(
+                                                        ".mp4"
+                                                    ) && (
+                                                        <img
+                                                            class="w-full bg-cover"
+                                                            alt={"postImage"}
+                                                            src={el.image}
+                                                        />
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
