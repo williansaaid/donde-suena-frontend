@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getGenres } from "../../Redux/Slices/Genres/genresAction";
 import { useSelector } from "react-redux";
-import { setFilter } from "../../Redux/Slices/Event/eventActions";
+import { setCombinedFilters } from "../../Redux/Slices/Filter/filterActions";
 
 export default function DropdownGenreFilter() {
     const dispatch = useDispatch();
     const { genres } = useSelector((state) => state.genresState);
+    const { filterCombined } = useSelector((state) => state.filterState);
 
     useEffect(() => {
         dispatch(getGenres());
@@ -14,7 +15,7 @@ export default function DropdownGenreFilter() {
 
     const handleGenreFilter = (e) => {
         let genre = e.target.innerHTML.toString();
-        dispatch(setFilter(`?filter[genre]=${genre}`));
+        dispatch(setCombinedFilters({ genre }));
     };
 
     return (
@@ -45,7 +46,11 @@ export default function DropdownGenreFilter() {
                 {genres.map((e, i) => (
                     <li
                         key={i}
-                        className="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                        className={
+                            filterCombined.genre === e.name
+                                ? `rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer`
+                                : `rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer`
+                        }
                         value={e.name}
                     >
                         {e.name}

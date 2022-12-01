@@ -1,13 +1,16 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { setFilter } from "../../Redux/Slices/Event/eventActions";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCombinedFilters } from "../../Redux/Slices/Filter/filterActions";
+import { getEvents } from "../../Redux/Slices/Event/eventActions";
 
 export default function DropdownPlaceFilter() {
     const dispatch = useDispatch();
+    const { filterCombined } = useSelector((state) => state.filterState);
+    console.log(filterCombined);
 
     const handlePlaceFilter = (e) => {
         let city = e.target.innerHTML.toString();
-        dispatch(setFilter(`?filter[city]=${city}`));
+        dispatch(setCombinedFilters({ city }));
     };
 
     return (
@@ -31,16 +34,100 @@ export default function DropdownPlaceFilter() {
                     </svg>
                 </span>
             </button>
-            <ul class="flex flex-row grid grid-cols-3 bg-customGray border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32" onClick={(e) => handlePlaceFilter(e)}>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Buenos Aires"}>Buenos Aires</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Lima"}>Lima</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cordoba"}>Cordoba</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Medellín"}>Medellín</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Santiago"}>Santiago</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rio Cuarto"}>Rio Cuarto</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Rosario"}>Rosario</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"La Plata"}>La Plata</li>
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer" value={"Cali"}>Cali</li>
+            <ul
+                className="flex flex-row grid grid-cols-3 bg-customGray border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
+                onClick={(e) => handlePlaceFilter(e)}
+            >
+                <li
+                    className={
+                        filterCombined.city === "Buenos Aires"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Buenos Aires"}
+                >
+                    Buenos Aires
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Lima"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Lima"}
+                >
+                    Lima
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Cordoba"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Cordoba"}
+                >
+                    Cordoba
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Medellín"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Medellín"}
+                >
+                    Medellín
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Santiago"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Santiago"}
+                >
+                    Santiago
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Rio Cuarto"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Rio Cuarto"}
+                >
+                    Rio Cuarto
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Rosario"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Rosario"}
+                >
+                    Rosario
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "La Plata"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"La Plata"}
+                >
+                    La Plata
+                </li>
+                <li
+                    className={
+                        filterCombined.city === "Cali"
+                            ? "rounded-sm px-3 py-1 bg-gray-400 hover:cursor-pointer"
+                            : "rounded-sm px-3 py-1 hover:bg-gray-400 hover:cursor-pointer"
+                    }
+                    value={"Cali"}
+                >
+                    Cali
+                </li>
             </ul>
         </div>
     );
