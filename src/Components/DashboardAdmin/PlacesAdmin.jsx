@@ -3,13 +3,31 @@ import {
     deletePlaces,
     createPlaces,
     updatePlaces,
+    changeStatePlace,
 } from "../../Redux/Slices/Places/placesAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-export const PlacesAdmin = () => {
+export const PlacesAdmin = ({ placeSearch }) => {
     const dispatch = useDispatch();
-    const { places } = useSelector((state) => state.placesState);
+    let { places } = useSelector((state) => state.placesState);
+
+    const addPlaceAgain = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "El lugar volverá a estar disponible para los usuarios",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(changeStatePlace(id));
+                window.location.reload();
+            }
+        });
+    };
 
     const trashEmpty = (id) => {
         Swal.fire({
@@ -32,13 +50,13 @@ export const PlacesAdmin = () => {
         Swal.fire({
             title: "Crear lugar",
             html: `
-            <input id="name" class="swal2-input" placeholder="Nombre">
-            <input id="address" class="swal2-input" placeholder="Dirección">
-            <input id="city" class="swal2-input" placeholder="Ciudad">
-            <input id="postCode" class="swal2-input" placeholder="PostCode">
-            <input id="phone" class="swal2-input" placeholder="phone">
-            <input id="email" class="swal2-input" placeholder="Email">
-            <input id="image" class="swal2-input" placeholder="Imagen">
+            <input id="name" className="swal2-input" placeholder="Nombre">
+            <input id="address" className="swal2-input" placeholder="Dirección">
+            <input id="city" className="swal2-input" placeholder="Ciudad">
+            <input id="postCode" className="swal2-input" placeholder="PostCode">
+            <input id="phone" className="swal2-input" placeholder="phone">
+            <input id="email" className="swal2-input" placeholder="Email">
+            <input id="image" className="swal2-input" placeholder="Imagen">
             `,
 
             focusConfirm: false,
@@ -83,13 +101,13 @@ export const PlacesAdmin = () => {
         Swal.fire({
             title: "Actualizar lugar",
             html: `
-            <input id="name" class="swal2-input" placeholder="Nombre" value="${place.name}">
-            <input id="address" class="swal2-input" placeholder="Dirección" value="${place.address}">
-            <input id="city" class="swal2-input" placeholder="Ciudad" value="${place.city}">
-            <input id="postCode" class="swal2-input" placeholder="PostCode" value="${place.postCode}">
-            <input id="phone" class="swal2-input" placeholder="phone" value="${place.phone}">
-            <input id="email" class="swal2-input" placeholder="Email" value="${place.email}">
-            <input id="image" class="swal2-input" placeholder="Imagen" value="${place.image}">
+            <input id="name" className="swal2-input" placeholder="Nombre" value="${place.name}">
+            <input id="address" className="swal2-input" placeholder="Dirección" value="${place.address}">
+            <input id="city" className="swal2-input" placeholder="Ciudad" value="${place.city}">
+            <input id="postCode" className="swal2-input" placeholder="PostCode" value="${place.postCode}">
+            <input id="phone" className="swal2-input" placeholder="phone" value="${place.phone}">
+            <input id="email" className="swal2-input" placeholder="Email" value="${place.email}">
+            <input id="image" className="swal2-input" placeholder="Imagen" value="${place.image}">
             `,
             focusConfirm: false,
             preConfirm: () => {
@@ -131,6 +149,10 @@ export const PlacesAdmin = () => {
     useEffect(() => {
         dispatch(getPlaces());
     }, [dispatch]);
+
+    if (placeSearch) {
+        places = [...placeSearch];
+    }
     return (
         <div>
             <div className="relative  h-3/4 bg-white dark:bg-slate-800 ring-slate-900/5 rounded-2xl">
@@ -166,9 +188,10 @@ export const PlacesAdmin = () => {
                             <div className="flex items-center gap-4" key={i}>
                                 <img
                                     className="w-12 h-12 rounded-full object-cover"
-                                    src={a.image}
-                                    alt=""
+                                    src={a.image || "https://picsum.photos/200"}
+                                    alt="Not found"
                                 />
+
                                 <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
                                     {a.name}
                                 </strong>
@@ -181,12 +204,6 @@ export const PlacesAdmin = () => {
                                     </strong>
                                     <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
                                         {a.postCode}
-                                    </strong>
-                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
-                                        {a.phone}
-                                    </strong>
-                                    <strong className="text-slate-500 text-sm font-medium dark:text-slate-200">
-                                        {a.email}
                                     </strong>
                                 </div>
                                 <div
@@ -227,6 +244,27 @@ export const PlacesAdmin = () => {
                                         />
                                     </svg>
                                 </div>
+                                {a.state === false && (
+                                    <div
+                                        onClick={() => addPlaceAgain(a.id)}
+                                        className="flex items-center gap-4 p-4 cursor-pointer bg-blue-500 rounded-md text-white font-bold hover:bg-blue-600 transition duration-300"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                            />
+                                        </svg>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}

@@ -32,7 +32,7 @@ import postDetail from "./Slices/Comments/commentsSlices";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["sessionState", "detailState","postDetail"],
+    whitelist: ["sessionState", "detailState", "postDetail"],
 };
 
 const rootReducer = combineReducers({

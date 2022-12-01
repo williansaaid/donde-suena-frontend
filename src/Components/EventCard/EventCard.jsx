@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const Events = () => {
     const { events } = useSelector((state) => state.eventsState);
     const [visible, setVisible] = useState(4);
-    
+
     const showMoreEvents = () => {
         setVisible((prevValue) => prevValue + 4);
     };
@@ -59,9 +59,9 @@ export const Events = () => {
             {visible < events.length && (
                 <button
                     onClick={showMoreEvents}
-                    className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                    className="bg-transparent hover:bg-customRed text-customRed font-semibold hover:text-white py-2 px-4 border border-customRed hover:border-transparent rounded-3xl my-12 transition duration-300 animate-bounce text-2xl"
                 >
-                    VER MAS EVENTOS ↓
+                    MÁS EVENTOS ↓
                 </button>
             )}
         </div>

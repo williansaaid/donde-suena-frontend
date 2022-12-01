@@ -6,6 +6,7 @@ import { getEvents } from "../../Redux/Slices/Event/eventActions";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FiCalendar } from "react-icons/fi";
+
 const MyShopping = (props) => {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -28,68 +29,67 @@ const MyShopping = (props) => {
     });
 
     return (
-        <div>
-            {ticketsData &&
-                ticketsData?.flat().map((el) => {
+        <div className="w-full flex justify-around flex-wrap h-screen max-h-screen overflow-y-auto bg-gradient-to-tr from-customGray to-customRed">
+            {ticketsData.length?
+                ticketsData.flat().map((el) => {
                     return (
-                        // <div
-                        //     key={idx + 1}
-                        //     className="flex w-full pt-3 px-2 md:pr-1 bg-customRed border rounded-2xl shadow p-2 transform transition duration-500 hover:scale-90 hover:bg-customGray-600"
-                        // >
                         <div
-                            // key={el.evento.id}
-                            className=" transition duration-500 hover:scale-90 hover:bg-customGray-600"
+                            className=" transition duration-300 hover:scale-95 hover:bg-customGray-600 h-fit"
+                            key={el.evento.id}
                         >
-                            <div className="m-auto m-5 my-5  max-w-lg items-center justify-center overflow-hidden rounded-2xl bg-slate-600 shadow-xl">
-                                <Link to={`/details/${el.evento.id}`}>
-                                    <div>
+                            <div className="flex flex-col m-5 w-80 h-[35rem] items-center justify-center overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl border border-transparent hover:border-white transition duration-500 ease-in-out">
+                                <Link to={`/details/${el.evento.id}`}
+                                    className="w-full h-full"
+                                >
+                                    <div className="w-full h-1/3">
                                         <img
-                                            className="max-w-[320px]"
+                                            className="h-full w-full object-cover"
                                             src={el.evento.image}
-                                            alt=""
+                                            alt="event flyer"
                                         />
                                     </div>
-
-                                    <div className="h-10 bg-slate-300"></div>
-                                    <div className="flex"></div>
-                                    <div className="text-left">
-                                        <div className="flex flex-wrap mt-3 px-3 gap-3">
-                                            <div className="flex flex-wrap text-slate-300">
-                                                <FiCalendar size={"1.7rem"} />
-                                                <h3 className="text-slate-300 mb-5 px-3 font-bold text-xl">
-                                                    {el.ticket.date}
-                                                </h3>
+                                    <div className="w-full h-2/3">
+                                        <div className="flex flex-col justify-around w-full h-full text-left p-4">
+                                            <h5 className="text-slate-100 font-bold text-5xl border-b-2 w-full pb-8">
+                                                {el.evento.name}
+                                            </h5>
+                                            <div className="flex flex-col flex-wrap gap-3 border-b-2 pb-8">
+                                                <div className="flex justify-start items-center flex-wrap text-slate-300 gap-2">
+                                                    <FiCalendar size={"1.5rem"} />
+                                                    <h3 className="text-slate-200 font-bold text-xl">
+                                                        {el.ticket.date}
+                                                    </h3>
+                                                </div>
+                                                <div className="flex justify-start items-center flex-wrap text-slate-300 gap-2">
+                                                    <FaMapMarkerAlt
+                                                        size={"1.5rem"}
+                                                    />
+                                                    <h3 className="text-slate-200 font-bold text-xl">
+                                                        {el.evento.address}
+                                                    </h3>
+                                                </div>
                                             </div>
-                                            <div className="flex flex-wrap text-slate-300">
-                                                <FaMapMarkerAlt
-                                                    size={"1.7rem"}
-                                                />
-                                                <h3 className="text-slate-300 mb-5 px-3 font-bold text-xl">
-                                                    {el.evento.address}
-                                                </h3>
-                                            </div>
+                                            <h5 className="text-slate-300 font-bold text-xl">
+                                                Precio Total: {el.ticket.priceTotal}$
+                                            </h5>
+                                            <h5 className="text-slate-300 font-bold text-xl">
+                                                Tickets: {el.ticket.quantity}
+                                            </h5>
                                         </div>
 
-                                        <h5 className="text-customGrey mb-5 px-3 font-bold text-xxl ">
-                                            {el.evento.name}
-                                        </h5>
-                                        <h5 className="text-customGrey mb-5 px-3 font-bold text-xl ">
-                                            Precio Total :{" "}
-                                            {el.ticket.priceTotal}
-                                        </h5>
-                                        <h5 className="text-customGrey mb-5 px-3 font-bold text-xl ">
-                                            Cantidad: {el.ticket.quantity}
-                                        </h5>
-
-                                        <h5 className="text-customGrey mb-5 px-3 font-bold text-xl ">
-                                            {el.evento.description}
-                                        </h5>
                                     </div>
                                 </Link>
                             </div>
                         </div>
                     );
-                })}
+                })
+                : <div
+                    className="flex flex-col m-5 w-1/2 h-fit p-8 items-center justify-center overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl border border-transparent hover:border-white transition duration-500 ease-in-out">
+                    <p className="text-center text-white italic">
+                        Tu Historial de Compras está vacío
+                    </p>
+                </div>
+            }
         </div>
     );
 };

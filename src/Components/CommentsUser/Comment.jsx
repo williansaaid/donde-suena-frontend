@@ -34,8 +34,8 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
   <img className="object-cover w-12 h-12 border-2 border-gray-300 rounded-full" alt="Noob master's avatar"
                     src="https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80"/>
   <div className="flex-col mt-1">
-  <div class="flex items-center flex-1 px-4 font-bold leading-tight">  {comments.username}
-                        <span class="ml-2 text-xs font-normal text-gray-500">{createdAt}</span>
+  <div className="flex items-center flex-1 px-4 font-bold leading-tight">  {comments.username}
+                        <span className="ml-2 text-xs font-normal text-gray-500">{createdAt}</span>
                         </div>
                         {  !isEditing &&  <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">
       {comments.body}
@@ -73,14 +73,14 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
         idposts={idposts}
         />
         )}
-      <div className="comments-actions-buttons "  class="flex items-stretch">
+      <div className="comments-actions-buttons flex items-stretch">
        {canReply
        &&
-       <button className="comments-actions-buttons " class=" ml-7 mr-2 text-sm font-medium leading-loose text-gray-600"
+       <button className="comments-actions-buttons ml-7 mr-2 text-sm font-medium leading-loose text-gray-600"
        onClick={()=>
         setActiveComment({ id:comments.id ,type:"replying"})}
         >
-          <div class="flex flex-row">
+          <div className="flex flex-row">
           <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-response-30_bgrxrb.png" alt="respondericon" width="20px"/>
              Responder
 
@@ -91,7 +91,7 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
         onClick={()=>
           setActiveComment({ id:comments.id ,type:"editing"})}
           >
-            <div class="flex flex-row">
+            <div className="flex flex-row">
 <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-pencil-30_ufpgqp.png" alt="editarIcono" width="20px"/>
           Editar
             </div>
@@ -101,7 +101,7 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
       className=" ml-3 mr-6 text-sm font-medium leading-loose text-gray-600"
       onClick={()=> eliminateComment (comments.id)}
       >
-        <div class="flex flex-row">
+        <div className="flex flex-row">
 <img src="https://res.cloudinary.com/ds41xxspf/image/upload/v1669243828/Donde-Suena-Assets/icons8-trash-can-30_ygzque.png" alt="eliminarIcono" width="20px"/>
           Eliminar
             </div>

@@ -22,9 +22,9 @@ const Confirm = () => {
     }, [token, dispatch]);
 
     return (
-        <div className="flex flex-col items-center justify-center py-20">
+        <div className="min-h-screen bg-event flex flex-col items-center justify-center py-20">
             <div>
-                <h3 className="text-3xl font-semibold text-red-700 capitalize mb-10 lg:text-4l">
+                <h3 className="text-3xl font-semibold text-white capitalize mb-10 lg:text-4l">
                     Redireccionando...
                 </h3>
             </div>

@@ -14,3 +14,10 @@ export const deleteUser = (id) => (dispatch) => {
         .then((res) => console.log(res))
         .catch((e) => console.log(e));
 };
+
+export const changeStateUser = (id) => (dispatch) => {
+    axios
+        .put(`/auth/changeStateUser/${id}`)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+};
