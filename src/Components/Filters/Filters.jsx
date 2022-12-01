@@ -1,6 +1,7 @@
 import { addDays, subDays } from "date-fns/esm";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { setFilter, getEvents } from "../../Redux/Slices/Event/eventActions";
 import { format } from "date-fns";
 import { setCombinedFilters } from "../../Redux/Slices/Filter/filterActions";
@@ -9,7 +10,7 @@ import DropdownGenreFilter from "./DropdownGenreFilter";
 
 function FilterBar() {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const [filterSelect, setFilterSelect] = useState("");
     const { filterCombined } = useSelector((state) => state.filterState);
     console.log(filterCombined);
@@ -83,6 +84,12 @@ function FilterBar() {
                     <DropdownGenreFilter />
                 </li>
             </ul>
+            <button
+                onClick={() => navigate("/postHome")}
+                className="flex justify-around w-4/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden"
+            >
+                Los artistas andan diciendo..
+            </button>
             <ul className="flex justify-around w-3/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden">
                 <li className="w-1/3">
                     <button
