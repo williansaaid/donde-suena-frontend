@@ -14,9 +14,8 @@ export const PostDumb = () => {
     }, [dispatch]);
 
     return (
-        <div className=" rounded overflow-hidden border w-full bg-white mx-3 md:mx-0 lg:mx-0">
-            {postsId.posts?.length &&
-                postsId.posts?.map((el, i) => {
+        <div className="rounded overflow-hidden w-full bg-white mx-3 md:mx-0 lg:mx-0">
+            {postsId.posts?.map((el, i) => {
                     return (
                         <div key={i} className="border-b-8 border-customGray ">
                             <div className="w-full flex justify-between p-3">

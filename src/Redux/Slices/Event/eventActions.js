@@ -71,7 +71,7 @@ export const setFilter = (payload) => (dispatch) => {
             dispatch(filteredEvents(res.data.events));
         })
         .catch((e) => {
-            e.response.data
+            e.response.data && payload.includes("name")
                 ? errorCreationAlert(e.response.data.msg)
                 : console.log(e);
         });
