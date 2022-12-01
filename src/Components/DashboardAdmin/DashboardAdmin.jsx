@@ -16,6 +16,9 @@ const DashboardAdmin = () => {
     const [value, setValue] = useState("");
 
     const handleSearch = (e) => {
+        // limpio el input
+        setValue("");
+
         e.preventDefault();
         if (value === "") {
             Swal.fire({
@@ -30,7 +33,6 @@ const DashboardAdmin = () => {
             });
         } else {
             dispatch(getSearch(value));
-            setValue("");
 
             // si todos los valores son null, entonces no hay resultados
             if (
@@ -50,6 +52,7 @@ const DashboardAdmin = () => {
                     }
                 });
             }
+            setValue("");
         }
     };
 
@@ -84,18 +87,7 @@ const DashboardAdmin = () => {
                     Search
                 </button>
             </form>
-            {search?.artists?.length > 0 && (
-                <ArtistAdmin artistSearch={search.artists} />
-            )}
-            {search?.events?.length > 0 && (
-                <EventAdmin eventSearch={search.events} />
-            )}
-            {search?.users?.length > 0 && (
-                <UsersAdmin userSearch={search.users} />
-            )}
-            {search?.places?.length > 0 && (
-                <PlacesAdmin placeSearch={search.places} />
-            )}
+
             {(search?.artists ||
                 search?.places ||
                 search?.events ||
@@ -110,18 +102,56 @@ const DashboardAdmin = () => {
                 </div>
             )}
 
-            <div className="flex justify-around ">
-                <div className="flex flex-col w-1/4 mr-4">
+            <div className="flex ">
+                <div className="flex flex-col w-1/4 mr-4 ">
                     <Navegacion />
                 </div>
-                <div className="flex flex-col w-5/4">
+                <div className="flex flex-col w-3/4">
                     <Routes>
-                        <Route path="/" element={<EventAdmin />} />
+                        <Route
+                            path="/"
+                            element={
+                                (search?.events?.length > 0 && (
+                                    <EventAdmin eventSearch={search.events} />
+                                )) || <EventAdmin />
+                            }
+                        />
                         <Route path="estadisticas" element={<Graphics />} />
-                        <Route path="artistas" element={<ArtistAdmin />} />
-                        <Route path="eventos" element={<EventAdmin />} />
-                        <Route path="lugares" element={<PlacesAdmin />} />
-                        <Route path="usuarios" element={<UsersAdmin />} />
+                        <Route
+                            path="artistas"
+                            element={
+                                (search?.artists?.length > 0 && (
+                                    <ArtistAdmin
+                                        artistSearch={search.artists}
+                                    />
+                                )) || <ArtistAdmin />
+                            }
+                        />
+                        <Route
+                            path="eventos"
+                            element={
+                                (search?.events?.length > 0 && (
+                                    <EventAdmin eventSearch={search.events} />
+                                )) || <EventAdmin />
+                            }
+                        />
+                        <Route
+                            path="lugares"
+                            element={
+                                (search?.places?.length > 0 && (
+                                    <PlacesAdmin placeSearch={search.places} />
+                                )) || <PlacesAdmin />
+                            }
+                        />
+
+                        <Route
+                            path="usuarios"
+                            element={
+                                (search?.users?.length > 0 && (
+                                    <UsersAdmin userSearch={search.users} />
+                                )) || <UsersAdmin />
+                            }
+                        />
                     </Routes>
                 </div>
             </div>
