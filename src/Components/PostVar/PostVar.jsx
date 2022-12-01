@@ -19,10 +19,13 @@ export const PostVar = () => {
         data.append("file", files[0]);
         data.append("upload_preset", "Donde-Suena-Posts");
         setLoading(true);
-        const res = await axios.post(
-            "https://api.cloudinary.com/v1_1/ds41xxspf/image/upload",
-            data
-        );
+        let url;
+        if (files[0].name.includes(".mp4")) {
+            url = "https://api.cloudinary.com/v1_1/ds41xxspf/video/upload";
+        } else {
+            url = "https://api.cloudinary.com/v1_1/ds41xxspf/image/upload";
+        }
+        const res = await axios.post(url, data);
         res.data.secure_url ? setSuccess(true) : setSuccess(false);
         setImage(res.data.secure_url);
         setLoading(false);
@@ -113,7 +116,7 @@ export const PostVar = () => {
                                 id="image"
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400 cursor-pointer mb-2"
                                 type="file"
-                                accept="image/jpg, image/png, image/jpeg "
+                                // accept="image/jpg, image/png, image/jpeg video/mp4,video/x-m4v,video/"
                                 onChange={uploadImage}
                             />
                             {loading ? (
@@ -122,11 +125,24 @@ export const PostVar = () => {
                                 </span>
                             ) : success ? (
                                 <div class="w-96 h-96">
+                                    {image.includes(".mp4") && (
+                                        <video
+                                            width="750"
+                                            height="500"
+                                            controls
+                                        >
+                                            <source
+                                                src={image}
+                                                type="video/mp4"
+                                            />
+                                        </video>
+                                    )}
+                                    {!image.includes(".mp4") && 
                                     <img
                                         class="w-50 h-50 rounded-lg object-cover"
                                         alt="Preview"
                                         src={image}
-                                    />
+                                    />}
                                 </div>
                             ) : null}
                         </div>
