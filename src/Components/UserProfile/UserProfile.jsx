@@ -59,57 +59,54 @@ export default function UserProfile() {
     }, [tabsArray]);
 
     return (
-        <div className="container min-w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 ">
-                <div className="hidden bg-customRed md:block pt-10">
-                    <div className="relative w-full flex justify-center h-52">
+        <div className="container min-w-full min-h-screen">
+            <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+                <div className="flex flex-col bg-profile bg-cover bg-center justify-center items-center">
+                    <div className="h-3/4 w-3/4 flex flex-col justify-center items-center backdrop-blur-lg gap-8 rounded-3xl overflow-hidden border-2 p-8">
+                        <div className="flex justify-center items-center rounded-full overflow-hidden w-40 h-40">
+                            <img
+                                src={userId.image}
+                                className="object-cover h-40 w-40 rounded-full overflow-hidden"
+                            />
+                        </div>
                         <img
-                            src={userId.image}
-                            className="shadow-xl rounded-full align-middle border-none absolute -ml-20 lg:-ml-16 max-w-[150px]"
+                            src="https://static.wixstatic.com/media/cc66dc_47b22f588e3b4f1f882bec92cdac68e0~mv2.gif"
+                            className="gif music spectre"
                         />
-                    </div>
-                    <img
-                        src="https://static.wixstatic.com/media/cc66dc_47b22f588e3b4f1f882bec92cdac68e0~mv2.gif"
-                        alt=""
-                        width="750px"
-                        height="5px"
-                        className="mt-10"
-                    />
-                    <h3 className=" flex justify-center mt-10 mr-14 text-2xl text-black font-bold mb-1">
-                        {userId.firstName} {userId.lastName}
-                    </h3>
-                    <div className="flex justify-center mt-6 py-6 border-t border-slate-200">
-                        <div className=" block uppercase tracking-wideflex justify-center mt-10text-2xl text-slate-300 font-bold leading-normal mb-1 mr-14">
-                            {userId.email}
-                            {/* <FontAwesomeIcon icon="fa-regular fa-image" /> */}
+                        <p className="text-2xl text-black font-bold py-4 text-center">
+                            {userId.firstName} {userId.lastName}
+                        </p>
+                        <div className="flex justify-center items-center border-t-2 px-6 py-4">
+                            <p className="text-xl text-white font-bold uppercase">
+                                {userId.email}
+                            </p>
                         </div>
                     </div>
-                    <div className="flex justify-center mt-10 text-2xl text-slate-700 font-bold leading-normal mb-1 mr-14"></div>
                 </div>
-                <div className=" bg-customGray">
+                <div>
                     <ul className="flex items-center justify-center bg-white">
                         <li
                             id="select-tab"
-                            className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+                            className="p-2 w-full font-bold cursor-pointer bg-customRed hover:bg-customGray hover:text-customRed uppercase text-center transition duration-300 ease-in-out border-t-2  border-transparent hover:border-customRed"
                         >
-                            Mis artistas Favoritos ⭐
+                            Mis Artistas Favoritos ⭐
                         </li>
                         <li
                             id="select-tab"
-                            className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
+                            className="p-2 w-full font-bold cursor-pointer hover:bg-customGray hover:text-customRed uppercase text-center transition duration-300 ease-in-out border-t-2  border-transparent hover:border-customRed"
                         >
                             Mis Compras 🛒
                         </li>
                     </ul>
                     <section
                         id="select-content"
-                        className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
+                        className="container text-4xl flex items-center justify-center"
                     >
                         <UserFavorites />
                     </section>
                     <section
                         id="select-content"
-                        className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
+                        className="container text-4xl flex items-center justify-center"
                     >
                         <MyShopping />
                     </section>
