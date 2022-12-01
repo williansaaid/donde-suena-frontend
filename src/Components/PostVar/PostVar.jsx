@@ -75,20 +75,20 @@ export const PostVar = () => {
         // el isArtist nos permite renderizar la postBar en caso de que el usuario logueado sea artista , un usuario comun solo podria ver el home
         <div>
             {isArtist && (
-                <div className="flex items-center justify-center p-5 bg-gray-200 ">
+                <div className="flex items-center justify-center p-5 bg-customGray rounded-xl">
                     <form
-                        className="flex flex-col items-center justify-center bg-customGray   w-3/4 p-5 gap-3 max-w-xl rounded-xl py-10"
+                        className="flex flex-col items-center justify-center bg-customGray w-3/4 p-5 gap-3 max-w-xl rounded-xl py-10"
                         onSubmit={handleSubmit}
                     >
                         <div className=" flex start items-start  w-full gap-3">
                             <img
                                 src={imagen}
                                 alt="user profile"
-                                class="object-cover w-14 h-14 border-2 border-gray-300 rounded-full mb-5"
+                                className="object-cover w-14 h-14 border-2 border-gray-300 rounded-full mb-5"
                             />
 
                             {/* <input
-                     class="w-full text-customGray bg-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-gray-500 py-2 px-4"
+                     className="w-full text-customGray bg-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-gray-500 py-2 px-4"
                      type="text"
                      value={input.title}
                      name="title"
@@ -124,6 +124,7 @@ export const PostVar = () => {
                                     (Subiendo Archivo)
                                 </span>
                             ) : success ? (
+
                                 <div class="w-96 h-96">
                                     {image.includes(".mp4") && (
                                         <video
@@ -138,16 +139,17 @@ export const PostVar = () => {
                                         </video>
                                     )}
                                     {!image.includes(".mp4") && 
+
                                     <img
-                                        class="w-50 h-50 rounded-lg object-cover"
-                                        alt="Preview"
+                                        className="w-full h-full rounded-lg object-cover"
+                                        altName="Preview"
                                         src={image}
                                     />}
                                 </div>
                             ) : null}
                         </div>
                         <button
-                            class="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out mt-5"
+                            className="px-6 py-2 border-2 border-customRed text-customRed font-bold italic leading-tight uppercase rounded-full hover:bg-black focus:outline-none focus:ring-0 transition duration-200 ease-in-out mt-5"
                             type="submit"
                         >
                             Publicar

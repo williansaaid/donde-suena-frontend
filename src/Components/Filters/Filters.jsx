@@ -31,8 +31,13 @@ function FilterBar() {
 
     return (
         <nav className="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
-            <ul className="flex justify-around w-3/12 ml-10 mb-20">
-                <li className="flex items-center gap-x-1.5">
+            <ul className="flex justify-around w-3/12 ml-10 mb-20 flex-wrap">
+                <li className="flex items-center justify-center gap-2 cursor-pointer border-2 border-transparent px-4 rounded-xl hover:border-white hover:bg-gray-600 transition duration-500 ease-in-out"
+                    onClick={() => {
+                        setFilterSelect("");
+                        dispatch(getEvents());
+                    }}
+                >
                     <img
                         className="max-h-5"
                         src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Filtro_cymgds.png"
@@ -40,52 +45,45 @@ function FilterBar() {
                         height="20px"
                         width="20px"
                     />
-                    <h1
-                        className="cursor-pointer"
-                        onClick={() => {
-                            setFilterSelect("");
-                            dispatch(getEvents());
-                        }}
-                    >
+                    <p>
                         Limpiar Filtros
-                    </h1>
+                    </p>
                 </li>
-                <li className="flex items-center gap-x-1.5">
+                <li className="flex items-center">
                     <DropdownPlaceFilter />
                 </li>
-                <li className="flex items-center gap-x-1.5">
+                <li className="flex items-center">
                     <DropdownGenreFilter />
                 </li>
             </ul>
-
-            <ul className="flex justify-around w-3/12 mr-10 border-x-2 border-y-2 rounded mb-20">
-                <li className="w-full">
+            <ul className="flex justify-around w-3/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden">
+                <li className="w-1/3">
                     <button
                         className={`cursor-pointer ${
                             filterSelect === "day" && "bg-gray-400"
-                        } hover:bg-gray-400 w-full`}
+                        } hover:bg-gray-400 w-full transition duration-300 ease-in-out`}
                         onClick={() => handleFilterDate("day")}
                         value={"day"}
                     >
                         24hs
                     </button>
                 </li>
-                <li className="w-full">
+                <li className="w-1/3">
                     <button
                         className={`cursor-pointer ${
                             filterSelect === "week" && "bg-gray-400"
-                        } hover:bg-gray-400 w-full`}
+                        } hover:bg-gray-400 w-full transition duration-300 ease-in-out`}
                         onClick={() => handleFilterDate("week")}
                         value={"week"}
                     >
                         7 Dias
                     </button>
                 </li>
-                <li className="w-full">
+                <li className="w-1/3">
                     <button
                         className={`cursor-pointer ${
                             filterSelect === "month" && "bg-gray-400"
-                        }  hover:bg-gray-400 w-full`}
+                        }  hover:bg-gray-400 w-full transition duration-300 ease-in-out`}
                         onClick={() => handleFilterDate("month")}
                         value={"month"}
                     >
