@@ -8,7 +8,7 @@ import "../CommentsUser/comments.css";
 const PostHome = (el) => {
     return (
         <div>
-            <div>
+            <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-10">
                 <PostVar />
             </div>
             <div>

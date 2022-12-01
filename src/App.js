@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 //Components Import
 import ArtistForm from "./Components/ArtistForm/ArtistForm";
@@ -33,105 +33,88 @@ function App() {
     const isAdmin = user.admin || false;
     const token = user.token || null;
     return (
-        <BrowserRouter>
-            <div className="App w-full h-full">
-                <Navbar />
-                <Login />
-
-                <Routes>
-                    <Route
-                        path="/admin"
-                        element={
-                            isAdmin && isLogged ? (
-                                <DashboardAdmin />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-
-                    <Route path={"/"} element={<Home />} />
-                    <Route
-                        path={"/forgotPassword"}
-                        element={<ForgotPassword />}
-                    />
-                    <Route
-                        path={"/reset-password/:token"}
-                        element={<ResetPassword />}
-                    />
-                    <Route
-                        exact
-                        path={"/register/artist"}
-                        element={
-                            !isLogged ? <ArtistForm /> : <Navigate to="/" />
-                        }
-                    />
-                    <Route
-                        exact
-                        path={"/register/user"}
-                        element={!isLogged ? <UserForm /> : <Navigate to="/" />}
-                    />
-                    <Route
-                        exact
-                        path={"/create/event"}
-                        element={
-                            isArtist && token ? (
-                                <EventCreation />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-                    <Route
-                        path={"/myshopping/:id"}
-                        element={
-                            isLogged && token ? (
-                                <MyShopping />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-                    <Route
-                        path={"/artistshows"}
-                        element={
-                            isArtist && token ? (
-                                <ArtistShows />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-                    <Route path={"/details/:id"} element={<EventDetail />} />
-                    <Route path={"/confirm/:token"} element={<Confirm />} />
-                    <Route path={"/postVar"} element={<PostVar />} />
-                    <Route path={"/postHome"} element={<PostHome />} />
-                    <Route path={"/postHome/:id"} element={<PostDetail/>}/>
-                    <Route
-                        path={"/userProfile/:id"}
-                        element={<UserProfile />}
-                    />
-                    <Route
-                        path={"/artistProfile/:id"}
-                        element={<ArtistProfile />}
-                    />
-                    <Route
-                        path="/myDashboard"
-                        element={
-                            isArtist && token ? (
-                                <ArtistDashboard />
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
-                    <Route path="/myDashboard" element={<ArtistDashboard />} />
-                    <Route path="/team" element={<Team />} />
-                </Routes>
-
-                <Footer />
-            </div>
-        </BrowserRouter>
+        <div className="App w-full min-h-screen">
+            <Navbar />
+            <Login />
+            <Routes>
+                <Route
+                    path="/admin/*"
+                    element={
+                        isAdmin && isLogged ? (
+                            <DashboardAdmin />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
+                />
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/forgotPassword"} element={<ForgotPassword />} />
+                <Route
+                    path={"/reset-password/:token"}
+                    element={<ResetPassword />}
+                />
+                <Route
+                    exact
+                    path={"/register/artist"}
+                    element={!isLogged ? <ArtistForm /> : <Navigate to="/" />}
+                />
+                <Route
+                    exact
+                    path={"/register/user"}
+                    element={!isLogged ? <UserForm /> : <Navigate to="/" />}
+                />
+                <Route
+                    exact
+                    path={"/create/event"}
+                    element={
+                        isArtist && token ? (
+                            <EventCreation />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
+                />
+                <Route
+                    path={"/myshopping/:id"}
+                    element={
+                        isLogged && token ? <MyShopping /> : <Navigate to="/" />
+                    }
+                />
+                <Route
+                    path={"/artistshows"}
+                    element={
+                        isArtist && token ? (
+                            <ArtistShows />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
+                />
+                <Route path={"/details/:id"} element={<EventDetail />} />
+                <Route path={"/confirm/:token"} element={<Confirm />} />
+                <Route path={"/postVar"} element={<PostVar />} />
+                <Route path={"/postHome"} element={<PostHome />} />
+                <Route path={"/postHome/:id"} element={<PostDetail />} />
+                <Route path={"/userProfile/:id"} element={<UserProfile />} />
+                <Route
+                    path={"/artistProfile/:id"}
+                    element={<ArtistProfile />}
+                />
+                <Route
+                    path="/myDashboard"
+                    element={
+                        isArtist && token ? (
+                            <ArtistDashboard />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
+                />
+                <Route path="/myDashboard" element={<ArtistDashboard />} />
+                <Route path="/team" element={<Team />} />
+            </Routes>
+            <Footer />
+        </div>
     );
 }
 

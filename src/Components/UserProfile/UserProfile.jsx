@@ -137,26 +137,26 @@ export default function UserProfile() {
                     <ul className="flex items-center justify-center bg-white">
                         <li
                             id="select-tab"
-                            className="p-2  w-full font-bold cursor-pointer bg-customRed hover:bg-red-300"
+                            className="p-2 w-full font-bold cursor-pointer bg-customRed hover:bg-customGray hover:text-customRed uppercase text-center transition duration-300 ease-in-out border-t-2  border-transparent hover:border-customRed"
                         >
-                            Mis artistas Favoritos ⭐
+                            Mis Artistas Favoritos ⭐
                         </li>
                         <li
                             id="select-tab"
-                            className="p-2  w-full font-bold cursor-pointer hover:bg-red-300"
+                            className="p-2 w-full font-bold cursor-pointer hover:bg-customGray hover:text-customRed uppercase text-center transition duration-300 ease-in-out border-t-2  border-transparent hover:border-customRed"
                         >
                             Mis Compras 🛒
                         </li>
                     </ul>
                     <section
                         id="select-content"
-                        className="container min-h-0 bg-customGray p-2 text-4xl flex items-center justify-center"
+                        className="container text-4xl flex items-center justify-center"
                     >
                         <UserFavorites />
                     </section>
                     <section
                         id="select-content"
-                        className="container min-h-0 bg-customGray p-3 text-4xl flex items-center justify-center"
+                        className="container text-4xl flex items-center justify-center"
                     >
                         <MyShopping />
                     </section>
