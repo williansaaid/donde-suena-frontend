@@ -86,7 +86,7 @@ function FilterBar() {
             </ul>
             <button
                 onClick={() => navigate("/postHome")}
-                className="flex justify-around w-3/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden"
+                className="flex justify-around w-4/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden"
             >
                 Los artistas andan diciendo..
             </button>
