@@ -76,7 +76,7 @@ const ArtistForm = () => {
             }
         }
     }
-    
+
     function handleClearGenre(element) {
         setGenresSelect(genresSelect.filter((genre) => genre !== element));
     }

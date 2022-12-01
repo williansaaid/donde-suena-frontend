@@ -15,7 +15,7 @@ export const PostCard = ({ props }) => {
     useEffect(() => {
         dispatch(getPosts());
     }, [dispatch]);
-    
+
     const showMorePost = () => {
         setVisible((prevValue) => prevValue + 4);
     };
@@ -30,11 +30,10 @@ export const PostCard = ({ props }) => {
                 posts?.map((el,id ) => {
                     return (
                         <div className="min h-50 bg-gray-200 flex items-center justify-center gap-5 ">
-                            <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl   ">
+                            <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex mb-12 md:max-w-2xl">
                                 <div className="w-full flex mb-4">
                                     <img
-                                        class="w-12 h-12 rounded-full object-cover 
-                                  shadow "
+                                        className="w-12 h-12 rounded-full object-cover shadow "
                                         src={el.artists[0].image}
                                         alt="avatar"
                                     />
@@ -49,7 +48,7 @@ export const PostCard = ({ props }) => {
                                                     {el.description}
                                                 </p>
 
-                                                <div class="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ">
+                                                <div className="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ">
                                                     <img
                                                         src={
                                                             el.image
@@ -64,7 +63,7 @@ export const PostCard = ({ props }) => {
                                     </div>
                                 </div>
                                 {/* <Comments idposts={el.id}/> */}
-                               
+
                             </div>
                         </div>
                     );

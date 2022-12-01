@@ -83,11 +83,11 @@ function Navbar() {
         }
         navigate("/");
     };
-    
+
     const handleArtistDashboard = () => {
         navigate(`/myDashboard`);
     };
-    
+
     const handleAdminDashboard = () => {
         navigate(`/admin`);
     };

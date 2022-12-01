@@ -32,13 +32,13 @@ export const PlacesAdmin = () => {
         Swal.fire({
             title: "Crear lugar",
             html: `
-            <input id="name" class="swal2-input" placeholder="Nombre">
-            <input id="address" class="swal2-input" placeholder="Dirección">
-            <input id="city" class="swal2-input" placeholder="Ciudad">
-            <input id="postCode" class="swal2-input" placeholder="PostCode">
-            <input id="phone" class="swal2-input" placeholder="phone">
-            <input id="email" class="swal2-input" placeholder="Email">
-            <input id="image" class="swal2-input" placeholder="Imagen">
+            <input id="name" className="swal2-input" placeholder="Nombre">
+            <input id="address" className="swal2-input" placeholder="Dirección">
+            <input id="city" className="swal2-input" placeholder="Ciudad">
+            <input id="postCode" className="swal2-input" placeholder="PostCode">
+            <input id="phone" className="swal2-input" placeholder="phone">
+            <input id="email" className="swal2-input" placeholder="Email">
+            <input id="image" className="swal2-input" placeholder="Imagen">
             `,
 
             focusConfirm: false,
@@ -83,13 +83,13 @@ export const PlacesAdmin = () => {
         Swal.fire({
             title: "Actualizar lugar",
             html: `
-            <input id="name" class="swal2-input" placeholder="Nombre" value="${place.name}">
-            <input id="address" class="swal2-input" placeholder="Dirección" value="${place.address}">
-            <input id="city" class="swal2-input" placeholder="Ciudad" value="${place.city}">
-            <input id="postCode" class="swal2-input" placeholder="PostCode" value="${place.postCode}">
-            <input id="phone" class="swal2-input" placeholder="phone" value="${place.phone}">
-            <input id="email" class="swal2-input" placeholder="Email" value="${place.email}">
-            <input id="image" class="swal2-input" placeholder="Imagen" value="${place.image}">
+            <input id="name" className="swal2-input" placeholder="Nombre" value="${place.name}">
+            <input id="address" className="swal2-input" placeholder="Dirección" value="${place.address}">
+            <input id="city" className="swal2-input" placeholder="Ciudad" value="${place.city}">
+            <input id="postCode" className="swal2-input" placeholder="PostCode" value="${place.postCode}">
+            <input id="phone" className="swal2-input" placeholder="phone" value="${place.phone}">
+            <input id="email" className="swal2-input" placeholder="Email" value="${place.email}">
+            <input id="image" className="swal2-input" placeholder="Imagen" value="${place.image}">
             `,
             focusConfirm: false,
             preConfirm: () => {

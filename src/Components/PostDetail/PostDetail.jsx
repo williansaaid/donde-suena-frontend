@@ -19,11 +19,10 @@ export const PostDetail = () => {
     return (
         <div>
             <div className="min h-50 bg-gray-200 flex items-center justify-center gap-5 ">
-                <div className=" mt-5 w-3/4  mx-auto rounded-lg bg-gray-200 shadow p-5 text-gray-800 flex bg-white shadow-lg rounded-lg mb-12 md:max-w-2xl   ">
+                <div className=" mt-5 w-3/4  mx-auto rounded-lg p-5 text-gray-800 flex bg-white shadow-lg mb-12 md:max-w-2xl   ">
                     <div className="w-full flex mb-4">
                         <img
-                            class="w-12 h-12 rounded-full object-cover 
-                                  shadow "
+                            className="w-12 h-12 rounded-full object-cover shadow"
                             src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                             // {postDetail.image}
                             alt="avatar"
@@ -39,7 +38,7 @@ export const PostDetail = () => {
                                         {postDetail.description}
                                     </p>
 
-                                    <div class="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ">
+                                    <div className="content-center  m-auto max-w-sm ml-29  gap-4 object-contain ">
                                         <img
                                             src={
                                                 postDetail.image
@@ -58,32 +57,32 @@ export const PostDetail = () => {
             </div>
 
             {postDetail.comments?.map((el) => (
-                <div key={el.id} class="flex justify-center relative top-1/3">
-                    <div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
-                        <div class="relative flex gap-4">
+                <div key={el.id} className="flex justify-center relative top-1/3">
+                    <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
+                        <div className="relative flex gap-4">
                             <img
                                 src={el.users[0]?.image}
-                                class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20"
+                                className="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20"
                                 alt=""
                                 loading="lazy"
                             />
                             {/* <img src={el.users[0]?.image} alt="imagen" /> */}
-                            <div class="flex flex-col w-full">
-                                <div class="flex flex-row justify-between">
-                                    <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">
+                            <div className="flex flex-col w-full">
+                                <div className="flex flex-row justify-between">
+                                    <p className="relative text-xl whitespace-nowrap truncate overflow-hidden">
                                         {el.users[0]?.firstName}
                                     </p>
-                                    <a class="text-gray-500 text-xl" href="#">
-                                        <i class="fa-solid fa-trash"></i>
+                                    <a className="text-gray-500 text-xl" href="#">
+                                        <i className="fa-solid fa-trash"></i>
                                     </a>
                                 </div>
-                                <p class="text-gray-400 text-sm">Fecha</p>
+                                <p className="text-gray-400 text-sm">Fecha</p>
                             </div>
                             {el.users[0]?.firstName}
                             {el.body}
                         </div>
                     </div>
-                    <p class="-mt-4 text-gray-500"> {el.body}</p>
+                    <p className="-mt-4 text-gray-500"> {el.body}</p>
                 </div>
             ))}
         </div>

@@ -34,18 +34,18 @@ export const CommentForm = ({
   //   setText("");
   // };
   return (
-    <div class="flex mx-auto items-center justify-center shadow-lg  max-w-lg bg-gray-200 ">
-    <form onSubmit={handleSubmit} 
-    class="w-full max-w-xl bg-white rounded-lg px-4 pt-2 bg-gray-200 "
-    >  
-    <div class="w-full md:w-full px-3 mb-1 mt-0 ">
+    <div className="flex mx-auto items-center justify-center shadow-lg  max-w-lg bg-gray-200 ">
+    <form onSubmit={handleSubmit}
+    className="w-full max-w-xl bg-white rounded-lg px-4 pt-2 bg-gray-200 "
+    >
+    <div className="w-full md:w-full px-3 mb-1 mt-0 ">
 
-      <div class="flex flex-wrap -mx-3 mb-3">
+      <div className="flex flex-wrap -mx-3 mb-3">
 
       <textarea
 
 className="comment-form-textarea"
-class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Escribe tu comentario...' required
+className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Escribe tu comentario...' required
 value={text}
 onChange={handleChange}
 />
@@ -58,13 +58,13 @@ onChange={handleChange}
         <button
         type="button"
         className="comment-form-button comment-form-cancel-button"
-        
+
         onClick={handleCancel}
         >
           Cancel
-        
+
         </button>
-        
+
         )}
         </div>
     </form>
