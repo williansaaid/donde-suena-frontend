@@ -50,7 +50,7 @@ function FilterBar() {
 
     return (
         <nav className="text-white flex font-bold justify-between items-center h-44 bg-[url('https://res.cloudinary.com/ds41xxspf/image/upload/v1668451836/Donde-Suena-Assets/forma_recorte_pdnvjo.png')] ">
-            <ul className="flex justify-around w-3/12 ml-10 mb-20 flex-wrap">
+            <ul className="flex justify-around w-3/12 ml-10 mb-20">
                 <li
                     className="flex items-center justify-center gap-2 cursor-pointer border-2 border-transparent px-4 rounded-xl hover:border-white hover:bg-gray-600 transition duration-500 ease-in-out"
                     onClick={() => {
@@ -76,7 +76,7 @@ function FilterBar() {
                         Limpiar Filtros
                     </h1>
                 </li>
-                <li className="flex items-center">
+                <li className="flex items-center mr-10">
                     <DropdownPlaceFilter />
                 </li>
                 <li className="flex items-center">
