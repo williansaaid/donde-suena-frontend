@@ -3,6 +3,7 @@ import { PostVar } from "../PostVar/PostVar";
 import { PostCard } from "../PostCard/PostCard";
 import { Comments } from "../CommentsUser/Comments";
 
+
 import "../CommentsUser/comments.css";
 
 const PostHome = (el) => {
@@ -12,7 +13,8 @@ const PostHome = (el) => {
                 <PostVar />
             </div>
             <div>
-                <PostCard />
+                {/* <PostCard /> */}
+                <PostCard/>
             </div>
             <div>
                 {/* esta hardcodeado el id del usuario  , tendria que ser el current id */}

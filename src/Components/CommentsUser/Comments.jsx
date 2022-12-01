@@ -77,8 +77,8 @@ const  modifyComment = (text , commentId) =>{
       handleSubmit={addComment}
       idposts={idposts} />
 
-      <div className="comments-container">
-        <div>
+      <div className="">
+        <div className=" ">
 
     {rootComments.map((rootComment)=>(
       <Comment
