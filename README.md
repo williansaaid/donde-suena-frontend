@@ -1,9 +1,7 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
-
-# DondeSuena - Proyecto Final
+# DondeSuena? - Proyecto Final
 
 <p align="right">
-  <img height="150" src="./Proyecto_Grupal_Logo.png" />
+  <img height="150" src="https://res.cloudinary.com/ds41xxspf/image/upload/v1668097753/Donde-Suena-Assets/Henry_Proyecto_Grupal_Logo_mwreht.png" />
 </p>
 
 ## Resumen  
