@@ -29,7 +29,7 @@ const Login = () => {
         const body = { id_token: response.credential };
         let url = window.location.hostname.includes("localhost")
             ? "http://localhost:3001/auth/google"
-            : "https://donde-suena.vercel.app/auth/google";
+            : "https://dondesuena-backend-production.up.railway.app/auth/google";
         fetch(url, {
             method: "POST",
             headers: {
