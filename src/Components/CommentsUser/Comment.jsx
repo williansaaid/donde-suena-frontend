@@ -28,8 +28,8 @@ export const Comment = ({comments , replies ,currentUserId , eliminateComment ,a
   <section   className ="flex items-center justify-center  antialiased bg-white  min-w-screen ml-14 " >
 
     <div className="container  ml-14 sm:px-5 ">
-<div className="flex-col w-full py-4 mx-auto bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
-  <div className="flex flex-row">
+<div className="bg-slate-900 text-slate-100 mt-10 px-5 py-3.5 rounded-lg shadow hover:shadow-xl max-w-sm mx-auto transform hover:-translate-y-[0.125rem] transition duration-100 ease-linear">
+  <div className="flex items-center mt-2 rounded-lg py-1 cursor-pointer">
 
   <img className="object-cover w-12 h-12 border-2 border-gray-300 rounded-full" alt="Noob master's avatar"
                     src="https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80"/>

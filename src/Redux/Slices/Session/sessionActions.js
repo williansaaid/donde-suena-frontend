@@ -195,3 +195,15 @@ export const editUserForm = (values, id) => (dispatch) => {
                 : console.log(e);
         });
 };
+export const deleteUser = (id) => (dispatch) => {
+    axios
+        .delete(`auth/user/deleteUser/${id}`)
+        .then((res) => {
+            dispatch(logoutUser());
+        })
+        .catch((e) => {
+            e.response.data
+                ? errorCreationAlert(e.response.data.msg)
+                : console.log(e);
+        });
+};

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getPost, getPostById} from "./postSlice";
+import { getPost, getPostById, delPost} from "./postSlice";
 
 export const getPostId =(id)=>(dispatch)=>{
   axios.get(`/auth/artist/getPost/${id}`)
@@ -21,4 +21,8 @@ export const getPosts=()=>(dispatch)=>{
 //       dispatch(getPostById(res.data.allPosts))})
 //     .catch((e) => console.log(e));
 // }
-
+export const deletePost = (id) => (dispatch) => {
+  axios.delete(`/auth/artist/deletePost/${id}`)
+  .then((res) =>(delPost(res.data)))
+  .catch((e) => console.log(e));
+}

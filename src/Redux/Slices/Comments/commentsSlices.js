@@ -8,7 +8,7 @@ export const commentsSlice = createSlice({
         comments: [],
         commentsId:[],
         reply:[],
-        delete:[],
+        
         postDetail:[],
     },
     reducers: {
@@ -22,7 +22,7 @@ export const commentsSlice = createSlice({
           state.reply = action.payload
         },
         deleteComments: (state,action) =>{
-          state.delete =action.payload
+          state =action.payload
         },
        editComment: (state , action ) => {
         state.comments =action.payload
