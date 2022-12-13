@@ -14,7 +14,7 @@ const UserFavorites = () => {
 
     const callback = useCallback(() => {
         dispatch(getFavorites());
-    }, [dispatch]);
+    }, [dispatch, favorites]);
 
     useMemo(() => {
         callback();
