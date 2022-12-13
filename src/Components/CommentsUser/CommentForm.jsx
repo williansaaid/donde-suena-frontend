@@ -37,8 +37,13 @@ export const CommentForm = ({
     //   event.preventDefault();
     //   setText("");
     // };
+    const isLogged = user.isLogged;
+    console.log (user)
+    
+
     return (
         <div class="flex mx-auto items-center justify-center shadow-lg  max-w-lg w-screen ml-15">
+            { isLogged && !user.artista &&  (
             <React.Fragment>
                 {showForm ? (
                     <form onSubmit={handleSubmit}>
@@ -88,7 +93,8 @@ export const CommentForm = ({
                   
                 )}
             </React.Fragment>
-        </div>
+       )}
+       </div>
     );
 };
 

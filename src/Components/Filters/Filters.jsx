@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { setCombinedFilters } from "../../Redux/Slices/Filter/filterActions";
 import DropdownPlaceFilter from "./DropdownPlaceFilter";
 import DropdownGenreFilter from "./DropdownGenreFilter";
+import { Link } from "react-router-dom";
 
 function FilterBar() {
     const dispatch = useDispatch();
@@ -83,6 +84,16 @@ function FilterBar() {
                 <li className="flex items-center">
                     <DropdownGenreFilter />
                 </li>
+            <div>
+                {/* <li>
+                <Link to="/postHome" class="relative px-6 py-3 font-bold text-black group">
+                    <span class=" inset-0 w-80 h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-customRed group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                    <span class="absolute inset-0 w-80 h-full border-4 border-black"></span>
+                    <span class="relative text-center">Que dicen los artistas?</span>
+                    </Link>
+                </li> */}
+
+            </div>
             </ul>
             <button
                 onClick={() => navigate("/postHome")}
