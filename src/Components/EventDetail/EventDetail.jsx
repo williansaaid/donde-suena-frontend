@@ -68,7 +68,7 @@ const EventDetail = () => {
     const [order, setOrder] = useState(false);
     const { loading } = useSelector((state) => state.loadingState);
     const { ticketsAvailable } = useSelector((state) => state.eventsState);
-    let location = useGoogleAddress(`${detail.address}, ${detail.city}`);
+    let location = useGoogleAddress(`TEATRO VORTERIX, BUENOS AIRES`);
     const navigate = useNavigate();
     const user = useSelector((state) => state.sessionState?.user);
     const isLogged = user.isLogged;

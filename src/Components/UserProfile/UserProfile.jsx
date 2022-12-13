@@ -78,7 +78,7 @@ export default function UserProfile() {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(deleteUser(userId.id?userId.id:userId.id));
+                dispatch(deleteUser(userId.id ? userId.id : userId.id));
                 Swal.fire(
                     'Cuenta Eliminada!',
                     'Te vamos a extrañar :(',
@@ -102,7 +102,7 @@ export default function UserProfile() {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(logOut());
-                dispatch(forgotPassword({email: userId.email}));
+                dispatch(forgotPassword({ email: userId.email }));
             }
         })
     };
@@ -110,7 +110,7 @@ export default function UserProfile() {
     const handleEdit = () => {
         setEditInfo(!editInfo);
     };
-    const handleChangePassword = () =>{
+    const handleChangePassword = () => {
         confirmChangePassword();
     };
     const handleDeleteAccount = () => {
