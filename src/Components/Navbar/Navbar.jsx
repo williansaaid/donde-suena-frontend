@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "../../Redux/Slices/Modals/modalActions";
 import { logOut } from "../../Redux/Slices/Session/sessionActions";
 import { setScroll } from "../../Redux/Slices/Scroll/ScrollActions";
-import { togleAtristState, togleUserState } from "../../Redux/Slices/Profile/ProfileActions";
+import {
+    togleAtristState,
+    togleUserState,
+} from "../../Redux/Slices/Profile/ProfileActions";
 import DropdownItem from "./DropdownItem";
 import { IoIosCog, IoIosLogOut } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
@@ -156,7 +159,8 @@ function Navbar() {
                                         open ? "active" : "inactive"
                                     }`}
                                 >
-                                    <ul><div
+                                    <ul>
+                                        <div
                                             className={
                                                 !user.admin
                                                     ? "hidden"

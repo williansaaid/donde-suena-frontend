@@ -287,11 +287,15 @@ const UserForm = () => {
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customRed file:text-white hover:file:bg-gray-400"
                             />
                         </div>
-                        {image ?
+                        {image ? (
                             <div className="flex border-2 bg-gray-400 w-52 h-52 items-center justify-center rounded-full overflow-hidden">
-                                <img src={image} className="object-cover w-full h-full" alt="preview"/>
-                            </div> : null
-                        }
+                                <img
+                                    src={image}
+                                    className="object-cover w-full h-full"
+                                    alt="preview"
+                                />
+                            </div>
+                        ) : null}
                         <div className="flex flex-row-reverse items-center justify-center gap-2 mt-3">
                             <label
                                 htmlFor="acceptedTerms"

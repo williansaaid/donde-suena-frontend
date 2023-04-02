@@ -84,12 +84,12 @@ function FilterBar() {
                     <DropdownGenreFilter />
                 </li>
             </ul>
-            <button
+            {/* <button
                 onClick={() => navigate("/postHome")}
                 className="flex justify-around w-4/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden"
             >
                 Los artistas andan diciendo..
-            </button>
+            </button> */}
             <ul className="flex justify-around w-3/12 mr-10 border-2 rounded-xl mb-20 overflow-hidden">
                 <li className="w-1/3">
                     <button
